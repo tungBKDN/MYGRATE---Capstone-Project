@@ -1,0 +1,8 @@
+langchain
+langgraph
+tree-sitter
+tree-sitter-python
+tree-sitter-java
+pydantic
+langfuse
+python-dotenv

@@ -20,11 +20,11 @@ class UniversalASTReader:
     def parse(self, source_code: bytes, lang: str) -> tree_sitter.Tree:
         """
         Parses the source code and returns the corresponding AST Tree.
-        
+
         Args:
             source_code: Source code in bytes.
             lang: Language ('python', 'java', ...).
-            
+
         Returns:
             tree_sitter.Tree: Root of the syntax tree.
         """
@@ -38,12 +38,12 @@ class UniversalASTReader:
     def query(self, tree: tree_sitter.Tree, lang: str, query_string: str) -> list[tuple[tree_sitter.Node, str]]:
         """
         Executes AST queries based on S-expressions and QueryCursor.
-        
+
         Args:
             tree: AST Tree to query.
             lang: Language the AST tree belongs to.
             query_string: S-expression query string (using tree-sitter query syntax).
-            
+
         Returns:
             list[tuple[tree_sitter.Node, str]]: List containing (node, capture_name)
                                                 sorted by order of appearance (byte order) in the code.
@@ -72,12 +72,12 @@ class UniversalASTReader:
         Recursively prints the AST structure to display a tree visually in directory format.
         Will print actual text (raw text including whitespace, punctuation)
         if it is a leaf node (no children).
-        
+
         Args:
             node: Node to start traversal.
             source_code: Original source bytes to extract leaf node texts.
             level: Branching depth to indent the tree structure.
-            
+
         Returns:
             str: AST structure represented as a string.
         """
@@ -94,7 +94,7 @@ class UniversalASTReader:
             text_info = f" {repr(raw_node_text)}"
 
         node_str = f"{indent}{node.type}{text_info}\n"
-        
+
         for child in node.children:
             node_str += self.visualize(child, source_code, level + 1)
 

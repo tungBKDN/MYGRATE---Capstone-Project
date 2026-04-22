@@ -1,0 +1,19 @@
+{
+    "python.analysis.extraPaths": [
+        ".",
+        "./src"
+    ],
+    "python.autoComplete.extraPaths": [
+        "./src"
+    ],
+    "python.languageServer": "Jedi",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.indexing": true,
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "error"
+    }
+}

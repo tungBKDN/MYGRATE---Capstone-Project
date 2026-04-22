@@ -1,0 +1,10 @@
+[tool.pyright]
+include = ["src", "test"]
+# This tells Pylance: "The root is where you start looking, so 'src' is a package."
+extraPaths = ["."]
+typeCheckingMode = "basic"
+
+[tool.setuptools]
+# You already have this, which is good! 
+# It tells Python that 'src' itself is the package name.
+packages = ["src"]

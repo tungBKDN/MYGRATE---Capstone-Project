@@ -1,33 +1,27 @@
 import operator
-from typing import TypedDict, Annotated, List, Optional
+from typing import TypedDict, Annotated, Optional
 from langchain_core.messages import BaseMessage
-from src.models.schemas import MigrationTask
 
-class GraphState(TypedDict):
+class GlobalState(TypedDict):
     """
-    Global State for the Multi-Agent workflow.
+    Global State for the main workflow.
+    ONLY the Supervisor and Human read/write this.
+    Subagents are isolated and only receive text prompts.
     """
-    # Core project info
+    # Core context
     project_path: str
     
-    # User Requirements (Step 2)
-    source_framework: Optional[str]
-    source_version: Optional[str]
-    target_framework: Optional[str]
-    target_version: Optional[str]
-    
-    # Analysis & Feasibility (Step 1 & 3)
-    indexed_files: Annotated[list[str], operator.add]
-    dependencies: Annotated[list[str], operator.add]
-    feasibility_report: Optional[str]
-    compatibility_matrix: dict
-    
-    # Migration progress
-    migration_tasks: Annotated[list[MigrationTask], operator.add]
-    human_approved: bool
-    
-    # Routing (Supervisor)
-    next: str
-    
-    # Message history for tool calling
+    # Chat history (Human <-> Supervisor)
     messages: Annotated[list[BaseMessage], operator.add]
+    
+    # Global context & summaries of completed work
+    completed_tasks_summary: Annotated[list[str], operator.add]
+    
+    # Instructions to subagent (Supervisor -> Subagent)
+    current_instruction: str
+    
+    # Result from subagent (Subagent -> Supervisor)
+    last_subagent_result: str
+    
+    # Routing
+    next_node: str

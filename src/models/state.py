@@ -10,12 +10,17 @@ class GlobalState(TypedDict):
     """
     # Core context
     project_path: str
+    target_java_version: str # e.g., "17" or "21"
     
     # Chat history (Human <-> Supervisor)
     messages: Annotated[list[BaseMessage], operator.add]
     
     # Global context & summaries of completed work
     completed_tasks_summary: Annotated[list[str], operator.add]
+    
+    # Domain specific data
+    dependencies: list[dict] # Extracted from pom.xml
+    compatibility_matrix: dict # Result from Architect
     
     # Instructions to subagent (Supervisor -> Subagent)
     current_instruction: str

@@ -1,5 +1,6 @@
 import os
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langgraph.prebuilt import create_react_agent
 from src.tools import list_project_structure, read_source_code, get_file_summary
 from dotenv import load_dotenv
@@ -10,10 +11,10 @@ class ReaderAgent:
     It is a standalone ReAct Agent that takes a prompt, uses tools, and returns a string.
     Nó KHÔNG nhận GlobalState.
     """
-    def __init__(self, model_name: str = "gemini-flash-latest"):
+    def __init__(self, model_name: str = "llama-3.1-8b-instant"):
         load_dotenv()
-        api_key = os.getenv("GOOGLE_API_KEY")
-        self.llm = ChatGoogleGenerativeAI(model=model_name, google_api_key=api_key)
+        api_key = os.getenv("GROQ_API_KEY")
+        self.llm = ChatGroq(model_name=model_name, groq_api_key=api_key)
         self.tools = [list_project_structure, read_source_code, get_file_summary]
         # create_react_agent đóng gói sẵn vòng lặp AI <-> Tools
         self.agent = create_react_agent(self.llm, self.tools)

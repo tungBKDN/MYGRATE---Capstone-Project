@@ -1,18 +1,17 @@
 import os
 import json
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from src.models.state import GlobalState
 from dotenv import load_dotenv
 
 class SupervisorAgent:
-    def __init__(self, model_name: str = "gemini-flash-latest"):
+    def __init__(self, model_name: str = "llama-3.3-70b-versatile"):
         load_dotenv()
-        api_key = os.getenv("GOOGLE_API_KEY")
-        # Ép LLM trả về JSON để parse dễ dàng
-        self.llm = ChatGoogleGenerativeAI(model=model_name, google_api_key=api_key).bind(
-            response_format={"type": "json_object"}
-        )
+        api_key = os.getenv("GROQ_API_KEY")
+        # Groq doesn't support 'json_object' format natively like OpenAI/Gemini yet in all models, 
+        # but Llama 3 is very good at following JSON instructions.
+        self.llm = ChatGroq(model_name=model_name, groq_api_key=api_key, temperature=0)
 
     def process(self, state: GlobalState) -> dict:
         """
@@ -27,11 +26,11 @@ class SupervisorAgent:
             system_prompt = "You are the supervisor."
             
         system_prompt += """
-Bạn là Supervisor. Bạn giữ Global State.
+Bạn là Supervisor cho MYGRATE, hệ thống hỗ trợ nâng cấp phiên bản mã nguồn (Java, Python).
 Bạn PHẢI trả về JSON có cấu trúc sau:
 {
     "next_node": "Tên agent tiếp theo (reader, architect, translator) HOẶC 'end' nếu cần hỏi con người hoặc kết thúc",
-    "current_instruction": "Câu lệnh MỚI dành cho subagent (nếu next_node không phải end)",
+    "current_instruction": "Câu lệnh MỚI dành cho subagent (nếu next_node không phải end). Ví dụ: 'Phân tích file requirements.txt và lập ma trận tương thích cho Python 3.12'",
     "summary_update": "Tóm tắt kết quả của subagent trước (nếu có) để lưu vào bộ nhớ. Nếu không có gì đáng lưu, để rỗng",
     "response_to_user": "Câu trả lời gửi cho người dùng (nếu next_node là 'end' hoặc bạn muốn phản hồi họ)"
 }

@@ -1,7 +1,7 @@
 import os
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from src.models.state import GlobalState
 from src.agents.supervisor import get_supervisor_node
 from src.agents.reader_agent import ReaderAgent
@@ -32,8 +32,8 @@ def architect_node(state: GlobalState):
     except FileNotFoundError:
         system_prompt = "You are the architect."
     
-    api_key = os.getenv("GOOGLE_API_KEY")
-    llm = ChatGoogleGenerativeAI(model="gemini-flash-latest", google_api_key=api_key)
+    api_key = os.getenv("GROQ_API_KEY")
+    llm = ChatGroq(model_name="llama-3.1-8b-instant", groq_api_key=api_key)
     response = llm.invoke([
         ("system", system_prompt),
         ("user", instruction)

@@ -46,12 +46,22 @@ class ArchitectAgent:
         print(f"-> [ARCHITECT] Analyzing project: {instruction[:50]}...")
         response = self.agent.invoke({"messages": [
             ("system", """You are a highly precise and paranoid software architect. 
-            ZERO TOLERANCE RULES:
-            1. IDENTIFY TARGET VERSION: Identify the target Java version (e.g., 17, 21, 22) from the user's instruction. Pass it to `check_java_compatibility`.
-            2. NO EXTERNAL LIBRARIES: ONLY report on libraries explicitly found in the `parse_maven_dependencies` output. If a library is NOT in the POM, DO NOT mention it. Mentioning libraries like "Spring" or "Hibernate" when they are not in the project is a CRITICAL FAILURE.
-            3. STOP ON ABNORMAL DATA: If ANY tool returns an error or empty result, STOP and report it.
-            4. NO HALLUCINATION: Never invent version numbers or compatibility status.
-            5. DATA VERIFICATION: Every claim must be backed by tool output.
+            STRICT INSTRUCTIONS:
+            1. MANDATORY TOOL CALL: You MUST call `parse_maven_dependencies` first. Use ONLY its output.
+            2. NO HALLUCINATION: If a library is not in the tool output, it DOES NOT EXIST.
+            3. VERIFICATION LINKS: You MUST use the `verification_url` returned by `check_java_compatibility` for EVERY version in the matrix. DO NOT use links from your training data (e.g., mvnrepository.com).
+            4. REPORT TEMPLATE:
+               ## PROJECT: [ArtifactID]
+               ### DIRECT DEPENDENCIES:
+               - [GroupID]:[ArtifactID] (Current: [Version])
+               ### DECISION MATRIX:
+               | Library | Current | Latest | Compatible? | Verification Link |
+               |---|---|---|---|---|
+               | [A] | [V1] | [V2] | [Yes/No] | [URL] |
+               ### TRANSITIVE ANALYSIS:
+               - [A] -> [Transitive Libs]
+               ### RECOMMENDATION:
+               [Final Combination + Reason]
             Your primary goal is to ensure 100% data integrity. If in doubt, STOP and report.
             """),
             ("user", instruction)

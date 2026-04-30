@@ -119,12 +119,14 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
         response = requests.get(pom_url, timeout=10)
         if response.status_code == 200:
             content = response.text
-            tags = ['maven.compiler.target', 'maven.compiler.release', 'java.version', 'jdk.version', 'target.jdk', 'source', 'target']
+            tags = ['maven.compiler.target', 'maven.compiler.release', 'java.version', 'jdk.version', 'target.jdk']
             for tag in tags:
                 match = re.search(f'<{tag}>(.*?)</{tag}>', content)
                 if match:
-                    target_jdk = match.group(1).strip()
-                    break
+                    val = match.group(1).strip()
+                    if not val.startswith("${"):
+                        target_jdk = val
+                        break
             if target_jdk == "Unknown":
                 v_str = str(version)
                 if "1.7." in v_str or "1.6." in v_str: target_jdk = "1.6"
@@ -146,11 +148,14 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
     elif nt and nt >= 8:
         is_compatible = "Yes (Assumed)"
 
+    verification_url = f"https://search.maven.org/artifact/{group_id}/{artifact_id}/{version}/jar"
+
     return json.dumps({
         "dependency": f"{group_id}:{artifact_id}",
         "version": version,
         "detected_jdk": target_jdk,
-        "is_compatible": is_compatible
+        "is_compatible": is_compatible,
+        "verification_url": verification_url
     })
 
 def parse_python_dependencies(req_path: str) -> str:

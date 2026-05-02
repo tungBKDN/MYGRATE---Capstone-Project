@@ -42,8 +42,8 @@ def generate_dashboard(intelligence_json_path: str, output_image_path: str = "de
             candidate_count = 0
         else:
             action = data.get("action", "keep")
-            version = data.get("target_version", "unknown")
-            candidates = data.get("candidates_tested", [])
+            version = data.get("suggested_version", "unknown")
+            candidates = data.get("audit_log", [])
             candidate_count = len(candidates)
         
         # Determine color based on action
@@ -153,8 +153,8 @@ def generate_cross_matrix(intelligence_json_path: str, output_image_path: str = 
     # Gắn nhãn cho trục X và Y (Bao gồm cả phiên bản nếu có)
     def get_lib_label(lib_id):
         data = recommendations.get(lib_id, {})
-        if isinstance(data, dict) and "target_version" in data:
-            return f"{lib_id.split(':')[-1]}\n({data['target_version']})"
+        if isinstance(data, dict) and "suggested_version" in data:
+            return f"{lib_id.split(':')[-1]}\n({data['suggested_version']})"
         return lib_id.split(':')[-1]
 
     display_libs = [get_lib_label(l) for l in libs]

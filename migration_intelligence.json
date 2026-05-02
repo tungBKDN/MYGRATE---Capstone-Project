@@ -1,48 +1,102 @@
 {
   "recommendations": {
     "junit:junit": {
+      "suggested_version": "4.13.2",
       "action": "upgrade",
-      "current_version": "4.11",
-      "target_version": "4.13.2",
-      "candidates_tested": ["4.11", "4.13.2", "4.13"],
+      "audit_log": [
+        {
+          "version": "4.11",
+          "status": "Compatible",
+          "jdk": "1.5",
+          "reason": "Compatible with Java 17"
+        },
+        {
+          "version": "4.13",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        },
+        {
+          "version": "4.13.2",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        }
+      ],
       "score": 0.9,
-      "reasoning": "Cập nhật để đảm bảo tương thích và hỗ trợ"
+      "reasoning": "Latest version is recommended for security and features."
     },
     "org.slf4j:slf4j-api": {
+      "suggested_version": "2.0.17",
       "action": "upgrade",
-      "current_version": "1.7.5",
-      "target_version": "2.0.5",
-      "candidates_tested": ["1.7.5", "2.0.3", "2.0.5"],
-      "score": 0.8,
-      "reasoning": "Cập nhật để đảm bảo tương thích và hỗ trợ"
+      "audit_log": [
+        {
+          "version": "1.7.5",
+          "status": "Compatible",
+          "jdk": "1.6",
+          "reason": "Compatible with Java 17"
+        },
+        {
+          "version": "2.0.0",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        },
+        {
+          "version": "2.0.17",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        }
+      ],
+      "score": 0.9,
+      "reasoning": "Latest version is recommended for security and features."
     },
     "org.apache.hadoop:hadoop-common": {
+      "suggested_version": "3.5.0",
       "action": "upgrade",
-      "current_version": "2.2.0",
-      "target_version": "3.3.6",
-      "candidates_tested": ["2.2.0", "3.3.6", "3.3.4"],
-      "score": 0.7,
-      "reasoning": "Cập nhật để đảm bảo tương thích và hỗ trợ"
+      "audit_log": [
+        {
+          "version": "2.2.0",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        },
+        {
+          "version": "3.0.0",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        },
+        {
+          "version": "3.5.0",
+          "status": "Compatible (Assumed)",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible with Java 17"
+        }
+      ],
+      "score": 0.9,
+      "reasoning": "Latest version is recommended for security and features."
     }
   },
   "cross_compatibility": [
     {
       "lib1": "junit:junit",
       "lib2": "org.slf4j:slf4j-api",
-      "status": "safe",
-      "reason": "Không có xung đột"
+      "status": "Compatible",
+      "reason": "No conflicts detected."
     },
     {
       "lib1": "junit:junit",
       "lib2": "org.apache.hadoop:hadoop-common",
-      "status": "safe",
-      "reason": "Không có xung đột"
+      "status": "Compatible",
+      "reason": "No conflicts detected."
     },
     {
       "lib1": "org.slf4j:slf4j-api",
       "lib2": "org.apache.hadoop:hadoop-common",
-      "status": "safe",
-      "reason": "Không có xung đột"
+      "status": "Compatible",
+      "reason": "No conflicts detected."
     }
   ],
   "visualization_data": {
@@ -51,34 +105,85 @@
         "id": 1,
         "label": "junit:junit (4.11)",
         "version": "4.11",
-        "status": "compatible"
+        "status": "Compatible"
       },
       {
         "id": 2,
-        "label": "org.slf4j:slf4j-api (1.7.5)",
-        "version": "1.7.5",
-        "status": "compatible"
+        "label": "junit:junit (4.13)",
+        "version": "4.13",
+        "status": "Compatible (Assumed)"
       },
       {
         "id": 3,
+        "label": "junit:junit (4.13.2)",
+        "version": "4.13.2",
+        "status": "Compatible (Assumed)"
+      },
+      {
+        "id": 4,
+        "label": "org.slf4j:slf4j-api (1.7.5)",
+        "version": "1.7.5",
+        "status": "Compatible"
+      },
+      {
+        "id": 5,
+        "label": "org.slf4j:slf4j-api (2.0.0)",
+        "version": "2.0.0",
+        "status": "Compatible (Assumed)"
+      },
+      {
+        "id": 6,
+        "label": "org.slf4j:slf4j-api (2.0.17)",
+        "version": "2.0.17",
+        "status": "Compatible (Assumed)"
+      },
+      {
+        "id": 7,
         "label": "org.apache.hadoop:hadoop-common (2.2.0)",
         "version": "2.2.0",
-        "status": "compatible"
+        "status": "Compatible (Assumed)"
+      },
+      {
+        "id": 8,
+        "label": "org.apache.hadoop:hadoop-common (3.0.0)",
+        "version": "3.0.0",
+        "status": "Compatible (Assumed)"
+      },
+      {
+        "id": 9,
+        "label": "org.apache.hadoop:hadoop-common (3.5.0)",
+        "version": "3.5.0",
+        "status": "Compatible (Assumed)"
       }
     ],
     "edges": [
       {
         "source": 1,
-        "target": 2,
-        "type": "dependency"
-      },
-      {
-        "source": 1,
-        "target": 3,
+        "target": 4,
         "type": "dependency"
       },
       {
         "source": 2,
+        "target": 5,
+        "type": "dependency"
+      },
+      {
+        "source": 3,
+        "target": 6,
+        "type": "dependency"
+      },
+      {
+        "source": 7,
+        "target": 1,
+        "type": "dependency"
+      },
+      {
+        "source": 8,
+        "target": 2,
+        "type": "dependency"
+      },
+      {
+        "source": 9,
         "target": 3,
         "type": "dependency"
       }

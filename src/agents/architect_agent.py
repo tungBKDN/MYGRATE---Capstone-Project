@@ -109,12 +109,12 @@ class ArchitectAgent:
                     print("   [SYSTEM] Forcing final report format...")
                     schema_instruction = """
 Analysis complete. Generate the FINAL REPORT now.
-- **Markdown Section**: In the user's language. Include a table with columns: Library, Current (Version), Target (Version), Status.
+- **Markdown Section**: In the user's language. Include a COMPREHENSIVE COMPARISON TABLE showing all 3 tested versions for every library. Columns: Library, Version, Java 17 Status, Detected JDK, Result.
 - **JSON Section**: Valid JSON in a code block with:
-  - `recommendations`: { "group:artifact": { "action": "upgrade" (if target != current) or "keep", "current_version", "target_version", "candidates_tested": ["v1", "v2"], "score", "reasoning" } }
-  - `cross_compatibility`: [ { "lib1": "group:artifact", "lib2": "group:artifact", "status": "safe" | "warning" | "conflict", "reason": "..." } ]
+  - `recommendations`: { "group:artifact": { "suggested_version", "action": "upgrade" or "keep", "audit_log": [ { "version", "status", "jdk", "reason" } ], "score", "reasoning" } }
+  - `cross_compatibility`: [ { "lib1", "lib2", "status", "reason" } ]
   - `visualization_data`: { "nodes": [ { "id", "label": "name (version)", "version", "status" } ], "edges": [ { "source", "target", "type" } ] }
-- **CRITICAL**: If `target_version` is different from `current_version`, the `action` MUST be "upgrade".
+- **CRITICAL**: Use ONLY real data collected from previous steps. Do not hallucinate libraries.
 """
                     messages.append(("user", schema_instruction))
                     final_response = self.llm.invoke(messages)

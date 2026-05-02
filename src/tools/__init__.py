@@ -5,6 +5,7 @@ from .dependency_analyzer import (
     list_all_versions,
     get_transitive_dependencies,
     check_java_compatibility,
+    batch_check_java_compatibility,
     parse_python_dependencies,
     get_latest_pypi_version,
     check_python_compatibility
@@ -18,6 +19,7 @@ __all__ = [
     "parse_maven_dependencies",
     "get_latest_version",
     "check_java_compatibility",
+    "batch_check_java_compatibility",
     "parse_python_dependencies",
     "get_latest_pypi_version",
     "check_python_compatibility",

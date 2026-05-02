@@ -73,8 +73,8 @@ def parse_maven_dependencies(pom_path: str) -> str:
         return json.dumps({"error": str(e)})
 
 def list_all_versions(group_id: str, artifact_id: str) -> str:
-    """Retrieves all versions from Maven Central, numerically sorted."""
-    url = f"https://search.maven.org/solrsearch/select?q=g:%22{group_id}%22+AND+a:%22{artifact_id}%22&core=gav&rows=1000&wt=json"
+    """Retrieves the latest 50 versions from Maven Central, numerically sorted."""
+    url = f"https://search.maven.org/solrsearch/select?q=g:%22{group_id}%22+AND+a:%22{artifact_id}%22&core=gav&rows=50&wt=json"
     try:
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
@@ -157,6 +157,14 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
         "is_compatible": is_compatible,
         "verification_url": verification_url
     })
+
+def batch_check_java_compatibility(group_id: str, artifact_id: str, versions: List[str], target_java: str = "17") -> str:
+    """Checks compatibility for multiple versions of a library in one call to save tokens."""
+    results = []
+    for v in versions:
+        res = check_java_compatibility(group_id, artifact_id, v, target_java)
+        results.append(json.loads(res))
+    return json.dumps(results)
 
 def parse_python_dependencies(req_path: str) -> str:
     """Parses requirements.txt."""

@@ -11,8 +11,10 @@ class ReaderAgent:
     It is a standalone ReAct Agent that takes a prompt, uses tools, and returns a string.
     Nó KHÔNG nhận GlobalState.
     """
-    def __init__(self, model_name: str = "llama-3.1-8b-instant"):
+    def __init__(self, model_name: str = None):
         load_dotenv()
+        if model_name is None:
+            model_name = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
         api_key = os.getenv("GROQ_API_KEY")
         self.llm = ChatGroq(model_name=model_name, groq_api_key=api_key)
         self.tools = [list_project_structure, read_source_code, get_file_summary]

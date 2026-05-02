@@ -1,0 +1,87 @@
+{
+  "recommendations": {
+    "junit:junit": {
+      "action": "upgrade",
+      "current_version": "4.11",
+      "target_version": "4.13.2",
+      "candidates_tested": ["4.11", "4.13.2", "4.13"],
+      "score": 0.9,
+      "reasoning": "Cập nhật để đảm bảo tương thích và hỗ trợ"
+    },
+    "org.slf4j:slf4j-api": {
+      "action": "upgrade",
+      "current_version": "1.7.5",
+      "target_version": "2.0.5",
+      "candidates_tested": ["1.7.5", "2.0.3", "2.0.5"],
+      "score": 0.8,
+      "reasoning": "Cập nhật để đảm bảo tương thích và hỗ trợ"
+    },
+    "org.apache.hadoop:hadoop-common": {
+      "action": "upgrade",
+      "current_version": "2.2.0",
+      "target_version": "3.3.6",
+      "candidates_tested": ["2.2.0", "3.3.6", "3.3.4"],
+      "score": 0.7,
+      "reasoning": "Cập nhật để đảm bảo tương thích và hỗ trợ"
+    }
+  },
+  "cross_compatibility": [
+    {
+      "lib1": "junit:junit",
+      "lib2": "org.slf4j:slf4j-api",
+      "status": "safe",
+      "reason": "Không có xung đột"
+    },
+    {
+      "lib1": "junit:junit",
+      "lib2": "org.apache.hadoop:hadoop-common",
+      "status": "safe",
+      "reason": "Không có xung đột"
+    },
+    {
+      "lib1": "org.slf4j:slf4j-api",
+      "lib2": "org.apache.hadoop:hadoop-common",
+      "status": "safe",
+      "reason": "Không có xung đột"
+    }
+  ],
+  "visualization_data": {
+    "nodes": [
+      {
+        "id": 1,
+        "label": "junit:junit (4.11)",
+        "version": "4.11",
+        "status": "compatible"
+      },
+      {
+        "id": 2,
+        "label": "org.slf4j:slf4j-api (1.7.5)",
+        "version": "1.7.5",
+        "status": "compatible"
+      },
+      {
+        "id": 3,
+        "label": "org.apache.hadoop:hadoop-common (2.2.0)",
+        "version": "2.2.0",
+        "status": "compatible"
+      }
+    ],
+    "edges": [
+      {
+        "source": 1,
+        "target": 2,
+        "type": "dependency"
+      },
+      {
+        "source": 1,
+        "target": 3,
+        "type": "dependency"
+      },
+      {
+        "source": 2,
+        "target": 3,
+        "type": "dependency"
+      }
+    ]
+  }
+}

@@ -6,8 +6,10 @@ from src.models.state import GlobalState
 from dotenv import load_dotenv
 
 class SupervisorAgent:
-    def __init__(self, model_name: str = "llama-3.3-70b-versatile"):
+    def __init__(self, model_name: str = None):
         load_dotenv()
+        if model_name is None:
+            model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
         api_key = os.getenv("GROQ_API_KEY")
         # Groq doesn't support 'json_object' format natively like OpenAI/Gemini yet in all models, 
         # but Llama 3 is very good at following JSON instructions.

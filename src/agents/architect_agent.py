@@ -1,6 +1,5 @@
 import os
 import json
-import re
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langsmith import traceable

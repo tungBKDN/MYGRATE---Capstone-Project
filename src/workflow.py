@@ -5,6 +5,8 @@ from langchain_groq import ChatGroq
 from src.models.state import GlobalState
 from src.agents.supervisor import get_supervisor_node
 from src.agents.reader_agent import ReaderAgent
+from src.agents.architect_agent import ArchitectAgent
+from src.agents.translator_agent import TranslatorAgent
 
 # --- Các Wrapper Node (Đảm bảo Subagents bị cách ly hoàn toàn với GlobalState) ---
 
@@ -20,31 +22,18 @@ def reader_node(state: GlobalState):
     return {"last_subagent_result": result}
 
 def architect_node(state: GlobalState):
-    """Lấy instruction từ Global State, gọi LLM Architect độc lập."""
+    """Lấy instruction từ Global State, gọi ArchitectAgent độc lập."""
     instruction = state.get("current_instruction", "")
-    print("-> [ARCHITECT] Bắt đầu tác vụ độc lập...")
-    
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    prompt_path = os.path.join(base_dir, "src", "prompts", "architect.md")
-    try:
-        with open(prompt_path, "r", encoding="utf-8") as f:
-            system_prompt = f.read()
-    except FileNotFoundError:
-        system_prompt = "You are the architect."
-    
-    api_key = os.getenv("GROQ_API_KEY")
-    llm = ChatGroq(model_name="llama-3.1-8b-instant", groq_api_key=api_key)
-    response = llm.invoke([
-        ("system", system_prompt),
-        ("user", instruction)
-    ])
-    return {"last_subagent_result": response.content}
+    agent = ArchitectAgent()
+    result = agent.run(instruction)
+    return {"last_subagent_result": result}
 
 def translator_node(state: GlobalState):
-    """Wrapper: Tương tự cho Translator."""
+    """Lấy instruction từ Global State, gọi TranslatorAgent độc lập."""
     instruction = state.get("current_instruction", "")
-    print("-> [TRANSLATOR] Bắt đầu tác vụ dịch code...")
-    return {"last_subagent_result": "Đã thực hiện xong mô phỏng dịch code."}
+    agent = TranslatorAgent()
+    result = agent.run(instruction)
+    return {"last_subagent_result": result}
 
 # --- Xây dựng Graph ---
 

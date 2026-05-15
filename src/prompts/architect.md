@@ -15,6 +15,7 @@ Your ONLY mission is to collect raw data using tools.
 
 # WORKFLOW
 - Step 1: `parse_maven_dependencies`.
-- Step 2: `list_all_versions` for each library.
-- Step 3: `batch_check_java_compatibility` with real version strings.
-- Step 4: `get_transitive_dependencies`.
+- Step 2: For each library, use `get_compatible_versions` with the `target_java_version`.
+- Step 3: Call `resolve_best_combination` with the list of candidate libraries to find a stable set of versions.
+- Step 4: Use `detect_transitive_conflicts` to verify the final chosen set.
+- Final Step: Once all data is collected, simply state "Analysis complete. I have all the data." and wait for the system to request the final format.

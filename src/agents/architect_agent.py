@@ -40,7 +40,8 @@ class ArchitectAgent:
         self.tools_list = [
             parse_maven_dependencies, get_latest_version, list_all_versions,
             get_transitive_dependencies, check_java_compatibility, 
-            batch_check_java_compatibility,
+            batch_check_java_compatibility, detect_transitive_conflicts,
+            get_compatible_versions, resolve_best_combination,
             parse_python_dependencies, get_latest_pypi_version,
             check_python_compatibility, list_project_structure,
             index_project_structure, find_main_build_file
@@ -108,7 +109,12 @@ class ArchitectAgent:
                     print("   [SYSTEM] Forcing final report format...")
                     schema_instruction = """
 Analysis complete. Generate the FINAL REPORT now.
-- **Markdown Section**: In the user's language. Include a COMPREHENSIVE COMPARISON TABLE showing all 3 tested versions for every library. Columns: Library, Version, Java 17 Status, Detected JDK, Result.
+- **Markdown Section**: In the user's language. 
+  1. **📦 TÌNH TRẠNG VERSION HIỆN TẠI**: List all libraries and their current versions found in the project. **IF NO DATA IS FOUND, STATE "KHÔNG TÌM THẤY DỮ LIỆU DEPENDENCY" IMMEDIATELY.**
+  2. **📊 MA TRẬN TƯƠNG THÍCH**: Include a COMPREHENSIVE COMPARISON TABLE showing all 3 tested versions for every library. Columns: Library, Version, Java 17 Status, Detected JDK, Result.
+  3. **🎯 CHỐT PHƯƠNG ÁN NÂNG CẤP**: A clear summary table with columns: [Library, Current Version, Proposed Version, Change Type (Upgrade/Keep/Add/Remove), Risk Level].
+  4. **📝 GHI CHÚ KỸ THUẬT**: Mention any libraries that were "Assumed compatible" and why.
+  5. **⚖️ CƠ HỘI VÀ RỦI RO (OPPORTUNITIES & RISKS)**: Evaluate the benefits (security, performance) and challenges (breaking changes, transitive conflicts) of the proposed upgrade.
 - **JSON Section**: Valid JSON in a code block with:
   - `recommendations`: { "group:artifact": { "suggested_version", "action": "upgrade" or "keep", "audit_log": [ { "version", "status", "jdk", "reason" } ], "score", "reasoning" } }
   - `cross_compatibility`: [ { "lib1", "lib2", "status", "reason" } ]

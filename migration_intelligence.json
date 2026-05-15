@@ -1,0 +1,153 @@
+{
+  "recommendations": {
+    "junit:junit": {
+      "suggested_version": "4.13.2",
+      "action": "upgrade",
+      "audit_log": [
+        {
+          "version": "4.11",
+          "status": "compatible",
+          "jdk": "1.5",
+          "reason": "Compatible with Java 17"
+        },
+        {
+          "version": "4.13",
+          "status": "assumed compatible",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible"
+        },
+        {
+          "version": "4.13.2",
+          "status": "assumed compatible",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible"
+        }
+      ],
+      "score": 0.8,
+      "reasoning": "Nâng cấp để có các tính năng mới và bảo mật tốt hơn."
+    },
+    "org.slf4j:slf4j-api": {
+      "suggested_version": "2.0.3",
+      "action": "upgrade",
+      "audit_log": [
+        {
+          "version": "1.7.5",
+          "status": "compatible",
+          "jdk": "1.5",
+          "reason": "Compatible with Java 17"
+        },
+        {
+          "version": "1.7.36",
+          "status": "compatible",
+          "jdk": "1.6",
+          "reason": "Compatible with Java 17"
+        },
+        {
+          "version": "2.0.3",
+          "status": "compatible",
+          "jdk": "8",
+          "reason": "Compatible with Java 17"
+        }
+      ],
+      "score": 0.9,
+      "reasoning": "Nâng cấp để tận dụng các tính năng mới và cải thiện bảo mật."
+    },
+    "org.apache.hadoop:hadoop-common": {
+      "suggested_version": "3.5.0",
+      "action": "upgrade",
+      "audit_log": [
+        {
+          "version": "2.2.0",
+          "status": "compatible",
+          "jdk": "1.6",
+          "reason": "Compatible with Java 17"
+        },
+        {
+          "version": "3.3.6",
+          "status": "assumed compatible",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible"
+        },
+        {
+          "version": "3.5.0",
+          "status": "assumed compatible",
+          "jdk": "Unknown",
+          "reason": "Assumed compatible"
+        }
+      ],
+      "score": 0.7,
+      "reasoning": "Cân nhắc nâng cấp để có các tính năng mới và hỗ trợ tốt hơn cho Java 17."
+    }
+  },
+  "cross_compatibility": [
+    {
+      "lib1": "junit:junit",
+      "lib2": "org.slf4j:slf4j-api",
+      "status": "Compatible",
+      "reason": "No conflicts found."
+    },
+    {
+      "lib1": "org.apache.hadoop:hadoop-common",
+      "lib2": "junit:junit",
+      "status": "Potential Conflict",
+      "reason": "May require transitive dependency adjustments."
+    }
+  ],
+  "visualization_data": {
+    "nodes": [
+      {
+        "id": 1,
+        "label": "junit:junit (4.11)",
+        "version": "4.11",
+        "status": "compatible"
+      },
+      {
+        "id": 2,
+        "label": "junit:junit (4.13.2)",
+        "version": "4.13.2",
+        "status": "assumed compatible"
+      },
+      {
+        "id": 3,
+        "label": "org.slf4j:slf4j-api (1.7.5)",
+        "version": "1.7.5",
+        "status": "compatible"
+      },
+      {
+        "id": 4,
+        "label": "org.slf4j:slf4j-api (2.0.3)",
+        "version": "2.0.3",
+        "status": "compatible"
+      },
+      {
+        "id": 5,
+        "label": "org.apache.hadoop:hadoop-common (2.2.0)",
+        "version": "2.2.0",
+        "status": "compatible"
+      },
+      {
+        "id": 6,
+        "label": "org.apache.hadoop:hadoop-common (3.5.0)",
+        "version": "3.5.0",
+        "status": "assumed compatible"
+      }
+    ],
+    "edges": [
+      {
+        "source": 1,
+        "target": 2,
+        "type": "upgrade"
+      },
+      {
+        "source": 3,
+        "target": 4,
+        "type": "upgrade"
+      },
+      {
+        "source": 5,
+        "target": 6,
+        "type": "upgrade"
+      }
+    ]
+  }
+}

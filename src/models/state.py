@@ -5,12 +5,14 @@ from langchain_core.messages import BaseMessage
 class GlobalState(TypedDict):
     """
     Global State for the main workflow.
-    ONLY the Supervisor and Human read/write this.
-    Subagents are isolated and only receive text prompts.
     """
     # Core context
     project_path: str
     target_java_version: str # e.g., "17" or "21"
+    source_framework: Optional[str]
+    source_version: Optional[str]
+    target_framework: Optional[str]
+    target_version: Optional[str]
     
     # Chat history (Human <-> Supervisor)
     messages: Annotated[list[BaseMessage], operator.add]
@@ -21,6 +23,7 @@ class GlobalState(TypedDict):
     # Domain specific data
     dependencies: list[dict] # Extracted from pom.xml
     compatibility_matrix: dict # Result from Architect
+    migration_tasks: list[dict] # Tasks for Translator
     
     # Instructions to subagent (Supervisor -> Subagent)
     current_instruction: str

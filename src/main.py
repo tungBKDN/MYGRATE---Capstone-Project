@@ -14,22 +14,25 @@ def main():
     parser.add_argument("--source-fw", type=str, default="tensorflow", help="Source framework")
     parser.add_argument("--source-ver", type=str, default="2.15.0", help="Source version")
     parser.add_argument("--target-ver", type=str, default="2.16.1", help="Target version")
+    parser.add_argument("--target-java", type=str, default="17", help="Target Java version (e.g. 17, 21)")
     parser.add_argument("--approve", action="store_true", help="Simulate human approval (set flag to True)")
     args = parser.parse_args()
 
     initial_state = {
         "project_path": args.path,
+        "target_java_version": args.target_java,
         "source_framework": args.source_fw,
         "source_version": args.source_ver,
         "target_framework": args.source_fw,
         "target_version": args.target_ver,
-        "indexed_files": [],
+        "messages": [],
+        "completed_tasks_summary": [],
         "dependencies": [],
-        "feasibility_report": None,
         "compatibility_matrix": {},
         "migration_tasks": [],
-        "human_approved": args.approve,
-        "next": "supervisor"
+        "current_instruction": "",
+        "last_subagent_result": "",
+        "next_node": "supervisor"
     }
 
     print("=" * 50)

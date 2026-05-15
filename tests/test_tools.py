@@ -11,11 +11,17 @@ from src.tools.dependency_analyzer import (
 
 def test_parse_maven_dependencies(tmp_path):
     pom_content = """<project xmlns="http://maven.apache.org/POM/4.0.0">
+        <groupId>com.example</groupId>
+        <artifactId>my-app</artifactId>
+        <version>1.0.0</version>
+        <properties>
+            <junit.version>4.12</junit.version>
+        </properties>
         <dependencies>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.11</version>
+                <version>${junit.version}</version>
             </dependency>
         </dependencies>
     </project>"""
@@ -24,17 +30,21 @@ def test_parse_maven_dependencies(tmp_path):
     
     result_json = parse_maven_dependencies(str(pom_file))
     result = json.loads(result_json)
-    assert len(result) == 1
-    assert result[0]['groupId'] == 'junit'
-    assert result[0]['version'] == '4.11'
+    
+    assert result['project']['groupId'] == 'com.example'
+    assert result['project']['artifactId'] == 'my-app'
+    assert len(result['dependencies']) == 1
+    assert result['dependencies'][0]['groupId'] == 'junit'
+    assert result['dependencies'][0]['version'] == '4.12'
 
 def test_list_all_versions_real():
     # Test with a known library
     result_json = list_all_versions("junit", "junit")
     result = json.loads(result_json)
-    assert isinstance(result, list)
-    assert len(result) > 0
-    assert "4.12" in result
+    assert "versions" in result
+    assert isinstance(result["versions"], list)
+    assert len(result["versions"]) > 0
+    assert "4.12" in result["versions"]
 
 def test_list_all_versions_empty():
     # Test with non-existent library
@@ -56,7 +66,7 @@ def test_get_transitive_dependencies_real():
 def test_check_java_compatibility_real():
     result_json = check_java_compatibility("junit", "junit", "4.12", "17")
     result = json.loads(result_json)
-    assert result['is_compatible'] in ["Yes", "No", "Maybe"]
+    assert result['is_compatible'] in ["Yes", "No", "Maybe", "Yes (Assumed)"]
     assert result['dependency'] == "junit:junit"
 
 def test_get_latest_version_real():

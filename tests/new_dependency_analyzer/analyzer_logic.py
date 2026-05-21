@@ -43,13 +43,10 @@ def resolve_properties(value: str, properties: Dict[str, str]) -> str:
             break
     return value
 
-def parse_maven_dependencies(pom_path: str) -> str:
-    """Parses a Maven pom.xml file to extract dependencies and project metadata."""
-    if not os.path.exists(pom_path):
-        return json.dumps({"error": f"POM file not found at {pom_path}"})
+def _parse_pom_xml_content(xml_content: str) -> Dict:
+    """Internal helper to parse POM XML content and return structured data."""
     try:
-        tree = ET.parse(pom_path)
-        root = tree.getroot()
+        root = ET.fromstring(xml_content)
         
         # Handle namespaces robustly
         ns_url = ""
@@ -103,21 +100,18 @@ def parse_maven_dependencies(pom_path: str) -> str:
             return {"groupId": g, "artifactId": a, "version": v, "scope": scope}
 
         dependencies = []
-        
-        # 1. Direct Dependencies
         deps_node = root.find('mvn:dependencies', ns)
         if deps_node is not None:
             for dep in deps_node.findall('mvn:dependency', ns):
                 dependencies.append(get_dep_info(dep))
         
-        # 2. Dependency Management (BOMs or managed versions)
         managed_dependencies = []
         dm_node = root.find('mvn:dependencyManagement/mvn:dependencies', ns)
         if dm_node is not None:
             for dep in dm_node.findall('mvn:dependency', ns):
                 managed_dependencies.append(get_dep_info(dep))
 
-        return json.dumps({
+        return {
             "project": {
                 "groupId": p_group or "Unknown", 
                 "artifactId": p_artifact or "Unknown",
@@ -126,7 +120,18 @@ def parse_maven_dependencies(pom_path: str) -> str:
             "properties": properties,
             "dependencies": dependencies,
             "managedDependencies": managed_dependencies
-        })
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+def parse_maven_dependencies(pom_path: str) -> str:
+    """Parses a Maven pom.xml file to extract dependencies and project metadata."""
+    if not os.path.exists(pom_path):
+        return json.dumps({"error": f"POM file not found at {pom_path}"})
+    try:
+        with open(pom_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        return json.dumps(_parse_pom_xml_content(content))
     except Exception as e:
         return json.dumps({"error": str(e)})
 
@@ -149,28 +154,61 @@ def get_transitive_dependencies(group_id: str, artifact_id: str, version: str) -
     """Fetches dependencies of a specific library from its remote POM."""
     g_path = group_id.replace('.', '/')
     url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.pom"
-    deps = []
     try:
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
-            content = response.text
-            # Using a more robust regex to handle namespaces and whitespace
-            dep_pattern = re.compile(r'<dependency>(.*?)</dependency>', re.DOTALL)
-            for dep_block in dep_pattern.findall(content):
-                g_match = re.search(r'<groupId>(.*?)</groupId>', dep_block)
-                a_match = re.search(r'<artifactId>(.*?)</artifactId>', dep_block)
-                v_match = re.search(r'<version>(.*?)</version>', dep_block)
-                if g_match and a_match:
-                    deps.append({
-                        "groupId": g_match.group(1).strip(),
-                        "artifactId": a_match.group(1).strip(),
-                        "version": v_match.group(1).strip() if v_match else "Managed"
-                    })
-        return json.dumps(deps)
+            data = _parse_pom_xml_content(response.text)
+            if "error" in data: return json.dumps([])
+            return json.dumps(data.get("dependencies", []))
+        return json.dumps([])
     except: return json.dumps([])
 
+def get_jar_major_version(group_id: str, artifact_id: str, version: str) -> int:
+    """Downloads the JAR (partially if possible) and checks the major version of its class files."""
+    g_path = group_id.replace('.', '/')
+    url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.jar"
+    try:
+        # To open a ZIP, we need the Central Directory at the end of the file.
+        # We'll try to fetch the first 100KB and the last 100KB.
+        head = requests.head(url, timeout=5)
+        if head.status_code != 200: return -1
+        file_size = int(head.headers.get('Content-Length', 0))
+        
+        if file_size == 0: return -1
+        
+        import zipfile
+        import io
+        
+        if file_size < 200000:
+            # Small enough to download whole
+            content = requests.get(url, timeout=10).content
+        else:
+            # Fetch start and end
+            start = requests.get(url, headers={'Range': 'bytes=0-100000'}, timeout=10).content
+            end = requests.get(url, headers={'Range': f'bytes={file_size-100000}-{file_size}'}, timeout=10).content
+            # Combine with null padding in between (zipfile can often handle this if we are lucky, 
+            # but actually it's better to just download the whole thing if it's not huge, e.g. < 5MB)
+            if file_size < 5000000:
+                content = requests.get(url, timeout=10).content
+            else:
+                # For very large files, this is tricky without a real streaming zip reader.
+                # Let's just try to download the whole thing for now but with a larger limit.
+                content = requests.get(url, timeout=20).content
+
+        z = zipfile.ZipFile(io.BytesIO(content))
+        for name in z.namelist():
+            if name.endswith(".class") and not "module-info" in name:
+                with z.open(name) as f:
+                    header = f.read(8)
+                    if len(header) < 8: continue
+                    if header[:4] == b'\xca\xfe\xba\xbe':
+                        major = int.from_bytes(header[6:8], byteorder='big')
+                        return major
+        return -1
+    except: return -1
+
 def check_java_compatibility(group_id: str, artifact_id: str, version: str, target_java: str = "17") -> str:
-    """Checks compatibility with heuristics for missing metadata, including parent POM chasing."""
+    """Checks compatibility using both metadata and bytecode inspection."""
     
     def find_jdk_in_content(xml_content):
         # 1. Check common properties tags
@@ -199,22 +237,18 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
     target_jdk = "Unknown"
     current_g, current_a, current_v = group_id, artifact_id, version
     
-    # Try up to 5 levels of parents to find the JDK
-    for depth in range(6):
+    # Metadata Check (Parent POM chasing)
+    for depth in range(3): # Limit depth for speed
         g_path = current_g.replace('.', '/')
         pom_url = f"https://repo1.maven.org/maven2/{g_path}/{current_a}/{current_v}/{current_a}-{current_v}.pom"
         try:
-            response = requests.get(pom_url, timeout=10)
-            if response.status_code != 200:
-                break
-            
+            response = requests.get(pom_url, timeout=5)
+            if response.status_code != 200: break
             content = response.text
             found = find_jdk_in_content(content)
             if found:
                 target_jdk = found
                 break
-            
-            # If not found in current POM, look for <parent>
             parent_match = re.search(r'<parent>(.*?)</parent>', content, re.DOTALL)
             if parent_match:
                 p_content = parent_match.group(1)
@@ -222,53 +256,61 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
                 pa = re.search(r'<artifactId>(.*?)</artifactId>', p_content)
                 pv = re.search(r'<version>(.*?)</version>', p_content)
                 if pg and pa and pv:
-                    current_g = pg.group(1).strip()
-                    current_a = pa.group(1).strip()
-                    current_v = pv.group(1).strip()
-                else:
-                    break
-            else:
-                break
-        except:
-            break
+                    current_g, current_a, current_v = pg.group(1).strip(), pa.group(1).strip(), pv.group(1).strip()
+                else: break
+            else: break
+        except: break
 
-    # Heuristics based on version patterns if still unknown
-    if target_jdk == "Unknown":
-        v_str = str(version)
-        if group_id == "org.springframework.boot":
-            if v_str.startswith("3."): target_jdk = "17"
-            elif v_str.startswith("2."): target_jdk = "8"
-        elif "1.7." in v_str or "1.6." in v_str: target_jdk = "1.6"
-        elif "1.8." in v_str: target_jdk = "1.8"
+    # Bytecode Check (Verification)
+    bytecode_major = get_jar_major_version(group_id, artifact_id, version)
+    bytecode_jdk = "Unknown"
+    if bytecode_major != -1:
+        # Map major version to JDK version
+        major_map = {45: "1.1", 46: "1.2", 47: "1.3", 48: "1.4", 49: "5", 50: "6", 51: "7", 52: "8", 53: "9", 54: "10", 55: "11", 56: "12", 57: "13", 58: "14", 59: "15", 60: "16", 61: "17", 62: "18", 63: "19", 64: "20", 65: "21", 66: "22"}
+        bytecode_jdk = major_map.get(bytecode_major, str(bytecode_major - 44) if bytecode_major > 44 else "Unknown")
 
-    # Compatibility check logic
-    is_compatible = "Maybe"
+    # Final Decision logic
     def norm(v):
         if not v or v == "Unknown": return None
         v_s = str(v)
-        # Normalize 1.8 -> 8, etc.
         v_s = v_s.split('.')[-1] if '.' in v_s and v_s.startswith('1.') else v_s
         try:
             m = re.search(r'\d+', v_s)
             return int(m.group()) if m else None
-        except:
-            return None
+        except: return None
 
     nt = norm(target_java)
     nlt = norm(target_jdk)
-    if nlt and nt:
-        is_compatible = "No" if nlt > nt else "Yes"
+    nbc = norm(bytecode_jdk)
+    
+    # Decision logic
+    effective_jdk = bytecode_jdk if nbc else target_jdk
+    
+    # Heuristics based on version patterns if still unknown
+    if effective_jdk == "Unknown":
+        v_str = str(version)
+        if group_id == "org.springframework.boot":
+            if v_str.startswith("3."): effective_jdk = "17"
+            elif v_str.startswith("2."): effective_jdk = "8"
+        elif "1.7." in v_str or "1.6." in v_str: effective_jdk = "1.6"
+        elif "1.8." in v_str: effective_jdk = "1.8"
+    
+    ne = norm(effective_jdk)
+    is_compatible = "Maybe"
+    
+    if ne and nt:
+        is_compatible = "No" if ne > nt else "Yes"
     elif nt and nt >= 8:
         is_compatible = "Yes (Assumed)"
-
-    verification_url = f"https://search.maven.org/artifact/{group_id}/{artifact_id}/{version}/jar"
 
     return json.dumps({
         "dependency": f"{group_id}:{artifact_id}",
         "version": version,
-        "detected_jdk": target_jdk,
+        "metadata_jdk": target_jdk,
+        "bytecode_jdk": bytecode_jdk,
+        "effective_jdk": effective_jdk,
         "is_compatible": is_compatible,
-        "verification_url": verification_url
+        "verification_url": f"https://search.maven.org/artifact/{group_id}/{artifact_id}/{version}/jar"
     })
 
 def detect_transitive_conflicts(dependencies: List[Dict[str, str]]) -> str:
@@ -362,99 +404,181 @@ def check_python_compatibility(package_name: str, version: str, target_python: s
         "is_compatible": is_comp
     })
 
-def get_compatible_versions(group_id: str, artifact_id: str, target_java: str = "17", max_check: int = 10) -> str:
+class DependencySolver:
     """
-    Finds a list of versions for a library that are compatible with the target JDK.
-    Checks the latest 'max_check' versions.
+    A robust backtracking solver for dependency combinations.
+    Handles JDK compatibility and transitive version constraints.
     """
-    v_json = list_all_versions(group_id, artifact_id)
-    v_data = json.loads(v_json)
-    if "error" in v_data: return v_json
+    def __init__(self, target_java: str):
+        self.target_java = target_java
+        self.candidates = {}  # (g, a) -> [v1, v2, ...]
+        self.constraints = {} # (g, a, v) -> [transitive_deps]
+        self.solutions = []
+
+    def add_library(self, group_id: str, artifact_id: str, max_versions: int = 10):
+        v_json = list_all_versions(group_id, artifact_id)
+        v_list = json.loads(v_json).get("versions", [])[:max_versions]
+        
+        comp_list = []
+        for v in v_list:
+            res = json.loads(check_java_compatibility(group_id, artifact_id, v, self.target_java))
+            if res['is_compatible'] in ["Yes", "Yes (Assumed)", "Maybe"]:
+                comp_list.append(v)
+                # Cache transitive deps for this version
+                t_deps = json.loads(get_transitive_dependencies(group_id, artifact_id, v))
+                self.constraints[(group_id, artifact_id, v)] = t_deps
+        
+        if comp_list:
+            self.candidates[(group_id, artifact_id)] = comp_list
+
+    def solve(self, current_combo=None, remaining_libs=None):
+        if current_combo is None:
+            current_combo = {}
+            remaining_libs = list(self.candidates.keys())
+
+        if not remaining_libs:
+            # Check if this combination is valid across all transitive constraints
+            if self._is_valid_combination(current_combo):
+                self.solutions.append(current_combo.copy())
+            return
+
+        lib_key = remaining_libs[0]
+        for version in self.candidates[lib_key]:
+            current_combo[lib_key] = version
+            self.solve(current_combo, remaining_libs[1:])
+            if len(self.solutions) >= 5: return # Limit to top 5 solutions
+            del current_combo[lib_key]
+
+    def _is_valid_combination(self, combo):
+        # Flatten all transitive dependencies requested by this combination
+        version_map = {f"{g}:{a}": v for (g, a), v in combo.items()}
+        
+        for (g, a), v in combo.items():
+            transitives = self.constraints.get((g, a, v), [])
+            for t in transitives:
+                t_key = f"{t['groupId']}:{t['artifactId']}"
+                t_v = t['version']
+                
+                # If the transitive dependency is one of our root libs, versions must match
+                if t_key in version_map and t_v != "Managed":
+                    # Simple equality check for now (Maven uses nearest-wins, but for 'safe' migration we want consistency)
+                    if version_map[t_key] != t_v:
+                        return False
+        return True
+
+def get_jar_major_version_and_signatures(group_id: str, artifact_id: str, version: str) -> Dict:
+    """Enhanced scan: Checks major version AND presence of removed Java EE packages."""
+    g_path = group_id.replace('.', '/')
+    url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.jar"
+    results = {"major": -1, "dangerous_packages": []}
     
-    versions = v_data.get("versions", [])[:max_check]
-    compatible_versions = []
+    removed_packages = ["javax/xml/bind", "javax/activation", "javax/annotation", "javax/xml/ws", "javax/jws", "javax/xml/soap"]
     
-    for v in versions:
-        comp_json = check_java_compatibility(group_id, artifact_id, v, target_java)
-        comp_data = json.loads(comp_json)
-        if comp_data.get("is_compatible") in ["Yes", "Yes (Assumed)", "Maybe"]:
-            compatible_versions.append({
-                "version": v,
-                "detected_jdk": comp_data.get("detected_jdk"),
-                "status": comp_data.get("is_compatible")
-            })
+    try:
+        # Download the whole JAR for small/medium files (<10MB) to be safe
+        response = requests.get(url, timeout=15)
+        if response.status_code != 200: return results
+        
+        import zipfile, io
+        z = zipfile.ZipFile(io.BytesIO(response.content))
+        
+        found_major = False
+        for name in z.namelist():
+            if not found_major and name.endswith(".class") and not "module-info" in name:
+                with z.open(name) as f:
+                    header = f.read(8)
+                    if len(header) >= 8 and header[:4] == b'\xca\xfe\xba\xbe':
+                        results["major"] = int.from_bytes(header[6:8], byteorder='big')
+                        found_major = True
             
+            for pkg in removed_packages:
+                if name.startswith(pkg) and (pkg not in results["dangerous_packages"]):
+                    results["dangerous_packages"].append(pkg)
+                        
+        return results
+    except: return results
+
+def check_java_compatibility(group_id: str, artifact_id: str, version: str, target_java: str = "17") -> str:
+    """Upgraded: Metadata + Bytecode Major + Java EE Signature Scan."""
+    
+    def find_jdk_in_content(xml_content):
+        tags = ['maven.compiler.target', 'maven.compiler.release', 'maven.compiler.source', 'java.version']
+        for tag in tags:
+            match = re.search(f'<{tag}>(.*?)</{tag}>', xml_content)
+            if match:
+                val = match.group(1).strip()
+                if val and not val.startswith("${"): return val
+        return None
+
+    target_jdk = "Unknown"
+    # Metadata Check (Partial parent chasing)
+    g_path = group_id.replace('.', '/')
+    pom_url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.pom"
+    try:
+        response = requests.get(pom_url, timeout=5)
+        if response.status_code == 200:
+            target_jdk = find_jdk_in_content(response.text) or "Unknown"
+    except: pass
+
+    def norm(v):
+        if not v or v == "Unknown": return None
+        v_s = str(v).split('.')[-1] if '.' in str(v) and str(v).startswith('1.') else str(v)
+        m = re.search(r'\d+', v_s)
+        return int(m.group()) if m else None
+
+    nt = norm(target_java)
+    
+    # Perform Enhanced Scan
+    scan_results = get_jar_major_version_and_signatures(group_id, artifact_id, version)
+    major = scan_results["major"]
+    dangerous = scan_results["dangerous_packages"]
+    
+    bytecode_jdk = "Unknown"
+    if major != -1:
+        major_map = {52: "8", 53: "9", 54: "10", 55: "11", 61: "17", 65: "21"}
+        bytecode_jdk = major_map.get(major, str(major - 44) if major > 44 else "Unknown")
+    
+    nbc = norm(bytecode_jdk)
+    nlt = norm(target_jdk)
+    
+    effective_jdk = bytecode_jdk if nbc else target_jdk
+    ne = nbc if nbc else nlt
+    
+    is_compatible = "Yes"
+    issues = []
+    
+    if ne and nt and ne > nt:
+        is_compatible = "No"
+        issues.append(f"Requires JDK {effective_jdk} but target is {target_java}")
+        
+    if nt and nt >= 11 and dangerous:
+        is_compatible = "Warning"
+        issues.append(f"Uses Java EE packages removed in JDK 11: {', '.join(dangerous)}")
+
     return json.dumps({
-        "group_id": group_id,
-        "artifact_id": artifact_id,
-        "target_java": target_java,
-        "compatible_versions": compatible_versions
+        "dependency": f"{group_id}:{artifact_id}",
+        "version": version,
+        "metadata_jdk": target_jdk,
+        "bytecode_jdk": bytecode_jdk,
+        "effective_jdk": effective_jdk,
+        "is_compatible": is_compatible,
+        "issues": issues
     })
 
 def resolve_best_combination(root_dependencies: List[Dict[str, str]], target_java: str = "17") -> str:
-    """
-    Attempts to find the best (highest compatible) versions for a set of root dependencies
-    that satisfy all transitive requirements.
-    Input: [{"groupId": "...", "artifactId": "..."}] (versions are optional)
-    """
-    # 1. For each root dep, get candidate versions (top 5)
-    candidates = {} # (g, a) -> [v1, v2, v3, v4, v5]
+    """Upgraded: Uses the DependencySolver class for better combinations."""
+    solver = DependencySolver(target_java)
     for dep in root_dependencies:
-        g, a = dep['groupId'], dep['artifactId']
-        v_json = list_all_versions(g, a)
-        v_list = json.loads(v_json).get("versions", [])[:50]
-        # Only keep versions compatible with target JDK
-        comp_list = []
-        for v in v_list:
-            res = json.loads(check_java_compatibility(g, a, v, target_java))
-            if res['is_compatible'] in ["Yes", "Yes (Assumed)", "Maybe"]:
-                comp_list.append(v)
-        if comp_list:
-            candidates[(g, a)] = comp_list
-
-    # 2. Simple Heuristic: Try to find a combination that minimizes conflicts
-    # If no compatible versions found for a root, we can't resolve
-    if not candidates:
-        return json.dumps({"error": "No compatible versions found for any root dependency.", "recommended_combination": []})
-
-    current_combo = {k: v[0] for k, v in candidates.items()}
+        solver.add_library(dep['groupId'], dep['artifactId'], max_versions=5)
     
-    def get_conflicts(combo):
-        deps_to_test = [{"groupId": k[0], "artifactId": k[1], "version": v} for k, v in combo.items()]
-        conflict_json = detect_transitive_conflicts(deps_to_test)
-        return json.loads(conflict_json).get("conflicts", [])
-
-    conflicts = get_conflicts(current_combo)
+    solver.solve()
     
-    # Simple backtracking / local search (limit steps)
-    for _ in range(5):
-        if not conflicts: break
+    if not solver.solutions:
+        return json.dumps({"error": "No valid combination found.", "recommended_combination": []})
         
-        # Pick a conflict and try to resolve it by moving candidates
-        conflict = conflicts[0]
-        # target_lib = conflict['dependency']
-        
-        # Try downgrading each root that participates in this conflict
-        improved = False
-        for root_key in current_combo:
-            root_v_list = candidates[root_key]
-            current_v_idx = root_v_list.index(current_combo[root_key])
-            
-            if current_v_idx < len(root_v_list) - 1:
-                # Try next (older) version
-                test_combo = current_combo.copy()
-                test_combo[root_key] = root_v_list[current_v_idx + 1]
-                new_conflicts = get_conflicts(test_combo)
-                if len(new_conflicts) < len(conflicts):
-                    current_combo = test_combo
-                    conflicts = new_conflicts
-                    improved = True
-                    break
-        if not improved: break
-
     return json.dumps({
         "recommended_combination": [
-            {"groupId": k[0], "artifactId": k[1], "version": v} for k, v in current_combo.items()
+            {"groupId": k[0], "artifactId": k[1], "version": v} for k, v in solver.solutions[0].items()
         ],
-        "remaining_conflicts": conflicts
+        "all_valid_solutions_count": len(solver.solutions)
     })

@@ -3,16 +3,30 @@ import json
 import os
 import sys
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
 # ensure repo root is in path
-sys.path.append(str(Path(__file__).resolve().parents[1]))
+sys.path.append(str(REPO_ROOT))
 
 from src.tools.project_indexer import find_main_build_file
 from src.tools.dependency_analyzer import parse_maven_dependencies, get_latest_version, resolve_best_combination, detect_transitive_conflicts, get_compatible_versions
 from src.tools.visualization_engine import generate_dashboard, generate_cross_matrix
 
 
+def _resolve_project_root(target_root: str) -> Path:
+    candidate = Path(target_root)
+    if candidate.exists():
+        return candidate.resolve()
+
+    repo_candidate = (REPO_ROOT / target_root)
+    if repo_candidate.exists():
+        return repo_candidate.resolve()
+
+    return candidate.resolve()
+
+
 def run(target_root: str = 'freshbrew_data/cantor'):
-    root = Path(target_root)
+    root = _resolve_project_root(target_root)
     print(f"Scanning project: {root}")
 
     main_build = find_main_build_file(str(root))
@@ -100,7 +114,7 @@ def run(target_root: str = 'freshbrew_data/cantor'):
         "visualization_data": {"nodes": [], "edges": []}
     }
 
-    out_path = Path('migration_intelligence.json')
+    out_path = REPO_ROOT / 'migration_intelligence.json'
     with open(out_path, 'w', encoding='utf-8') as f:
         json.dump(intelligence, f, indent=2)
 

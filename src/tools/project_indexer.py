@@ -7,11 +7,11 @@ def index_project_structure(root_path: str, max_depth: int = 3) -> str:
     Identifies key files like pom.xml, build.gradle, settings.xml, etc.
     """
     summary = []
-    
+
     def walk(current_path, depth):
         if depth > max_depth:
             return
-        
+
         try:
             items = os.listdir(current_path)
         except Exception as e:
@@ -20,10 +20,10 @@ def index_project_structure(root_path: str, max_depth: int = 3) -> str:
         for item in items:
             if item.startswith('.') or item == 'target' or item == 'node_modules' or item == 'venv':
                 continue
-            
+
             full_path = os.path.join(current_path, item)
             rel_path = os.path.relpath(full_path, root_path)
-            
+
             if os.path.isdir(full_path):
                 summary.append(f"{'  ' * depth}📁 {rel_path}/")
                 walk(full_path, depth + 1)
@@ -33,7 +33,7 @@ def index_project_structure(root_path: str, max_depth: int = 3) -> str:
                 elif item == 'build.gradle': icon = "📦 [Gradle]"
                 elif item.endswith('.java'): icon = "☕ [Java]"
                 elif item.endswith('.py'): icon = "🐍 [Python]"
-                
+
                 summary.append(f"{'  ' * depth}{icon} {rel_path}")
 
     walk(root_path, 0)
@@ -48,4 +48,4 @@ def find_main_build_file(root_path: str) -> str:
         path = os.path.join(root_path, file)
         if os.path.exists(path):
             return rel_path if (rel_path := os.path.relpath(path, root_path)) else file
-    return "None"
+    return None

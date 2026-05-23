@@ -3,6 +3,7 @@ import json
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langsmith import traceable
+from langchain_core.messages import ToolMessage
 
 from src.tools import (
     parse_maven_dependencies, 
@@ -11,6 +12,9 @@ from src.tools import (
     get_transitive_dependencies,
     check_java_compatibility, 
     batch_check_java_compatibility,
+    detect_transitive_conflicts,
+    get_compatible_versions,
+    resolve_best_combination,
     parse_python_dependencies,
     get_latest_pypi_version,
     check_python_compatibility,
@@ -72,18 +76,22 @@ class ArchitectAgent:
             try:
                 response = self.llm_with_tools.invoke(messages)
             except Exception as e:
-                if "429" in str(e) or "rate_limit_exceeded" in str(e).lower():
-                    print("\n" + "!"*50)
-                    print("!!! RATE LIMIT REACHED (429) !!!")
-                    # Try to extract and print headers for the user to see the condition
-                    if hasattr(e, 'response') and hasattr(e.response, 'headers'):
-                        headers = e.response.headers
-                        print("--- Rate Limit Details ---")
-                        for key in ['x-ratelimit-limit-tokens', 'x-ratelimit-remaining-tokens', 'x-ratelimit-reset-tokens', 'x-ratelimit-reset-requests']:
-                            if key in headers:
-                                print(f"{key}: {headers[key]}")
-                    print("!"*50 + "\n")
-                raise e
+                if "tool_use_failed" in str(e).lower():
+                    print("   [SYSTEM] Groq tool_use_failed error. Falling back to raw LLM (no tools)...")
+                    response = self.llm.invoke(messages)
+                else:
+                    if "429" in str(e) or "rate_limit_exceeded" in str(e).lower():
+                        print("\n" + "!"*50)
+                        print("!!! RATE LIMIT REACHED (429) !!!")
+                        # Try to extract and print headers for the user to see the condition
+                        if hasattr(e, 'response') and hasattr(e.response, 'headers'):
+                            headers = e.response.headers
+                            print("--- Rate Limit Details ---")
+                            for key in ['x-ratelimit-limit-tokens', 'x-ratelimit-remaining-tokens', 'x-ratelimit-reset-tokens', 'x-ratelimit-reset-requests']:
+                                if key in headers:
+                                    print(f"{key}: {headers[key]}")
+                        print("!"*50 + "\n")
+                    raise e
             
             messages.append(response)
             
@@ -136,7 +144,10 @@ Analysis complete. Generate the FINAL REPORT now.
                 tool_func = next((t for t in self.tools_list if getattr(t, 'name', getattr(t, '__name__', None)) == tool_name), None)
                 if tool_func:
                     try:
-                        result = tool_func(**tool_args)
+                        if hasattr(tool_func, "invoke"):
+                            result = tool_func.invoke(tool_args)
+                        else:
+                            result = tool_func(**tool_args)
                         
                         # Fix: Robust result parsing for libs_found
                         parsed_result = result
@@ -159,18 +170,16 @@ Analysis complete. Generate the FINAL REPORT now.
                             num_versions = len(tool_args.get('versions', []))
                             versions_tested_count[lib_key] = versions_tested_count.get(lib_key, 0) + num_versions
 
-                        messages.append({
-                            "role": "tool",
-                            "tool_call_id": tool_call["id"],
-                            "name": tool_name,
-                            "content": json.dumps(result) if isinstance(result, dict) else str(result)
-                        })
+                        messages.append(ToolMessage(
+                            tool_call_id=tool_call["id"],
+                            name=tool_name,
+                            content=json.dumps(result) if isinstance(result, (dict, list)) else str(result)
+                        ))
                     except Exception as e:
-                        messages.append({
-                            "role": "tool",
-                            "tool_call_id": tool_call["id"],
-                            "name": tool_name,
-                            "content": f"Error: {str(e)}"
-                        })
+                        messages.append(ToolMessage(
+                            tool_call_id=tool_call["id"],
+                            name=tool_name,
+                            content=f"Error: {str(e)}"
+                        ))
                 
         return messages[-1].content

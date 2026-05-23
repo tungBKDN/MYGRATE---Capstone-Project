@@ -10,11 +10,9 @@ from pathlib import Path
 from typing import Dict, List, Set, Tuple, Any
 
 from langchain_core.tools import tool
-from langchain_groq import ChatGroq
-from dotenv import load_dotenv
 
 # ==============================================================================
-# HÀM LÕI TỪ NOTEBOOK (REAL IMPLEMENTATION)
+# HÀM LÕI
 # ==============================================================================
 
 def list_all_versions(group_id: str, artifact_id: str) -> str:
@@ -70,6 +68,12 @@ def check_java_compatibility(group_id, artifact_id, version, target_java="17", v
     bytecode_n = int(bytecode_jdk) if bytecode_jdk.isdigit() else 0
     if bytecode_n > target_n: status = "No"
     elif target_n >= 11 and res["dangerous_refs"]: status = "Warning"
+    
+    # Heuristic for Spring Boot 3.x requiring Java 17 (handles POM-only artifacts)
+    if (group_id == "org.springframework.boot" or "spring-boot" in artifact_id) and version.startswith("3."):
+        if target_n < 17:
+            status = "No"
+            bytecode_jdk = "17"
     
     return {
         "dependency": f"{group_id}:{artifact_id}",
@@ -154,8 +158,10 @@ class DependencySolver:
         self.constraints: Dict[Tuple[str, str, str], List[Dict]] = {} 
         self.solutions: List[Dict[Tuple[str, str], str]] = []
         self.reports: Dict[Tuple[str, str, str], dict] = {}
+        self.requested_libs: Set[Tuple[str, str]] = set()
 
     def add_library(self, group_id: str, artifact_id: str, max_versions: int = 5) -> None:
+        self.requested_libs.add((group_id, artifact_id))
         v_json = list_all_versions(group_id, artifact_id)
         all_v = json.loads(v_json).get("versions", [])
         v_list = heuristic_filter(all_v, max_output=max_versions)
@@ -174,6 +180,8 @@ class DependencySolver:
             self.candidates[(group_id, artifact_id)] = candidates_v3
 
     def solve(self, current_combo=None, remaining_libs=None):
+        if len(self.candidates) < len(self.requested_libs):
+            return
         if current_combo is None:
             current_combo = {}; remaining_libs = list(self.candidates.keys())
         if not remaining_libs:
@@ -207,7 +215,6 @@ def inject_constrained_versions(solver: DependencySolver):
                     solver.reports[(t["groupId"], t["artifactId"], req_version)] = {"step3": res_3}
                     t_deps_raw = get_transitive_dependencies(t["groupId"], t["artifactId"], req_version)
                     solver.constraints[(t["groupId"], t["artifactId"], req_version)] = json.loads(t_deps_raw)
-
 
 # ==============================================================================
 # LANGCHAIN TOOLS
@@ -245,7 +252,6 @@ def solve_transitive_constraints(dependencies: List[Dict[str, Any]], target_jdk:
     inject_constrained_versions(solver)
     solver.solve()
     
-    # Format kết quả
     formatted_solutions = []
     for sol in solver.solutions:
         formatted_solutions.append({f"{k[0]}:{k[1]}": v for k, v in sol.items()})
@@ -258,93 +264,3 @@ def runtime_smoke_test(group_id: str, artifact_id: str, version: str, target_jdk
     jar_path = prepare_jar_for_check(group_id, artifact_id, version)
     res = run_compile_check(jar_path, target_jdk=target_jdk)
     return res
-
-
-# ==============================================================================
-# AGENT MODULE
-# ==============================================================================
-
-class DependencyAnalyzerAgent:
-    """Agent Dependency Analyzer sử dụng Dữ liệu thực từ Maven/deps.dev."""
-    def __init__(self, model_name: str = None):
-        load_dotenv()
-        if model_name is None:
-            model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-        api_key = os.getenv("GROQ_API_KEY")
-        
-        self.llm = ChatGroq(
-            model_name=model_name, 
-            groq_api_key=api_key, 
-            temperature=0
-        )
-        
-        self.tools_list = [
-            fetch_candidate_versions,
-            heuristic_version_filter,
-            static_compatibility_check,
-            solve_transitive_constraints,
-            runtime_smoke_test
-        ]
-        
-        self.llm_with_tools = self.llm.bind_tools(self.tools_list)
-        
-        self.system_prompt = """
-You are the Dependency Analyzer Agent.
-Your job is to find compatible library versions for a target JDK and resolve transitive conflicts using REAL Maven data.
-Follow this pipeline:
-1. Use fetch_candidate_versions to get all versions.
-2. Use heuristic_version_filter to narrow down candidates.
-3. Use static_compatibility_check for bytecode validation via physical JAR stream scanning.
-4. If multiple dependencies exist, use solve_transitive_constraints to find combinations (this automatically runs steps 1,2,3 for all given dependencies and resolves them).
-5. Use runtime_smoke_test (compile check) to verify the top combination.
-
-Return your final answer with the verified dependencies and validation report details.
-"""
-
-    def run(self, instruction: str) -> str:
-        print(f"-> [DEPENDENCY ANALYZER] Running pipeline for: {instruction[:50]}...")
-        
-        messages = [
-            ("system", self.system_prompt),
-            ("user", instruction)
-        ]
-        
-        # ReAct Loop
-        for i in range(10):
-            response = self.llm_with_tools.invoke(messages)
-            messages.append(response)
-            
-            if not response.tool_calls:
-                return response.content
-                
-            for tool_call in response.tool_calls:
-                tool_name = tool_call["name"]
-                tool_args = tool_call["args"]
-                print(f"   [EXECUTE TOOL] {tool_name}({tool_args})")
-                
-                tool_func = next((t for t in self.tools_list if getattr(t, 'name', getattr(t, '__name__', None)) == tool_name), None)
-                if tool_func:
-                    try:
-                        result = tool_func(**tool_args)
-                        messages.append({
-                            "role": "tool",
-                            "tool_call_id": tool_call["id"],
-                            "name": tool_name,
-                            "content": json.dumps(result) if isinstance(result, dict) or isinstance(result, list) else str(result)
-                        })
-                    except Exception as e:
-                        messages.append({
-                            "role": "tool",
-                            "tool_call_id": tool_call["id"],
-                            "name": tool_name,
-                            "content": f"Error: {str(e)}"
-                        })
-                else:
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call["id"],
-                        "name": tool_name,
-                        "content": "Error: Tool not found."
-                    })
-                    
-        return messages[-1].content

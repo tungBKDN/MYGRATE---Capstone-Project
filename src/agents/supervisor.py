@@ -31,7 +31,7 @@ class SupervisorAgent:
 Bạn là Supervisor cho MYGRATE, hệ thống hỗ trợ nâng cấp phiên bản mã nguồn (Java, Python).
 Bạn PHẢI trả về JSON có cấu trúc sau:
 {
-    "next_node": "Tên agent tiếp theo (reader, architect, translator) HOẶC 'end' nếu cần hỏi con người hoặc kết thúc",
+    "next_node": "Tên agent tiếp theo (reader, architect, dependency_analyzer, translator) HOẶC 'end' nếu cần hỏi con người hoặc kết thúc",
     "current_instruction": "Câu lệnh MỚI dành cho subagent (nếu next_node không phải end). Ví dụ: 'Phân tích file requirements.txt và lập ma trận tương thích cho Python 3.12'",
     "summary_update": "Tóm tắt kết quả của subagent trước (nếu có) để lưu vào bộ nhớ. Nếu không có gì đáng lưu, để rỗng",
     "response_to_user": "Câu trả lời gửi cho người dùng (nếu next_node là 'end' hoặc bạn muốn phản hồi họ)"

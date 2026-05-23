@@ -13,23 +13,20 @@ class GlobalState(TypedDict):
     source_version: Optional[str]
     target_framework: Optional[str]
     target_version: Optional[str]
-    
+
     # Chat history (Human <-> Supervisor)
     messages: Annotated[list[BaseMessage], operator.add]
-    
+
     # Global context & summaries of completed work
     completed_tasks_summary: Annotated[list[str], operator.add]
-    
-    # Domain specific data
-    dependencies: list[dict] # Extracted from pom.xml
-    compatibility_matrix: dict # Result from Architect
-    migration_tasks: list[dict] # Tasks for Translator
-    
+
+    # Domain specific data (dependency analysis removed)
+
     # Instructions to subagent (Supervisor -> Subagent)
     current_instruction: str
-    
+
     # Result from subagent (Subagent -> Supervisor)
     last_subagent_result: str
-    
+
     # Routing
     next_node: str

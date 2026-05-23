@@ -15,7 +15,7 @@ def reader_node(state: GlobalState):
     instruction = state.get("current_instruction", "")
     project_path = state.get("project_path", "")
     full_instruction = f"Target Project: {project_path}\nNhiệm vụ: {instruction}"
-    
+
     agent = ReaderAgent()
     result = agent.run(full_instruction)
     # Subagent không được ghi trực tiếp vào state, chỉ trả về biến trung gian
@@ -35,19 +35,6 @@ def translator_node(state: GlobalState):
     result = agent.run(instruction)
     return {"last_subagent_result": result}
 
-def dependency_analyzer_node(state: GlobalState):
-    """Lấy instruction từ Global State, gọi DependencyAnalyzerAgent độc lập."""
-    instruction = state.get("current_instruction", "")
-    # Heuristics to choose language
-    language = "java"
-    if "python" in instruction.lower() or "requirements.txt" in instruction.lower():
-        language = "python"
-    
-    from src.agents.dependency_analyzer_agent import DependencyAnalyzerAgent
-    agent = DependencyAnalyzerAgent(language=language)
-    result = agent.run(instruction)
-    return {"last_subagent_result": result}
-
 # --- Xây dựng Graph ---
 
 workflow = StateGraph(GlobalState)
@@ -56,7 +43,6 @@ workflow.add_node("supervisor", get_supervisor_node)
 workflow.add_node("reader", reader_node)
 workflow.add_node("architect", architect_node)
 workflow.add_node("translator", translator_node)
-workflow.add_node("dependency_analyzer", dependency_analyzer_node)
 
 workflow.set_entry_point("supervisor")
 
@@ -64,10 +50,9 @@ workflow.set_entry_point("supervisor")
 workflow.add_conditional_edges(
     "supervisor",
     lambda x: x["next_node"],
-    {
+        {
         "reader": "reader",
         "architect": "architect",
-        "dependency_analyzer": "dependency_analyzer",
         "translator": "translator",
         "end": END
     }
@@ -77,11 +62,11 @@ workflow.add_conditional_edges(
 workflow.add_edge("reader", "supervisor")
 workflow.add_edge("architect", "supervisor")
 workflow.add_edge("translator", "supervisor")
-workflow.add_edge("dependency_analyzer", "supervisor")
+
 
 # Khởi tạo Checkpointer cho phép Human-in-the-loop (Tạm dừng luồng)
 memory = MemorySaver()
 
-# Tạm dừng TRƯỚC KHI supervisor chạy. 
+# Tạm dừng TRƯỚC KHI supervisor chạy.
 # Điều này cho phép user xem xét kết quả từ subagent trước đó, hoặc bổ sung yêu cầu trước khi supervisor phân việc.
 app = workflow.compile(checkpointer=memory, interrupt_before=["supervisor"])

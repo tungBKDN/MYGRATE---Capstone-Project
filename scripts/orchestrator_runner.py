@@ -15,10 +15,7 @@ def run_with_workflow(thread_id: str = "mygrate_orch_thread"):
         "target_java_version": "17",
         "messages": [],
         "completed_tasks_summary": [],
-        "dependencies": [],
-        "compatibility_matrix": {},
-        "migration_tasks": [],
-        "current_instruction": "Quét dự án và sinh ma trận tương thích",
+        "current_instruction": "Quét dự án và chuẩn bị thông tin cần thiết cho các bước tiếp theo",
         "last_subagent_result": "",
         "next_node": "supervisor"
     }

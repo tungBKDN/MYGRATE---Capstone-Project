@@ -1,0 +1,337 @@
+{
+    "rules": [
+        {
+            "rule_id": "6c95d265",
+            "target_version": "java11",
+            "reason": "This recipe will apply changes commonly needed when upgrading to Java 11. Specifically, for those applications that are built on Java 8, this recipe will update and add dependencies on J2EE libraries that are no longer directly bundled with the JDK. This recipe will also replace deprecated API with equivalents when there is a clear migration strategy. Build files will also be updated to use Java 11 as the target/source and plugins will be also be upgraded to versions that are compatible with Java 11.",
+            "target": "java.lang.Runtime runFinalizersOnExit(boolean)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "2114744f",
+            "target_version": "java11",
+            "reason": "This recipe will apply changes commonly needed when upgrading to Java 11. Specifically, for those applications that are built on Java 8, this recipe will update and add dependencies on J2EE libraries that are no longer directly bundled with the JDK. This recipe will also replace deprecated API with equivalents when there is a clear migration strategy. Build files will also be updated to use Java 11 as the target/source and plugins will be also be upgraded to versions that are compatible with Java 11.",
+            "target": "java.lang.System runFinalizersOnExit(boolean)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "287fb9d5",
+            "target_version": "java11",
+            "reason": "Do not use APIs from `com.sun.xml.internal.bind.*` packages.",
+            "target": "com.sun.xml.internal.bind",
+            "new": "com.sun.xml.bind",
+            "type": "import_declaration",
+            "action": "replace"
+        },
+        {
+            "rule_id": "616cc920",
+            "target_version": "java11",
+            "reason": "The `java.lang.Thread.destroy()` method was never implemented, and the `java.lang.Thread.stop(java.lang.Throwable)` method has been unusable since Java SE 8. This recipe removes any usage of these methods from your application.",
+            "target": "java.lang.Thread destroy()",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "b1233b74",
+            "target_version": "java11",
+            "reason": "The `java.lang.Thread.destroy()` method was never implemented, and the `java.lang.Thread.stop(java.lang.Throwable)` method has been unusable since Java SE 8. This recipe removes any usage of these methods from your application.",
+            "target": "java.lang.Thread stop(java.lang.Throwable)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "78b46a04",
+            "target_version": "java11",
+            "reason": "The `java.nio.file.Paths.get` method was introduced in Java SE 7. The `java.nio.file.Path.of` method was introduced in Java SE 11. This recipe replaces all usages of `Paths.get` with `Path.of` for consistency.",
+            "target": "java.nio.file.Paths get(..)",
+            "new": "java.nio.file.Path",
+            "type": "object_creation_expression",
+            "action": "change_to_static"
+        },
+        {
+            "rule_id": "58ea1e8d",
+            "target_version": "java11",
+            "reason": "The `java.nio.file.Paths.get` method was introduced in Java SE 7. The `java.nio.file.Path.of` method was introduced in Java SE 11. This recipe replaces all usages of `Paths.get` with `Path.of` for consistency.",
+            "target": "java.nio.file.Path get(..)",
+            "new": "of",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "e5d3e71f",
+            "target_version": "java17",
+            "reason": "The `javax.security.cert` package has been deprecated for removal.",
+            "target": "javax.security.cert",
+            "new": "java.security.cert",
+            "type": "import_declaration",
+            "action": "replace"
+        },
+        {
+            "rule_id": "f2d49c82",
+            "target_version": "java17",
+            "reason": "Avoid using the deprecated methods in `java.util.logging.LogRecord`.",
+            "target": "java.util.logging.LogRecord getThreadID()",
+            "new": "getLongThreadID",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "ad69dc9b",
+            "target_version": "java17",
+            "reason": "Avoid using the deprecated methods in `java.util.logging.LogRecord`.",
+            "target": "java.util.logging.LogRecord setThreadID(int)",
+            "new": "setLongThreadID",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "9333af08",
+            "target_version": "java17",
+            "reason": "The `finalize` method in `java.util.zip.ZipFile` is replaced with the `close` method and is replaced by the `end` method in  `java.util.zip.Inflater` and `java.util.zip.Deflater` as it is no longer available in Java SE 12 and later.",
+            "target": "java.util.zip.Inflater finalize()",
+            "new": "end",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "2fa065da",
+            "target_version": "java17",
+            "reason": "The `finalize` method in `java.util.zip.ZipFile` is replaced with the `close` method and is replaced by the `end` method in  `java.util.zip.Inflater` and `java.util.zip.Deflater` as it is no longer available in Java SE 12 and later.",
+            "target": "java.util.zip.Deflater finalize()",
+            "new": "end",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "92129a11",
+            "target_version": "java17",
+            "reason": "The `finalize` method in `java.util.zip.ZipFile` is replaced with the `close` method and is replaced by the `end` method in  `java.util.zip.Inflater` and `java.util.zip.Deflater` as it is no longer available in Java SE 12 and later.",
+            "target": "java.util.zip.ZipFile finalize()",
+            "new": "close",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "4da4f3e1",
+            "target_version": "java17",
+            "reason": "The `javax.net.ssl.SSLSession.getPeerCertificateChain()` method implementation was removed from the SunJSSE provider and HTTP client implementation in Java SE 15. The default implementation will now throw an `UnsupportedOperationException`. Applications using this method should be updated to use the `javax.net.ssl.SSLSession.getPeerCertificates()` method instead.",
+            "target": "javax.net.ssl.SSLSession getPeerCertificateChain()",
+            "new": "getPeerCertificates",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "c5aa4033",
+            "target_version": "java17",
+            "reason": "The internal API `com.sun.net.ssl` is removed. The package was intended for internal use only and replacement APIs can be found in the `javax.net.ssl` package.",
+            "target": "com.sun.net.ssl",
+            "new": "javax.net.ssl",
+            "type": "import_declaration",
+            "action": "replace"
+        },
+        {
+            "rule_id": "819227e1",
+            "target_version": "java17",
+            "reason": "`Thread.countStackFrames()` has been removed in Java SE 14 and has been changed in this release to unconditionally throw `UnsupportedOperationException`  This recipe removes the usage of this method in your application as long as the method is not assigned to a variable.  For more information on the Java SE 14 deprecation of this method, see https://bugs.java.com/bugdatabase/view_bug?bug_id=8205132.",
+            "target": "java.lang.Thread countStackFrames()",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "55548b7b",
+            "target_version": "java17",
+            "reason": "The `finalize` method in `java.io.FileInputStream` and `java.io.FileOutputStream` is no longer available in Java SE 12 and later. The recipe replaces it with the `close` method.",
+            "target": "java.io.FileInputStream finalize()",
+            "new": "close",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "facd2f2f",
+            "target_version": "java17",
+            "reason": "The `finalize` method in `java.io.FileInputStream` and `java.io.FileOutputStream` is no longer available in Java SE 12 and later. The recipe replaces it with the `close` method.",
+            "target": "java.io.FileOutputStream finalize()",
+            "new": "close",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "793a9926",
+            "target_version": "general",
+            "reason": "The `javax.tools.ToolProvider()` constructor has been removed in Java SE 16 since the class only contains static methods. The recipe converts `javax.tools.ToolProvider getSystemJavaCompiler()`, `javax.tools.ToolProvider getSystemDocumentationTool()` and `javax.tools.ToolProvider getSystemToolClassLoader()` to static methods.",
+            "target": "javax.tools.ToolProvider *()",
+            "new": "javax.tools.ToolProvider",
+            "type": "object_creation_expression",
+            "action": "change_to_static"
+        },
+        {
+            "rule_id": "2ba491f1",
+            "target_version": "general",
+            "reason": "The `java.lang.reflect.Modifier()` and `java.lang.invoke.ConstantBootstraps()` constructors have been removed in Java SE 15 because both classes only contain static methods. This recipe converts the usage of all methods in the two classes to be  static. See https://docs.oracle.com/en/java/javase/15/migrate/index.html#GUID-233853B8-0782-429E-BEF7-7532EE610E63 for more information on these changes.",
+            "target": "java.lang.reflect.Modifier *(..)",
+            "new": "java.lang.reflect.Modifier",
+            "type": "object_creation_expression",
+            "action": "change_to_static"
+        },
+        {
+            "rule_id": "bc91326f",
+            "target_version": "general",
+            "reason": "The `java.lang.reflect.Modifier()` and `java.lang.invoke.ConstantBootstraps()` constructors have been removed in Java SE 15 because both classes only contain static methods. This recipe converts the usage of all methods in the two classes to be  static. See https://docs.oracle.com/en/java/javase/15/migrate/index.html#GUID-233853B8-0782-429E-BEF7-7532EE610E63 for more information on these changes.",
+            "target": "java.lang.invoke.ConstantBootstraps *(..)",
+            "new": "java.lang.invoke.ConstantBootstraps",
+            "type": "object_creation_expression",
+            "action": "change_to_static"
+        },
+        {
+            "rule_id": "21d964c9",
+            "target_version": "java17",
+            "reason": "The `traceInstructions` and `traceMethodCalls` methods in `java.lang.Runtime` were deprecated in Java SE 9 and are no longer available in Java SE 13 and later. The recipe removes the invocations of these methods since the method invocations do nothing functionally.",
+            "target": "java.lang.Runtime traceInstructions(boolean)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "ccf54ed2",
+            "target_version": "java17",
+            "reason": "The `traceInstructions` and `traceMethodCalls` methods in `java.lang.Runtime` were deprecated in Java SE 9 and are no longer available in Java SE 13 and later. The recipe removes the invocations of these methods since the method invocations do nothing functionally.",
+            "target": "java.lang.Runtime traceMethodCalls(boolean)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "6a719b7c",
+            "target_version": "java21",
+            "reason": "Replace older code patterns with `SequencedCollection` methods, as per https://openjdk.org/jeps/431.",
+            "target": "java.util.SortedSet first()",
+            "new": "getFirst",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "fa95e252",
+            "target_version": "java21",
+            "reason": "Replace older code patterns with `SequencedCollection` methods, as per https://openjdk.org/jeps/431.",
+            "target": "java.util.SortedSet last()",
+            "new": "getLast",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "17c6ec04",
+            "target_version": "java21",
+            "reason": "Replace older code patterns with `SequencedCollection` methods, as per https://openjdk.org/jeps/431.",
+            "target": "java.util.NavigableSet descendingSet()",
+            "new": "reversed",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "56dc228d",
+            "target_version": "java21",
+            "reason": "Replaces the `javax.security.auth.Subject.getSubject()` and `javax.security.auth.Subject.doAs()` methods with `javax.security.auth.Subject.current()` and `javax.security.auth.Subject.callAs()`.",
+            "target": "javax.security.auth.Subject getSubject()",
+            "new": "current",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "2c14ed45",
+            "target_version": "java21",
+            "reason": "Replaces the `javax.security.auth.Subject.getSubject()` and `javax.security.auth.Subject.doAs()` methods with `javax.security.auth.Subject.current()` and `javax.security.auth.Subject.callAs()`.",
+            "target": "javax.security.auth.Subject doAs()",
+            "new": "callAs",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "57d80d0b",
+            "target_version": "java21",
+            "reason": "The java.desktop module had a few implementations of finalize() that did nothing and have been removed. This recipe will remove these methods.",
+            "target": "java.awt.color.ICC_Profile finalize()",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "0c029a53",
+            "target_version": "java21",
+            "reason": "The java.desktop module had a few implementations of finalize() that did nothing and have been removed. This recipe will remove these methods.",
+            "target": "java.awt.image.ColorModel finalize()",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "4d48825a",
+            "target_version": "java21",
+            "reason": "The java.desktop module had a few implementations of finalize() that did nothing and have been removed. This recipe will remove these methods.",
+            "target": "java.awt.image.IndexColorModel finalize()",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "75958f46",
+            "target_version": "general",
+            "reason": "Replace `end()` method calls with `close()` method calls for `Inflater` and `Deflater` classes in Java 25+, as they now implement AutoCloseable.",
+            "target": "java.util.zip.Deflater end()",
+            "new": "close",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "0a5076f1",
+            "target_version": "general",
+            "reason": "Replace `end()` method calls with `close()` method calls for `Inflater` and `Deflater` classes in Java 25+, as they now implement AutoCloseable.",
+            "target": "java.util.zip.Inflater end()",
+            "new": "close",
+            "type": "method_invocation",
+            "action": "replace"
+        },
+        {
+            "rule_id": "5ffc54ad",
+            "target_version": "java25",
+            "reason": "The Security Manager API is unsupported in Java 24. This recipe will remove the usage of `java.security.AccessController`.",
+            "target": "java.security.AccessController#checkPermission(..)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "92670f35",
+            "target_version": "java25",
+            "reason": "The Security Manager API is unsupported in Java 24. This recipe will remove the use of `java.security.Policy`.",
+            "target": "java.security.Policy#setPolicy(..)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "cb4467ee",
+            "target_version": "java25",
+            "reason": "The Security Manager API is unsupported in Java 24. This recipe will remove the usage of `java.security.SecurityManager`.",
+            "target": "java.lang.SecurityManager#check*(..)",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        },
+        {
+            "rule_id": "1232caf9",
+            "target_version": "java8",
+            "reason": "This recipe will apply changes commonly needed when upgrading to Java 8. This recipe will also replace deprecated API with equivalents when there is a clear migration strategy.",
+            "target": "java.lang.Thread destroy()",
+            "new": null,
+            "type": "method_invocation",
+            "action": "delete"
+        }
+    ]
+}

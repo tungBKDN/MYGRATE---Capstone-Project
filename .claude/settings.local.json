@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"from src.models.state import GlobalState; print\\('state OK'\\)\")",
+      "Bash(python -c \"from src.tools.maven_upgrade_tools import heuristic_filter, check_java_compatibility, DependencySolver, run_upgrade_pipeline, index_java_project; print\\('maven_upgrade_tools OK'\\)\")",
+      "Bash(python -c \"from src.agents.reader_agent import ReaderAgent; from src.agents.architect_agent import ArchitectAgent; print\\('agents OK'\\)\")",
+      "Bash(python -c \"from src.agents.supervisor import SupervisorAgent, get_supervisor_node; print\\('supervisor OK'\\)\")",
+      "Bash(python -c \"from src.workflow import app; print\\('workflow OK'\\)\")",
+      "Bash(python -c \"from src.tools import index_java_project, run_upgrade_pipeline, build_java_upgrade_report, DependencySolver, solve_with_z3; print\\('all exports OK'\\)\")"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "dependency": "org.apache.hadoop:hadoop-common",
+    "current_version": "2.2.0",
+    "target_version": "3.5.0",
+    "file_path": "src\\main\\java\\com\\adroll\\cantor\\HLLWritable.java",
+    "start_line": 4,
+    "end_line": 14,
+    "hit_lines": [
+      9
+    ],
+    "snippet": "    4   import java.io.DataOutput;\n    5   import java.io.IOException;\n    6   import java.util.Arrays;\n    7   import java.util.TreeSet;\n    8   \n    9 > import org.apache.hadoop.io.Writable;\n   10   import org.slf4j.Logger;\n   11   import org.slf4j.LoggerFactory;\n   12   \n   13   import com.adroll.cantor.HLLCounter;\n   14   "
+  },
+  {
+    "dependency": "org.slf4j:slf4j-api",
+    "current_version": "1.7.5",
+    "target_version": "1.7.36",
+    "file_path": "src\\main\\java\\com\\adroll\\cantor\\HLLWritable.java",
+    "start_line": 5,
+    "end_line": 27,
+    "hit_lines": [
+      10,
+      11,
+      22
+    ],
+    "snippet": "    5   import java.io.IOException;\n    6   import java.util.Arrays;\n    7   import java.util.TreeSet;\n    8   \n    9   import org.apache.hadoop.io.Writable;\n   10 > import org.slf4j.Logger;\n   11 > import org.slf4j.LoggerFactory;\n   12   \n   13   import com.adroll.cantor.HLLCounter;\n   14   \n   15   /**\n   16      <code>HLLWritable</code> allows for serialization and \n   17      deserialization of {@link HLLCounter} objects in a \n   18      Hadoop framework.\n   19   */\n   20   public class HLLWritable implements Writable {\n   21     \n   22 >   private static final Logger LOG = LoggerFactory.getLogger(HLLWritable.class);\n   23   \n   24     /** The HLL precision of the contained <code>HLLCounter</code> represenation. \n   25         {@link HLLCounter#MIN_P}<code> &lt;= p &lt;= </code>{@link HLLCounter#MAX_P}.\n   26     */\n   27     protected byte p; "
+  }
+]

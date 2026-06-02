@@ -1,5 +1,6 @@
 from .file_system import list_project_structure, read_source_code, get_file_summary
 from .codebase_indexer import index_codebase
+from .change_finder import build_translation_report, find_change_candidates
 from .maven_upgrade_tools import (
     build_java_upgrade_report,
     index_java_project,
@@ -21,6 +22,8 @@ __all__ = [
     "read_source_code",
     "get_file_summary",
     "index_codebase",
+    "build_translation_report",
+    "find_change_candidates",
     "build_java_upgrade_report",
     "index_java_project",
     "run_upgrade_pipeline",

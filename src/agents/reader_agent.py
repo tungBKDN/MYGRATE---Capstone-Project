@@ -381,7 +381,7 @@ class ReaderAgent:
             return "Chosen as the best available solver output because no PASS candidate was available."
         if smoke_status == "PASS":
             return "Valid candidate, but ranked behind the selected solution by compatibility, upgrade coverage, or version freshness."
-https://arxiv.org/pdf/2504.09691        if smoke_status in {"FAIL", "ERROR"}:
+        if smoke_status in {"FAIL", "ERROR"}:
             return f"Rejected because smoke testing did not pass{': ' + smoke_reason if smoke_reason else ''}."
         return "Kept as a solver candidate but not selected because it lacks stronger runtime validation."
 

@@ -119,9 +119,22 @@ def reader_review_node(state: GlobalState):
 
 def translator_node(state: GlobalState):
     """Translator: apply code transformations."""
-    instruction = state.get("current_instruction", "")
+    instruction_payload = {
+        "project_path": state.get("project_path", ""),
+        "target_java_version": state.get("target_java_version", "17"),
+        "project_type": state.get("project_type"),
+        "current_instruction": state.get("current_instruction", ""),
+        "migration_tasks": state.get("migration_tasks", []),
+        "dependencies": state.get("dependencies", []),
+        "pom_data": state.get("pom_data"),
+        "index_report": state.get("index_report"),
+        "upgrade_report": state.get("upgrade_report"),
+        "candidate_solutions": state.get("candidate_solutions"),
+        "reader_review": state.get("reader_review"),
+        "compatibility_matrix": state.get("compatibility_matrix", {}),
+    }
     agent = TranslatorAgent()
-    result = agent.run(instruction)
+    result = agent.run(json.dumps(instruction_payload, ensure_ascii=False, indent=2, default=str))
     return {"last_subagent_result": result}
 
 

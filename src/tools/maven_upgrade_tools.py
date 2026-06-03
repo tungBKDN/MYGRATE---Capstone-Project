@@ -21,6 +21,7 @@ import os
 import platform
 import re
 import subprocess
+import shutil
 import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
@@ -200,6 +201,132 @@ def _major(version: str) -> int:
     return int(numbers[0]) if numbers else -1
 
 
+def _find_jdeprscan_executable() -> Optional[str]:
+    candidates = []
+
+    direct = shutil.which("jdeprscan")
+    if direct:
+        candidates.append(direct)
+
+    java_executable = shutil.which("java")
+    if java_executable:
+        java_bin_dir = Path(java_executable).resolve().parent
+        for name in ("jdeprscan.exe", "jdeprscan"):
+            sibling = java_bin_dir / name
+            if sibling.exists():
+                candidates.append(str(sibling))
+
+    java_home = os.getenv("JAVA_HOME")
+    if java_home:
+        java_bin_dir = Path(java_home).expanduser() / "bin"
+        for name in ("jdeprscan.exe", "jdeprscan"):
+            sibling = java_bin_dir / name
+            if sibling.exists():
+                candidates.append(str(sibling))
+
+    if os.name == "nt":
+        common_roots = [
+            os.getenv("ProgramFiles"),
+            os.getenv("ProgramFiles(x86)"),
+            os.getenv("ProgramW6432"),
+        ]
+        common_vendor_dirs = ["Java", "Eclipse Adoptium", "Microsoft"]
+        for root in common_roots:
+            if not root:
+                continue
+            root_path = Path(root)
+            for vendor_dir in common_vendor_dirs:
+                vendor_path = root_path / vendor_dir
+                if not vendor_path.exists():
+                    continue
+                for jdk_dir in vendor_path.glob("jdk*"):
+                    for name in ("jdeprscan.exe", "jdeprscan"):
+                        sibling = jdk_dir / "bin" / name
+                        if sibling.exists():
+                            candidates.append(str(sibling))
+
+    for candidate in candidates:
+        if candidate and Path(candidate).exists():
+            return str(Path(candidate))
+    return None
+
+
+def _parse_jdeprscan_output(output: str) -> List[dict]:
+    findings: List[dict] = []
+    for raw_line in output.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith("Jar file ") or line.startswith("Directory "):
+            continue
+        if "deprecated" not in line.lower():
+            continue
+
+        match = re.search(
+            r"^(?P<owner>\S+) uses deprecated (?P<kind>class|method|field|interface) (?P<symbol>.+)$",
+            line,
+        )
+        if match:
+            findings.append(
+                {
+                    "owner": match.group("owner"),
+                    "kind": match.group("kind"),
+                    "symbol": match.group("symbol"),
+                    "line": line,
+                }
+            )
+        else:
+            findings.append({"line": line})
+    return findings
+
+
+def run_jdeprscan_check(jar_path: str, target_release: str = "17", logger=None) -> dict:
+    if not jar_path or not os.path.exists(jar_path):
+        return {"status": "SKIP", "reason": "JAR not found"}
+
+    jdeprscan_executable = _find_jdeprscan_executable()
+    if not jdeprscan_executable:
+        return {"status": "SKIP", "reason": "jdeprscan not available"}
+
+    try:
+        _emit(logger, f"[Step 3] Running jdeprscan --release {target_release} for {Path(jar_path).name}")
+        result = subprocess.run(
+            [jdeprscan_executable, "--release", target_release, jar_path],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        combined_output = "\n".join(part for part in [result.stdout, result.stderr] if part).strip()
+        findings = _parse_jdeprscan_output(combined_output)
+        return {
+            "status": "WARN" if findings else "PASS",
+            "executable": jdeprscan_executable,
+            "exit_code": result.returncode,
+            "finding_count": len(findings),
+            "findings": findings,
+            "output": combined_output,
+        }
+    except FileNotFoundError:
+        return {"status": "SKIP", "reason": "jdeprscan not available"}
+    except subprocess.TimeoutExpired:
+        return {"status": "FAIL", "reason": "jdeprscan timeout"}
+
+
+def _inspect_jar_signals(content: bytes) -> dict:
+    result = {"max_major": -1, "dangerous_refs": set()}
+    with zipfile.ZipFile(io.BytesIO(content)) as z:
+        classes = [n for n in z.namelist() if n.endswith(".class")][:30]
+        for c_name in classes:
+            with z.open(c_name) as f:
+                data = f.read()
+                if len(data) > 8:
+                    result["max_major"] = max(result["max_major"], int.from_bytes(data[6:8], "big"))
+                for pkg in [b"javax/xml/bind", b"javax/activation", b"javax/annotation"]:
+                    if pkg in data:
+                        result["dangerous_refs"].add(pkg.decode())
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Step 1: Fetch candidate versions
 # ---------------------------------------------------------------------------
@@ -232,35 +359,35 @@ def heuristic_filter(versions: List[str], max_output: int = 5, stable_only: bool
 
 
 # ---------------------------------------------------------------------------
-# Step 3: Static check — bytecode scan + Java EE refs
+# Step 3: Static check — bytecode scan + Java EE refs + jdeprscan
 # ---------------------------------------------------------------------------
 
-def check_java_compatibility(group_id: str, artifact_id: str, version: str, target_java: str = "17", logger=None) -> dict:
+def check_java_compatibility(group_id: str, artifact_id: str, version: str, target_java: str = "17", logger=None, jar_path: str | None = None) -> dict:
     g_path = group_id.replace(".", "/")
     url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.jar"
 
     result = {"max_major": -1, "dangerous_refs": set()}
     try:
         _emit(logger, f"[Step 3] Scanning {group_id}:{artifact_id}:{version} for bytecode and removed Java EE refs")
-        resp = requests.get(url, stream=True, timeout=15)
-        if resp.status_code == 200:
-            content = resp.content
-            with zipfile.ZipFile(io.BytesIO(content)) as z:
-                classes = [n for n in z.namelist() if n.endswith(".class")][:30]
-                for c_name in classes:
-                    with z.open(c_name) as f:
-                        data = f.read()
-                        if len(data) > 8:
-                            result["max_major"] = max(result["max_major"], int.from_bytes(data[6:8], "big"))
-                        for pkg in [b"javax/xml/bind", b"javax/activation", b"javax/annotation"]:
-                            if pkg in data:
-                                result["dangerous_refs"].add(pkg.decode())
+        if jar_path and os.path.exists(jar_path):
+            with open(jar_path, "rb") as handle:
+                content = handle.read()
+            result = _inspect_jar_signals(content)
+        else:
+            resp = requests.get(url, stream=True, timeout=15)
+            if resp.status_code == 200:
+                content = resp.content
+                result = _inspect_jar_signals(content)
     except Exception:
         pass
 
     result["dangerous_refs"] = list(result["dangerous_refs"])
     major_map = {52: "8", 53: "9", 55: "11", 61: "17", 65: "21"}
     bytecode_jdk = major_map.get(result["max_major"], str(result["max_major"] - 44) if result["max_major"] > 44 else "Unknown")
+
+    jdeprscan_report = {"status": "SKIP", "reason": "jar not provided"}
+    if jar_path and os.path.exists(jar_path):
+        jdeprscan_report = run_jdeprscan_check(jar_path, target_java, logger=logger)
 
     status = "Yes"
     target_n = int(target_java)
@@ -269,11 +396,13 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
         status = "No"
     elif target_n >= 11 and result["dangerous_refs"]:
         status = "Warning"
+    elif jdeprscan_report.get("status") == "WARN":
+        status = "Warning"
 
     return {
         "dependency": f"{group_id}:{artifact_id}",
         "version": version,
-        "signals": {"bytecode_jdk": bytecode_jdk, "refs": result["dangerous_refs"]},
+        "signals": {"bytecode_jdk": bytecode_jdk, "refs": result["dangerous_refs"], "jdeprscan": jdeprscan_report},
         "analysis": {"compatibility_status": status},
     }
 
@@ -358,7 +487,8 @@ class DependencySolver:
 
         candidates_v3 = []
         for v in v_list:
-            res = check_java_compatibility(group_id, artifact_id, v, self.target_java, logger=self.logger)
+            jar_p = prepare_jar_for_check(group_id, artifact_id, v, logger=self.logger)
+            res = check_java_compatibility(group_id, artifact_id, v, self.target_java, logger=self.logger, jar_path=jar_p or None)
             self.reports[(group_id, artifact_id, v)] = {"step3": res}
             if res["analysis"]["compatibility_status"] in ("Yes", "Warning"):
                 candidates_v3.append(v)

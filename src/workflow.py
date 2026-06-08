@@ -75,50 +75,9 @@ def architect_node(state: GlobalState):
     return update
 
 
-def reader_review_node(state: GlobalState):
-    """Reader final review: choose one validated solution and explain the migration report."""
-    upgrade_report = state.get("upgrade_report") or {}
-    if not upgrade_report:
-        return {
-            "last_subagent_result": json.dumps(
-                {"status": "error", "message": "Missing upgrade report for ReaderAgent final review."},
-                ensure_ascii=False,
-            )
-        }
-
-    review_context = {
-        **upgrade_report,
-        "project_path": state.get("project_path"),
-        "project_type": state.get("project_type"),
-        "target_java": state.get("target_java_version", "17"),
-        "dependencies": state.get("dependencies", []),
-        "pom_data": state.get("pom_data"),
-        "index_summary": state.get("index_report"),
-    }
-
-    print("-> [READER] Final review: selecting the best validated candidate and writing rationale...")
-    agent = ReaderAgent()
-    result = agent.review_candidates(json.dumps(review_context, ensure_ascii=False, indent=2, default=str))
-    update = {"last_subagent_result": result}
-
-    try:
-        parsed = json.loads(result)
-        if isinstance(parsed, dict):
-            update["reader_review"] = parsed
-            selected = parsed.get("selected_solution")
-            if selected:
-                report = dict(upgrade_report)
-                report["reader_review"] = parsed
-                report["best_solution"] = selected
-                update["upgrade_report"] = report
-    except Exception:
-        pass
-
-    return update
-
 
 def translator_node(state: GlobalState):
-    """Translator: apply code transformations."""
+    """Translator: run jdeprscan pipeline first, then apply code transformations."""
     instruction_payload = {
         "project_path": state.get("project_path", ""),
         "target_java_version": state.get("target_java_version", "17"),
@@ -132,10 +91,22 @@ def translator_node(state: GlobalState):
         "candidate_solutions": state.get("candidate_solutions"),
         "reader_review": state.get("reader_review"),
         "compatibility_matrix": state.get("compatibility_matrix", {}),
+        "jdeprscan_report": state.get("jdeprscan_report"),
     }
     agent = TranslatorAgent()
     result = agent.run(json.dumps(instruction_payload, ensure_ascii=False, indent=2, default=str))
-    return {"last_subagent_result": result}
+
+    update = {"last_subagent_result": result}
+
+    # Extract jdeprscan report from translator result and store in state
+    try:
+        parsed = json.loads(result)
+        if isinstance(parsed, dict) and parsed.get("jdeprscan"):
+            update["jdeprscan_report"] = parsed["jdeprscan"]
+    except Exception:
+        pass
+
+    return update
 
 
 # --- Build Graph ---
@@ -152,7 +123,6 @@ def build_app(interrupt: bool = True):
     workflow.add_node("supervisor", get_supervisor_node)
     workflow.add_node("reader", reader_node)
     workflow.add_node("architect", architect_node)
-    workflow.add_node("reader_review", reader_review_node)
     workflow.add_node("translator", translator_node)
 
     workflow.set_entry_point("supervisor")
@@ -163,15 +133,13 @@ def build_app(interrupt: bool = True):
         {
             "reader": "reader",
             "architect": "architect",
-            "reader_review": "reader_review",
             "translator": "translator",
             "end": END,
         },
     )
 
     workflow.add_edge("reader", "supervisor")
-    workflow.add_edge("architect", "reader_review")
-    workflow.add_edge("reader_review", "supervisor")
+    workflow.add_edge("architect", "supervisor")
     workflow.add_edge("translator", "supervisor")
 
     if interrupt:

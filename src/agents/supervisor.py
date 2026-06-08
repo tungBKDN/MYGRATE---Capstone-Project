@@ -1,11 +1,12 @@
 import json
 import os
-
-from langchain_core.messages import AIMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
-
 from src.models.state import GlobalState
+
+# Valid nodes the supervisor can route to
+VALID_NODES = {"reader", "architect", "translator", "end"}
 
 
 class SupervisorAgent:
@@ -17,13 +18,19 @@ class SupervisorAgent:
         self.llm = ChatGroq(model_name=model_name, groq_api_key=api_key, temperature=0)
 
     def process(self, state: GlobalState) -> dict:
+        """
+        Load system prompt, build context from state and invoke the LLM to decide the next node and instruction.
+
+        Params:
+        - state: GlobalState - the current global state of the agent system
+        """
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         prompt_path = os.path.join(base_dir, "src", "prompts", "supervisor.md")
         try:
             with open(prompt_path, "r", encoding="utf-8") as f:
                 system_prompt = f.read()
         except FileNotFoundError:
-            system_prompt = "You are the supervisor."
+            raise FileNotFoundError(f"System prompt file not found at {prompt_path}. Please ensure it exists.")
 
         # Build context from state
         deps_preview = ""
@@ -43,13 +50,10 @@ Last Subagent Result (truncated): {str(state.get('last_subagent_result', ''))[:5
 Completed Tasks: {state.get('completed_tasks_summary', [])}
 """
 
-        messages = [SystemMessage(content=system_prompt) if False else None]
-        # Remove None
-        messages = []
-
-        from langchain_core.messages import SystemMessage, HumanMessage
-        messages.append(SystemMessage(content=system_prompt))
-        messages.append(HumanMessage(content=f"Global State Context:\n{state_context}"))
+        messages = [
+            SystemMessage(content=system_prompt),
+            HumanMessage(content=f"Global State Context:\n{state_context}"),
+        ]
 
         # Append chat history
         user_msgs = state.get("messages", [])
@@ -69,6 +73,11 @@ Completed Tasks: {state.get('completed_tasks_summary', [])}
             print("-> [SUPERVISOR] JSON parse failed. Falling back to end.")
             next_node = "end"
             instruction, summary, response_text = "", "", "Supervisor could not parse the response."
+
+        # Validate next_node against allowed nodes
+        if next_node not in VALID_NODES:
+            print(f"-> [SUPERVISOR] Invalid node '{next_node}'. Falling back to end.")
+            next_node = "end"
 
         update = {"next_node": next_node, "current_instruction": instruction}
         if summary:

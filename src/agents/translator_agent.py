@@ -13,11 +13,21 @@ except Exception:
     ChatGroq = None
 
 from src.tools.change_finder import build_translation_report
+from src.tools.jdeprscan_pipeline import run_jdeprscan_pipeline
 
 class TranslatorAgent:
     """
-    Translator agent that turns migration scope reports into actionable
-    change plans.
+    Translator agent that turns migration scope reports into actionable change plans.
+
+    Workflow:
+        1. ROI searching: Run jdeprscan pipeline to discover deprecated API usage in both project code and dependencies.
+        2. Build translation report from change candidates.
+        3. Enrich with LLM if available.
+
+    The jdeprscan report is the primary data source for deciding what code needs to change. It provides:
+        - Layer 1 (project code): forRemoval and deprecated API calls
+        - Layer 2 (dependencies): which JARs use deprecated APIs
+        - Layer 3 (pom.xml): which dependencies have forRemoval=true
     """
     def __init__(self, model_name: str = None):
         load_dotenv()
@@ -34,11 +44,18 @@ class TranslatorAgent:
     def run(self, instruction: str) -> str:
         payload = self._parse_instruction(instruction)
         project_path = self._resolve_project_path(payload, instruction)
+        target_java = payload.get("target_java_version") or payload.get("target_java") or "17"
         migration_tasks = self._coerce_tasks(payload.get("migration_tasks"))
         dependency_focus_report_path, affected_scopes_path = self._resolve_default_report_paths(project_path, payload)
 
         print(f"-> [TRANSLATOR] Building change plan for: {project_path}")
 
+        # ── Step 1: Run jdeprscan pipeline (B0-B3) ──
+        # This is the primary data source for migration decisions.
+        # It discovers deprecated API usage in project code and dependencies.
+        jdeprscan_report = self._run_jdeprscan(project_path, target_java, payload)
+
+        # ── Step 2: Build translation report from change candidates ──
         report = build_translation_report(
             project_path,
             migration_tasks=migration_tasks,
@@ -49,13 +66,62 @@ class TranslatorAgent:
         )
 
         report["project_type"] = payload.get("project_type")
-        report["target_java_version"] = payload.get("target_java_version")
+        report["target_java_version"] = target_java
         report["current_instruction"] = payload.get("current_instruction") or instruction
+
+        # ── Step 3: Attach jdeprscan data to the report ──
+        # This gives the LLM and downstream consumers full visibility into
+        # what deprecated APIs exist in project code vs dependencies.
+        if jdeprscan_report:
+            report["jdeprscan"] = jdeprscan_report
 
         if self.llm is not None:
             report = self._enrich_with_llm(report, instruction)
 
+        # Step 4: From ROI to Action Plan - find and use LLM to translate the raw data into specific code change recommendations, prioritizing forRemoval=true items and critical dependencies.
+        
+
         return json.dumps(report, ensure_ascii=False, indent=2, default=str)
+
+    def _run_jdeprscan(self, project_path: str, target_java: str, payload: dict[str, Any]) -> dict[str, Any] | None:
+        """Run the jdeprscan pipeline B0-B3 and return structured results.
+
+        This is the first step in the translator workflow because it tells us
+        exactly which APIs are deprecated (forRemoval=true) vs merely deprecated,
+        in both the project's own code and its dependencies.
+
+        Returns None if the pipeline fails, so the translator can still proceed
+        with change_finder data alone.
+        """
+        try:
+            print(f"-> [TRANSLATOR] Running jdeprscan pipeline for JDK {target_java}...")
+
+            # Extract JDK paths from payload if provided
+            jdk8_home = payload.get("jdk8_home")
+            jdk17_home = payload.get("jdk17_home")
+
+            result = run_jdeprscan_pipeline(
+                project_path=project_path,
+                target_release=str(target_java).replace("JDK ", "").replace("jdk ", ""),
+                jdk8_home=jdk8_home,
+                jdk17_home=jdk17_home,
+                logger=lambda msg: print(f"   {msg}"),
+            )
+
+            status = result.get("status", "FAIL")
+            print(f"-> [TRANSLATOR] jdeprscan pipeline: {status}")
+
+            if status == "FAIL" and not result.get("steps", {}).get("b2_project_scan", {}).get("for_removal_count"):
+                # Pipeline failed completely — return the error info but don't block
+                print(f"-> [TRANSLATOR] jdeprscan errors: {result.get('errors', [])}")
+
+            # Return the full structured report regardless of status
+            # Even partial data (e.g., B3 dependency scan only) is valuable
+            return result
+
+        except Exception as e:
+            print(f"-> [TRANSLATOR] jdeprscan pipeline exception: {e}")
+            return None
 
     def _parse_instruction(self, instruction: str) -> dict[str, Any]:
         try:
@@ -128,10 +194,42 @@ class TranslatorAgent:
         )
 
     def _enrich_with_llm(self, report: dict[str, Any], instruction: str) -> dict[str, Any]:
+        # Build context-aware system prompt based on available data
+        jdeprscan = report.get("jdeprscan")
+        jdeprscan_context = ""
+        if jdeprscan:
+            summary = jdeprscan.get("summary", {})
+            proj = summary.get("project_code", {})
+            deps = summary.get("dependencies", {})
+            pom = summary.get("pom_xml", {})
+            jdeprscan_context = (
+                "\n\n## jdeprscan Pipeline Results (B0-B3)\n"
+                f"Pipeline status: {jdeprscan.get('status', 'unknown')}\n"
+                f"Target JDK: {jdeprscan.get('target_release', 'unknown')}\n\n"
+                "### Layer 1 — Project Code\n"
+                f"- forRemoval APIs (will crash at runtime): {proj.get('for_removal_count', 0)}\n"
+                f"- Deprecated APIs (warnings only): {proj.get('deprecated_count', 0)}\n"
+                f"- Clean: {proj.get('clean', False)}\n\n"
+                "### Layer 2 — Dependencies\n"
+                f"- Problem JARs: {deps.get('problem_count', 0)}\n"
+                f"- Critical (forRemoval>0): {deps.get('critical_count', 0)}\n"
+                f"- Top issues: {json.dumps(deps.get('top_issues', []), default=str)}\n\n"
+                "### Layer 3 — pom.xml (Critical Dependencies)\n"
+                f"- Critical count: {pom.get('critical_count', 0)}\n"
+                f"- Critical deps: {json.dumps(pom.get('critical_deps', []), default=str)}\n"
+            )
+
         system_prompt = (
             "You are a translator agent for a Java migration assistant. "
-            "You receive a deterministic change plan and must refine only the narrative fields. "
+            "You receive a deterministic change plan and jdeprscan pipeline results, "
+            "and must refine the narrative fields to produce an actionable migration plan.\n\n"
+            "The jdeprscan data tells you exactly which APIs are deprecated or forRemoval=true "
+            "in both the project's own code and its dependencies. Use this to:\n"
+            "1. Prioritize forRemoval=true items — these WILL crash at runtime if not fixed.\n"
+            "2. Identify which dependencies need version upgrades or replacements.\n"
+            "3. Generate specific code change recommendations for each deprecated API.\n\n"
             "Return valid JSON with the same structure plus optional markdown_report and migration_notes."
+            f"{jdeprscan_context}"
         )
         user_prompt = (
             "Instruction:\n"

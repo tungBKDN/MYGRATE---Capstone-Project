@@ -17,6 +17,15 @@ from .maven_upgrade_tools import (
     inject_constrained_versions,
 )
 from .visualization_engine import generate_dashboard, generate_cross_matrix
+from .jdeprscan_pipeline import (
+    run_jdeprscan_pipeline,
+    find_jdk,
+    find_jdeprscan,
+    find_maven,
+    build_classpath,
+    scan_jar,
+    jar_prefix,
+)
 
 __all__ = [
     "list_project_structure",
@@ -40,4 +49,11 @@ __all__ = [
     "inject_constrained_versions",
     "generate_dashboard",
     "generate_cross_matrix",
+    "run_jdeprscan_pipeline",
+    "find_jdk",
+    "find_jdeprscan",
+    "find_maven",
+    "build_classpath",
+    "scan_jar",
+    "jar_prefix",
 ]

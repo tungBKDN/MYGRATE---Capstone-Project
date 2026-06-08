@@ -37,6 +37,9 @@ class GlobalState(TypedDict):
     compatibility_matrix: dict
     reader_review: Optional[dict]
 
+    # --- jdeprscan output ---
+    jdeprscan_report: Optional[dict]
+
     # --- Migration tasks ---
     migration_tasks: list
 

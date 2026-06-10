@@ -74,8 +74,6 @@ def architect_node(state: GlobalState):
 
     return update
 
-
-
 def translator_node(state: GlobalState):
     """Translator: run jdeprscan pipeline first, then apply code transformations."""
     instruction_payload = {
@@ -84,13 +82,6 @@ def translator_node(state: GlobalState):
         "project_type": state.get("project_type"),
         "current_instruction": state.get("current_instruction", ""),
         "migration_tasks": state.get("migration_tasks", []),
-        "dependencies": state.get("dependencies", []),
-        "pom_data": state.get("pom_data"),
-        "index_report": state.get("index_report"),
-        "upgrade_report": state.get("upgrade_report"),
-        "candidate_solutions": state.get("candidate_solutions"),
-        "reader_review": state.get("reader_review"),
-        "compatibility_matrix": state.get("compatibility_matrix", {}),
         "jdeprscan_report": state.get("jdeprscan_report"),
     }
     agent = TranslatorAgent()
@@ -135,6 +126,7 @@ def build_app(interrupt: bool = True):
             "architect": "architect",
             "translator": "translator",
             "end": END,
+            "supervisor": "supervisor",
         },
     )
 

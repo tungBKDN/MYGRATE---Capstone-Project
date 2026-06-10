@@ -189,3 +189,53 @@ def build_translation_report(
             "files_covered": len({candidate["file_path"] for candidate in candidates}),
         },
     }
+
+def resolve_default_report_paths(
+    project_path: str,
+    payload: dict[str, Any],
+) -> tuple[str | None, str | None]:
+    """Resolve dependency focus and affected scopes report paths from workspace candidate locations."""
+    dependency_focus = payload.get("dependency_focus_report_path")
+    affected_scopes = payload.get("affected_scopes_path")
+
+    if dependency_focus and affected_scopes:
+        return str(dependency_focus), str(affected_scopes)
+
+    workspace_candidates = [Path.cwd(), Path(project_path).resolve().parent, Path(project_path).resolve()]
+
+    if not dependency_focus:
+        for base_dir in workspace_candidates:
+            candidate = base_dir / "dependency_focus_scopes.json"
+            if candidate.exists():
+                dependency_focus = str(candidate)
+                break
+
+    if not affected_scopes:
+        for base_dir in workspace_candidates:
+            for filename in ["affected_scopes_cantor.json", "affected_scopes.json"]:
+                candidate = base_dir / filename
+                if candidate.exists():
+                    affected_scopes = str(candidate)
+                    break
+            if affected_scopes:
+                break
+
+    return (
+        dependency_focus if dependency_focus else None,
+        affected_scopes if affected_scopes else None,
+    )
+
+
+def coerce_tasks(tasks: Any) -> list[dict[str, Any]]:
+    """Ensure migration tasks are represented as a list of dictionaries."""
+    if not isinstance(tasks, list):
+        return []
+
+    normalized: list[dict[str, Any]] = []
+    for item in tasks:
+        if isinstance(item, dict):
+            normalized.append(item)
+        elif isinstance(item, str) and item.strip():
+            normalized.append({"title": item.strip()})
+    return normalized
+

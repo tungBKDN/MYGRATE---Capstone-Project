@@ -116,3 +116,75 @@ def test_translator_agent_generates_json_plan_without_llm(tmp_path: Path) -> Non
     assert result["change_candidates"]
     assert result["change_candidates"][0]["file_path"] == "src/main/java/demo/Demo.java"
     assert result["target_java_version"] == "17"
+
+
+def test_search_tools(tmp_path: Path) -> None:
+    from src.tools.codebase_search_tools import find_code_usages, search_codebase
+
+    project_root, _, _ = _write_sample_project(tmp_path)
+
+    # Test AST Search (find_code_usages)
+    class_usages = find_code_usages(str(project_root), "class_declaration", "Demo")
+    assert len(class_usages) == 1
+    assert class_usages[0]["file_path"] == "src/main/java/demo/Demo.java"
+    assert "class Demo" in class_usages[0]["snippet"]
+
+    method_usages = find_code_usages(str(project_root), "method_invocation", "getLogger")
+    assert len(method_usages) == 1
+    assert "getLogger(Demo.class)" in method_usages[0]["snippet"]
+
+    var_usages = find_code_usages(str(project_root), "variable_declarator", "LOG")
+    assert len(var_usages) == 1
+    assert "LOG = LoggerFactory.getLogger(Demo.class)" in var_usages[0]["snippet"]
+
+    import_usages = find_code_usages(str(project_root), "import_declaration", "org.slf4j.Logger")
+    assert len(import_usages) == 1
+    assert "import org.slf4j.Logger;" in import_usages[0]["snippet"]
+
+    # Test smart text search (search_codebase)
+    text_matches = search_codebase(str(project_root), "getLogger", ["java"])
+    assert len(text_matches) == 1
+    assert text_matches[0]["file_path"] == "src/main/java/demo/Demo.java"
+    assert "getLogger" in text_matches[0]["line_content"]
+
+    # Test file migration details lookup (get_file_migration_details)
+    target_dir = project_root / "target"
+    target_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Write dummy jdeprscan report
+    with open(target_dir / "jdeprscan_report.json", "w") as f:
+        json.dump({
+            "steps": {
+                "b2_project_scan": {
+                    "for_removal": [
+                        "class demo.Demo uses deprecated class org.apache.hadoop.io.Writable (forRemoval=true)"
+                    ],
+                    "deprecated": []
+                }
+            }
+        }, f)
+        
+    # Write dummy change plan
+    with open(target_dir / "mygrate_report.json", "w") as f:
+        json.dump({
+            "change_candidates": [
+                {
+                    "file_path": "src/main/java/demo/Demo.java",
+                    "snippet": "dummy snippet info"
+                }
+            ]
+        }, f)
+        
+    from src.tools.codebase_search_tools import get_file_migration_details
+    details = get_file_migration_details(str(project_root), "src/main/java/demo/Demo.java")
+    assert len(details["deprecations"]) == 1
+    assert "Writable" in details["deprecations"][0]
+    assert len(details["change_candidates"]) == 1
+    assert details["change_candidates"][0]["snippet"] == "dummy snippet info"
+
+    # Test write_file
+    from src.tools import write_file
+    write_result = write_file.func(project_path=str(project_root), file_path="test_write.txt", content="test content")
+    assert "Successfully wrote" in write_result
+    assert (project_root / "artifacts" / "test_write.txt").read_text() == "test content"
+

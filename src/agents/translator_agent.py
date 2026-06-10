@@ -1,266 +1,670 @@
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
-
-try:
-    from langchain_groq import ChatGroq
-except Exception:
-    ChatGroq = None
-
-from src.tools.change_finder import build_translation_report
+from src.agents.base_agent import BaseAgent, ToolDefinition
+from src.tools.change_finder import build_translation_report, resolve_default_report_paths, coerce_tasks
 from src.tools.jdeprscan_pipeline import run_jdeprscan_pipeline
+from src.tools.report_enricher import enrich_report_with_llm
+from src.tools.codebase_search_tools import find_code_usages, search_codebase, get_file_migration_details
+from src.tools import write_file, MavenPomEditor, MavenProject, MavenRunner
 
-class TranslatorAgent:
+
+class TranslatorAgent(BaseAgent):
     """
     Translator agent that turns migration scope reports into actionable change plans.
 
-    Workflow:
-        1. ROI searching: Run jdeprscan pipeline to discover deprecated API usage in both project code and dependencies.
-        2. Build translation report from change candidates.
-        3. Enrich with LLM if available.
+    Uses the ReAct pattern: the LLM autonomously decides which tools to call
+    (jdeprscan, change_finder, enrich) and in what order, based on the instruction.
+
+    Available tools:
+        - run_jdeprscan: Discover deprecated API usage in project code and dependencies.
+        - build_change_plan: Build a translation report from change candidates.
+        - enrich_report: Enrich the report with LLM-generated recommendations.
 
     The jdeprscan report is the primary data source for deciding what code needs to change. It provides:
         - Layer 1 (project code): forRemoval and deprecated API calls
         - Layer 2 (dependencies): which JARs use deprecated APIs
         - Layer 3 (pom.xml): which dependencies have forRemoval=true
     """
-    def __init__(self, model_name: str = None):
-        load_dotenv()
-        if model_name is None:
-            model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-        api_key = os.getenv("GROQ_API_KEY")
-        self.llm = None
-        if api_key and ChatGroq is not None:
-            try:
-                self.llm = ChatGroq(model_name=model_name, groq_api_key=api_key, temperature=0)
-            except Exception:
-                self.llm = None
 
-    def run(self, instruction: str) -> str:
-        payload = self._parse_instruction(instruction)
-        project_path = self._resolve_project_path(payload, instruction)
-        target_java = payload.get("target_java_version") or payload.get("target_java") or "17"
-        migration_tasks = self._coerce_tasks(payload.get("migration_tasks"))
-        dependency_focus_report_path, affected_scopes_path = self._resolve_default_report_paths(project_path, payload)
+    def get_prompt_file(self) -> str | None:
+        """Load the detailed markdown prompt for the Translator Agent."""
+        return "translator.md"
 
-        print(f"-> [TRANSLATOR] Building change plan for: {project_path}")
+    def get_tools(self) -> list[ToolDefinition]:
+        return [
+            ToolDefinition(
+                name="run_jdeprscan",
+                description=(
+                    "Run the jdeprscan pipeline (B0-B3) to discover deprecated API usage "
+                    "in both project code and dependencies. This is the primary data source "
+                    "for migration decisions. Returns a structured report with 3 layers: "
+                    "project code (forRemoval/deprecated), dependency JARs, and pom.xml critical deps."
+                ),
+                func=self._tool_run_jdeprscan,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the Java project root directory",
+                        },
+                        "target_java_version": {
+                            "type": "string",
+                            "description": "Target JDK version (e.g., '17')",
+                        },
+                        "jdk8_home": {
+                            "type": "string",
+                            "description": "Optional path to JDK 8 home directory",
+                        },
+                        "jdk17_home": {
+                            "type": "string",
+                            "description": "Optional path to JDK 17 home directory",
+                        },
+                    },
+                    "required": ["project_path"],
+                },
+            ),
+            ToolDefinition(
+                name="build_change_plan",
+                description=(
+                    "Build a translation report from change candidates. This scans the project "
+                    "for code patterns that need updating based on dependency focus scopes "
+                    "and affected scopes. Returns a structured report with change candidates, "
+                    "file locations, and migration task summaries."
+                ),
+                func=self._tool_build_change_plan,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the Java project root directory",
+                        },
+                        "migration_tasks": {
+                            "type": "array",
+                            "description": "List of migration tasks to include in the report",
+                        },
+                        "dependency_focus_scopes": {
+                            "type": "object",
+                            "description": "Dependency focus scopes for change detection",
+                        },
+                        "affected_scopes": {
+                            "type": "array",
+                            "description": "Affected scope data for change detection",
+                        },
+                        "dependency_focus_report_path": {
+                            "type": "string",
+                            "description": "Path to dependency_focus_scopes.json",
+                        },
+                        "affected_scopes_path": {
+                            "type": "string",
+                            "description": "Path to affected_scopes.json",
+                        },
+                    },
+                    "required": ["project_path"],
+                },
+            ),
+            ToolDefinition(
+                name="enrich_report",
+                description=(
+                    "Enrich a migration report with LLM-generated recommendations. "
+                    "Takes the existing report (with optional jdeprscan data) and adds "
+                    "prioritized migration recommendations, focusing on forRemoval=true items "
+                    "and critical dependencies. Returns the enriched report as JSON."
+                ),
+                func=self._tool_enrich_report,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "report_json": {
+                            "type": "object",
+                            "description": "The current report as a JSON object to enrich",
+                        },
+                        "instruction": {
+                            "type": "string",
+                            "description": "The original instruction for context",
+                        },
+                    },
+                    "required": ["report_json"],
+                },
+            ),
+            ToolDefinition(
+                name="find_code_usages",
+                description=(
+                    "Find semantic Java code usages using tree-sitter. Searches for method calls, "
+                    "class declarations, imports, or variable declarations matching a specific identifier."
+                ),
+                func=self._tool_find_code_usages,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the Java project root directory",
+                        },
+                        "node_type": {
+                            "type": "string",
+                            "enum": [
+                                "method_invocation",
+                                "class_declaration",
+                                "import_declaration",
+                                "variable_declarator",
+                            ],
+                            "description": "The AST node type to search for",
+                        },
+                        "identifier": {
+                            "type": "string",
+                            "description": "The class, method, or variable name to match",
+                        },
+                    },
+                    "required": ["node_type", "identifier"],
+                },
+            ),
+            ToolDefinition(
+                name="search_codebase",
+                description=(
+                    "Grep/Regex search text content within specified file extensions in the codebase. "
+                    "Use this to find configuration keys, properties, or hardcoded strings."
+                ),
+                func=self._tool_search_codebase,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the project root directory",
+                        },
+                        "regex_pattern": {
+                            "type": "string",
+                            "description": "The regular expression pattern to search for",
+                        },
+                        "file_extensions": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "List of file extensions to search (e.g. ['xml', 'properties'])",
+                        },
+                    },
+                    "required": ["regex_pattern", "file_extensions"],
+                },
+            ),
+            ToolDefinition(
+                name="get_file_migration_details",
+                description=(
+                    "Retrieve the detailed deprecation references and change candidates for a specific file path "
+                    "from the generated reports. Use this to obtain exact code snippets and migration details "
+                    "for the file you are currently working on."
+                ),
+                func=self._tool_get_file_migration_details,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the project root directory",
+                        },
+                        "file_path": {
+                            "type": "string",
+                            "description": "The relative file path to get migration details for (e.g. src/main/java/...)",
+                        },
+                    },
+                    "required": ["file_path"],
+                },
+            ),
+            ToolDefinition(
+                name="write_file",
+                description=(
+                    "Writes or overwrites the content of a file. "
+                    "All written files are automatically stored under the project's 'artifacts' directory "
+                    "to preserve original code and aggregate migrated files."
+                ),
+                func=self._tool_write_file,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the project root directory",
+                        },
+                        "file_path": {
+                            "type": "string",
+                            "description": "Path to the file to write (relative to project root)",
+                        },
+                        "content": {
+                            "type": "string",
+                            "description": "The complete source code/text to write to the file",
+                        },
+                    },
+                    "required": ["file_path", "content"],
+                },
+            ),
+            ToolDefinition(
+                name="edit_pom_dependency",
+                description=(
+                    "Programmatically update or insert dependencies, properties, plugins, or configurations "
+                    "in a pom.xml file. Preserves namespaces and XML formatting."
+                ),
+                func=self._tool_edit_pom_dependency,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the Java project root directory",
+                        },
+                        "module": {
+                            "type": "string",
+                            "description": "Optional module folder name if this is a multi-module project (e.g. 'sonar-stash')",
+                        },
+                        "action": {
+                            "type": "string",
+                            "enum": ["add_dependency", "update_dependency", "ensure_property", "update_element_text"],
+                            "description": "The pom modification action to perform",
+                        },
+                        "group_id": {
+                            "type": "string",
+                            "description": "Group ID of the dependency or plugin (required for add_dependency, update_dependency)",
+                        },
+                        "artifact_id": {
+                            "type": "string",
+                            "description": "Artifact ID of the dependency or plugin (required for add_dependency, update_dependency)",
+                        },
+                        "version": {
+                            "type": "string",
+                            "description": "Version of the dependency, property value, or element text",
+                        },
+                        "scope": {
+                            "type": "string",
+                            "description": "Optional scope for dependency (e.g. 'test', 'provided')",
+                        },
+                        "property_name": {
+                            "type": "string",
+                            "description": "Name of the property (required for ensure_property)",
+                        },
+                        "xpath": {
+                            "type": "string",
+                            "description": "XPath expression (required for update_element_text, e.g. './m:version' or './/m:properties/m:java.version')",
+                        },
+                    },
+                    "required": ["action"],
+                },
+            ),
+            ToolDefinition(
+                name="run_maven_command",
+                description=(
+                    "Execute Maven compilation, tests, or dependency resolution on the target project. "
+                    "Use this to verify whether changes compile and pass smoke tests/unit tests."
+                ),
+                func=self._tool_run_maven_command,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the Java project root directory",
+                        },
+                        "goal": {
+                            "type": "string",
+                            "enum": ["compile", "test", "install", "deps", "copy_deps"],
+                            "description": "The Maven goal to execute (compile: compile project, test: run verify/test suite, install: build and install to local repo, deps: list classpath, copy_deps: copy dependencies)",
+                        },
+                        "clean": {
+                            "type": "boolean",
+                            "description": "Whether to run clean before the goal (default: False)",
+                        },
+                        "skip_tests": {
+                            "type": "boolean",
+                            "description": "Whether to skip test execution during verification (default: False)",
+                        },
+                        "target_java_version": {
+                            "type": "string",
+                            "description": "Optional target Java version to pass to Maven compiler (default: '17')",
+                        },
+                    },
+                    "required": ["goal"],
+                },
+            ),
+        ]
 
-        # ── Step 1: Run jdeprscan pipeline (B0-B3) ──
-        # This is the primary data source for migration decisions.
-        # It discovers deprecated API usage in project code and dependencies.
-        jdeprscan_report = self._run_jdeprscan(project_path, target_java, payload)
+    # ── Tool implementations ──
 
-        # ── Step 2: Build translation report from change candidates ──
-        report = build_translation_report(
-            project_path,
-            migration_tasks=migration_tasks,
-            dependency_focus=payload.get("dependency_focus_scopes"),
-            affected_scopes=payload.get("affected_scopes"),
-            focus_report_path=dependency_focus_report_path,
-            affected_scopes_path=affected_scopes_path,
-        )
+    def _tool_run_jdeprscan(
+        self,
+        project_path: str = "",
+        target_java_version: str = "17",
+        jdk8_home: str | None = None,
+        jdk17_home: str | None = None,
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Run jdeprscan pipeline B0-B3."""
+        target_java = str(target_java_version).replace("JDK ", "").replace("jdk ", "") or "17"
 
-        report["project_type"] = payload.get("project_type")
-        report["target_java_version"] = target_java
-        report["current_instruction"] = payload.get("current_instruction") or instruction
-
-        # ── Step 3: Attach jdeprscan data to the report ──
-        # This gives the LLM and downstream consumers full visibility into
-        # what deprecated APIs exist in project code vs dependencies.
-        if jdeprscan_report:
-            report["jdeprscan"] = jdeprscan_report
-
-        if self.llm is not None:
-            report = self._enrich_with_llm(report, instruction)
-
-        # Step 4: From ROI to Action Plan - find and use LLM to translate the raw data into specific code change recommendations, prioritizing forRemoval=true items and critical dependencies.
-        
-
-        return json.dumps(report, ensure_ascii=False, indent=2, default=str)
-
-    def _run_jdeprscan(self, project_path: str, target_java: str, payload: dict[str, Any]) -> dict[str, Any] | None:
-        """Run the jdeprscan pipeline B0-B3 and return structured results.
-
-        This is the first step in the translator workflow because it tells us
-        exactly which APIs are deprecated (forRemoval=true) vs merely deprecated,
-        in both the project's own code and its dependencies.
-
-        Returns None if the pipeline fails, so the translator can still proceed
-        with change_finder data alone.
-        """
         try:
             print(f"-> [TRANSLATOR] Running jdeprscan pipeline for JDK {target_java}...")
 
-            # Extract JDK paths from payload if provided
-            jdk8_home = payload.get("jdk8_home")
-            jdk17_home = payload.get("jdk17_home")
-
             result = run_jdeprscan_pipeline(
                 project_path=project_path,
-                target_release=str(target_java).replace("JDK ", "").replace("jdk ", ""),
-                jdk8_home=jdk8_home,
-                jdk17_home=jdk17_home,
+                target_release=target_java,
+                jdk8_home=jdk8_home or None,
+                jdk17_home=jdk17_home or None,
                 logger=lambda msg: print(f"   {msg}"),
             )
 
             status = result.get("status", "FAIL")
             print(f"-> [TRANSLATOR] jdeprscan pipeline: {status}")
 
-            if status == "FAIL" and not result.get("steps", {}).get("b2_project_scan", {}).get("for_removal_count"):
-                # Pipeline failed completely — return the error info but don't block
-                print(f"-> [TRANSLATOR] jdeprscan errors: {result.get('errors', [])}")
+            # Save full report to file
+            target_dir = Path(project_path) / "target"
+            target_dir.mkdir(parents=True, exist_ok=True)
+            report_file = target_dir / "jdeprscan_report.json"
+            with open(report_file, "w", encoding="utf-8") as f:
+                json.dump(result, f, ensure_ascii=False, indent=2, default=str)
+            print(f"-> [TRANSLATOR] Saved full jdeprscan report to {report_file}")
 
-            # Return the full structured report regardless of status
-            # Even partial data (e.g., B3 dependency scan only) is valuable
-            return result
+            if self.llm is None:
+                # Strip only the verbose lines from dependency jar scans to prevent excessive payload
+                if "steps" in result and "b3_dep_scan" in result["steps"]:
+                    b3_dep = result["steps"]["b3_dep_scan"]
+                    if isinstance(b3_dep, dict):
+                        for p_jar in b3_dep.get("problem_jars", []):
+                            if isinstance(p_jar, dict):
+                                p_jar.pop("lines", None)
+                        for t_jar in b3_dep.get("timeout_jars", []):
+                            if isinstance(t_jar, dict):
+                                t_jar.pop("lines", None)
+                return result
+
+            # Return a lean summary to the LLM context
+            lean_result = {
+                "status": status,
+                "report_file": str(report_file.relative_to(Path(project_path))),
+                "summary": result.get("summary", {}),
+                "project_path": result.get("project_path"),
+                "target_release": result.get("target_release"),
+            }
+            return lean_result
 
         except Exception as e:
             print(f"-> [TRANSLATOR] jdeprscan pipeline exception: {e}")
-            return None
+            return {"status": "FAIL", "error": str(e)}
 
-    def _parse_instruction(self, instruction: str) -> dict[str, Any]:
+    def _tool_build_change_plan(
+        self,
+        project_path: str = "",
+        migration_tasks: list | None = None,
+        dependency_focus_scopes: dict | None = None,
+        affected_scopes: list | None = None,
+        dependency_focus_report_path: str | None = None,
+        affected_scopes_path: str | None = None,
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Build translation report from change candidates."""
+        # Resolve default report paths if not provided
+        if not dependency_focus_report_path or not affected_scopes_path:
+            resolved_dep, resolved_aff = resolve_default_report_paths(project_path, kwargs)
+            if not dependency_focus_report_path:
+                dependency_focus_report_path = resolved_dep
+            if not affected_scopes_path:
+                affected_scopes_path = resolved_aff
+
+        # Coerce migration tasks
+        tasks = coerce_tasks(migration_tasks)
+
+        report = build_translation_report(
+            project_path,
+            migration_tasks=tasks,
+            dependency_focus=dependency_focus_scopes,
+            affected_scopes=affected_scopes,
+            focus_report_path=dependency_focus_report_path,
+            affected_scopes_path=affected_scopes_path,
+        )
+
+        # Add metadata
+        report["project_type"] = kwargs.get("project_type")
+        report["target_java_version"] = kwargs.get("target_java_version", "17")
+        report["current_instruction"] = kwargs.get("current_instruction", "")
+
+        # Save full change plan report to file
+        target_dir = Path(project_path) / "target"
+        target_dir.mkdir(parents=True, exist_ok=True)
+        report_file = target_dir / "mygrate_report.json"
+        with open(report_file, "w", encoding="utf-8") as f:
+            json.dump(report, f, ensure_ascii=False, indent=2, default=str)
+        print(f"-> [TRANSLATOR] Saved full change plan to {report_file}")
+
+        if self.llm is None:
+            return report
+
+        # Return a lean summary to the LLM context
+        lean_report = {
+            "status": report.get("status", "ok"),
+            "report_file": str(report_file.relative_to(Path(project_path))),
+            "task_count": report.get("task_count", 0),
+            "change_candidates_summary": [
+                {
+                    "file_path": c.get("file_path"),
+                    "reason": c.get("reason"),
+                    "match_type": c.get("match_type"),
+                    "dependency": c.get("dependency")
+                }
+                for c in report.get("change_candidates", [])
+            ]
+        }
+        return lean_report
+
+    # def _tool_get_lines_to_change(self, file_path: str, start_line: int, end_line: int, 
+
+    def _tool_enrich_report(
+        self,
+        report_json: dict | str = "{}",
+        instruction: str = "",
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Enrich report with LLM-generated recommendations."""
+        project_path = kwargs.get("project_path", "")
+        return enrich_report_with_llm(self.llm, report_json, instruction, project_path=project_path)
+
+    def _tool_get_file_migration_details(
+        self,
+        project_path: str = "",
+        file_path: str = "",
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Get detailed migration information for a specific file path."""
         try:
-            parsed = json.loads(instruction)
-            if isinstance(parsed, dict):
-                return parsed
-        except Exception:
-            pass
+            from src.tools.codebase_search_tools import get_file_migration_details
+            print(f"-> [TRANSLATOR] Fetching migration details for file '{file_path}'...")
+            results = get_file_migration_details(project_path, file_path)
+            return {"status": "ok", "details": results}
+        except Exception as e:
+            print(f"-> [TRANSLATOR] Get file migration details exception: {e}")
+            return {"status": "error", "error": str(e)}
 
-        payload: dict[str, Any] = {}
-        for label in ["Project Path", "project_path", "Target Java Version", "target_java_version", "current_instruction"]:
-            value = self._extract_value(instruction, [label])
-            if value:
-                payload[label.lower().replace(" ", "_")] = value
-        return payload
-
-    def _resolve_project_path(self, payload: dict[str, Any], instruction: str) -> str:
-        for key in ["project_path", "project root", "project_root"]:
-            value = payload.get(key)
-            if value:
-                return str(value)
-
-        extracted = self._extract_value(instruction, ["Project Path", "project_path", "path"])
-        if extracted:
-            return extracted
-
-        return str(Path.cwd())
-
-    def _coerce_tasks(self, tasks: Any) -> list[dict[str, Any]]:
-        if not isinstance(tasks, list):
-            return []
-
-        normalized: list[dict[str, Any]] = []
-        for item in tasks:
-            if isinstance(item, dict):
-                normalized.append(item)
-            elif isinstance(item, str) and item.strip():
-                normalized.append({"title": item.strip()})
-        return normalized
-
-    def _resolve_default_report_paths(self, project_path: str, payload: dict[str, Any]) -> tuple[str | None, str | None]:
-        dependency_focus = payload.get("dependency_focus_report_path")
-        affected_scopes = payload.get("affected_scopes_path")
-
-        if dependency_focus and affected_scopes:
-            return str(dependency_focus), str(affected_scopes)
-
-        workspace_candidates = [Path.cwd(), Path(project_path).resolve().parent, Path(project_path).resolve()]
-
-        if not dependency_focus:
-            for base_dir in workspace_candidates:
-                candidate = base_dir / "dependency_focus_scopes.json"
-                if candidate.exists():
-                    dependency_focus = candidate
-                    break
-
-        if not affected_scopes:
-            for base_dir in workspace_candidates:
-                for filename in ["affected_scopes_cantor.json", "affected_scopes.json"]:
-                    candidate = base_dir / filename
-                    if candidate.exists():
-                        affected_scopes = candidate
-                        break
-                if affected_scopes:
-                    break
-
-        return (
-            str(dependency_focus) if dependency_focus else None,
-            str(affected_scopes) if affected_scopes else None,
-        )
-
-    def _enrich_with_llm(self, report: dict[str, Any], instruction: str) -> dict[str, Any]:
-        # Build context-aware system prompt based on available data
-        jdeprscan = report.get("jdeprscan")
-        jdeprscan_context = ""
-        if jdeprscan:
-            summary = jdeprscan.get("summary", {})
-            proj = summary.get("project_code", {})
-            deps = summary.get("dependencies", {})
-            pom = summary.get("pom_xml", {})
-            jdeprscan_context = (
-                "\n\n## jdeprscan Pipeline Results (B0-B3)\n"
-                f"Pipeline status: {jdeprscan.get('status', 'unknown')}\n"
-                f"Target JDK: {jdeprscan.get('target_release', 'unknown')}\n\n"
-                "### Layer 1 — Project Code\n"
-                f"- forRemoval APIs (will crash at runtime): {proj.get('for_removal_count', 0)}\n"
-                f"- Deprecated APIs (warnings only): {proj.get('deprecated_count', 0)}\n"
-                f"- Clean: {proj.get('clean', False)}\n\n"
-                "### Layer 2 — Dependencies\n"
-                f"- Problem JARs: {deps.get('problem_count', 0)}\n"
-                f"- Critical (forRemoval>0): {deps.get('critical_count', 0)}\n"
-                f"- Top issues: {json.dumps(deps.get('top_issues', []), default=str)}\n\n"
-                "### Layer 3 — pom.xml (Critical Dependencies)\n"
-                f"- Critical count: {pom.get('critical_count', 0)}\n"
-                f"- Critical deps: {json.dumps(pom.get('critical_deps', []), default=str)}\n"
-            )
-
-        system_prompt = (
-            "You are a translator agent for a Java migration assistant. "
-            "You receive a deterministic change plan and jdeprscan pipeline results, "
-            "and must refine the narrative fields to produce an actionable migration plan.\n\n"
-            "The jdeprscan data tells you exactly which APIs are deprecated or forRemoval=true "
-            "in both the project's own code and its dependencies. Use this to:\n"
-            "1. Prioritize forRemoval=true items — these WILL crash at runtime if not fixed.\n"
-            "2. Identify which dependencies need version upgrades or replacements.\n"
-            "3. Generate specific code change recommendations for each deprecated API.\n\n"
-            "Return valid JSON with the same structure plus optional markdown_report and migration_notes."
-            f"{jdeprscan_context}"
-        )
-        user_prompt = (
-            "Instruction:\n"
-            f"{instruction}\n\n"
-            "Existing change plan JSON:\n"
-            f"{json.dumps(report, ensure_ascii=False, indent=2, default=str)}"
-        )
-
+    def _tool_write_file(
+        self,
+        project_path: str = "",
+        file_path: str = "",
+        content: str = "",
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Write content to a file, storing it under the artifacts directory."""
         try:
-            response = self.llm.invoke([
-                ("system", system_prompt),
-                ("user", user_prompt),
-            ])
-            content = getattr(response, "content", "") or ""
-            parsed = json.loads(content)
-            if isinstance(parsed, dict):
-                for key, value in report.items():
-                    parsed.setdefault(key, value)
-                return parsed
-        except Exception:
-            pass
+            print(f"-> [TRANSLATOR] Writing file to artifacts/ for '{file_path}'...")
+            result = write_file.func(project_path=project_path, file_path=file_path, content=content)
+            return {"status": "ok", "message": result}
+        except Exception as e:
+            print(f"-> [TRANSLATOR] Write file exception: {e}")
+            return {"status": "error", "error": str(e)}
 
-        return report
+    def _tool_find_code_usages(
+        self,
+        project_path: str = "",
+        node_type: str = "",
+        identifier: str = "",
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Search Java AST for usages of an identifier."""
+        try:
+            print(f"-> [TRANSLATOR] Finding code usages: {node_type} matching '{identifier}'...")
+            results = find_code_usages(project_path, node_type, identifier)
+            return {"status": "ok", "usages": results, "count": len(results)}
+        except Exception as e:
+            print(f"-> [TRANSLATOR] Find code usages exception: {e}")
+            return {"status": "error", "error": str(e)}
 
+    def _tool_search_codebase(
+        self,
+        project_path: str = "",
+        regex_pattern: str = "",
+        file_extensions: list | None = None,
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Regex grep search in codebase."""
+        try:
+            extensions = file_extensions or []
+            print(f"-> [TRANSLATOR] Searching codebase with regex '{regex_pattern}' in {extensions}...")
+            results = search_codebase(project_path, regex_pattern, extensions)
+            return {"status": "ok", "matches": results, "count": len(results)}
+        except Exception as e:
+            print(f"-> [TRANSLATOR] Search codebase exception: {e}")
+            return {"status": "error", "error": str(e)}
 
-    def _extract_value(self, instruction: str, labels: list[str]) -> str:
-        import re
+    def _tool_edit_pom_dependency(
+        self,
+        project_path: str = "",
+        module: str | None = None,
+        action: str = "",
+        group_id: str | None = None,
+        artifact_id: str | None = None,
+        version: str | None = None,
+        scope: str | None = None,
+        property_name: str | None = None,
+        xpath: str | None = None,
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Modify pom.xml using MavenPomEditor."""
+        try:
+            print(f"-> [TRANSLATOR] Editing POM: action={action}, module={module}...")
+            p_path = Path(project_path)
+            root_pom = p_path / "pom.xml"
+            if not root_pom.exists():
+                return {"status": "error", "error": f"No root pom.xml found at {root_pom}"}
+                
+            project = MavenProject(str(root_pom))
+            
+            try:
+                editor = project.get_pom_editor(module)
+            except Exception as e:
+                return {"status": "error", "error": f"Failed to get POM editor for module '{module}': {e}"}
+            
+            if action == "add_dependency":
+                if not group_id or not artifact_id or not version:
+                    return {"status": "error", "error": "group_id, artifact_id, and version are required for add_dependency"}
+                editor.add_dependency(group_id, artifact_id, version, scope=scope)
+                return {"status": "ok", "message": f"Added dependency {group_id}:{artifact_id}:{version} (scope: {scope})"}
+                
+            elif action == "update_dependency":
+                if not group_id or not artifact_id or not version:
+                    return {"status": "error", "error": "group_id, artifact_id, and version are required for update_dependency"}
+                
+                if editor.dependency_exists(group_id, artifact_id):
+                    def update_func(dep_elem):
+                        version_elem = editor.ensure_element(dep_elem, "m:version")
+                        version_elem.text = version
+                        if scope:
+                            scope_elem = editor.ensure_element(dep_elem, "m:scope")
+                            scope_elem.text = scope
+                    editor.update_dependency(group_id, artifact_id, update_func)
+                    return {"status": "ok", "message": f"Updated dependency {group_id}:{artifact_id} to version {version} (scope: {scope})"}
+                else:
+                    editor.add_dependency(group_id, artifact_id, version, scope=scope)
+                    return {"status": "ok", "message": f"Dependency {group_id}:{artifact_id} did not exist, added it with version {version} (scope: {scope})"}
+                    
+            elif action == "ensure_property":
+                if not property_name or not version:
+                    return {"status": "error", "error": "property_name and version are required for ensure_property"}
+                editor.ensure_property(property_name, version)
+                return {"status": "ok", "message": f"Property {property_name} set to {version}"}
+                
+            elif action == "update_element_text":
+                if not xpath or not version:
+                    return {"status": "error", "error": "xpath and version are required for update_element_text"}
+                editor.update_element_text(xpath, version)
+                return {"status": "ok", "message": f"Updated elements at xpath '{xpath}' to '{version}'"}
+                
+            else:
+                return {"status": "error", "error": f"Unknown action: {action}"}
+                
+        except Exception as e:
+            print(f"-> [TRANSLATOR] edit_pom_dependency exception: {e}")
+            return {"status": "error", "error": f"Exception in edit_pom_dependency: {e}"}
 
-        for label in labels:
-            pattern = rf"{re.escape(label)}\s*:\s*(.+)"
-            match = re.search(pattern, instruction, flags=re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
-        return ""
+    def _tool_run_maven_command(
+        self,
+        project_path: str = "",
+        goal: str = "compile",
+        clean: bool = False,
+        skip_tests: bool = False,
+        target_java_version: str = "17",
+        **kwargs,
+    ) -> dict[str, Any]:
+        """Tool: Run Maven command on the project using MavenRunner."""
+        try:
+            print(f"-> [TRANSLATOR] Running Maven goal: goal={goal}, clean={clean}...")
+            p_path = Path(project_path)
+            if not p_path.exists():
+                return {"status": "error", "error": f"Project path does not exist: {project_path}"}
+                
+            runner = MavenRunner(target_java_version)
+            
+            if goal == "compile":
+                res = runner.compile(p_path, clean=clean)
+            elif goal == "test":
+                res = runner.test(p_path, skip_tests=skip_tests, clean=clean)
+            elif goal == "install":
+                res = runner.install(p_path, skip_tests=skip_tests)
+            elif goal == "deps":
+                output_path = p_path / "target" / "classpath.txt"
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                res = runner.deps(p_path, output_path)
+            elif goal == "copy_deps":
+                res = runner.copy_deps(p_path)
+            else:
+                return {"status": "error", "error": f"Unknown goal: {goal}"}
+                
+            return {
+                "status": "ok" if res.status == 0 else "fail",
+                "exit_code": res.status,
+                "stdout": res.stdout,
+                "stderr": res.stderr
+            }
+        except Exception as e:
+            print(f"-> [TRANSLATOR] run_maven_command exception: {e}")
+            return {"status": "error", "error": f"Exception in run_maven_command: {e}"}
+
+    def _post_process(self, results: dict[str, Any], instruction: str, payload: dict[str, Any]) -> str:
+        """Post-process deterministic tool results to merge them into a single plan."""
+        merged = dict(results)
+
+        # Elevate jdeprscan results
+        jdeprscan = results.get("run_jdeprscan")
+        if isinstance(jdeprscan, dict):
+            merged["jdeprscan"] = jdeprscan
+
+        # Elevate change plan results (project_path, task_count, change_candidates, etc.)
+        change_plan = results.get("build_change_plan")
+        if isinstance(change_plan, dict):
+            for key, val in change_plan.items():
+                merged.setdefault(key, val)
+
+        # If enrich_report succeeded and returned a dict, merge its keys
+        enrich = results.get("enrich_report")
+        if isinstance(enrich, dict) and enrich.get("status") != "skipped":
+            for key, val in enrich.items():
+                merged[key] = val
+
+        return json.dumps(merged, ensure_ascii=False, indent=2, default=str)
+

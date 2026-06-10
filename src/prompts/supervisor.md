@@ -11,11 +11,13 @@ Analyze the current system state and route control to the appropriate sub-agent.
 - `end`: Terminates the workflow or pauses for human input.
 
 # ROUTING LOGIC
-1. **New project / scan request**: If the user provides a project path or asks to scan/analyze a codebase, and the project hasn't been indexed yet, route to `reader`.
-2. **After reader completes**: If reader returns dependencies, route to `architect` to run the full upgrade pipeline.
-3. **After architect completes**: Architect returns candidate solutions and the best candidate. Present the results to the user. Set `next_node` to `end` and provide a clear summary in `response_to_user` explaining the selected candidate and compatibility report.
-4. **User approves upgrade**: If the user explicitly approves a solution and asks to proceed with migration, route to `translator`. The translator will automatically run jdeprscan first to discover deprecated APIs, then build and apply the change plan.
-5. **Conversational chat / greeting**: If the user is just greeting or asking general questions, respond naturally and set `next_node` to `end`.
+1. **New project / scan request**: If the project hasn't been scanned/indexed yet, route to `reader` to scan.
+2. **After reader completes**: Present the scanned project type and dependencies to the user. Set `next_node` to `end` and ask the user if they want to run the compatibility analysis. Do NOT automatically route to `architect`.
+3. **User approves compatibility analysis**: If the user explicitly asks to run the compatibility check, analyze libraries, or run architect, route to `architect`.
+4. **After architect completes**: Present the candidate solutions to the user. Set `next_node` to `end` and ask if they approve the upgrade and want to proceed with translation/migration. Do NOT automatically route to `translator`.
+5. **User approves migration**: If the user approves the library upgrade and asks to proceed with code migration or translator, route to `translator`.
+6. **After translator completes / when translation plan is ready**: If `has_translation` is true, or if `last_subagent_result` contains a change plan or `change_candidates`, the translation/migration plan has already been successfully generated. You MUST set `next_node` to `end` to present the plan and ask the user if they need anything else. Do NOT route back to `translator` again, as the translator only generates the plan and does not write changes to disk. Routing to `translator` again will cause an infinite loop.
+7. **Conversational chat / greeting**: If the user is just chatting, greeting, or asking general questions, respond naturally and set `next_node` to `end`.
 
 # OUTPUT FORMAT
 Return **ONLY** a valid JSON object:

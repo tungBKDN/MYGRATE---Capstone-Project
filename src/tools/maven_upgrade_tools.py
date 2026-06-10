@@ -455,7 +455,10 @@ def run_compile_check(jar_path: str, target_jdk: str = "17", logger=None) -> dic
     finally:
         for f in [stub_file, stub_file.replace(".java", ".class")]:
             if os.path.exists(f):
-                os.remove(f)
+                try:
+                    os.remove(f)
+                except Exception:
+                    pass
 
 
 def _check_jdk_available() -> bool:
@@ -805,7 +808,10 @@ public class RuntimeSmokeTest {{
     finally:
         for f in [stub, stub.replace(".java", ".class")]:
             if os.path.exists(f):
-                os.remove(f)
+                try:
+                    os.remove(f)
+                except Exception:
+                    pass
 
 
 # ---------------------------------------------------------------------------
@@ -848,13 +854,52 @@ def index_java_project(project_path: str) -> dict:
 
     pom_data = _parse_pom(pom_path)
 
+    # Analyze project structure and parse submodules using MavenProject
+    from src.tools.maven.maven_project import MavenProject
+    project = MavenProject(str(pom_path))
+    
+    modules_data = {}
+    all_dependencies = list(pom_data.get("dependencies", []))
+    
+    if project.is_multi_module():
+        modules = project.get_modules()
+        for mod in modules:
+            mod_pom_path = Path(os.path.dirname(str(pom_path))) / mod / "pom.xml"
+            if mod_pom_path.exists():
+                try:
+                    mod_data = _parse_pom(mod_pom_path)
+                    modules_data[mod] = mod_data
+                    for dep in mod_data.get("dependencies", []):
+                        if not any(d.get("groupId") == dep.get("groupId") and d.get("artifactId") == dep.get("artifactId") for d in all_dependencies):
+                            all_dependencies.append(dep)
+                except Exception as e:
+                    print(f"Warning: Failed to parse POM for module {mod}: {e}")
+
+    # Analyze Java packages and file distribution
+    source_files = index_data.get("source_files", [])
+    java_files = [f.get("path") for f in source_files if f.get("language") == "java"]
+    
+    package_distribution = {}
+    for f_path in java_files:
+        dir_name = os.path.dirname(f_path).replace("\\", "/")
+        package_distribution[dir_name] = package_distribution.get(dir_name, 0) + 1
+        
+    project_structure = {
+        "is_multi_module": project.is_multi_module(),
+        "modules": project.get_modules() if project.is_multi_module() else [],
+        "java_file_count": len(java_files),
+        "package_distribution": package_distribution,
+    }
+
     return {
         "status": "ok",
         "pipeline": "reader-index",
         "project_path": str(project_root),
         "project_type": project_type,
         "pom_data": pom_data,
-        "dependencies": pom_data.get("dependencies", []),
+        "modules_pom_data": modules_data,
+        "dependencies": all_dependencies,
+        "project_structure": project_structure,
         "index_summary": _summarize_index(index_data),
     }
 

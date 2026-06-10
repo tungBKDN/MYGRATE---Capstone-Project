@@ -818,6 +818,185 @@ public class RuntimeSmokeTest {{
 # Entry point: lightweight index (for Reader)
 # ---------------------------------------------------------------------------
 
+def _detect_framework(dependencies: list) -> str:
+    has_spring_boot = False
+    has_spring = False
+    has_sonar = False
+    has_jakarta = False
+    has_javax = False
+    for dep in dependencies:
+        g = dep.get("groupId", "").lower() if dep.get("groupId") else ""
+        a = dep.get("artifactId", "").lower() if dep.get("artifactId") else ""
+        if "spring-boot" in a or "spring-boot" in g:
+            has_spring_boot = True
+        elif "spring" in g or "spring" in a:
+            has_spring = True
+        elif "sonar-plugin-api" in a or "sonarqube" in g or "sonar" in g:
+            has_sonar = True
+        elif g.startswith("jakarta."):
+            has_jakarta = True
+        elif g.startswith("javax."):
+            has_javax = True
+    if has_sonar:
+        return "SonarQube Plugin"
+    if has_spring_boot:
+        return "Spring Boot"
+    if has_spring:
+        return "Spring Framework"
+    if has_jakarta:
+        return "Jakarta EE"
+    if has_javax:
+        return "Java EE"
+    return "Standard Java"
+
+def _classify_project(pom_data: dict, jdeprscan_report: dict, jdk_target: str) -> str:
+    dependencies = pom_data.get("dependencies", [])
+    properties = pom_data.get("properties", {})
+    
+    # Red checks: sonar version
+    sonar_version_str = properties.get("sonar.version", "")
+    if sonar_version_str:
+        try:
+            major = int(sonar_version_str.split(".")[0])
+            if major < 9:
+                return "Red"
+        except ValueError:
+            pass
+            
+    for dep in dependencies:
+        g = dep.get("groupId", "").lower() if dep.get("groupId") else ""
+        a = dep.get("artifactId", "").lower() if dep.get("artifactId") else ""
+        v = dep.get("version", "") if dep.get("version") else ""
+        if "sonar-plugin-api" in a or "sonar-plugin-api" in g:
+            try:
+                major = int(v.split(".")[0])
+                if major < 9:
+                    return "Red"
+            except (ValueError, IndexError):
+                pass
+        if "spring-boot" in a or "spring-boot" in g:
+            try:
+                parts = [int(p) for p in re.findall(r"\d+", v)[:2]]
+                if len(parts) >= 2:
+                    major, minor = parts
+                    if major < 2 or (major == 2 and minor < 5):
+                        return "Red"
+            except Exception:
+                pass
+                
+    # Yellow checks: jdeprscan report
+    if jdeprscan_report:
+        status = jdeprscan_report.get("status")
+        b1_compile = jdeprscan_report.get("steps", {}).get("b1_compile", {})
+        if status in ("PARTIAL", "FAIL") or b1_compile.get("status") == "FAIL":
+            return "Yellow"
+        summary = jdeprscan_report.get("summary", {})
+        proj_for_removal = summary.get("project_code", {}).get("for_removal_count", 0)
+        deps_for_removal = summary.get("dependencies", {}).get("critical_count", 0)
+        if proj_for_removal > 0 or deps_for_removal > 0:
+            return "Yellow"
+        return "Green"
+        
+    return "Yellow"  # No jdeprscan report yet
+
+def _get_project_properties(project_dir: Path) -> dict:
+    pom_path = project_dir / "pom.xml"
+    pom_data = {"properties": {}, "dependencies": []}
+    jdk_target = "8"
+    build_system = "unknown"
+    
+    if pom_path.exists():
+        build_system = "Maven"
+        try:
+            pom_data = _parse_pom(pom_path)
+            properties = pom_data.get("properties", {})
+            for key in ["maven.compiler.target", "maven.compiler.source", "java.version", "target.jvm"]:
+                if key in properties:
+                    jdk_target = properties[key]
+                    break
+            if jdk_target == "8":
+                try:
+                    content = pom_path.read_text(encoding="utf-8")
+                    match = re.search(r"<target>([^<]+)</target>", content)
+                    if match:
+                        jdk_target = match.group(1).strip()
+                    else:
+                        match = re.search(r"<source>([^<]+)</source>", content)
+                        if match:
+                            jdk_target = match.group(1).strip()
+                except Exception:
+                    pass
+        except Exception as e:
+            print(f"Warning: Failed to parse POM {pom_path}: {e}")
+    elif (project_dir / "build.gradle").exists() or (project_dir / "build.gradle.kts").exists():
+        build_system = "Gradle"
+        for name in ("build.gradle", "build.gradle.kts"):
+            p = project_dir / name
+            if p.exists():
+                try:
+                    content = p.read_text(encoding="utf-8")
+                    match = re.search(r"targetCompatibility\s*=\s*['\"]?(\d+(?:\.\d+)?)['\"]?", content)
+                    if match:
+                        jdk_target = match.group(1).strip()
+                        break
+                    match = re.search(r"sourceCompatibility\s*=\s*['\"]?(\d+(?:\.\d+)?)['\"]?", content)
+                    if match:
+                        jdk_target = match.group(1).strip()
+                        break
+                except Exception:
+                    pass
+    elif (project_dir / "build.xml").exists():
+        build_system = "Ant"
+
+    java_file_count = len(list(project_dir.rglob("*.java")))
+    framework = _detect_framework(pom_data.get("dependencies", []))
+    
+    # Reports check
+    jdeprscan_report = None
+    jdeprscan_report_path = None
+    for folder in ("artifacts", "target"):
+        p = project_dir / folder / "jdeprscan_report.json"
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    jdeprscan_report = json.load(f)
+                    jdeprscan_report_path = str(p)
+                break
+            except Exception:
+                pass
+                
+    migration_report_path = None
+    for folder in ("artifacts", "target"):
+        p = project_dir / folder / "migration_report.md"
+        if p.exists():
+            migration_report_path = str(p)
+            break
+            
+    existing_reports = {}
+    if jdeprscan_report_path:
+        existing_reports["jdeprscan"] = {
+            "path": jdeprscan_report_path,
+            "status": jdeprscan_report.get("status") if jdeprscan_report else "unknown",
+            "summary": jdeprscan_report.get("summary") if jdeprscan_report else {}
+        }
+    if migration_report_path:
+        existing_reports["migration_report"] = {
+            "path": migration_report_path
+        }
+        
+    classification = _classify_project(pom_data, jdeprscan_report, jdk_target)
+    
+    return {
+        "build_system": build_system,
+        "jdk_target": jdk_target,
+        "java_file_count": java_file_count,
+        "framework": framework,
+        "existing_reports": existing_reports,
+        "classification": classification,
+        "pom_data": pom_data,
+        "dependencies": pom_data.get("dependencies", [])
+    }
+
 def index_java_project(project_path: str) -> dict:
     """Index a codebase and parse POM — lightweight, no network calls."""
     index_raw = index_codebase(project_path)
@@ -830,15 +1009,87 @@ def index_java_project(project_path: str) -> dict:
     project_type = index_data.get("project_type", "unknown")
     manifest_files = index_data.get("manifest_files", [])
 
-    if project_type == "python" or (project_type == "mixed" and not _has_java_manifest(manifest_files)):
-        return {
-            "status": "unsupported",
-            "project_path": str(project_root),
-            "project_type": project_type,
-            "message": "Python projects are not yet supported.",
-            "index_summary": _summarize_index(index_data),
-        }
+    # Check if this is a multi-project directory or a single project
+    has_root_manifest = (
+        (project_root / "pom.xml").exists()
+        or (project_root / "build.gradle").exists()
+        or (project_root / "build.gradle.kts").exists()
+        or (project_root / "build.xml").exists()
+    )
 
+    if not has_root_manifest:
+        # Check subdirectories
+        sub_projects_info = []
+        for sub in sorted(project_root.iterdir()):
+            if sub.is_dir() and not sub.name.startswith('.'):
+                if (
+                    (sub / "pom.xml").exists()
+                    or (sub / "build.gradle").exists()
+                    or (sub / "build.gradle.kts").exists()
+                    or (sub / "build.xml").exists()
+                ):
+                    props = _get_project_properties(sub)
+                    props["name"] = sub.name
+                    props["path"] = str(sub.resolve())
+                    sub_projects_info.append(props)
+
+        if sub_projects_info:
+            # Build Markdown summary table of all projects
+            markdown_table = [
+                "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |",
+                "| --- | --- | --- | --- | --- | --- | --- |"
+            ]
+            for p in sub_projects_info:
+                rep_status = "None"
+                j_rep = p.get("existing_reports", {}).get("jdeprscan")
+                if j_rep:
+                    rep_status = f"jdeprscan: {j_rep.get('status')}"
+                    summary = j_rep.get("summary", {})
+                    rem = summary.get("project_code", {}).get("for_removal_count", 0)
+                    dep = summary.get("project_code", {}).get("deprecated_count", 0)
+                    if rem > 0 or dep > 0:
+                        rep_status += f" ({rem} forRemoval, {dep} deprecated)"
+                
+                markdown_table.append(
+                    f"| `{p['name']}` | {p['build_system']} | {p['jdk_target']} | {p['java_file_count']} | {p['framework']} | {rep_status} | **{p['classification']}** |"
+                )
+            
+            overview_md = "\n".join(markdown_table)
+            
+            # Aggregate dependencies
+            all_dependencies = []
+            for p in sub_projects_info:
+                for dep in p.get("dependencies", []):
+                    if not any(d.get("groupId") == dep.get("groupId") and d.get("artifactId") == dep.get("artifactId") for d in all_dependencies):
+                        all_dependencies.append(dep)
+            
+            scan_report_data = {
+                "status": "ok",
+                "project_path": str(project_root),
+                "project_type": "java",
+                "is_multi_project": True,
+                "projects": sub_projects_info,
+                "dependencies": all_dependencies,
+                "markdown_report": overview_md,
+                "index_summary": {
+                    "project_type": "java",
+                    "is_multi_project": True,
+                    "project_count": len(sub_projects_info),
+                    "projects": [p["name"] for p in sub_projects_info]
+                }
+            }
+            
+            # Save to root project's artifacts/ folder
+            artifacts_dir = project_root / "artifacts"
+            artifacts_dir.mkdir(parents=True, exist_ok=True)
+            with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
+                json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
+            with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
+                f.write(f"# Codebase Scan Report\n\n{overview_md}\n")
+                
+            return scan_report_data
+
+    # Fallback/Default: Single project scan
     if not _has_java_manifest(manifest_files):
         return {
             "status": "unsupported",
@@ -891,7 +1142,32 @@ def index_java_project(project_path: str) -> dict:
         "package_distribution": package_distribution,
     }
 
-    return {
+    # Extract single project props
+    props = _get_project_properties(project_root)
+    props["name"] = project_root.name
+    props["path"] = str(project_root.resolve())
+    
+    # Build single project markdown table/overview
+    markdown_table = [
+        "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |",
+        "| --- | --- | --- | --- | --- | --- | --- |"
+    ]
+    rep_status = "None"
+    j_rep = props.get("existing_reports", {}).get("jdeprscan")
+    if j_rep:
+        rep_status = f"jdeprscan: {j_rep.get('status')}"
+        summary = j_rep.get("summary", {})
+        rem = summary.get("project_code", {}).get("for_removal_count", 0)
+        dep = summary.get("project_code", {}).get("deprecated_count", 0)
+        if rem > 0 or dep > 0:
+            rep_status += f" ({rem} forRemoval, {dep} deprecated)"
+            
+    markdown_table.append(
+        f"| `{props['name']}` | {props['build_system']} | {props['jdk_target']} | {props['java_file_count']} | {props['framework']} | {rep_status} | **{props['classification']}** |"
+    )
+    overview_md = "\n".join(markdown_table)
+
+    scan_report_data = {
         "status": "ok",
         "pipeline": "reader-index",
         "project_path": str(project_root),
@@ -901,7 +1177,20 @@ def index_java_project(project_path: str) -> dict:
         "dependencies": all_dependencies,
         "project_structure": project_structure,
         "index_summary": _summarize_index(index_data),
+        "is_multi_project": False,
+        "project_info": props,
+        "markdown_report": overview_md
     }
+
+    # Save to target project's artifacts/ folder
+    artifacts_dir = project_root / "artifacts"
+    artifacts_dir.mkdir(parents=True, exist_ok=True)
+    with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
+        json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
+    with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
+        f.write(f"# Codebase Scan Report\n\n{overview_md}\n")
+
+    return scan_report_data
 
 
 # ---------------------------------------------------------------------------
@@ -1024,12 +1313,11 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
     if candidates:
         project_name = Path(project_path).name
         for mode in ("conservative", "balanced", "modern"):
-            graph_path = _render_dependency_graph(project_name, {
+            graph_path = _render_dependency_graph(project_path, {
                 "name": mode,
                 "dependencies": [
-                    {"groupId": g, "artifactId": a, "version": v, "chosen_version": v, "upgrade_type": "unchanged"}
-                    for (g, a), vs in solver_obj.candidates.items() if mode == "balanced"
-                    for v in vs[:1]
+                    {"groupId": lib_key.split(":")[0], "artifactId": lib_key.split(":")[1] if ":" in lib_key else lib_key, "version": vs[0], "chosen_version": vs[0], "upgrade_type": "unchanged"}
+                    for lib_key, vs in candidates.items() if mode == "balanced" and vs
                 ] if mode == "balanced" else [],
                 "score": 0,
             })
@@ -1052,11 +1340,10 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
     pipeline_result["visualizations"] = visualizations
 
     # Write report files
-    report_root = Path("artifacts") / "codebase_discovery"
+    report_root = Path(project_path) / "artifacts"
     report_root.mkdir(parents=True, exist_ok=True)
-    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", Path(project_path).name).strip("_") or "project"
 
-    report_path = report_root / f"{safe_name}_upgrade_report.json"
+    report_path = report_root / "upgrade_report.json"
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(pipeline_result, f, ensure_ascii=False, indent=2, default=str)
     pipeline_result["report_path"] = str(report_path)
@@ -1068,9 +1355,10 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
 # Visualization
 # ---------------------------------------------------------------------------
 
-def _render_dependency_graph(project_name: str, plan: dict) -> Path:
-    report_root = Path("artifacts") / "codebase_discovery"
-    graph_dir = report_root / re.sub(r"[^A-Za-z0-9._-]+", "_", project_name).strip("_")
+def _render_dependency_graph(project_path: str, plan: dict) -> Path:
+    project_name = Path(project_path).name
+    report_root = Path(project_path) / "artifacts"
+    graph_dir = report_root / "dependency_graphs"
     graph_dir.mkdir(parents=True, exist_ok=True)
 
     graph = nx.DiGraph()

@@ -357,7 +357,7 @@ class TranslatorAgent(BaseAgent):
             print(f"-> [TRANSLATOR] jdeprscan pipeline: {status}")
 
             # Save full report to file
-            target_dir = Path(project_path) / "target"
+            target_dir = Path(project_path) / "artifacts"
             target_dir.mkdir(parents=True, exist_ok=True)
             report_file = target_dir / "jdeprscan_report.json"
             with open(report_file, "w", encoding="utf-8") as f:
@@ -428,7 +428,7 @@ class TranslatorAgent(BaseAgent):
         report["current_instruction"] = kwargs.get("current_instruction", "")
 
         # Save full change plan report to file
-        target_dir = Path(project_path) / "target"
+        target_dir = Path(project_path) / "artifacts"
         target_dir.mkdir(parents=True, exist_ok=True)
         report_file = target_dir / "mygrate_report.json"
         with open(report_file, "w", encoding="utf-8") as f:
@@ -652,19 +652,22 @@ class TranslatorAgent(BaseAgent):
         # Elevate jdeprscan results
         jdeprscan = results.get("run_jdeprscan")
         if isinstance(jdeprscan, dict):
-            merged["jdeprscan"] = jdeprscan
+            if "jdeprscan" not in merged or not merged["jdeprscan"]:
+                merged["jdeprscan"] = jdeprscan
 
         # Elevate change plan results (project_path, task_count, change_candidates, etc.)
         change_plan = results.get("build_change_plan")
         if isinstance(change_plan, dict):
             for key, val in change_plan.items():
-                merged.setdefault(key, val)
+                if key not in merged or not merged[key]:
+                    merged[key] = val
 
         # If enrich_report succeeded and returned a dict, merge its keys
         enrich = results.get("enrich_report")
         if isinstance(enrich, dict) and enrich.get("status") != "skipped":
             for key, val in enrich.items():
-                merged[key] = val
+                if key not in merged or not merged[key]:
+                    merged[key] = val
 
         return json.dumps(merged, ensure_ascii=False, indent=2, default=str)
 

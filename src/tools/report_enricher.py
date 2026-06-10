@@ -99,9 +99,9 @@ def enrich_report_with_llm(
 
     markdown_content = "\n".join(lines)
 
-    # Save to file target/migration_report.md
+    # Save to file artifacts/migration_report.md
     proj_dir = Path(project_path) if project_path else Path(".")
-    target_dir = proj_dir / "target"
+    target_dir = proj_dir / "artifacts"
     target_dir.mkdir(parents=True, exist_ok=True)
     report_md_file = target_dir / "migration_report.md"
     try:
@@ -111,7 +111,7 @@ def enrich_report_with_llm(
         print(f"-> [ENRICHER] Error writing markdown report: {e}")
 
     # Return summary dict
-    rel_md_path = str(report_md_file.relative_to(proj_dir)) if project_path else "target/migration_report.md"
+    rel_md_path = str(report_md_file.relative_to(proj_dir)) if project_path else "artifacts/migration_report.md"
     
     enriched = dict(parsed_report)
     enriched.update({
@@ -119,7 +119,7 @@ def enrich_report_with_llm(
         "markdown_report": (
             f"### Migration Scan & Plan Ready\n"
             f"The codebase scan and change plan reports have been successfully generated and saved:\n"
-            f"- Detailed JSON reports are located at `target/jdeprscan_report.json` and `target/mygrate_report.json`.\n"
+            f"- Detailed JSON reports are located at `artifacts/jdeprscan_report.json` and `artifacts/mygrate_report.json`.\n"
             f"- A human-readable Markdown summary report has been compiled and saved to `{rel_md_path}`.\n\n"
             f"Please read the markdown summary or fetch details for specific files to begin translation."
         ),

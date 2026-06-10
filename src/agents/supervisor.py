@@ -196,6 +196,10 @@ class SupervisorAgent(BaseAgent):
                 or state.get("upgrade_report") is not None
                 or "solutions" in str(state.get("last_subagent_result", ""))
             ),
+            "has_reader_review": (
+                state.get("reader_review") is not None
+                or "markdown_report" in str(state.get("last_subagent_result", ""))
+            ),
             "has_translation": state.get("jdeprscan_report") is not None or "change_candidates" in str(state.get("last_subagent_result", "")),
         }
 
@@ -238,6 +242,7 @@ class SupervisorAgent(BaseAgent):
         project_type = payload.get("project_type", "unknown")
         deps_count = payload.get("dependencies_count", 0)
         has_solutions = payload.get("has_solutions", False)
+        has_reader_review = payload.get("has_reader_review", False)
         has_translation = payload.get("has_translation", False)
 
         # Simple sequential fallback
@@ -249,6 +254,10 @@ class SupervisorAgent(BaseAgent):
             next_node = "architect"
             current_instruction = "Solve version compatibility constraints."
             response_to_user = "Analyzing library version solutions..."
+        elif not has_reader_review:
+            next_node = "reader"
+            current_instruction = "Select the best candidate solutions and output final review."
+            response_to_user = "Performing final compatibility candidate review..."
         elif not has_translation:
             next_node = "translator"
             current_instruction = "Translate migration scope."

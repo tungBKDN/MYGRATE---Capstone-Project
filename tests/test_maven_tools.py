@@ -168,3 +168,79 @@ def test_index_java_project(tmp_path: Path):
     assert deps[0]["artifactId"] == "slf4j-api"
     assert deps[0]["version"] == "1.7.36"
 
+
+def test_index_java_project_multi_project(tmp_path: Path):
+    from src.tools.maven_upgrade_tools import index_java_project
+    
+    # Create multi-project directory (no root pom)
+    project_a = tmp_path / "project-a"
+    project_a.mkdir()
+    pom_a = project_a / "pom.xml"
+    pom_a_content = """<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>project-a</artifactId>
+    <version>1.0.0</version>
+    <properties>
+        <sonar.version>6.7</sonar.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+            <version>${sonar.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
+"""
+    pom_a.write_text(pom_a_content, encoding="utf-8")
+    
+    project_b = tmp_path / "project-b"
+    project_b.mkdir()
+    pom_b = project_b / "pom.xml"
+    pom_b_content = """<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>project-b</artifactId>
+    <version>1.0.0</version>
+    <properties>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+</project>
+"""
+    pom_b.write_text(pom_b_content, encoding="utf-8")
+    
+    # Create some java files
+    src_a = project_a / "src" / "main" / "java"
+    src_a.mkdir(parents=True)
+    (src_a / "App.java").write_text("public class App {}", encoding="utf-8")
+    
+    result = index_java_project(str(tmp_path))
+    
+    assert result["status"] == "ok"
+    assert result["is_multi_project"] is True
+    assert len(result["projects"]) == 2
+    
+    proj_a_info = next(p for p in result["projects"] if p["name"] == "project-a")
+    proj_b_info = next(p for p in result["projects"] if p["name"] == "project-b")
+    
+    assert proj_a_info["build_system"] == "Maven"
+    assert proj_a_info["framework"] == "SonarQube Plugin"
+    assert proj_a_info["classification"] == "Red"  # SonarQube < 9.x
+    
+    assert proj_b_info["build_system"] == "Maven"
+    assert proj_b_info["jdk_target"] == "11"
+    assert proj_b_info["classification"] == "Yellow"  # No report yet
+    
+    # Check if report files are written in target artifacts directory
+    assert (tmp_path / "artifacts" / "reader_scan_report.json").exists()
+    assert (tmp_path / "artifacts" / "reader_scan_report.md").exists()
+
+

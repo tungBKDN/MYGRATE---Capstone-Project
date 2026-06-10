@@ -289,6 +289,9 @@ class BaseAgent(ABC):
 
         # Bind tools to LLM for native function calling
         llm_with_tools = self.llm.bind_tools([t.to_openai_tool() for t in tools])
+        
+        # Track tool results to merge into final answers
+        react_tool_results: dict[str, Any] = {}
 
         for iteration in range(self.MAX_ITERATIONS):
             print(f"-> [{self._agent_name()}] ReAct iteration {iteration + 1}/{self.MAX_ITERATIONS}")
@@ -296,7 +299,13 @@ class BaseAgent(ABC):
             try:
                 response = llm_with_tools.invoke(messages)
             except Exception as e:
+                error_str = str(e)
                 print(f"-> [{self._agent_name()}] LLM error: {e}")
+
+                # Try to recover from schema validation errors (e.g. boolean params sent as strings)
+                recovered = self._try_recover_tool_calls(e, tool_map, payload, react_tool_results, messages)
+                if recovered is not None:
+                    continue
                 break
 
             # Check if LLM wants to call tools
@@ -320,6 +329,13 @@ class BaseAgent(ABC):
                         except json.JSONDecodeError:
                             tool_args = {}
 
+                    # Coerce argument types to match the tool schema
+                    # (guards against LLMs that send "true"/"false" as strings)
+                    tool_def = tool_map.get(tool_name)
+                    if tool_def:
+                        schema_props = tool_def.parameters.get("properties", {})
+                        tool_args = self._coerce_tool_args(tool_args, schema_props)
+
                     print(f"-> [{self._agent_name()}] Calling tool: {tool_name}({json.dumps(tool_args, default=str)[:200]})")
 
                     # Execute the tool
@@ -334,8 +350,17 @@ class BaseAgent(ABC):
                                 inner = merged_ans.pop("final_answer")
                                 if isinstance(inner, dict):
                                     merged_ans.update(inner)
-                            return json.dumps(merged_ans, ensure_ascii=False, indent=2, default=str)
-                        return json.dumps({"status": "ok", "result": final_ans}, ensure_ascii=False, indent=2, default=str)
+                            
+                            combined = dict(react_tool_results)
+                            combined.update(merged_ans)
+                            return self._post_process(combined, instruction, payload)
+                        
+                        combined = dict(react_tool_results)
+                        combined["result"] = final_ans
+                        return self._post_process(combined, instruction, payload)
+
+                    # Record the tool observation
+                    react_tool_results[tool_name] = observation
 
                     # Append tool result to conversation using proper LangChain message types
                     from langchain_core.messages import ToolMessage
@@ -359,14 +384,22 @@ class BaseAgent(ABC):
                         if "final_answer" in parsed:
                             final = parsed["final_answer"]
                             if isinstance(final, dict):
-                                return json.dumps(final, ensure_ascii=False, indent=2, default=str)
-                            return json.dumps({"status": "ok", "result": final}, ensure_ascii=False, indent=2, default=str)
-                        return json.dumps(parsed, ensure_ascii=False, indent=2, default=str)
+                                combined = dict(react_tool_results)
+                                combined.update(final)
+                                return self._post_process(combined, instruction, payload)
+                            combined = dict(react_tool_results)
+                            combined["result"] = final
+                            return self._post_process(combined, instruction, payload)
+                        combined = dict(react_tool_results)
+                        combined.update(parsed)
+                        return self._post_process(combined, instruction, payload)
                 except json.JSONDecodeError:
                     pass
 
                 # If not JSON, return as-is wrapped in a result
-                return json.dumps({"status": "ok", "result": content}, ensure_ascii=False, indent=2, default=str)
+                combined = dict(react_tool_results)
+                combined["result"] = content
+                return self._post_process(combined, instruction, payload)
 
         # If we exhausted iterations, ask for a final summary
         print(f"-> [{self._agent_name()}] Max iterations reached, requesting final summary...")
@@ -378,9 +411,16 @@ class BaseAgent(ABC):
             content = getattr(final_response, "content", "") or ""
             try:
                 parsed = json.loads(content)
-                return json.dumps(parsed, ensure_ascii=False, indent=2, default=str)
+                combined = dict(react_tool_results)
+                if isinstance(parsed, dict):
+                    combined.update(parsed)
+                else:
+                    combined["result"] = parsed
+                return self._post_process(combined, instruction, payload)
             except json.JSONDecodeError:
-                return json.dumps({"status": "ok", "result": content}, ensure_ascii=False, indent=2, default=str)
+                combined = dict(react_tool_results)
+                combined["result"] = content
+                return self._post_process(combined, instruction, payload)
         except Exception as e:
             return json.dumps({"status": "error", "message": f"Failed to get final answer: {e}"}, ensure_ascii=False, indent=2)
 
@@ -459,6 +499,142 @@ class BaseAgent(ABC):
             param_str = ", ".join(f"{k}: {v.get('type', 'any')}" for k, v in params.items())
             lines.append(f"- {t.name}({param_str}): {t.description}")
         return "\n".join(lines)
+
+    def _try_recover_tool_calls(
+        self,
+        error: Exception,
+        tool_map: dict[str, ToolDefinition],
+        payload: dict[str, Any],
+        react_tool_results: dict[str, Any],
+        messages: list,
+    ) -> bool | None:
+        """Try to recover from LLM tool-call schema validation errors.
+
+        Groq sometimes returns string values ("true"/"false") for boolean
+        parameters.  When that happens the API rejects the call with a 400
+        error but includes the *attempted* generation in
+        ``failed_generation``.  We parse that, coerce the argument types to
+        match the declared schema, execute the tools, and inject the
+        observations back into the conversation so the ReAct loop can
+        continue.
+
+        Returns ``True`` if recovery succeeded (caller should ``continue``),
+        ``None`` if the error is not recoverable.
+        """
+        from langchain_core.messages import HumanMessage
+
+        error_str = str(error)
+
+        # Only handle tool-use validation errors
+        if "tool call validation failed" not in error_str and "tool_use_failed" not in error_str:
+            return None
+
+        # Extract failed_generation from the error
+        failed_gen = None
+        try:
+            # The error body often contains failed_generation as a Python repr string
+            # Pattern: 'failed_generation': '...content...'
+            import re as _re
+            # Match single-quoted failed_generation (Groq format)
+            match = _re.search(r"'failed_generation':\s*'(.*?)'(?:\s*})", error_str, _re.DOTALL)
+            if not match:
+                # Try to find everything after failed_generation until the closing brace
+                match = _re.search(r"failed_generation.*?':\s*'(.*?)'", error_str, _re.DOTALL)
+            if match:
+                raw = match.group(1)
+                # Unescape common escape sequences
+                raw = raw.replace("\\n", "\n").replace("\\'", "'").replace('\\"', '"')
+                failed_gen = raw
+        except Exception:
+            pass
+
+        if not failed_gen:
+            return None
+
+        # Parse the tool calls from failed_generation
+        tool_calls_raw = None
+        try:
+            # The failed_generation may contain text before/after the JSON array
+            # Find the JSON array boundaries
+            bracket_start = failed_gen.find("[")
+            bracket_end = failed_gen.rfind("]")
+            if bracket_start != -1 and bracket_end != -1 and bracket_end > bracket_start:
+                json_text = failed_gen[bracket_start:bracket_end + 1]
+                parsed = json.loads(json_text)
+                if isinstance(parsed, list):
+                    tool_calls_raw = parsed
+        except json.JSONDecodeError:
+            pass
+
+        if not tool_calls_raw:
+            return None
+
+        # Process each recovered tool call
+        any_executed = False
+        for tc in tool_calls_raw:
+            tool_name = tc.get("name", "")
+            tool_args = tc.get("parameters", tc.get("args", {}))
+
+            if tool_name not in tool_map or tool_name == "submit_final_answer":
+                # Skip submit_final_answer — let the LLM call it again properly
+                continue
+
+            # Coerce argument types to match the schema
+            tool = tool_map[tool_name]
+            schema_props = tool.parameters.get("properties", {})
+            tool_args = self._coerce_tool_args(tool_args, schema_props)
+
+            print(f"-> [{self._agent_name()}] Recovered tool call: {tool_name}({json.dumps(tool_args, default=str)[:200]})")
+
+            # Execute the tool
+            observation = self._execute_tool(tool_name, tool_args, tool_map, payload)
+
+            react_tool_results[tool_name] = observation
+
+            # Inject observation into the conversation as a HumanMessage
+            # so the LLM sees the result and can continue reasoning
+            obs_str = json.dumps(observation, ensure_ascii=False, default=str)
+            messages.append(HumanMessage(
+                content=(
+                    f"[System: The tool '{tool_name}' was called with corrected argument types. "
+                    f"Result follows.]\n"
+                    f"Tool: {tool_name}\nObservation: {obs_str[:3000]}"
+                )
+            ))
+
+            any_executed = True
+
+        return True if any_executed else None
+
+    def _coerce_tool_args(self, args: dict[str, Any], schema_props: dict[str, Any]) -> dict[str, Any]:
+        """Coerce tool arguments to match the declared JSON schema types.
+
+        Handles the common case where an LLM sends string values for boolean
+        or integer parameters.
+        """
+        coerced = dict(args)
+        for key, value in list(coerced.items()):
+            prop_schema = schema_props.get(key, {})
+            expected_type = prop_schema.get("type", "")
+
+            if expected_type == "boolean" and isinstance(value, str):
+                lower = value.lower().strip()
+                if lower in ("true", "yes", "1"):
+                    coerced[key] = True
+                elif lower in ("false", "no", "0"):
+                    coerced[key] = False
+            elif expected_type == "integer" and isinstance(value, str):
+                try:
+                    coerced[key] = int(value)
+                except ValueError:
+                    pass
+            elif expected_type == "number" and isinstance(value, str):
+                try:
+                    coerced[key] = float(value)
+                except ValueError:
+                    pass
+
+        return coerced
 
     def _agent_name(self) -> str:
         """Return the agent's name for logging."""

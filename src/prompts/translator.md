@@ -99,8 +99,8 @@ Execute Maven compilation, tests, or dependency resolution on the target project
 **Parameters:**
 - `project_path` (required): Path to the Java project root directory
 - `goal` (required): The Maven goal to execute ("compile", "test", "install", "deps", "copy_deps")
-- `clean` (optional): Whether to run clean before the goal (default: False)
-- `skip_tests` (optional): Whether to skip test execution during verification (default: False)
+- `clean` (optional): Whether to run clean before the goal (default: False). **MUST be a boolean value (`true`/`false`), NOT a string (`"true"`/`"false"`).**
+- `skip_tests` (optional): Whether to skip test execution during verification (default: False). **MUST be a boolean value (`true`/`false`), NOT a string (`"true"`/`"false"`).**
 - `target_java_version` (optional): Optional target Java version to pass to Maven compiler (default: '17')
 
 **Returns:** A dictionary containing status, exit_code, stdout, and stderr.

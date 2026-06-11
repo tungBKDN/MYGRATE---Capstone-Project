@@ -92,7 +92,14 @@ def write_file(project_path: str, file_path: str, content: str) -> str:
         
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(content)
-        return f"Successfully wrote {len(content)} characters to {target_path}."
+            
+        # Write to the actual project path so compilation and testing can verify it
+        actual_path = proj_p / rel_path
+        actual_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(actual_path, "w", encoding="utf-8") as f:
+            f.write(content)
+            
+        return f"Successfully wrote {len(content)} characters to both {target_path} and {actual_path}."
     except Exception as e:
         return f"Error writing file {file_path}: {str(e)}"
 

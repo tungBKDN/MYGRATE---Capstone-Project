@@ -27,9 +27,11 @@ class Maven:
             os.chmod(mvnw_path, new_permissions)
 
     def _use_wrapper(self, repo_path: Path) -> bool:
+        repo_path = Path(repo_path)  # ensure Path, not str
         return (repo_path / "mvnw").exists() and (repo_path / ".mvn" / "wrapper" / "maven-wrapper.properties").exists()
 
     def _get_base_cmd(self, repo_path: Path) -> str:
+        repo_path = Path(repo_path)  # ensure Path, not str
         if self._use_wrapper(repo_path):
             self._ensure_mvnw_executable(repo_path)  # Call this before getting the command
             if os.name == "nt":
@@ -39,6 +41,7 @@ class Maven:
             return "mvn"
 
     def compile(self, repo_path: Path, clean: bool = False) -> CliResult:
+        repo_path = Path(repo_path)  # ensure Path, not str
         cmd = [
             self._get_base_cmd(repo_path),
             "compile",
@@ -55,6 +58,7 @@ class Maven:
         )
 
     def test(self, repo_path: Path, skip_tests: bool = False, clean: bool = False) -> CliResult:
+        repo_path = Path(repo_path)  # ensure Path, not str
         cmd = [
             self._get_base_cmd(repo_path),
             "verify",

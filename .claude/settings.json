@@ -5,7 +5,10 @@
       "Bash(timeout 30 .venv/Scripts/python -c ' *)",
       "Bash(timeout 120 .venv/Scripts/python src/main.py --path freshbrew_data/sonar-stash)",
       "Bash(mvn compile *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m 'feat: improve translator agent with full error output, \\\\\\\\n fix, per-file Phase 3 *)",
+      "Bash(jar tf *)",
+      "Bash(python -c ' *)"
     ]
   }
 }

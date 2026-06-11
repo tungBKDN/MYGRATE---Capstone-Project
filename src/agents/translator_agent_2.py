@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -10,24 +12,26 @@ from src.tools.maven import MavenRunner
 
 class TranslatorAgent_2(BaseAgent):
     """
-    TranslatorAgent_2 — batch-edit migration agent.
+    TranslatorAgent_2 — batch-edit migration agent with classpath awareness.
 
     Workflow:
         1. read_file   →  inspect current source (with line numbers)
-        2. apply_edits →  submit ALL changes as line-based edits (NO auto-compile)
-        3. compile_project →  compile once to verify all changes
-        4. (if errors) →  apply_edits again to fix, then compile again
+        2. check_class →  verify if a class exists in Maven dependencies before removing imports
+        3. apply_edits →  submit ALL changes as line-based edits (NO auto-compile)
+        4. compile_project →  compile once to verify all changes
+        5. (if errors) →  apply_edits again to fix, then compile again
     """
 
-    READ_FILE_KEEP_MESSAGES = 2
+    READ_FILE_KEEP_MESSAGES = 6
 
     def __init__(self, model_name: str | None = None):
         super().__init__(model_name)
         self.project_path = ""
         self.current_file = ""
-        self.MAX_ITERATIONS = 10
+        self.MAX_ITERATIONS = 15
         self._log_entries: list[str] = []
         self._last_edit_count = 0  # track edits since last compile
+        self._classpath_cache: dict[str, set[str]] = {}  # jar_path -> set of class names
 
     def get_prompt_file(self) -> str | None:
         return "translator_2.md"
@@ -37,6 +41,7 @@ class TranslatorAgent_2(BaseAgent):
         self.project_path = payload.get("project_path", "")
         self._log_entries = []
         self._last_edit_count = 0
+        self._classpath_cache = {}
         return super().run(instruction)
 
     def _log(self, entry: str):
@@ -44,6 +49,118 @@ class TranslatorAgent_2(BaseAgent):
 
     def get_log(self) -> str:
         return "\n".join(self._log_entries)
+
+    # ── Classpath inspection ──
+
+    def _parse_pom_dependencies(self) -> list[dict[str, str]]:
+        """Parse pom.xml to extract dependency coordinates (groupId, artifactId, version)."""
+        pom_path = Path(self.project_path) / "pom.xml"
+        if not pom_path.exists():
+            return []
+
+        try:
+            import xml.etree.ElementTree as ET
+            tree = ET.parse(pom_path)
+            root = tree.getroot()
+            ns = {"m": "http://maven.apache.org/POM/4.0.0"}
+
+            # Try with namespace first, then without
+            deps = root.findall(".//m:dependency", ns)
+            if not deps:
+                deps = root.findall(".//dependency")
+
+            result = []
+            for dep in deps:
+                gid = self._xml_text(dep, "groupId", ns) or self._xml_text(dep, "groupId")
+                aid = self._xml_text(dep, "artifactId", ns) or self._xml_text(dep, "artifactId")
+                ver = self._xml_text(dep, "version", ns) or self._xml_text(dep, "version")
+                scope = self._xml_text(dep, "scope", ns) or self._xml_text(dep, "scope") or "compile"
+                if gid and aid and ver:
+                    result.append({"groupId": gid, "artifactId": aid, "version": ver, "scope": scope})
+            return result
+        except Exception as e:
+            self._log(f"[check_class] Failed to parse pom.xml: {e}")
+            return []
+
+    @staticmethod
+    def _xml_text(element, tag: str, ns: dict | None = None) -> str | None:
+        """Extract text from an XML child element."""
+        if ns:
+            child = element.find(f"m:{tag}", ns)
+        else:
+            child = element.find(tag)
+        return child.text.strip() if child is not None and child.text else None
+
+    def _find_jar_in_m2(self, group_id: str, artifact_id: str, version: str) -> Path | None:
+        """Find a dependency JAR in the local Maven repository (~/.m2/repository)."""
+        m2 = Path.home() / ".m2" / "repository"
+        # Convert groupId dots to path segments: org.sonarsource.sonarqube → org/sonarsource/sonarqube
+        group_path = group_id.replace(".", "/")
+        jar_path = m2 / group_path / artifact_id / version / f"{artifact_id}-{version}.jar"
+        if jar_path.exists():
+            return jar_path
+
+        # Try with -sources suffix
+        sources_path = m2 / group_path / artifact_id / version / f"{artifact_id}-{version}-sources.jar"
+        if sources_path.exists():
+            return sources_path
+
+        return None
+
+    def _list_classes_in_jar(self, jar_path: Path) -> set[str]:
+        """List all fully-qualified class names in a JAR file (caches results)."""
+        key = str(jar_path)
+        if key in self._classpath_cache:
+            return self._classpath_cache[key]
+
+        classes = set()
+        try:
+            with zipfile.ZipFile(jar_path) as zf:
+                for name in zf.namelist():
+                    if name.endswith(".class") and "$" not in name:
+                        # Convert org/sonar/api/Server.class → org.sonar.api.Server
+                        fqn = name[:-6].replace("/", ".")  # strip .class, convert / to .
+                        classes.add(fqn)
+        except Exception as e:
+            self._log(f"[check_class] Error reading JAR {jar_path}: {e}")
+
+        self._classpath_cache[key] = classes
+        return classes
+
+    def _resolve_dependency_version(self, group_id: str, artifact_id: str, version: str) -> str:
+        """Resolve property placeholders like ${sonar.version} from pom.xml."""
+        if not version.startswith("${"):
+            return version
+
+        # Extract property name: ${sonar.version} → sonar.version
+        prop_name = version[2:-1]
+        pom_path = Path(self.project_path) / "pom.xml"
+        if not pom_path.exists():
+            return version
+
+        try:
+            import xml.etree.ElementTree as ET
+            tree = ET.parse(pom_path)
+            root = tree.getroot()
+            ns = {"m": "http://maven.apache.org/POM/4.0.0"}
+
+            # Search in <properties>
+            props = root.find("m:properties", ns)
+            if props is None:
+                props = root.find("properties")
+            if props is not None:
+                for child in props:
+                    tag = child.tag
+                    if "}" in tag:
+                        tag = tag.split("}", 1)[1]
+                    if tag == prop_name and child.text:
+                        return child.text.strip()
+        except Exception:
+            pass
+
+        return version  # return as-is if can't resolve
+
+    # ── Message history management ──
 
     def _invoke_with_retry(
         self,
@@ -77,6 +194,8 @@ class TranslatorAgent_2(BaseAgent):
                 )
         return super()._invoke_with_retry(llm_with_tools, messages, tool_map, payload, react_tool_results)
 
+    # ── Tools ──
+
     def get_tools(self) -> list[ToolDefinition]:
         return [
             ToolDefinition(
@@ -92,6 +211,26 @@ class TranslatorAgent_2(BaseAgent):
                         }
                     },
                     "required": ["file_path"]
+                }
+            ),
+            ToolDefinition(
+                name="check_class",
+                description=(
+                    "Check if a class exists in the project's Maven dependencies (classpath). "
+                    "Use this BEFORE removing or replacing any import statement. "
+                    "Provide the fully-qualified class name (e.g. 'org.sonar.api.batch.postjob.PostJob'). "
+                    "Returns whether the class EXISTS in the current classpath, so you know if the import is valid."
+                ),
+                func=self._tool_check_class,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "class_name": {
+                            "type": "string",
+                            "description": "Fully-qualified class name to check (e.g. 'org.sonar.api.platform.Server')",
+                        }
+                    },
+                    "required": ["class_name"]
                 }
             ),
             ToolDefinition(
@@ -140,7 +279,7 @@ class TranslatorAgent_2(BaseAgent):
                 name="compile_project",
                 description=(
                     "Compile the project using Maven under JDK 17. Call this AFTER applying edits to verify your changes. "
-                    "Returns errors relevant to the file you are currently migrating."
+                    "Returns ALL compile errors (not filtered by file) so you can see which files need fixing."
                 ),
                 func=self._tool_compile_project,
                 parameters={
@@ -158,6 +297,54 @@ class TranslatorAgent_2(BaseAgent):
         if not path.is_absolute():
             path = Path(self.project_path) / path
         return path
+
+    def _tool_check_class(self, class_name: str, **kwargs) -> dict[str, Any]:
+        """Check if a class exists in the project's Maven classpath (dependency JARs)."""
+        try:
+            # Parse pom.xml to get dependencies
+            deps = self._parse_pom_dependencies()
+
+            # Convert class name to path: org.sonar.api.Server → org/sonar/api/Server.class
+            class_path = class_name.replace(".", "/") + ".class"
+
+            # Check each dependency JAR
+            results = []
+            for dep in deps:
+                if dep.get("scope") == "test":
+                    continue  # skip test-scoped deps for main source compilation
+                version = self._resolve_dependency_version(dep["groupId"], dep["artifactId"], dep["version"])
+                jar_path = self._find_jar_in_m2(dep["groupId"], dep["artifactId"], version)
+                if jar_path is None:
+                    continue
+
+                classes = self._list_classes_in_jar(jar_path)
+                if class_name in classes:
+                    results.append({
+                        "found": True,
+                        "jar": f"{dep['groupId']}:{dep['artifactId']}:{version}",
+                        "class_name": class_name,
+                    })
+
+            if results:
+                self._log(f"[check_class] {class_name} → FOUND in {len(results)} dependency(ies)")
+                return {
+                    "class_name": class_name,
+                    "exists": True,
+                    "found_in": results,
+                    "message": f"Class '{class_name}' EXISTS in the classpath. Keep the import — it is valid."
+                }
+            else:
+                self._log(f"[check_class] {class_name} → NOT FOUND in any dependency JAR")
+                return {
+                    "class_name": class_name,
+                    "exists": False,
+                    "found_in": [],
+                    "message": f"Class '{class_name}' does NOT exist in any project dependency JAR. "
+                               "The import may need to be replaced or the class may have been removed from the API."
+                }
+        except Exception as e:
+            self._log(f"[check_class] ERROR: {e}")
+            return {"error": f"Failed to check class: {e}"}
 
     def _tool_read_file(self, file_path: str, **kwargs) -> str:
         try:

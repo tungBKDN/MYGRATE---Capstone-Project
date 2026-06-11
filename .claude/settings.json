@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout 60 .venv/Scripts/python -c ' *)",
+      "Bash(timeout 30 .venv/Scripts/python -c ' *)",
+      "Bash(timeout 120 .venv/Scripts/python src/main.py --path freshbrew_data/sonar-stash)"
+    ]
+  }
+}

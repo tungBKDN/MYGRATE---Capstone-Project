@@ -3,7 +3,9 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 from abc import ABC, abstractmethod
+from enum import Enum
 from pathlib import Path
 from typing import Any, Callable
 
@@ -13,6 +15,17 @@ try:
     from langchain_groq import ChatGroq
 except Exception:
     ChatGroq = None
+
+try:
+    from langchain_ollama import ChatOllama
+except Exception:
+    ChatOllama = None
+
+
+class LLMProvider(str, Enum):
+    """Supported LLM provider backends."""
+    GROQ = "groq"
+    OLLAMA = "ollama"
 
 
 class ToolDefinition:
@@ -54,6 +67,12 @@ class ToolDefinition:
         }
 
 
+# ── Transient HTTP status codes that warrant retry with backoff ──
+_TRANSIENT_STATUS_CODES = {429, 503, 502, 500}
+_MAX_LLM_RETRIES = 3
+_INITIAL_BACKOFF_SECONDS = 2.0
+
+
 class BaseAgent(ABC):
     """Base class for all Mygrate agents using the ReAct pattern.
 
@@ -70,28 +89,169 @@ class BaseAgent(ABC):
 
     The agent gracefully degrades: if no LLM is available, it falls back
     to a deterministic pipeline using the tools in order.
+
+    LLM provider selection is controlled by the PROVIDER environment variable:
+        - "groq"  (default): uses ChatGroq with GROQ_API_KEY / GROQ_MODEL
+        - "ollama":         uses ChatOllama with OLLAMA_MODEL / OLLAMA_KEY
     """
 
     MAX_ITERATIONS = 8
 
     def __init__(self, model_name: str | None = None):
         load_dotenv()
+        self.provider = self._detect_provider()
         if model_name is None:
             model_name = self._get_default_model()
         self.model_name = model_name
         self.llm = self._init_llm(model_name)
 
+    # ── Provider & LLM initialisation ──
+
+    @staticmethod
+    def _detect_provider() -> LLMProvider:
+        """Determine the LLM provider from the PROVIDER env var."""
+        raw = os.getenv("PROVIDER", "groq").strip().lower()
+        try:
+            return LLMProvider(raw)
+        except ValueError:
+            print(f"-> [LLM] Unknown PROVIDER '{raw}', falling back to 'groq'")
+            return LLMProvider.GROQ
+
     def _get_default_model(self) -> str:
+        """Return the default model name for the active provider."""
+        if self.provider == LLMProvider.OLLAMA:
+            return os.getenv("OLLAMA_MODEL", "llama3:70b")
+        # Default: groq
         return os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
     def _init_llm(self, model_name: str) -> Any | None:
+        """Initialise the LLM client for the active provider."""
+        if self.provider == LLMProvider.OLLAMA:
+            return self._init_ollama(model_name)
+        return self._init_groq(model_name)
+
+    def _init_groq(self, model_name: str) -> Any | None:
+        """Initialise a ChatGroq LLM client."""
+        if ChatGroq is None:
+            print("-> [LLM] langchain-groq not installed, falling back to deterministic mode")
+            return None
         api_key = os.getenv("GROQ_API_KEY")
-        if not api_key or ChatGroq is None:
+        if not api_key:
+            print("-> [LLM] GROQ_API_KEY not set, falling back to deterministic mode")
             return None
         try:
             return ChatGroq(model_name=model_name, groq_api_key=api_key, temperature=0)
-        except Exception:
+        except Exception as e:
+            print(f"-> [LLM] Failed to initialise ChatGroq: {e}")
             return None
+
+    def _init_ollama(self, model_name: str) -> Any | None:
+        """Initialise a ChatOllama LLM client.
+
+        For local Ollama (http://localhost:11434): no auth needed.
+        For Ollama Cloud (https://ollama.com): set OLLAMA_KEY as Bearer token.
+        """
+        if ChatOllama is None:
+            print("-> [LLM] langchain-ollama not installed, falling back to deterministic mode")
+            return None
+        base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        api_key = os.getenv("OLLAMA_KEY", "")
+        try:
+            kwargs: dict[str, Any] = {
+                "model": model_name,
+                "base_url": base_url,
+                "temperature": 0,
+            }
+            # For Ollama Cloud, pass the API key as a Bearer token header
+            if api_key:
+                kwargs["client_kwargs"] = {"headers": {"Authorization": f"Bearer {api_key}"}}
+                kwargs["async_client_kwargs"] = {"headers": {"Authorization": f"Bearer {api_key}"}}
+            llm = ChatOllama(**kwargs)
+            print(f"-> [LLM] ChatOllama initialised: model={model_name}, base_url={base_url}, auth={'Bearer' if api_key else 'none'}")
+            return llm
+        except Exception as e:
+            print(f"-> [LLM] Failed to initialise ChatOllama: {e}")
+            return None
+
+    # ── LLM invocation with retry ──
+
+    def _is_transient_error(self, error: Exception) -> bool:
+        """Return True if the error is transient and worth retrying.
+
+        Auth errors (401/403) are NOT transient — they indicate misconfiguration.
+        """
+        error_str = str(error).lower()
+        # Auth errors — never retry these
+        if "401" in error_str or "unauthorized" in error_str:
+            return False
+        if "403" in error_str or "forbidden" in error_str:
+            return False
+        # Check for transient HTTP status codes in the error message
+        for code in _TRANSIENT_STATUS_CODES:
+            if str(code) in error_str:
+                return True
+        # Check for common transient error phrases
+        for phrase in ("over capacity", "rate limit", "too many requests", "temporarily unavailable", "service unavailable"):
+            if phrase in error_str:
+                return True
+        return False
+
+    def _invoke_with_retry(
+        self,
+        llm_with_tools: Any,
+        messages: list,
+        tool_map: dict[str, ToolDefinition],
+        payload: dict[str, Any],
+        react_tool_results: dict[str, Any],
+    ) -> Any | None:
+        """Invoke the LLM with exponential backoff on transient errors.
+
+        Also handles schema validation errors (boolean params sent as strings).
+
+        Returns the LLM response, or None if all retries are exhausted.
+        """
+        for attempt in range(_MAX_LLM_RETRIES):
+            try:
+                return llm_with_tools.invoke(messages)
+            except Exception as e:
+                error_str = str(e)
+                print(f"-> [{self._agent_name()}] LLM error (attempt {attempt + 1}/{_MAX_LLM_RETRIES}): {e}")
+
+                # Try to recover from schema validation errors (e.g. boolean params sent as strings)
+                recovered = self._try_recover_tool_calls(e, tool_map, payload, react_tool_results, messages)
+                if recovered is not None:
+                    # Recovery succeeded — ask the LLM to continue
+                    from langchain_core.messages import HumanMessage
+                    messages.append(HumanMessage(
+                        content="The previous tool call was recovered and executed. Please continue your analysis and call the next tool or provide your final answer."
+                    ))
+                    # Continue the retry loop (this isn't a transient error, so no backoff)
+                    continue
+
+                if not self._is_transient_error(e):
+                    # Non-transient error — don't retry, give a helpful message
+                    error_str_lower = str(e).lower()
+                    if "401" in error_str_lower or "unauthorized" in error_str_lower:
+                        if self.provider == LLMProvider.OLLAMA:
+                            print(f"-> [{self._agent_name()}] Authentication failed (401). Set OLLAMA_KEY in .env for Ollama Cloud, "
+                                  f"or use a local Ollama server (OLLAMA_BASE_URL=http://localhost:11434).")
+                        else:
+                            print(f"-> [{self._agent_name()}] Authentication failed (401). Check your GROQ_API_KEY in .env.")
+                    elif "403" in error_str_lower or "forbidden" in error_str_lower:
+                        print(f"-> [{self._agent_name()}] Access forbidden (403). Check your API key permissions.")
+                    else:
+                        print(f"-> [{self._agent_name()}] Non-transient error, giving up.")
+                    return None
+
+                # Transient error — backoff and retry
+                backoff = _INITIAL_BACKOFF_SECONDS * (2 ** attempt)
+                print(f"-> [{self._agent_name()}] Transient error, retrying in {backoff:.1f}s...")
+                time.sleep(backoff)
+
+        print(f"-> [{self._agent_name()}] All {_MAX_LLM_RETRIES} LLM retries exhausted.")
+        return None
+
+    # ── Prompt loading ──
 
     def _load_prompt_file(self, filename: str) -> str | None:
         """Load a markdown prompt file from src/prompts/ directory.
@@ -289,23 +449,16 @@ class BaseAgent(ABC):
 
         # Bind tools to LLM for native function calling
         llm_with_tools = self.llm.bind_tools([t.to_openai_tool() for t in tools])
-        
+
         # Track tool results to merge into final answers
         react_tool_results: dict[str, Any] = {}
 
         for iteration in range(self.MAX_ITERATIONS):
-            print(f"-> [{self._agent_name()}] ReAct iteration {iteration + 1}/{self.MAX_ITERATIONS}")
+            print(f"-> [{self._agent_name()}] ReAct iteration {iteration + 1}/{self.MAX_ITERATIONS} [provider={self.provider.value}, model={self.model_name}]")
 
-            try:
-                response = llm_with_tools.invoke(messages)
-            except Exception as e:
-                error_str = str(e)
-                print(f"-> [{self._agent_name()}] LLM error: {e}")
-
-                # Try to recover from schema validation errors (e.g. boolean params sent as strings)
-                recovered = self._try_recover_tool_calls(e, tool_map, payload, react_tool_results, messages)
-                if recovered is not None:
-                    continue
+            response = self._invoke_with_retry(llm_with_tools, messages, tool_map, payload, react_tool_results)
+            if response is None:
+                # All retries exhausted — treat as fatal for this iteration
                 break
 
             # Check if LLM wants to call tools
@@ -350,11 +503,11 @@ class BaseAgent(ABC):
                                 inner = merged_ans.pop("final_answer")
                                 if isinstance(inner, dict):
                                     merged_ans.update(inner)
-                            
+
                             combined = dict(react_tool_results)
                             combined.update(merged_ans)
                             return self._post_process(combined, instruction, payload)
-                        
+
                         combined = dict(react_tool_results)
                         combined["result"] = final_ans
                         return self._post_process(combined, instruction, payload)
@@ -533,7 +686,6 @@ class BaseAgent(ABC):
         failed_gen = None
         try:
             # The error body often contains failed_generation as a Python repr string
-            # Pattern: 'failed_generation': '...content...'
             import re as _re
             # Match single-quoted failed_generation (Groq format)
             match = _re.search(r"'failed_generation':\s*'(.*?)'(?:\s*})", error_str, _re.DOTALL)
@@ -555,7 +707,6 @@ class BaseAgent(ABC):
         tool_calls_raw = None
         try:
             # The failed_generation may contain text before/after the JSON array
-            # Find the JSON array boundaries
             bracket_start = failed_gen.find("[")
             bracket_end = failed_gen.rfind("]")
             if bracket_start != -1 and bracket_end != -1 and bracket_end > bracket_start:
@@ -592,7 +743,6 @@ class BaseAgent(ABC):
             react_tool_results[tool_name] = observation
 
             # Inject observation into the conversation as a HumanMessage
-            # so the LLM sees the result and can continue reasoning
             obs_str = json.dumps(observation, ensure_ascii=False, default=str)
             messages.append(HumanMessage(
                 content=(

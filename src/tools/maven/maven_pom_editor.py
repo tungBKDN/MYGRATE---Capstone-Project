@@ -14,7 +14,8 @@ class MavenPomEditor:
         :param pom_file: Path to the pom.xml file.
         """
         self.pom_file: str = os.path.abspath(pom_file)
-        self.tree = etree.parse(self.pom_file)
+        parser = etree.XMLParser(remove_blank_text=True)
+        self.tree = etree.parse(self.pom_file, parser)
         self.root = self.tree.getroot()
         # Copy the namespace map and remap the default namespace (if present) to "m"
         self.namespaces: Dict[Optional[str], str] = self.root.nsmap.copy()
@@ -394,7 +395,40 @@ class MavenPomEditor:
         # Use ensure_element which handles creation or update of text content
         prop_elem = self.ensure_element(properties_elem, f"m:{property_name}", text=property_value)
         self._save()  # Save after ensuring the property
+
+        # Auto-update maven-compiler-plugin configuration if it's a compiler property
+        compiler_properties = {
+            "maven.compiler.source",
+            "maven.compiler.target",
+            "jdk.version",
+            "java.version",
+            "maven.compiler.release"
+        }
+        if property_name in compiler_properties:
+            self.update_compiler_plugin_version(property_value)
+
         return prop_elem
+
+    def update_compiler_plugin_version(self, version: str) -> None:
+        """
+        Check if maven-compiler-plugin exists and has <source>, <target>, or <release>
+        under its <configuration>, and update them to the target version.
+        """
+        plugin = self.get_plugin("org.apache.maven.plugins", "maven-compiler-plugin")
+        if plugin is not None:
+            config = plugin.find(self._qname("m:configuration"))
+            if config is not None:
+                source_elem = config.find(self._qname("m:source"))
+                if source_elem is not None:
+                    source_elem.text = version
+                target_elem = config.find(self._qname("m:target"))
+                if target_elem is not None:
+                    target_elem.text = version
+                release_elem = config.find(self._qname("m:release"))
+                if release_elem is not None:
+                    release_elem.text = version
+                self._save()
+
 
     def add_skip_plugin_config(self, parent_plugin_element: etree._Element):
         """Adds <configuration><skip>true</skip></configuration> to a plugin element."""

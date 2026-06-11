@@ -332,6 +332,15 @@
             "new": null,
             "type": "method_invocation",
             "action": "delete"
+        },
+        {
+            "rule_id": "a92e105b",
+            "target_version": "java11",
+            "reason": "The `javax.annotation.Generated` annotation has been removed in Java 11. Use `javax.annotation.processing.Generated` instead.",
+            "target": "javax.annotation.Generated",
+            "new": "javax.annotation.processing.Generated",
+            "type": "import_declaration",
+            "action": "replace"
         }
     ]
 }

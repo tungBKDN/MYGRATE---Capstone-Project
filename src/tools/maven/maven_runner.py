@@ -32,6 +32,8 @@ class Maven:
     def _get_base_cmd(self, repo_path: Path) -> str:
         if self._use_wrapper(repo_path):
             self._ensure_mvnw_executable(repo_path)  # Call this before getting the command
+            if os.name == "nt":
+                return "mvnw.cmd"
             return "./mvnw"
         else:
             return "mvn"
@@ -47,7 +49,7 @@ class Maven:
         ]
         if clean:
             cmd.insert(1, "clean")
-        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path))
+        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
         return CliResult(
             status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
         )
@@ -66,7 +68,7 @@ class Maven:
             cmd.append("-DskipITs")
         if clean:
             cmd.insert(1, "clean")
-        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path))
+        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
         return CliResult(
             status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
         )
@@ -95,7 +97,7 @@ class Maven:
             cmd.append("-DskipITs")
         if skip_docs:
             cmd.append("-DskipDocs")
-        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path))
+        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
         return CliResult(
             status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
         )
@@ -114,7 +116,7 @@ class Maven:
 
         logger.info(f"Running command: {' '.join(cmd)}")
 
-        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path))
+        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
         return CliResult(
             status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
         )
@@ -129,7 +131,7 @@ class Maven:
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
         ]
 
-        result = subprocess.run(cmd, capture_output=True, cwd=repo_path)
+        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
         return CliResult(
             status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
         )

@@ -14,15 +14,27 @@ from src.tools import write_file, MavenPomEditor, MavenProject, MavenRunner
 
 class TranslatorAgent(BaseAgent):
     """
-    Translator agent that turns migration scope reports into actionable change plans.
+    Translator agent that turns migration scope reports into actionable change plans
+    AND applies those changes to the codebase.
 
     Uses the ReAct pattern: the LLM autonomously decides which tools to call
-    (jdeprscan, change_finder, enrich) and in what order, based on the instruction.
+    (jdeprscan, change_finder, enrich, edit_pom, write_file, maven) and in what order,
+    based on the instruction.
+
+    Two operating modes:
+        - PLAN (default): Generate the migration plan without modifying code
+        - APPLY: Actually modify pom.xml, source files, and verify compilation
 
     Available tools:
         - run_jdeprscan: Discover deprecated API usage in project code and dependencies.
         - build_change_plan: Build a translation report from change candidates.
         - enrich_report: Enrich the report with LLM-generated recommendations.
+        - find_code_usages: Search Java AST for identifier usages.
+        - search_codebase: Regex grep search in codebase.
+        - get_file_migration_details: Get deprecation details for a specific file.
+        - write_file: Write file content (stored under artifacts/).
+        - edit_pom_dependency: Modify pom.xml dependencies and properties.
+        - run_maven_command: Execute Maven goals (compile, test, etc.).
 
     The jdeprscan report is the primary data source for deciding what code needs to change. It provides:
         - Layer 1 (project code): forRemoval and deprecated API calls
@@ -33,6 +45,29 @@ class TranslatorAgent(BaseAgent):
     def get_prompt_file(self) -> str | None:
         """Load the detailed markdown prompt for the Translator Agent."""
         return "translator.md"
+
+    def get_context(self, instruction: str, payload: dict[str, Any]) -> str:
+        """Inject operating mode context into the LLM conversation."""
+        current_instruction = payload.get("current_instruction", "")
+        mode = "APPLY" if current_instruction.strip().upper().startswith("APPLY") else "PLAN"
+
+        lines = [
+            f"**OPERATING MODE: {mode}**",
+        ]
+
+        if mode == "APPLY":
+            lines.append(
+                "You are in APPLY mode. You MUST actually modify code files and pom.xml, "
+                "then verify compilation. Do NOT just generate a plan — execute the changes.\n"
+                f"Instruction: {current_instruction}"
+            )
+        else:
+            lines.append(
+                "You are in PLAN mode. Generate the migration plan but do NOT modify any code files. "
+                "The user will review the plan and approve it before changes are applied."
+            )
+
+        return "\n".join(lines)
 
     def get_tools(self) -> list[ToolDefinition]:
         return [
@@ -595,6 +630,20 @@ class TranslatorAgent(BaseAgent):
                 editor.update_element_text(xpath, version)
                 return {"status": "ok", "message": f"Updated elements at xpath '{xpath}' to '{version}'"}
                 
+            elif action == "add_plugin":
+                if not group_id or not artifact_id:
+                    return {"status": "error", "error": "group_id and artifact_id are required for add_plugin"}
+                configuration = kwargs.get("configuration")
+                executions = kwargs.get("executions")
+                editor.add_plugin(
+                    group_id=group_id,
+                    artifact_id=artifact_id,
+                    version=version,
+                    configuration=configuration,
+                    executions=executions
+                )
+                return {"status": "ok", "message": f"Added plugin {group_id}:{artifact_id}:{version}"}
+
             else:
                 return {"status": "error", "error": f"Unknown action: {action}"}
                 

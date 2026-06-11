@@ -72,16 +72,19 @@ class ReaderAgent(BaseAgent):
             print(f"-> [READER] index_java_project exception: {e}")
             return {"status": "error", "message": str(e)}
 
-    def _tool_review_upgrade_candidates(self, payload_json: str = "{}", **kwargs) -> dict[str, Any]:
+    def _tool_review_upgrade_candidates(self, payload_json: str | dict = "{}", **kwargs) -> dict[str, Any]:
         """Tool: Run upgrade candidate final review."""
         try:
             print("-> [READER] Reviewing candidate solutions...")
             payload = {}
             if payload_json:
-                try:
-                    payload = json.loads(payload_json)
-                except json.JSONDecodeError:
-                    return {"status": "error", "message": "payload_json must be valid JSON."}
+                if isinstance(payload_json, dict):
+                    payload = payload_json
+                else:
+                    try:
+                        payload = json.loads(payload_json)
+                    except json.JSONDecodeError:
+                        return {"status": "error", "message": "payload_json must be valid JSON."}
             
             review = self.review_candidates(payload)
             return review

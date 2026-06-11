@@ -92,17 +92,41 @@ class SupervisorAgent(BaseAgent):
         # 1. Initialize messages with the system prompt
         messages: list = [SystemMessage(content=system_prompt)]
 
-        # 2. Append historical chat history from state (messages)
+        # 2. Extract the latest user message for prominent display
+        latest_user_msg = ""
+        chat_history_summary = ""
         if hasattr(self, "_messages_from_state") and self._messages_from_state:
-            messages.extend(self._messages_from_state[-10:])
+            # Find the most recent HumanMessage
+            for msg in reversed(self._messages_from_state):
+                if isinstance(msg, HumanMessage):
+                    latest_user_msg = getattr(msg, "content", str(msg))
+                    break
 
-        # 3. Add context payload as the user instruction
+            # Build a compact summary of recent chat (last 6 messages)
+            recent = self._messages_from_state[-6:]
+            chat_lines = []
+            for msg in recent:
+                role = "User" if isinstance(msg, HumanMessage) else "Assistant"
+                content = getattr(msg, "content", str(msg))[:200]
+                chat_lines.append(f"[{role}]: {content}")
+            chat_history_summary = "\n".join(chat_lines)
+
+        # 3. Add context payload with user message highlighted
         user_content = (
             f"Global State Context:\n{instruction}\n\n"
+        )
+        if chat_history_summary:
+            user_content += f"Recent Chat History:\n{chat_history_summary}\n\n"
+        if latest_user_msg:
+            user_content += f"LATEST USER MESSAGE (MUST read this to determine intent): \"{latest_user_msg}\"\n\n"
+
+        user_content += (
             "Available Tools:\n" + self._format_tool_descriptions(tools) + "\n\n"
-            "Analyze the current state and chat history. You MUST call the 'route_to' tool "
-            "to set the next node. Once you have called 'route_to' successfully, wrap up "
-            "your answer by returning a JSON confirmation matching the required output format."
+            "Analyze the current state, chat history, and ESPECIALLY the latest user message. "
+            "You MUST call the 'route_to' tool to set the next node. "
+            "Pay close attention to the user's intent — if they say 'yes', 'ok', 'next', 'apply', "
+            "'approved', 'proceed', or similar approval words after a plan is generated, "
+            "route to 'translator' with an APPLY instruction."
         )
         messages.append(HumanMessage(content=user_content))
 
@@ -110,11 +134,11 @@ class SupervisorAgent(BaseAgent):
         llm_with_tools = self.llm.bind_tools([t.to_openai_tool() for t in tools])
 
         for iteration in range(self.MAX_ITERATIONS):
-            print(f"-> [SUPERVISOR] ReAct iteration {iteration + 1}/{self.MAX_ITERATIONS}")
-            try:
-                response = llm_with_tools.invoke(messages)
-            except Exception as e:
-                print(f"-> [SUPERVISOR] LLM error: {e}")
+            print(f"-> [SUPERVISOR] ReAct iteration {iteration + 1}/{self.MAX_ITERATIONS} [provider={self.provider.value}, model={self.model_name}]")
+
+            response = self._invoke_with_retry(llm_with_tools, messages, tool_map, payload, {})
+            if response is None:
+                # All retries exhausted
                 break
 
             tool_calls = getattr(response, "tool_calls", None) or []
@@ -131,6 +155,12 @@ class SupervisorAgent(BaseAgent):
                                tool_args = json.loads(tool_args)
                            except json.JSONDecodeError:
                                tool_args = {}
+
+                    # Coerce argument types to match schema
+                    tool_def = tool_map.get(tool_name)
+                    if tool_def:
+                        schema_props = tool_def.parameters.get("properties", {})
+                        tool_args = self._coerce_tool_args(tool_args, schema_props)
 
                     print(f"-> [SUPERVISOR] Calling tool: {tool_name}({json.dumps(tool_args, default=str)[:200]})")
                     observation = self._execute_tool(tool_name, tool_args, tool_map, payload)

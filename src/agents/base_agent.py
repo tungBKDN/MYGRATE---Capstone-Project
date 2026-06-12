@@ -501,7 +501,8 @@ class BaseAgent(ABC):
                             # Try to run compile/test to see if it passes
                             print(f"-> [{self._agent_name()}] Verifying project compilation before submitting final answer...")
                             from src.tools.maven import MavenRunner
-                            runner = MavenRunner(target_java_version="17")
+                            java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
+                            runner = MavenRunner(target_java_version=java_ver)
                             verify_res = runner.test(Path(payload.get("project_path", "")), skip_tests=False, clean=True)
                             if verify_res.status != 0:
                                 print(f"-> [{self._agent_name()}] Final answer BLOCKED: Project has compilation errors or failing tests (exit code {verify_res.status}). You must fix all issues and ensure compile/tests pass before submitting.")
@@ -555,7 +556,8 @@ class BaseAgent(ABC):
                 if self.__class__.__name__ == "TranslatorAgent":
                     print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
                     from src.tools.maven import MavenRunner
-                    runner = MavenRunner(target_java_version="17")
+                    java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
+                    runner = MavenRunner(target_java_version=java_ver)
                     verify_res = runner.test(Path(payload.get("project_path", "")), skip_tests=False, clean=True)
                     if verify_res.status != 0:
                         print(f"-> [{self._agent_name()}] Direct response BLOCKED: Project still has compile/test errors (exit code {verify_res.status}). Forcing agent to continue.")

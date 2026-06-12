@@ -15,7 +15,15 @@ from src.agents.translator_agent import TranslatorAgent
 # --- Wrapper Nodes ---
 
 def reader_node(state: GlobalState):
-    """Reader: index codebase, parse POM, return project info + dependencies."""
+    """Reader: index codebase, parse POM, return project info + dependencies.
+
+    Has two phases:
+      Phase 1 (default): Initial codebase scan — extract project_type + dependencies.
+      Phase 2 (candidate review): Runs when upgrade_report AND candidate_solutions are
+        both present in state AND Supervisor explicitly routes back here.
+        NOTE: The Supervisor currently routes reader→architect→translator in sequence;
+        Phase 2 is only triggered if the Supervisor decides a second reader pass is needed.
+    """
     project_path = state.get("project_path", "")
     target_java = state.get("target_java_version", "17")
 
@@ -110,8 +118,11 @@ def architect_node(state: GlobalState):
         if isinstance(parsed, dict):
             if parsed.get("solutions"):
                 update["candidate_solutions"] = parsed.get("solutions")
-            if parsed.get("smoke_test_results"):
-                update["upgrade_report"] = parsed
+            # Bug fix: always persist upgrade_report when we have a valid result so
+            # the Supervisor can see that Architect ran and won't loop back here.
+            # Previously only saved when smoke_test_results was present, causing
+            # an infinite Supervisor → Architect loop when the solver didn't emit it.
+            update["upgrade_report"] = parsed
     except Exception:
         pass
 

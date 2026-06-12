@@ -42,8 +42,8 @@ class TranslatorAgent(BaseAgent):
         self._last_failure_signature = None
 
     def get_prompt_file(self) -> str | None:
-        """Load the combined prompt for Translator Agent."""
-        return "translator_2.md"
+        """Load the combined prompt for Translator Agent (Phase 1 + Phase 2)."""
+        return "translator.md"
 
     def run(self, instruction: str) -> str:
         payload = self._parse_instruction(instruction)
@@ -830,14 +830,16 @@ class TranslatorAgent(BaseAgent):
             if self._main_source_locked and any("src/main/java" in err.replace("\\", "/") for err in compiler_errors):
                 self._main_source_locked = False  # Dynamic Unlock
 
-            # Loop stuck monitor
+            # Loop stuck monitor — only count as "stuck" when failure count does NOT decrease.
+            # Using strict > means genuine progress (even -1 error) resets the counter.
             if run_tests:
                 failures_cnt = len(test_failures) + len(compiler_errors)
                 is_stuck = self._last_test_failure_count is not None and failures_cnt >= self._last_test_failure_count
                 if is_stuck:
                     self._test_fail_loop_count += 1
                 else:
-                    self._test_fail_loop_count = 1
+                    # Progress detected — reset counter so we don't trigger a false circuit-break
+                    self._test_fail_loop_count = 0
                 self._last_test_failure_count = failures_cnt
 
                 if self._test_fail_loop_count >= self.MAX_TEST_FAIL_LOOPS:
@@ -953,7 +955,8 @@ class TranslatorAgent(BaseAgent):
         **kwargs,
     ) -> dict[str, Any]:
         try:
-            p_path = Path(project_path)
+            # Bug fix: fall back to self.project_path when caller omits the arg
+            p_path = Path(project_path or self.project_path)
             root_pom = p_path / "pom.xml"
             if not root_pom.exists():
                 return {"status": "error", "error": f"No root pom.xml found"}
@@ -977,9 +980,19 @@ class TranslatorAgent(BaseAgent):
                     editor.add_dependency(group_id, artifact_id, version, scope=scope)
                     return {"status": "ok", "message": f"Added dependency {group_id}:{artifact_id}:{version}"}
             elif action == "ensure_property":
+                # Anti-reward-hacking: block test-skip properties being set to true
+                _SKIP_TEST_PROPS = {"skiptests", "skipits", "maven.test.skip", "maven.test.failure.ignore"}
+                if property_name and property_name.lower() in _SKIP_TEST_PROPS:
+                    if str(version or "").strip().lower() == "true":
+                        return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip property to 'true' in pom.xml is forbidden."}
                 editor.ensure_property(property_name, version)
                 return {"status": "ok", "message": f"Property {property_name} set to {version}"}
             elif action == "update_element_text":
+                # Anti-reward-hacking: block skipTests/maven.test.skip element updates to true
+                _SKIP_XPATHS = ("skiptests", "skipits", "maven.test.skip", "maven.test.failure.ignore")
+                if xpath and any(s in xpath.lower() for s in _SKIP_XPATHS):
+                    if str(version or "").strip().lower() == "true":
+                        return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip element to 'true' in pom.xml is forbidden."}
                 editor.update_element_text(xpath, version)
                 return {"status": "ok", "message": f"Updated elements at xpath '{xpath}' to '{version}'"}
             else:
@@ -997,7 +1010,11 @@ class TranslatorAgent(BaseAgent):
         **kwargs,
     ) -> dict[str, Any]:
         try:
-            p_path = Path(project_path)
+            # Bug fix: fall back to self.project_path when caller omits the arg
+            resolved_path = project_path or self.project_path
+            if not resolved_path:
+                return {"status": "error", "error": "project_path is not set. Cannot run Maven command."}
+            p_path = Path(resolved_path)
             runner = MavenRunner(target_java_version)
             if goal == "compile":
                 res = runner.compile(p_path, clean=clean)

@@ -6,7 +6,7 @@ from pathlib import Path
 # Add project root to sys.path to allow running from any directory
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.agents.translator_agent_2 import TranslatorAgent_2
+from src.agents.translator_agent import TranslatorAgent
 
 
 def test_list_project_files(tmp_path):
@@ -24,7 +24,7 @@ def test_list_project_files(tmp_path):
     (project_dir / "target" / "ignored.class").write_text("", encoding="utf-8")
     (project_dir / ".git" / "config").write_text("", encoding="utf-8")
     
-    agent = TranslatorAgent_2()
+    agent = TranslatorAgent()
     agent.project_path = str(project_dir)
     
     # Check project-wide listing
@@ -55,7 +55,7 @@ def test_apply_edits_overlap(tmp_path):
     content = "line1\nline2\nline3\nline4\nline5"
     file_path.write_text(content, encoding="utf-8")
     
-    agent = TranslatorAgent_2()
+    agent = TranslatorAgent()
     agent.project_path = str(project_dir)
     
     # 1. Non-overlapping edits should succeed
@@ -98,7 +98,7 @@ def test_apply_edits_pom(tmp_path):
 """
     pom_file.write_text(pom_content, encoding="utf-8")
     
-    agent = TranslatorAgent_2()
+    agent = TranslatorAgent()
     agent.project_path = str(project_dir)
     
     # Try editing version
@@ -123,7 +123,7 @@ def test_reward_hacking_prevention(tmp_path):
     pom_file = project_dir / "pom.xml"
     pom_file.write_text("<project></project>", encoding="utf-8")
     
-    agent = TranslatorAgent_2()
+    agent = TranslatorAgent()
     agent.project_path = str(project_dir)
     
     edits_pom_hack = [
@@ -198,7 +198,7 @@ def test_code_lock(tmp_path):
     test_file.parent.mkdir(parents=True, exist_ok=True)
     test_file.write_text("public class MainTest {}", encoding="utf-8")
     
-    agent = TranslatorAgent_2()
+    agent = TranslatorAgent()
     agent.project_path = str(project_dir)
     
     # 1. Main source NOT locked initially -> edit main source should pass
@@ -238,7 +238,7 @@ def test_check_class_batch(tmp_path):
 """
     pom_file.write_text(pom_content, encoding="utf-8")
     
-    agent = TranslatorAgent_2()
+    agent = TranslatorAgent()
     agent.project_path = str(project_dir)
     
     # Mocking _find_jar_in_m2 and _list_classes_in_jar to avoid real network/m2 local dependency

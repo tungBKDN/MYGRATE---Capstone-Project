@@ -496,8 +496,8 @@ class BaseAgent(ABC):
                     observation = self._execute_tool(tool_name, tool_args, tool_map, payload)
 
                     if tool_name == "submit_final_answer":
-                        # Block submission for TranslatorAgent_2 if compiling/tests are not fully passing
-                        if self.__class__.__name__ == "TranslatorAgent_2":
+                        # Block submission for TranslatorAgent if compiling/tests are not fully passing
+                        if self.__class__.__name__ == "TranslatorAgent":
                             # Try to run compile/test to see if it passes
                             print(f"-> [{self._agent_name()}] Verifying project compilation before submitting final answer...")
                             from src.tools.maven import MavenRunner
@@ -552,7 +552,7 @@ class BaseAgent(ABC):
 
             else:
                 # No tool calls — this is the final answer
-                if self.__class__.__name__ == "TranslatorAgent_2":
+                if self.__class__.__name__ == "TranslatorAgent":
                     print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
                     from src.tools.maven import MavenRunner
                     runner = MavenRunner(target_java_version="17")

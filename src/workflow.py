@@ -84,10 +84,6 @@ def reader_node(state: GlobalState):
                 update["project_type"] = parsed.get("project_type")
             if parsed.get("dependencies"):
                 update["dependencies"] = parsed.get("dependencies")
-            if parsed.get("pom_data"):
-                update["pom_data"] = parsed.get("pom_data")
-            if parsed.get("index_summary"):
-                update["index_report"] = parsed.get("index_summary")
     except Exception:
         pass
 
@@ -116,8 +112,6 @@ def architect_node(state: GlobalState):
                 update["candidate_solutions"] = parsed.get("solutions")
             if parsed.get("smoke_test_results"):
                 update["upgrade_report"] = parsed
-            if parsed.get("conflict_edges") is not None:
-                update["compatibility_matrix"] = parsed.get("conflict_edges", [])
     except Exception:
         pass
 

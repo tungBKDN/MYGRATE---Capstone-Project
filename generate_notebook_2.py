@@ -318,8 +318,8 @@ cells = [
         "metadata": {},
         "outputs": [],
         "source": [
-            "from src.agents.translator_agent_2 import TranslatorAgent_2\n",
-            "print(\"TranslatorAgent_2 class imported successfully from src.agents.translator_agent_2!\")\n"
+            "from src.agents.translator_agent import TranslatorAgent\n",
+            "print(\"TranslatorAgent class imported successfully from src.agents.translator_agent!\")\n"
         ]
     },
     # Cell 8: Unified Main Source & Test Translation Loop (Alternate Strategy)
@@ -387,7 +387,7 @@ cells = [
             "        \"rules\": \"\"\n",
             "    }\n",
             "\n",
-            "    agent = TranslatorAgent_2()\n",
+            "    agent = TranslatorAgent()\n",
             "    # Set Agent maximum iterations to 80\n",
             "    agent.MAX_ITERATIONS = 80\n",
             "    \n",
@@ -474,7 +474,7 @@ cells = [
             "# Run the python agent unit tests to verify indexer and overlap validation\n",
             "import subprocess\n",
             "import sys\n",
-            "print(\"Running TranslatorAgent_2 unit tests...\")\n",
+            "print(\"Running TranslatorAgent unit tests...\")\n",
             "res = subprocess.run([sys.executable, \"tests/test_translator_agent_2_tools.py\"], capture_output=True, text=True)\n",
             "print(f\"Test exit code: {res.returncode}\")\n",
             "print(\"--- STDOUT ---\")\n",

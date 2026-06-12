@@ -1079,14 +1079,6 @@ def index_java_project(project_path: str) -> dict:
                 }
             }
             
-            # Save to root project's artifacts/ folder
-            artifacts_dir = project_root / "artifacts"
-            artifacts_dir.mkdir(parents=True, exist_ok=True)
-            with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
-                json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
-            with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
-                f.write(f"# Codebase Scan Report\n\n{overview_md}\n")
-                
             return scan_report_data
 
     # Fallback/Default: Single project scan
@@ -1181,14 +1173,6 @@ def index_java_project(project_path: str) -> dict:
         "project_info": props,
         "markdown_report": overview_md
     }
-
-    # Save to target project's artifacts/ folder
-    artifacts_dir = project_root / "artifacts"
-    artifacts_dir.mkdir(parents=True, exist_ok=True)
-    with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
-        json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
-    with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
-        f.write(f"# Codebase Scan Report\n\n{overview_md}\n")
 
     return scan_report_data
 
@@ -1338,15 +1322,6 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
 
     pipeline_result["best_solution"] = best
     pipeline_result["visualizations"] = visualizations
-
-    # Write report files
-    report_root = Path(project_path) / "artifacts"
-    report_root.mkdir(parents=True, exist_ok=True)
-
-    report_path = report_root / "upgrade_report.json"
-    with open(report_path, "w", encoding="utf-8") as f:
-        json.dump(pipeline_result, f, ensure_ascii=False, indent=2, default=str)
-    pipeline_result["report_path"] = str(report_path)
 
     return pipeline_result
 

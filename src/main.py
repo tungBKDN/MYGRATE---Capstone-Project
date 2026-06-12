@@ -1,26 +1,95 @@
 import os
 import argparse
 import json
-
+import sys
+from pathlib import Path
 from dotenv import load_dotenv
-from src.workflow import app
+
+# ANSI Color codes for premium styling
+RESET = "\033[0m"
+BOLD = "\033[1m"
+GREEN = "\033[32m"
+RED = "\033[31m"
+CYAN = "\033[36m"
+MAGENTA = "\033[35m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+BRIGHT_BLUE = "\033[94m"
+BG_DARK = "\033[40m"
+
+BANNER = f"""{BRIGHT_BLUE}{BOLD}
+███╗   ███╗██╗   ██╗ ██████╗ ██████╗  █████╗ ████████╗███████╗
+████╗ ████║╚██╗ ██╔╝██╔════╝ ██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
+██╔████╔██║ ╚████╔╝ ██║  ███╗██████╔╝███████║   ██║   █████╗  
+██║╚██╔╝██║  ╚██╔╝  ██║   ██║██╔══██╗██╔══██║   ██║   ██╔══╝  
+██║ ╚═╝ ██║   ██║   ╚██████╔╝██║  ██║██║  ██║   ██║   ███████╗
+╚═╝     ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
+{RESET}{CYAN}                 ~ Automated Java Migration Wizard ~{RESET}
+"""
+
+def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0):
+    p_path = Path(project_path)
+    codebase_name = p_path.name
+    
+    # Defaults
+    compilation_success = False
+    passed_tests = 0
+    total_tests = 0
+    line_coverage = 0.0
+    covered_lines = 0
+    missed_lines = 0
+    
+    # Try reading eval.json
+    eval_file = Path.cwd() / "eval.json"
+    if eval_file.exists():
+        try:
+            with open(eval_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if codebase_name in data:
+                    cb_data = data[codebase_name]
+                    compilation_success = cb_data.get("compilation_success", False)
+                    passed_tests = cb_data.get("passed_tests", 0)
+                    total_tests = cb_data.get("total_tests", 0)
+                    line_coverage = cb_data.get("line_coverage", 0.0)
+                    covered_lines = cb_data.get("covered_lines", 0)
+                    missed_lines = cb_data.get("missed_lines", 0)
+                    if cb_data.get("step_count"):
+                        step_count = cb_data.get("step_count")
+        except Exception:
+            pass
+
+    comp_status = f"{GREEN}{BOLD}SUCCESS{RESET}" if compilation_success else f"{RED}{BOLD}FAILED{RESET}"
+    test_pct = (passed_tests / total_tests * 100.0) if total_tests > 0 else 0.0
+    test_status = f"{passed_tests} / {total_tests} ({test_pct:.1f}%)"
+    
+    print(f"\n{BLUE}{BOLD}┌────────────────────────────────────────────────────────┐{RESET}")
+    print(f"{BLUE}│{RESET}               {BOLD}{MAGENTA}MIGRATION RUN SUMMARY{RESET}                    {BLUE}│{RESET}")
+    print(f"{BLUE}├────────────────────────────────────────────────────────┤{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}CodebaseName{RESET}:      {CYAN}{codebase_name:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Target Java{RESET}:       {CYAN}{target_java:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Compilation{RESET}:       {comp_status:<45} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Tests Passed{RESET}:      {test_status:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Line Coverage{RESET}:     {YELLOW}{line_coverage:.1f}%{RESET:<44} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Covered Lines{RESET}:     {GREEN}{covered_lines:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Missed Lines{RESET}:      {RED}{missed_lines:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Agent Step Count{RESET}:  {CYAN}{step_count:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}└────────────────────────────────────────────────────────┘{RESET}\n")
 
 
 def _print_final_summary(final_state: dict):
     from langchain_core.messages import AIMessage
     
-    # Print supervisor's last response if any
     messages = final_state.get("messages", [])
     if messages:
         for msg in reversed(messages):
             if getattr(msg, "type", "") == "ai" or isinstance(msg, AIMessage):
-                print(f"\n[AI RESPONSE]\n{msg.content}\n")
+                print(f"\n{GREEN}{BOLD}[AI RESPONSE]{RESET}\n{msg.content}\n")
                 break
 
-    print("=" * 50)
-    print("State Result Summary:")
-    print(f"  Project Type: {final_state.get('project_type', 'unknown')}")
-    print(f"  Dependencies Found: {len(final_state.get('dependencies', []))}")
+    print(f"{BLUE}{'=' * 50}{RESET}")
+    print(f"{BOLD}{CYAN}State Result Summary:{RESET}")
+    print(f"  Project Type: {YELLOW}{final_state.get('project_type', 'unknown')}{RESET}")
+    print(f"  Dependencies Found: {YELLOW}{len(final_state.get('dependencies', []))}{RESET}")
 
     upgrade_report = final_state.get("upgrade_report") or {}
     reader_review = final_state.get("reader_review") or {}
@@ -69,31 +138,61 @@ def _print_final_summary(final_state: dict):
                 if smoke:
                     passed = sum(1 for s in smoke if s.get("result", {}).get("status") == "PASS")
                     print(f"  Smoke Tests: {passed}/{len(smoke)} passed")
-                report_path = parsed.get("report_path")
-                if report_path:
-                    print(f"  Report Path: {report_path}")
         except Exception:
             pass
-    print("=" * 50)
+    print(f"{BLUE}{'=' * 50}{RESET}")
 
 
 def main():
     """
-    Entry point to run the Mygrate LangGraph workflow via CLI.
-
-    Workflow: Reader (discover) -> Architect (analyze) -> Translator (migrate)
+    Entry point to run the Mygrate LangGraph workflow via CLI with interactive wizard.
     """
     load_dotenv()
+    print(BANNER)
 
     parser = argparse.ArgumentParser(description="Mygrate Multi-Agent Workflow")
-    parser.add_argument("--path", type=str, required=True, help="Path to the project directory")
+    parser.add_argument("--path", type=str, required=False, help="Path to the project directory")
     parser.add_argument("--target-java", type=str, default="17", help="Target Java version (e.g. 17, 21)")
-    parser.add_argument("--approve", action="store_true", help="Simulate human approval (set flag to skip interrupts)")
+    parser.add_argument("--approve", action="store_true", help="Simulate human approval (skip interrupts)")
     args = parser.parse_args()
 
+    project_path = args.path
+    target_java = args.target_java
+
+    # Interactive Wizard Mode if --path is not provided
+    if not project_path:
+        print(f"{YELLOW}{BOLD}Welcome to the MYGRATE Interactive Setup Wizard!{RESET}\n")
+        try:
+            # Get path
+            while True:
+                path_input = input(f"{CYAN}Enter target project path:{RESET} ").strip()
+                if not path_input:
+                    print(f"{RED}Error: Path cannot be empty.{RESET}")
+                    continue
+                resolved_path = Path(path_input)
+                if not resolved_path.exists():
+                    print(f"{RED}Error: Path '{path_input}' does not exist. Please enter a valid directory.{RESET}")
+                    continue
+                project_path = str(resolved_path.absolute())
+                break
+
+            # Get target Java version
+            java_input = input(f"{CYAN}Enter target Java version [Default 17]:{RESET} ").strip()
+            if java_input:
+                target_java = java_input
+
+            # Skip interrupts option
+            approve_input = input(f"{CYAN}Run in auto-approve mode (non-interactive run)? [y/N]:{RESET} ").strip().lower()
+            if approve_input in ("y", "yes"):
+                args.approve = True
+
+        except KeyboardInterrupt:
+            print(f"\n{RED}Wizard aborted.{RESET}")
+            sys.exit(1)
+
     initial_state = {
-        "project_path": args.path,
-        "target_java_version": args.target_java,
+        "project_path": project_path,
+        "target_java_version": target_java,
         "project_type": None,
         "messages": [],
         "completed_tasks_summary": [],
@@ -107,15 +206,15 @@ def main():
         "next_node": "supervisor",
     }
 
-    print("=" * 50)
-    print(f"Starting MYGRATE workflow for project: {args.path}")
-    print(f"Target Java: {args.target_java}")
-    print("=" * 50)
+    print(f"\n{BLUE}{'=' * 60}{RESET}")
+    print(f"{BOLD}{GREEN}⚡ Starting MYGRATE workflow for project:{RESET} {CYAN}{project_path}{RESET}")
+    print(f"{BOLD}{GREEN}🎯 Target Java version:{RESET} {YELLOW}{target_java}{RESET}")
+    print(f"{BLUE}{'=' * 60}{RESET}\n")
 
     if os.environ.get("LANGSMITH_API_KEY"):
-        print("-> [TELEMETRY] LangSmith Tracing is ENABLED.")
+        print(f"-> {GREEN}[TELEMETRY] LangSmith Tracing is ENABLED.{RESET}")
     else:
-        print("-> [TELEMETRY] LangSmith not configured.")
+        print(f"-> {YELLOW}[TELEMETRY] LangSmith not configured.{RESET}")
 
     from src.workflow import build_app
     from langchain_core.messages import HumanMessage
@@ -123,16 +222,20 @@ def main():
     thread_id = "mygrate_cli_thread"
     config = {"configurable": {"thread_id": thread_id}}
 
+    step_count = 0
+
     if args.approve:
         # Auto-approve: run end-to-end without interrupts
         initial_state["messages"].append(HumanMessage(content="Approve upgrade and proceed with migration."))
         run_app = build_app(interrupt=False)
+        print(f"-> {GREEN}[WORKFLOW] Running pipeline automatically...{RESET}")
         final_state = run_app.invoke(initial_state, config=config)
         _print_final_summary(final_state)
+        print_boxed_summary(project_path, target_java)
     else:
-        # Human-in-the-loop: will pause before each supervisor turn, and prompt the user for input/approval
-        run_app = app # Default app has interrupt=True
-        print("-> [WORKFLOW] Starting human-in-the-loop pipeline...")
+        # Human-in-the-loop mode
+        run_app = build_app(interrupt=True)
+        print(f"-> {GREEN}[WORKFLOW] Starting human-in-the-loop pipeline...{RESET}")
         run_app.invoke(initial_state, config=config)
 
         while True:
@@ -140,24 +243,22 @@ def main():
             next_node = state_val.get("next_node", "end")
 
             if next_node == "end":
-                # Show summary
                 _print_final_summary(state_val)
+                print_boxed_summary(project_path, target_java)
 
-                # Prompt user for continuous interaction/chat
                 try:
-                    user_input = input("\nMYGRATE> ").strip()
+                    user_input = input(f"\n{BOLD}{MAGENTA}MYGRATE>{RESET} ").strip()
                 except KeyboardInterrupt:
                     print("\nAborted.")
                     break
 
                 if user_input.lower() in ("exit", "quit"):
-                    print("Goodbye!")
+                    print(f"{GREEN}Goodbye!{RESET}")
                     break
 
                 if not user_input:
                     continue
 
-                # Resume loop by adding user input and setting next_node back to supervisor
                 run_app.update_state(
                     config,
                     {
@@ -165,11 +266,11 @@ def main():
                         "next_node": "supervisor"
                     }
                 )
-                print("-> [WORKFLOW] Resuming workflow with user feedback...")
+                print(f"-> {GREEN}[WORKFLOW] Resuming workflow with user feedback...{RESET}")
                 run_app.invoke(None, config=config)
                 continue
 
-            print(f"---> Running node: {next_node}")
+            print(f"{YELLOW}---> Running node: {next_node}{RESET}")
             run_app.invoke(None, config=config)
 
 

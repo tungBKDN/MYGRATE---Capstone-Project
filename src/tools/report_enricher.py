@@ -99,35 +99,19 @@ def enrich_report_with_llm(
 
     markdown_content = "\n".join(lines)
 
-    # Save to file artifacts/migration_report.md
-    proj_dir = Path(project_path) if project_path else Path(".")
-    target_dir = proj_dir / "artifacts"
-    target_dir.mkdir(parents=True, exist_ok=True)
-    report_md_file = target_dir / "migration_report.md"
-    try:
-        report_md_file.write_text(markdown_content, encoding="utf-8")
-        print(f"-> [ENRICHER] Programmatic markdown summary saved to {report_md_file}")
-    except Exception as e:
-        print(f"-> [ENRICHER] Error writing markdown report: {e}")
-
     # Return summary dict
-    rel_md_path = str(report_md_file.relative_to(proj_dir)) if project_path else "artifacts/migration_report.md"
-    
     enriched = dict(parsed_report)
     enriched.update({
         "status": "ok",
         "markdown_report": (
             f"### Migration Scan & Plan Ready\n"
-            f"The codebase scan and change plan reports have been successfully generated and saved:\n"
-            f"- Detailed JSON reports are located at `artifacts/jdeprscan_report.json` and `artifacts/mygrate_report.json`.\n"
-            f"- A human-readable Markdown summary report has been compiled and saved to `{rel_md_path}`.\n\n"
-            f"Please read the markdown summary or fetch details for specific files to begin translation."
+            f"The codebase scan and change plan reports have been successfully generated.\n"
+            f"Please fetch details for specific files to begin translation."
         ),
         "migration_notes": (
             "Prioritized next steps:\n"
-            f"1. Open and review the markdown summary report at `{rel_md_path}`.\n"
-            "2. For each file listed, call `get_file_migration_details(file_path)` to get code snippets.\n"
-            "3. Edit and save the files to `artifacts/` using `write_file(file_path, content)`."
+            "1. For each file, call `get_file_migration_details(file_path)` to get code snippets.\n"
+            "2. Edit and save the files to the project using `write_file(file_path, content)`."
         )
     })
     

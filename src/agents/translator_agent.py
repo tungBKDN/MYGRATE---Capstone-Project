@@ -568,12 +568,6 @@ class TranslatorAgent(BaseAgent):
                 target_release=target_java,
                 logger=lambda msg: print(f"   {msg}"),
             )
-            # Save full report
-            target_dir = Path(project_path) / "artifacts"
-            target_dir.mkdir(parents=True, exist_ok=True)
-            report_file = target_dir / "jdeprscan_report.json"
-            with open(report_file, "w", encoding="utf-8") as f:
-                json.dump(result, f, ensure_ascii=False, indent=2, default=str)
             return {"status": result.get("status", "FAIL"), "summary": result.get("summary", {})}
         except Exception as e:
             return {"status": "FAIL", "error": str(e)}
@@ -592,12 +586,6 @@ class TranslatorAgent(BaseAgent):
             focus_report_path=resolved_dep,
             affected_scopes_path=resolved_aff,
         )
-        # Save full change plan
-        target_dir = Path(project_path) / "artifacts"
-        target_dir.mkdir(parents=True, exist_ok=True)
-        report_file = target_dir / "mygrate_report.json"
-        with open(report_file, "w", encoding="utf-8") as f:
-            json.dump(report, f, ensure_ascii=False, indent=2, default=str)
         return {"status": "ok", "task_count": report.get("task_count", 0)}
 
     def _tool_enrich_report(

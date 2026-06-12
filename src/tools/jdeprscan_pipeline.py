@@ -404,6 +404,7 @@ def _step_b0_maven(project: Path, jdk8: Optional[Path], mvn: Optional[str], logg
         log("[jdeprscan] B0: đang resolve dependencies...")
         dep_result = subprocess.run(
             [mvn, "dependency:copy-dependencies",
+             "-U",
              "-DincludeScope=compile,runtime,provided",
              f"-DoutputDirectory={dep_dir}",
              "-f", str(pom_file)],

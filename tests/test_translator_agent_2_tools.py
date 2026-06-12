@@ -1,7 +1,11 @@
 """Unit tests for TranslatorAgent_2 new tools and overlap validation checks."""
 import json
 import tempfile
+import sys
 from pathlib import Path
+# Add project root to sys.path to allow running from any directory
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from src.agents.translator_agent_2 import TranslatorAgent_2
 
 
@@ -216,6 +220,46 @@ def test_code_lock(tmp_path):
     print("test_code_lock PASSED")
 
 
+def test_check_class_batch(tmp_path):
+    project_dir = tmp_path / "project"
+    project_dir.mkdir(parents=True, exist_ok=True)
+    
+    pom_file = project_dir / "pom.xml"
+    pom_content = """<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <dependencies>
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-plugin-api</artifactId>
+      <version>9.3.0.51899</version>
+    </dependency>
+  </dependencies>
+</project>
+"""
+    pom_file.write_text(pom_content, encoding="utf-8")
+    
+    agent = TranslatorAgent_2()
+    agent.project_path = str(project_dir)
+    
+    # Mocking _find_jar_in_m2 and _list_classes_in_jar to avoid real network/m2 local dependency
+    agent._find_jar_in_m2 = lambda g, a, v: "/dummy/jar/path.jar"
+    agent._list_classes_in_jar = lambda p: ["org.sonar.api.batch.postjob.PostJob", "org.sonar.api.batch.ScannerSide"]
+    
+    # Check batch lookup
+    res = agent._tool_check_class(class_names=["org.sonar.api.batch.postjob.PostJob", "org.sonar.api.Unknown"])
+    assert "org.sonar.api.batch.postjob.PostJob" in res
+    assert res["org.sonar.api.batch.postjob.PostJob"]["exists"] is True
+    assert "org.sonar.api.Unknown" in res
+    assert res["org.sonar.api.Unknown"]["exists"] is False
+    
+    # Check legacy single lookup fallback
+    res_single = agent._tool_check_class(class_name="org.sonar.api.batch.postjob.PostJob")
+    assert "org.sonar.api.batch.postjob.PostJob" in res_single
+    assert res_single["org.sonar.api.batch.postjob.PostJob"]["exists"] is True
+    
+    print("test_check_class_batch PASSED")
+
+
 if __name__ == "__main__":
     import sys
     # Create a dummy temp directory to run tests in standalone execution
@@ -226,6 +270,7 @@ if __name__ == "__main__":
         test_apply_edits_pom(tdp / "pom")
         test_reward_hacking_prevention(tdp / "reward_hacking")
         test_code_lock(tdp / "code_lock")
+        test_check_class_batch(tdp / "check_class")
     print("\nAll TranslatorAgent_2 tools tests PASSED!")
 
 

@@ -496,8 +496,29 @@ class BaseAgent(ABC):
                     observation = self._execute_tool(tool_name, tool_args, tool_map, payload)
 
                     if tool_name == "submit_final_answer":
+                        # Block submission for TranslatorAgent_2 if compiling/tests are not fully passing
+                        if self.__class__.__name__ == "TranslatorAgent_2":
+                            # Try to run compile/test to see if it passes
+                            print(f"-> [{self._agent_name()}] Verifying project compilation before submitting final answer...")
+                            from src.tools.maven import MavenRunner
+                            runner = MavenRunner(target_java_version="17")
+                            verify_res = runner.test(Path(payload.get("project_path", "")), skip_tests=False, clean=True)
+                            if verify_res.status != 0:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Project has compilation errors or failing tests (exit code {verify_res.status}). You must fix all issues and ensure compile/tests pass before submitting.")
+                                observation = {"error": f"You cannot submit the final answer yet. The project still has compile/test errors (Maven verification exit code: {verify_res.status}). Please continue fixing the files."}
+                        
                         if isinstance(observation, dict) and "error" in observation:
                             print(f"-> [{self._agent_name()}] Final answer submission BLOCKED: {observation['error']}")
+                            # Send error back to LLM as ToolMessage
+                            from langchain_core.messages import ToolMessage
+                            tool_call_id = getattr(tool_call, "id", None) or (
+                                tool_call.get("id", "") if isinstance(tool_call, dict) else ""
+                            )
+                            messages.append(ToolMessage(
+                                content=json.dumps(observation, ensure_ascii=False, default=str),
+                                tool_call_id=tool_call_id or tool_name,
+                            ))
+                            continue
                         else:
                             print(f"-> [{self._agent_name()}] Final answer submitted via tool.")
                             final_ans = tool_args.get("final_answer", tool_args)
@@ -531,6 +552,21 @@ class BaseAgent(ABC):
 
             else:
                 # No tool calls — this is the final answer
+                if self.__class__.__name__ == "TranslatorAgent_2":
+                    print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
+                    from src.tools.maven import MavenRunner
+                    runner = MavenRunner(target_java_version="17")
+                    verify_res = runner.test(Path(payload.get("project_path", "")), skip_tests=False, clean=True)
+                    if verify_res.status != 0:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: Project still has compile/test errors (exit code {verify_res.status}). Forcing agent to continue.")
+                        from langchain_core.messages import HumanMessage
+                        messages.append(response)
+                        messages.append(HumanMessage(
+                            content=f"You attempted to finish, but compilation/tests are still failing (exit code: {verify_res.status}). "
+                                    f"You MUST continue editing the files and call compile_project(run_tests=true) until everything compiles and passes cleanly."
+                        ))
+                        continue
+
                 content = getattr(response, "content", "") or ""
 
                 # Try to parse as JSON

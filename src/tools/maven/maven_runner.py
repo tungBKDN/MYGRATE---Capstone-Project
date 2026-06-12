@@ -80,10 +80,10 @@ class Maven:
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
             f"-Dmaven.compiler.source={self.target_java_version}",
             f"-Dmaven.compiler.target={self.target_java_version}",
+            "-DskipITs",
         ]
         if skip_tests:
             cmd.append("-DskipTests")
-            cmd.append("-DskipITs")
         if clean:
             cmd.insert(1, "clean")
         try:

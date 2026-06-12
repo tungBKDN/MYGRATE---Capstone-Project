@@ -319,21 +319,28 @@ class TranslatorAgent_2(BaseAgent):
             ToolDefinition(
                 name="check_class",
                 description=(
-                    "Check if a class exists in the project's Maven dependencies (classpath). "
-                    "Use this BEFORE removing or replacing any import statement. "
-                    "Provide the fully-qualified class name (e.g. 'org.sonar.api.batch.postjob.PostJob'). "
-                    "Returns whether the class EXISTS in the current classpath, so you know if the import is valid."
+                    "Check if one or more classes exist in the project's Maven dependencies (classpath). "
+                    "Use this BEFORE removing or replacing import statements. "
+                    "Provide a list of fully-qualified class names (e.g. ['org.sonar.api.platform.Server', 'org.sonar.api.batch.postjob.PostJob']). "
+                    "Returns a map of class names to their existence in the current classpath."
                 ),
                 func=self._tool_check_class,
                 parameters={
                     "type": "object",
                     "properties": {
+                        "class_names": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "List of fully-qualified class names to check (e.g. ['org.sonar.api.platform.Server'])"
+                        },
                         "class_name": {
                             "type": "string",
-                            "description": "Fully-qualified class name to check (e.g. 'org.sonar.api.platform.Server')",
+                            "description": "Legacy fallback: Single class name to check"
                         }
                     },
-                    "required": ["class_name"]
+                    "required": []
                 }
             ),
             ToolDefinition(
@@ -466,6 +473,28 @@ class TranslatorAgent_2(BaseAgent):
                     "required": []
                 }
             ),
+            ToolDefinition(
+                name="fetch_migration_rule",
+                description=(
+                    "Retrieve migration recipes and stub rules from the local migration_rules.json file. "
+                    "Use this tool whenever you need to upgrade APIs or libraries (like Mockito 5, SonarQube). "
+                    "Provide an array of keywords to search for matching recipes (e.g. ['Mockito', 'InputFile', 'issues'])."
+                ),
+                func=self._tool_fetch_migration_rule,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "keywords": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "List of keywords to search for within rule fields (id, target, reason)."
+                        }
+                    },
+                    "required": ["keywords"]
+                }
+            ),
         ]
 
     # ── Tool implementations ──
@@ -494,53 +523,112 @@ class TranslatorAgent_2(BaseAgent):
             )
         return None
 
-    def _tool_check_class(self, class_name: str, **kwargs) -> dict[str, Any]:
-        """Check if a class exists in the project's Maven classpath (dependency JARs)."""
+    def _tool_check_class(self, class_names: list[str] = None, class_name: str = None, **kwargs) -> dict[str, Any]:
+        """Check if one or more classes exist in the project's Maven classpath (dependency JARs)."""
         try:
             # Parse pom.xml to get dependencies
             deps = self._parse_pom_dependencies()
 
-            # Convert class name to path: org.sonar.api.Server → org/sonar/api/Server.class
-            class_path = class_name.replace(".", "/") + ".class"
+            # Normalize to list of classes
+            target_classes = []
+            if class_names:
+                target_classes = list(class_names)
+            elif class_name:
+                target_classes = [class_name]
 
-            # Check each dependency JAR
-            results = []
+            if not target_classes:
+                return {"error": "Must provide 'class_names' (array) or 'class_name' (string)."}
+
+            # Build list of dependencies to search
+            search_deps = []
             for dep in deps:
                 if dep.get("scope") == "test":
                     continue  # skip test-scoped deps for main source compilation
                 version = self._resolve_dependency_version(dep["groupId"], dep["artifactId"], dep["version"])
                 jar_path = self._find_jar_in_m2(dep["groupId"], dep["artifactId"], version)
-                if jar_path is None:
-                    continue
+                if jar_path is not None:
+                    search_deps.append((dep, jar_path))
 
-                classes = self._list_classes_in_jar(jar_path)
-                if class_name in classes:
-                    results.append({
-                        "found": True,
-                        "jar": f"{dep['groupId']}:{dep['artifactId']}:{version}",
-                        "class_name": class_name,
-                    })
+            # Pre-load class lists for all jars
+            jar_classes = {}
+            for dep, jar_path in search_deps:
+                try:
+                    jar_classes[f"{dep['groupId']}:{dep['artifactId']}:{dep['version']}"] = self._list_classes_in_jar(jar_path)
+                except Exception:
+                    pass
 
-            if results:
-                self._log(f"[check_class] {class_name} → FOUND in {len(results)} dependency(ies)")
-                return {
-                    "class_name": class_name,
-                    "exists": True,
-                    "found_in": results,
-                    "message": f"Class '{class_name}' EXISTS in the classpath. Keep the import — it is valid."
-                }
-            else:
-                self._log(f"[check_class] {class_name} → NOT FOUND in any dependency JAR")
-                return {
-                    "class_name": class_name,
-                    "exists": False,
-                    "found_in": [],
-                    "message": f"Class '{class_name}' does NOT exist in any project dependency JAR. "
-                               "The import may need to be replaced or the class may have been removed from the API."
-                }
+            results = {}
+            for c_name in target_classes:
+                found_in = []
+                for dep_id, classes in jar_classes.items():
+                    if c_name in classes:
+                        found_in.append({
+                            "found": True,
+                            "jar": dep_id,
+                            "class_name": c_name,
+                        })
+
+                if found_in:
+                    results[c_name] = {
+                        "exists": True,
+                        "found_in": found_in,
+                        "message": f"Class '{c_name}' EXISTS in the classpath. Keep the import — it is valid."
+                    }
+                else:
+                    results[c_name] = {
+                        "exists": False,
+                        "found_in": [],
+                        "message": f"Class '{c_name}' does NOT exist in any project dependency JAR."
+                    }
+
+            self._log(f"[check_class] Checked {len(target_classes)} class(es)")
+            return results
         except Exception as e:
             self._log(f"[check_class] ERROR: {e}")
-            return {"error": f"Failed to check class: {e}"}
+            return {"error": f"Failed to check classes: {e}"}
+
+    def _tool_fetch_migration_rule(self, keywords: list[str], **kwargs) -> dict[str, Any]:
+        """Query migration rules from the local migration_rules.json file."""
+        try:
+            rule_file = Path("D:/capstone_project/MYGRATE---Capstone-Project/migration_rules.json")
+            if not rule_file.exists():
+                # Fallback to relative path if absolute is not found
+                rule_file = Path(self.project_path).parent / "migration_rules.json"
+                if not rule_file.exists():
+                    rule_file = Path(__file__).resolve().parent.parent.parent / "migration_rules.json"
+
+            if not rule_file.exists():
+                return {"error": "migration_rules.json file not found."}
+
+            data = json.loads(rule_file.read_text(encoding="utf-8"))
+            rules = data.get("rules", [])
+            matched = []
+
+            for rule in rules:
+                rule_id = rule.get("rule_id", "").lower()
+                target = rule.get("target", "").lower()
+                reason = rule.get("reason", "").lower()
+
+                # Rule matches if any keyword is found in id, target or reason
+                matches_any = False
+                for kw in keywords:
+                    kw_clean = kw.lower().strip()
+                    if kw_clean in rule_id or kw_clean in target or kw_clean in reason:
+                        matches_any = True
+                        break
+
+                if matches_any:
+                    matched.append(rule)
+
+            self._log(f"[fetch_migration_rule] Searched keywords {keywords} -> Found {len(matched)} match(es)")
+            return {
+                "keywords": keywords,
+                "found_rules": matched,
+                "message": f"Found {len(matched)} di-trú recipe(s) matching your keywords."
+            }
+        except Exception as e:
+            self._log(f"[fetch_migration_rule] ERROR: {e}")
+            return {"error": f"Failed to query migration rules: {e}"}
 
     def _tool_check_maven_plugin(self, group_id: str, artifact_id: str, version: str, **kwargs) -> dict[str, Any]:
         """Check if a Maven plugin version exists on Maven Central."""
@@ -818,6 +906,22 @@ class TranslatorAgent_2(BaseAgent):
 
             project_path = Path(self.project_path)  # ensure Path, not str
             runner = MavenRunner(target_java_version="17")
+            
+            # Check if Agent is calling run_tests=false but there are modified test files in git status
+            # or if the agent has pending edits to test files.
+            # However, since self._last_edit_count resets, we can check if there are actual edits in test files in the workspace.
+            # Better: if they pass run_tests=false but we need to check test compilation because they edited test files, 
+            # we can return a guidance error message back to the LLM.
+            
+            # Let's inspect git status to see if any test files are modified
+            import subprocess
+            git_status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=str(project_path))
+            has_modified_tests = "src/test/" in git_status.stdout.replace("\\", "/")
+            
+            if not run_tests and has_modified_tests:
+                self._log("[compile_project] WARNING: run_tests was false but test files are modified. Overriding to run_tests=true to compile tests.")
+                run_tests = True
+
             if run_tests:
                 compile_res = runner.test(project_path, skip_tests=False, clean=True)
             else:
@@ -853,6 +957,7 @@ class TranslatorAgent_2(BaseAgent):
             in_failures_block = False
 
             for line in output.splitlines():
+                # Primary compilation error detection
                 if "COMPILATION ERROR :" in line:
                     in_error_block = True
                     continue
@@ -862,13 +967,22 @@ class TranslatorAgent_2(BaseAgent):
                     elif line.startswith("[ERROR]"):
                         compiler_errors.append(line)
 
-                if "Results:" in line or "Failures:" in line:
+                # Capture Results: / Failures: section
+                if "Results:" in line or "Failures:" in line or "Tests run:" in line:
                     in_failures_block = True
                 if in_failures_block:
                     if line.startswith("[INFO]") and "Build" in line:
                         in_failures_block = False
-                    elif line.startswith("[ERROR]"):
+                    elif line.startswith("[ERROR]") and ("Run " not in line and "Flaked " not in line):
                         test_failures.append(line)
+                
+                # Direct capture of critical test failure logs that might appear anywhere in log:
+                # e.g., "[ERROR] StashRequestFacadeTest.setUp:159 » IllegalArgument..." or "[ERROR]   Run 1: ..."
+                if line.startswith("[ERROR]") and not in_error_block:
+                    # Look for test signatures or exceptions: e.g. class.method:line » Exception
+                    if " » " in line or "Test" in line or "Failed tests:" in line or "class" in line or "exception" in line.lower() or "NullPointerException" in line:
+                        if line not in test_failures and line not in compiler_errors:
+                            test_failures.append(line)
 
             # Auto-unlock main source if there is any compilation error under src/main/java
             if self._main_source_locked:

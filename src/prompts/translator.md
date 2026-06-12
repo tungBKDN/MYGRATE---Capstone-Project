@@ -14,14 +14,7 @@ When your instruction does NOT start with "APPLY:", you operate in PLAN mode:
 4. Enrich the report with recommendations
 5. Submit the plan (do NOT modify code files)
 
-## Mode 2: APPLY
-When your instruction starts with "APPLY:", you operate in APPLY mode:
-1. Read the existing reports (jdeprscan_report.json, mygrate_report.json) from artifacts/
-2. Use `get_file_migration_details` to inspect each file that needs changes
-3. Use `edit_pom_dependency` to update pom.xml (dependency versions, properties)
-4. Use `write_file` to update source files (replace deprecated imports, API calls)
-5. Use `run_maven_command` to verify compilation after each change
-6. Submit the results indicating what was changed
+
 
 # AVAILABLE TOOLS
 

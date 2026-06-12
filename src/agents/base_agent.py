@@ -465,6 +465,7 @@ class BaseAgent(ABC):
             tool_calls = getattr(response, "tool_calls", None) or []
 
             if tool_calls:
+                messages.append(response)
                 # Process each tool call
                 for tool_call in tool_calls:
                     # LangChain tool_call objects have .name and .args attributes
@@ -495,22 +496,25 @@ class BaseAgent(ABC):
                     observation = self._execute_tool(tool_name, tool_args, tool_map, payload)
 
                     if tool_name == "submit_final_answer":
-                        print(f"-> [{self._agent_name()}] Final answer submitted via tool.")
-                        final_ans = tool_args.get("final_answer", tool_args)
-                        if isinstance(final_ans, dict):
-                            merged_ans = dict(tool_args)
-                            if "final_answer" in merged_ans:
-                                inner = merged_ans.pop("final_answer")
-                                if isinstance(inner, dict):
-                                    merged_ans.update(inner)
+                        if isinstance(observation, dict) and "error" in observation:
+                            print(f"-> [{self._agent_name()}] Final answer submission BLOCKED: {observation['error']}")
+                        else:
+                            print(f"-> [{self._agent_name()}] Final answer submitted via tool.")
+                            final_ans = tool_args.get("final_answer", tool_args)
+                            if isinstance(final_ans, dict):
+                                merged_ans = dict(tool_args)
+                                if "final_answer" in merged_ans:
+                                    inner = merged_ans.pop("final_answer")
+                                    if isinstance(inner, dict):
+                                        merged_ans.update(inner)
+
+                                combined = dict(react_tool_results)
+                                combined.update(merged_ans)
+                                return self._post_process(combined, instruction, payload)
 
                             combined = dict(react_tool_results)
-                            combined.update(merged_ans)
+                            combined["result"] = final_ans
                             return self._post_process(combined, instruction, payload)
-
-                        combined = dict(react_tool_results)
-                        combined["result"] = final_ans
-                        return self._post_process(combined, instruction, payload)
 
                     # Record the tool observation
                     react_tool_results[tool_name] = observation
@@ -520,7 +524,6 @@ class BaseAgent(ABC):
                     tool_call_id = getattr(tool_call, "id", None) or (
                         tool_call.get("id", "") if isinstance(tool_call, dict) else ""
                     )
-                    messages.append(response)
                     messages.append(ToolMessage(
                         content=json.dumps(observation, ensure_ascii=False, default=str),
                         tool_call_id=tool_call_id or tool_name,

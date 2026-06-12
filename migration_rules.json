@@ -341,6 +341,76 @@
             "new": "javax.annotation.processing.Generated",
             "type": "import_declaration",
             "action": "replace"
+        },
+        {
+            "rule_id": "mockito5-001",
+            "target_version": "mockito5",
+            "reason": "TestInputFileBuilder was removed in SonarQube 9.x plugin API (org.sonar.api.batch.fs.internal). When replacing TestInputFileBuilder with mock(InputFile.class), you MUST stub three methods: .relativePath() returns the relative path string, .path() returns a java.nio.file.Path object, and .isFile() returns true. Without these stubs, PathResolver.relativePath() returns null and StashRequestFacade throws NPE.",
+            "target": "org.sonar.api.batch.fs.internal.TestInputFileBuilder",
+            "new": "mock(InputFile.class)",
+            "type": "object_creation_expression",
+            "action": "replace_with_stubs",
+            "required_stubs": [
+                {
+                    "method": "relativePath()",
+                    "return_type": "java.lang.String",
+                    "description": "Must return the relative path string, e.g. 'src/test/java/org/sonar/plugins/stash/Foo.java'"
+                },
+                {
+                    "method": "path()",
+                    "return_type": "java.nio.file.Path",
+                    "description": "Must return Paths.get(baseDir).resolve(relativePath), e.g. Paths.get(\"/basedir\").resolve(\"src/test/java/Foo.java\")"
+                },
+                {
+                    "method": "isFile()",
+                    "return_type": "boolean",
+                    "description": "Must return true so the file is treated as a real source file by the scanner"
+                }
+            ],
+            "example_before": "InputFile inputFile = TestInputFileBuilder.create(\"module\", \"src/test/java/org/sonar/plugins/stash/Foo.java\").build();",
+            "example_after": "InputFile inputFile = mock(InputFile.class);\nwhen(inputFile.relativePath()).thenReturn(\"src/test/java/org/sonar/plugins/stash/Foo.java\");\nwhen(inputFile.path()).thenReturn(Paths.get(\"/basedir\").resolve(\"src/test/java/org/sonar/plugins/stash/Foo.java\"));\nwhen(inputFile.isFile()).thenReturn(true);"
+        },
+        {
+            "rule_id": "mockito5-002",
+            "target_version": "mockito5",
+            "reason": "When mocking InputFile for SonarQube plugin tests, .relativePath() must return a path string that starts with 'src/' (not an absolute path). PathResolver.relativePath(baseDir, filePath) checks if filePath.startsWith(baseDir) — if the mock .path() returns an absolute path without the baseDir prefix, relativePath() returns null causing NPE.",
+            "target": "InputFile relativePath()",
+            "new": "return relative path string starting with 'src/'",
+            "type": "method_invocation",
+            "action": "stub_pattern",
+            "required_stubs": [
+                {
+                    "method": "relativePath()",
+                    "return_type": "java.lang.String",
+                    "description": "Must return a relative path like 'src/test/java/org/sonar/plugins/stash/Foo.java', NOT an absolute path"
+                }
+            ]
+        },
+        {
+            "rule_id": "mockito5-003",
+            "target_version": "mockito5",
+            "reason": "When mocking InputFile.path() for SonarQube plugin tests, the returned Path must include the baseDir prefix so that PathResolver.relativePath(baseDir, filePath) can compute the relative path correctly. If filePath does not start with baseDir, PathResolver returns null.",
+            "target": "InputFile path()",
+            "new": "return Paths.get(baseDir).resolve(relativePath)",
+            "type": "method_invocation",
+            "action": "stub_pattern",
+            "required_stubs": [
+                {
+                    "method": "path()",
+                    "return_type": "java.nio.file.Path",
+                    "description": "Must return Paths.get(baseDir).resolve(relativePath) so that filePath.startsWith(baseDir) is true in PathResolver"
+                }
+            ]
+        },
+        {
+            "rule_id": "mockito5-004",
+            "target_version": "mockito5",
+            "reason": "PostJobContext.issues() was removed in SonarQube 9.x plugin API. PostJobContext now only has config(). When migrating to SonarQube 8.9 LTS (which still has issues()), ensure the code uses context.issues() directly. When staying on 9.x, the issues must be obtained via IssueStore or ActiveRuleProvider instead.",
+            "target": "org.sonar.api.postjob.PostJobContext issues()",
+            "new": "context.issues()",
+            "type": "method_invocation",
+            "action": "replace",
+            "note": "Only valid when downgrading to SonarQube 8.9 LTS. On 9.x+, PostJobContext.issues() does not exist — must use alternative API."
         }
     ]
 }

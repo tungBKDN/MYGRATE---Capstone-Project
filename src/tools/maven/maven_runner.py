@@ -14,6 +14,18 @@ class CliResult(BaseModel):
     stderr: str
 
 
+class CoverageResult(BaseModel):
+    status: int
+    stdout: str
+    stderr: str
+    jacoco_xml_path: str
+    coverage_found: bool
+    line_coverage_pct: float
+    missed_lines: int
+    covered_lines: int
+
+
+
 class Maven:
     def __init__(self, target_java_version: str):
         self.target_java_version = target_java_version
@@ -74,10 +86,83 @@ class Maven:
             cmd.append("-DskipITs")
         if clean:
             cmd.insert(1, "clean")
-        result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
-        return CliResult(
-            status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
-        )
+        try:
+            result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=120)
+            return CliResult(
+                status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
+            )
+        except subprocess.TimeoutExpired as e:
+            return CliResult(
+                status=-1,
+                stdout=e.stdout.decode("utf-8") if e.stdout else "",
+                stderr=(e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 120 seconds. A unit test might be hanging or stuck in an infinite loop."
+            )
+
+    def coverage(self, repo_path: Path, clean: bool = False) -> CoverageResult:
+        repo_path = Path(repo_path)  # ensure Path, not str
+        cmd = [
+            self._get_base_cmd(repo_path),
+            "org.jacoco:jacoco-maven-plugin:0.8.12:prepare-agent",
+            "test",
+            "org.jacoco:jacoco-maven-plugin:0.8.12:report",
+            "--batch-mode",
+            "-U",
+            "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
+            f"-Dmaven.compiler.source={self.target_java_version}",
+            f"-Dmaven.compiler.target={self.target_java_version}",
+            "-Dmaven.test.failure.ignore=true",
+        ]
+        if clean:
+            cmd.insert(1, "clean")
+        try:
+            result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=180)
+        except subprocess.TimeoutExpired as e:
+            return CoverageResult(
+                status=-1,
+                stdout=e.stdout.decode("utf-8") if e.stdout else "",
+                stderr=(e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven coverage execution timed out after 180 seconds.",
+                jacoco_xml_path="",
+                coverage_found=False,
+                line_coverage_pct=0.0,
+                missed_lines=0,
+                covered_lines=0
+            )
+        
+        # Now find the jacoco.xml report
+        jacoco_xml = repo_path / "target" / "site" / "jacoco" / "jacoco.xml"
+        
+        metrics = {
+            "status": result.returncode,
+            "stdout": result.stdout.decode("utf-8"),
+            "stderr": result.stderr.decode("utf-8"),
+            "jacoco_xml_path": str(jacoco_xml),
+            "coverage_found": False,
+            "line_coverage_pct": 0.0,
+            "missed_lines": 0,
+            "covered_lines": 0,
+        }
+        
+        if jacoco_xml.exists():
+            try:
+                import xml.etree.ElementTree as ET
+                tree = ET.parse(jacoco_xml)
+                root = tree.getroot()
+                # Find <counter type="LINE" missed="..." covered="..."/> at the report root level
+                for counter in root.findall("counter"):
+                    if counter.get("type") == "LINE":
+                        missed = int(counter.get("missed", 0))
+                        covered = int(counter.get("covered", 0))
+                        total = missed + covered
+                        metrics["missed_lines"] = missed
+                        metrics["covered_lines"] = covered
+                        if total > 0:
+                            metrics["line_coverage_pct"] = (covered / total) * 100.0
+                            metrics["coverage_found"] = True
+                        break
+            except Exception as e:
+                logger.error(f"Error parsing jacoco.xml: {e}")
+                
+        return CoverageResult(**metrics)
 
     def install(
         self,

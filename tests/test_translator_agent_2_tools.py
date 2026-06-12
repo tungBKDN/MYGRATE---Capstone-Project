@@ -8,7 +8,7 @@ from src.agents.translator_agent_2 import TranslatorAgent_2
 def test_list_project_files(tmp_path):
     # Setup temporary directory structure
     project_dir = tmp_path / "project"
-    project_dir.mkdir()
+    project_dir.mkdir(parents=True, exist_ok=True)
     
     (project_dir / ".git").mkdir()
     (project_dir / "target").mkdir()
@@ -44,7 +44,7 @@ def test_list_project_files(tmp_path):
 
 def test_apply_edits_overlap(tmp_path):
     project_dir = tmp_path / "project"
-    project_dir.mkdir()
+    project_dir.mkdir(parents=True, exist_ok=True)
     
     file_path = project_dir / "App.java"
     # 5 lines
@@ -78,7 +78,7 @@ def test_apply_edits_overlap(tmp_path):
 
 def test_apply_edits_pom(tmp_path):
     project_dir = tmp_path / "project"
-    project_dir.mkdir()
+    project_dir.mkdir(parents=True, exist_ok=True)
     
     pom_file = project_dir / "pom.xml"
     pom_content = """<?xml version='1.0' encoding='UTF-8'?>
@@ -111,12 +111,122 @@ def test_apply_edits_pom(tmp_path):
     print("test_apply_edits_pom PASSED")
 
 
+def test_reward_hacking_prevention(tmp_path):
+    project_dir = tmp_path / "project"
+    project_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 1. Test pom.xml setting skipTests
+    pom_file = project_dir / "pom.xml"
+    pom_file.write_text("<project></project>", encoding="utf-8")
+    
+    agent = TranslatorAgent_2()
+    agent.project_path = str(project_dir)
+    
+    edits_pom_hack = [
+        {"start_line": 1, "end_line": 1, "replacement": "<project><properties><skipTests>true</skipTests></properties></project>"}
+    ]
+    res = agent._tool_apply_edits("pom.xml", edits_pom_hack)
+    assert "REWARD HACKING DETECTED" in res
+    
+    # 2. Test Java test file adding @Ignore/@Disabled
+    test_file = project_dir / "src" / "test" / "java" / "MyTest.java"
+    test_file.parent.mkdir(parents=True, exist_ok=True)
+    test_content = """package org.test;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+public class MyTest {
+    @Test
+    public void testOne() {
+        assertTrue(true);
+    }
+}
+"""
+    test_file.write_text(test_content, encoding="utf-8")
+    
+    # Try adding @Ignore
+    edits_ignore_hack = [
+        {"start_line": 4, "end_line": 5, "replacement": "public class MyTest {\n    @Ignore\n    @Test"}
+    ]
+    res_ignore = agent._tool_apply_edits("src/test/java/MyTest.java", edits_ignore_hack)
+    assert "REWARD HACKING DETECTED" in res_ignore
+    assert "added @Ignore or @Disabled" in res_ignore
+    
+    # Try deleting @Test
+    edits_delete_test_hack = [
+        {"start_line": 4, "end_line": 5, "replacement": "public class MyTest {\n    // @Test"}
+    ]
+    res_del_test = agent._tool_apply_edits("src/test/java/MyTest.java", edits_delete_test_hack)
+    assert "REWARD HACKING DETECTED" in res_del_test
+    assert "number of active @Test annotations decreased" in res_del_test
+    
+    # Try deleting assertion
+    edits_delete_assert_hack = [
+        {"start_line": 6, "end_line": 8, "replacement": "    public void testOne() {\n        // deleted\n    }"}
+    ]
+    res_del_assert = agent._tool_apply_edits("src/test/java/MyTest.java", edits_delete_assert_hack)
+    assert "REWARD HACKING DETECTED" in res_del_assert
+    assert "number of active assertions/verifications decreased" in res_del_assert
+    
+    # Try adding early return
+    edits_early_return = [
+        {"start_line": 6, "end_line": 8, "replacement": "    public void testOne() {\n        return;\n        assertTrue(true);\n    }"}
+    ]
+    res_return = agent._tool_apply_edits("src/test/java/MyTest.java", edits_early_return)
+    assert "REWARD HACKING DETECTED" in res_return
+    assert "added a return statement" in res_return
+    
+    # Verify write_file also blocks reward hacking
+    res_write_hack = agent._tool_write_file("src/test/java/MyTest.java", "package org.test; public class MyTest {}")
+    assert "REWARD HACKING DETECTED" in res_write_hack
+
+    print("test_reward_hacking_prevention PASSED")
+
+
+def test_code_lock(tmp_path):
+    project_dir = tmp_path / "project"
+    project_dir.mkdir(parents=True, exist_ok=True)
+    
+    main_file = project_dir / "src" / "main" / "java" / "Main.java"
+    main_file.parent.mkdir(parents=True, exist_ok=True)
+    main_file.write_text("public class Main {}", encoding="utf-8")
+    
+    test_file = project_dir / "src" / "test" / "java" / "MainTest.java"
+    test_file.parent.mkdir(parents=True, exist_ok=True)
+    test_file.write_text("public class MainTest {}", encoding="utf-8")
+    
+    agent = TranslatorAgent_2()
+    agent.project_path = str(project_dir)
+    
+    # 1. Main source NOT locked initially -> edit main source should pass
+    edits = [{"start_line": 1, "end_line": 1, "replacement": "public class Main { // edit1 }"}]
+    res = agent._tool_apply_edits("src/main/java/Main.java", edits)
+    assert "Applied 1 edit(s)" in res
+    
+    # Lock main source
+    agent._main_source_locked = True
+    
+    # 2. Main source locked -> edit main source should be blocked
+    res_blocked = agent._tool_apply_edits("src/main/java/Main.java", edits)
+    assert "🔒 CODE LOCK" in res_blocked
+    
+    # 3. Main source locked -> edit test source should pass
+    test_edits = [{"start_line": 1, "end_line": 1, "replacement": "public class MainTest { // test edit }"}]
+    res_test = agent._tool_apply_edits("src/test/java/MainTest.java", test_edits)
+    assert "Applied 1 edit(s)" in res_test
+    print("test_code_lock PASSED")
+
+
 if __name__ == "__main__":
     import sys
     # Create a dummy temp directory to run tests in standalone execution
     with tempfile.TemporaryDirectory() as td:
-        test_list_project_files(Path(td))
-        test_apply_edits_overlap(Path(td))
-        test_apply_edits_pom(Path(td))
+        tdp = Path(td)
+        test_list_project_files(tdp / "list")
+        test_apply_edits_overlap(tdp / "overlap")
+        test_apply_edits_pom(tdp / "pom")
+        test_reward_hacking_prevention(tdp / "reward_hacking")
+        test_code_lock(tdp / "code_lock")
     print("\nAll TranslatorAgent_2 tools tests PASSED!")
+
+
 

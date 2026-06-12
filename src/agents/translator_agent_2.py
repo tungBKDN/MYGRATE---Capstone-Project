@@ -30,11 +30,16 @@ class TranslatorAgent_2(BaseAgent):
         super().__init__(model_name)
         self.project_path = ""
         self.current_file = ""
-        self.MAX_ITERATIONS = 30
+        self.MAX_ITERATIONS = 80
         self._log_entries: list[str] = []
         self._last_edit_count = 0  # track edits since last compile
         self._classpath_cache: dict[str, set[str]] = {}  # jar_path -> set of class names
         self._maven_plugin_cache: dict[str, bool] = {}  # "groupId:artifactId:version" -> exists
+        self._main_source_locked = False  # Code Lock: once main compiles, block edits to src/main
+        self.MAX_TEST_FAIL_LOOPS = 15
+        self._test_fail_loop_count = 0
+        self._last_test_failure_count = None
+        self._last_failure_signature = None
 
     def get_prompt_file(self) -> str | None:
         return "translator_2.md"
@@ -46,6 +51,10 @@ class TranslatorAgent_2(BaseAgent):
         self._last_edit_count = 0
         self._classpath_cache = {}
         self._maven_plugin_cache = {}
+        self._main_source_locked = False  # Reset code lock on each new run
+        self._test_fail_loop_count = 0
+        self._last_test_failure_count = None
+        self._last_failure_signature = None
         return super().run(instruction)
 
     def _log(self, entry: str):
@@ -404,12 +413,18 @@ class TranslatorAgent_2(BaseAgent):
                 name="compile_project",
                 description=(
                     "Compile the project using Maven under JDK 17. Call this AFTER applying edits to verify your changes. "
-                    "Returns ALL compile errors (not filtered by file) so you can see which files need fixing."
+                    "If run_tests is true, compiles and runs all unit tests (mvn test). "
+                    "If run_tests is false, only compiles the main source code (mvn compile)."
                 ),
                 func=self._tool_compile_project,
                 parameters={
                     "type": "object",
-                    "properties": {},
+                    "properties": {
+                        "run_tests": {
+                            "type": "boolean",
+                            "description": "Set to true during the test-fixing phase to compile and run all unit tests. Set to false (default) during the main source compilation phase."
+                        }
+                    },
                     "required": []
                 }
             ),
@@ -460,6 +475,24 @@ class TranslatorAgent_2(BaseAgent):
         if not path.is_absolute():
             path = Path(self.project_path) / path
         return path
+
+    def _check_main_source_lock(self, file_path: str) -> str | None:
+        """Check if a file path is under src/main/java and main source is locked.
+
+        Returns a blocking error message if the edit is forbidden, None if allowed.
+        """
+        if not self._main_source_locked:
+            return None
+        normalized = str(Path(file_path)).replace("\\", "/")
+        if "src/main/java" in normalized and normalized.endswith(".java"):
+            # Check if there is an active compilation error in main source from the last build to auto-unlock
+            self._log(f"[CODE LOCK] BLOCKED edit to {file_path} — main source is locked")
+            return (
+                f"🔒 CODE LOCK: File {file_path} is under src/main/java which has already compiled successfully. "
+                f"Main source is now READ-ONLY. You may only edit files under src/test/java. "
+                f"If a test failure is caused by a bug in main source, fix the test setup/mocks instead."
+            )
+        return None
 
     def _tool_check_class(self, class_name: str, **kwargs) -> dict[str, Any]:
         """Check if a class exists in the project's Maven classpath (dependency JARs)."""
@@ -519,17 +552,31 @@ class TranslatorAgent_2(BaseAgent):
 
     def _tool_write_file(self, file_path: str, content: str, **kwargs) -> str:
         try:
+            # ── CODE LOCK CHECK ──
+            lock_err = self._check_main_source_lock(file_path)
+            if lock_err:
+                return lock_err
+
             path = self._resolve_path(file_path)
+            old_content = ""
+            if path.exists():
+                old_content = path.read_text(encoding="utf-8")
+
+            hacking_err = self._validate_reward_hacking(file_path, old_content, content)
+            if hacking_err:
+                self._log(f"[write_file] Reward hacking blocked on {file_path}")
+                return hacking_err
+
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding="utf-8")
             self._log(f"[write_file] Overwrote entire file {file_path}")
             self._last_edit_count += 1
-            
+
             # Format and return the entire updated file content with line numbers
             lines = content.splitlines()
             numbered = [f"{i+1:4d} | {line}" for i, line in enumerate(lines)]
             numbered_content = "\n".join(numbered)
-            
+
             return (
                 f"Successfully overwrote {file_path} with new content.\n"
                 f"New File Content of {file_path}:\n"
@@ -548,16 +595,16 @@ class TranslatorAgent_2(BaseAgent):
             root = Path(self.project_path)
             if relative_path:
                 root = root / relative_path
-            
+
             if not root.exists():
                 return f"Error: Path {relative_path} does not exist."
-            
+
             # Simple recursive tree builder
             def build_tree(path: Path, prefix: str = "") -> list[str]:
                 # Skip build and version control directories
                 if path.name in (".git", "target", ".idea", ".vscode", "__pycache__"):
                     return []
-                
+
                 lines = []
                 try:
                     entries = [
@@ -572,7 +619,7 @@ class TranslatorAgent_2(BaseAgent):
                     is_last = (i == len(entries) - 1)
                     connector = "└── " if is_last else "├── "
                     next_prefix = prefix + ("    " if is_last else "│   ")
-                    
+
                     if entry.is_dir():
                         lines.append(f"{prefix}{connector}{entry.name}/")
                         lines.extend(build_tree(entry, next_prefix))
@@ -608,10 +655,16 @@ class TranslatorAgent_2(BaseAgent):
     def _tool_apply_edits(self, file_path: str, edits: list, **kwargs) -> str:
         """Apply multiple line-based edits, sorted bottom-to-top. Does NOT compile.
 
+        Includes Code Lock: blocks edits to src/main/java once main source compiles.
         Includes pom.xml protection: warns if edits modify Maven plugin versions
         without prior verification via check_maven_plugin.
         """
         try:
+            # ── CODE LOCK CHECK ──
+            lock_err = self._check_main_source_lock(file_path)
+            if lock_err:
+                return lock_err
+
             path = self._resolve_path(file_path)
             if not path.exists():
                 return f"Error: File {file_path} does not exist."
@@ -658,13 +711,13 @@ class TranslatorAgent_2(BaseAgent):
                             if gid_match and aid_match:
                                 gid = gid_match.group(1).strip()
                                 aid = aid_match.group(1).strip()
-                                
+
                                 # Check if this version is actually inside a <plugin> block in the entire file
                                 line_char_idx = sum(len(l) + 1 for l in lines_before[:start - 1])
                                 last_dep = content_before.rfind("<dependency>", 0, line_char_idx)
                                 last_plugin = content_before.rfind("<plugin>", 0, line_char_idx)
                                 is_plugin = (last_plugin > last_dep)
-                                
+
                                 if is_plugin:
                                     cache_key = f"{gid}:{aid}:{ver}"
                                     if cache_key not in self._maven_plugin_cache:
@@ -729,14 +782,20 @@ class TranslatorAgent_2(BaseAgent):
                 self._log(f"[apply_edits] Lines {start}-{end} replaced")
 
             new_content = "\n".join(lines)
+
+            hacking_err = self._validate_reward_hacking(file_path, content, new_content)
+            if hacking_err:
+                self._log(f"[apply_edits] Reward hacking blocked on {file_path}")
+                return hacking_err
+
             path.write_text(new_content, encoding="utf-8")
             self._last_edit_count += len(validated)
             self._log(f"[apply_edits] {len(validated)} edit(s) applied to {file_path} (no compile yet)")
-            
+
             # Format and return the entire updated file content with line numbers
             numbered = [f"{i+1:4d} | {line}" for i, line in enumerate(lines)]
             numbered_content = "\n".join(numbered)
-            
+
             return (
                 f"Applied {len(validated)} edit(s) to {file_path}.\n"
                 f"New File Content of {file_path}:\n"
@@ -750,8 +809,8 @@ class TranslatorAgent_2(BaseAgent):
             self._log(f"[apply_edits] ERROR: {e}")
             return f"Error applying edits to {file_path}: {e}"
 
-    def _tool_compile_project(self, **kwargs) -> dict[str, Any]:
-        """Compile project under JDK 17 and return ALL compile errors."""
+    def _tool_compile_project(self, run_tests: bool = False, **kwargs) -> dict[str, Any]:
+        """Compile project under JDK 17 and return ALL compile errors / test failures."""
         try:
             # Guard: warn if calling compile without having made any edits since last compile
             if self._last_edit_count == 0:
@@ -759,7 +818,11 @@ class TranslatorAgent_2(BaseAgent):
 
             project_path = Path(self.project_path)  # ensure Path, not str
             runner = MavenRunner(target_java_version="17")
-            compile_res = runner.compile(project_path, clean=True)
+            if run_tests:
+                compile_res = runner.test(project_path, skip_tests=False, clean=True)
+            else:
+                compile_res = runner.compile(project_path, clean=True)
+
             output = compile_res.stdout + "\n" + compile_res.stderr
             status = compile_res.status
 
@@ -768,17 +831,27 @@ class TranslatorAgent_2(BaseAgent):
 
             if status == 0:
                 self._log(f"[compile_project] exit_code=0, SUCCESS")
+                # Reset failure loop monitors on success
+                self._test_fail_loop_count = 0
+                self._last_test_failure_count = None
+                self._last_failure_signature = None
+                # ── CODE LOCK: Lock main source once it compiles ──
+                if not run_tests and not self._main_source_locked:
+                    self._main_source_locked = True
+                    self._log(f"[compile_project] CODE LOCK ACTIVATED — src/main/java is now READ-ONLY")
                 return {
                     "exit_code": 0,
                     "success": True,
-                    "errors": "Project compiles successfully! No errors."
+                    "errors": "Project compiles successfully! No errors." +
+                              (" [CODE LOCK: src/main/java is now READ-ONLY. Only src/test/java edits allowed.]" if self._main_source_locked else "")
                 }
 
-            self._log(f"[compile_project] exit_code={status}, failed compilation")
-
-            # Extract java compiler errors cleanly
+            # Extract java compiler errors and test failures cleanly
             compiler_errors = []
+            test_failures = []
             in_error_block = False
+            in_failures_block = False
+
             for line in output.splitlines():
                 if "COMPILATION ERROR :" in line:
                     in_error_block = True
@@ -789,17 +862,88 @@ class TranslatorAgent_2(BaseAgent):
                     elif line.startswith("[ERROR]"):
                         compiler_errors.append(line)
 
+                if "Results:" in line or "Failures:" in line:
+                    in_failures_block = True
+                if in_failures_block:
+                    if line.startswith("[INFO]") and "Build" in line:
+                        in_failures_block = False
+                    elif line.startswith("[ERROR]"):
+                        test_failures.append(line)
+
+            # Auto-unlock main source if there is any compilation error under src/main/java
+            if self._main_source_locked:
+                has_main_compile_error = False
+                for err in compiler_errors:
+                    if "src/main/java" in err.replace("\\", "/"):
+                        has_main_compile_error = True
+                        break
+                if has_main_compile_error:
+                    self._main_source_locked = False
+                    self._log("[CODE LOCK] Dynamic Unlock: Detected compilation error under src/main/java. Main source is now WRITABLE.")
+
+            # Loop monitor and short-circuit fallback logic for tests phase
+            if run_tests:
+                # signature of errors
+                has_npe = "NullPointerException" in output or "NPE" in output
+                failures_cnt = len(test_failures) + len(compiler_errors)
+                
+                # Check if failure count or signature is not improving
+                is_stuck = False
+                if self._last_test_failure_count is not None:
+                    if failures_cnt >= self._last_test_failure_count or (has_npe and self._last_failure_signature == "NPE"):
+                        is_stuck = True
+                
+                if is_stuck:
+                    self._test_fail_loop_count += 1
+                else:
+                    self._test_fail_loop_count = 1  # Reset/start counting new stuck sequence
+                
+                self._last_test_failure_count = failures_cnt
+                self._last_failure_signature = "NPE" if has_npe else None
+                
+                self._log(f"[Loop Monitor] Stuck iteration: {self._test_fail_loop_count}/{self.MAX_TEST_FAIL_LOOPS}")
+                
+                if self._test_fail_loop_count >= self.MAX_TEST_FAIL_LOOPS:
+                    self._log(f"[SHORT-CIRCUIT] Reached {self.MAX_TEST_FAIL_LOOPS} failing loops. Triggering downgrade fallback...")
+                    # Perform downgrade of sonar-plugin-api in pom.xml
+                    pom_path = Path(self.project_path) / "pom.xml"
+                    if pom_path.exists():
+                        pom_content = pom_path.read_text(encoding="utf-8")
+                        # Downgrade 9.3.0.51899 -> 8.9.10.61524
+                        if "9.3.0.51899" in pom_content:
+                            new_pom_content = pom_content.replace("9.3.0.51899", "8.9.10.61524")
+                            pom_path.write_text(new_pom_content, encoding="utf-8")
+                            self._log("[SHORT-CIRCUIT] Downgraded sonar-plugin-api to 8.9.10.61524 in pom.xml")
+                            
+                            # Clean compile with the new plugin API version
+                            clean_res = runner.compile(project_path, clean=True)
+                            self._log(f"[SHORT-CIRCUIT] Clean compile after downgrade. Status: {clean_res.status}")
+                            
+                            # Reset loop counts
+                            self._test_fail_loop_count = 0
+                            self._last_test_failure_count = None
+                            self._last_failure_signature = None
+                            
+                            return {
+                                "exit_code": clean_res.status,
+                                "success": clean_res.status == 0,
+                                "errors": f"🛑 SHORT-CIRCUIT TRIGGERED: Agent was stuck for {self.MAX_TEST_FAIL_LOOPS} loops with no test improvement / recurring NPEs.\n"
+                                          f"System auto-downgraded sonar-plugin-api to 8.9.10.61524 in pom.xml and performed clean compile.\n"
+                                          f"Clean compile exit code: {clean_res.status}.\n"
+                                          f"Please analyze compilation/testing under version 8.9.10.61524 now."
+                            }
+
             # Clean and truncate full output to avoid context window blowup and hangs
             filtered_lines = []
             for line in output.splitlines():
                 if len(line) > 800 or "-classpath" in line or " -d " in line or "-bootclasspath" in line:
                     continue
                 filtered_lines.append(line)
-            
+
             if len(filtered_lines) > 150:
                 truncated_output = (
-                    "\n".join(filtered_lines[:75]) + 
-                    "\n... [TRUNCATED IN-BETWEEN LINES / CLASS PATH / DEBUG INFOS TO SAVE CONTEXT] ...\n" + 
+                    "\n".join(filtered_lines[:75]) +
+                    "\n... [TRUNCATED IN-BETWEEN LINES / CLASS PATH / DEBUG INFOS TO SAVE CONTEXT] ...\n" +
                     "\n".join(filtered_lines[-75:])
                 )
             else:
@@ -811,6 +955,16 @@ class TranslatorAgent_2(BaseAgent):
                     f"Maven compilation failed with the following JAVA COMPILER ERRORS:\n"
                     f"--------------------------------------------------\n"
                     f"{cleaned_errors}\n"
+                    f"--------------------------------------------------\n\n"
+                    f"Truncated maven output (cleaned log):\n"
+                    f"{truncated_output}"
+                )
+            elif test_failures:
+                cleaned_failures = "\n".join(test_failures)
+                errors_str = (
+                    f"Maven tests failed with the following TEST FAILURES:\n"
+                    f"--------------------------------------------------\n"
+                    f"{cleaned_failures}\n"
                     f"--------------------------------------------------\n\n"
                     f"Truncated maven output (cleaned log):\n"
                     f"{truncated_output}"
@@ -850,3 +1004,85 @@ class TranslatorAgent_2(BaseAgent):
             return ""
         # Return up to 120 error lines — enough for the LLM to see full context
         return "\n".join(error_lines[:120])
+
+    def _validate_reward_hacking(self, file_path: str, old_content: str, new_content: str) -> str | None:
+        """
+        Validate that the proposed changes do not perform Reward Hacking.
+        Returns an error message string if reward hacking is detected, otherwise None.
+        """
+        path = Path(file_path)
+
+        # 1. pom.xml checks
+        if path.name == "pom.xml":
+            # Check if skipTests/skipITs/maven.test.skip is turned on
+            old_skips = re.findall(r"<(skipTests|skipITs|maven\.test\.skip)>\s*true\s*</\1>", old_content)
+            new_skips = re.findall(r"<(skipTests|skipITs|maven\.test\.skip)>\s*true\s*</\1>", new_content)
+            if len(new_skips) > len(old_skips):
+                return (
+                    "⚠️ REWARD HACKING DETECTED: You are setting test-skipping configurations (e.g. skipTests, skipITs, maven.test.skip) to true in pom.xml. "
+                    "This is strictly forbidden. Tests must be compiled and executed."
+                )
+
+        # 2. Test file checks (src/test/java)
+        # Normalize paths for Windows/Linux comparison
+        normalized_path = str(path).replace("\\", "/")
+        if "src/test/java" in normalized_path and normalized_path.endswith(".java"):
+            # Helper to strip comments
+            def strip_comments(text: str) -> str:
+                # Remove multi-line comments
+                text = re.sub(r'/\*.*?\*/', '', text, flags=re.DOTALL)
+                # Remove single-line comments
+                text = re.sub(r'//.*', '', text)
+                return text
+
+            old_stripped = strip_comments(old_content)
+            new_stripped = strip_comments(new_content)
+
+            # Check A: Addition of @Ignore or @Disabled
+            old_ignores = len(re.findall(r'@(?:Ignore|Disabled)\b', old_stripped))
+            new_ignores = len(re.findall(r'@(?:Ignore|Disabled)\b', new_stripped))
+            if new_ignores > old_ignores:
+                return (
+                    "⚠️ REWARD HACKING DETECTED: You added @Ignore or @Disabled annotation(s) to bypass test execution. "
+                    "This is strictly forbidden. You must refactor the test logic or setup to make the test pass legitimately."
+                )
+
+            # Check B: Deletion or commenting out of @Test annotations
+            old_tests = len(re.findall(r'@Test\b', old_stripped))
+            new_tests = len(re.findall(r'@Test\b', new_stripped))
+            if new_tests < old_tests:
+                return (
+                    f"⚠️ REWARD HACKING DETECTED: The number of active @Test annotations decreased from {old_tests} to {new_tests}. "
+                    "You are not allowed to delete or comment out test methods. All existing tests must be preserved."
+                )
+
+            # Check C: Deletion or commenting out of assertion methods / fail() / verify()
+            # Let's count calls to standard assertions and verifications
+            assertion_pattern = r'\b(?:assert[A-Z]\w*|fail|verify|verifyNoMoreInteractions|verifyZeroInteractions)\s*\('
+            # Also catch native assert keyword
+            native_assert_pattern = r'\bassert\s+[^;]+;'
+
+            def count_assertions(text: str) -> int:
+                count = len(re.findall(assertion_pattern, text))
+                count += len(re.findall(native_assert_pattern, text))
+                return count
+
+            old_assertions = count_assertions(old_stripped)
+            new_assertions = count_assertions(new_stripped)
+            if new_assertions < old_assertions:
+                return (
+                    f"⚠️ REWARD HACKING DETECTED: The number of active assertions/verifications decreased from {old_assertions} to {new_assertions}. "
+                    "You are not allowed to delete or comment out assertions. You must fix the underlying logic, "
+                    "adjust mock behavior, or fix test setups, but keep all assertions active."
+                )
+
+            # Check D: Insertion of early return in test methods
+            old_returns = len(re.findall(r'\breturn\s*;', old_stripped))
+            new_returns = len(re.findall(r'\breturn\s*;', new_stripped))
+            if new_returns > old_returns:
+                return (
+                    "⚠️ REWARD HACKING DETECTED: You added a return statement to a test file. "
+                    "This is a common reward-hacking bypass technique (early return). Tests must run to completion."
+                )
+
+        return None

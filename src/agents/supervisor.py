@@ -204,6 +204,21 @@ class SupervisorAgent(BaseAgent):
         self._routing_decision = None
         self._messages_from_state = state.get("messages", [])
 
+        # ── Fast-path: translator just finished ─────────────────────────────
+        # When translator_completed is True, skip LLM reasoning entirely and
+        # route to 'end' so main.py pauses and waits for user input.
+        if state.get("translator_completed"):
+            print("--> [SUPERVISOR] Translator session completed. Routing to END and awaiting user input.")
+            from langchain_core.messages import AIMessage as _AI
+            return {
+                "next_node": "end",
+                "current_instruction": "",
+                # Clear the flag so a future user command can kick off another run
+                "translator_completed": False,
+                "messages": [_AI(content="✅ Migration session complete. Review the results above and let me know what to do next.")],
+            }
+        # ── End fast-path ────────────────────────────────────────────────────
+
         # Build state context summary
         dependencies = state.get("dependencies", [])
         deps_preview = ""

@@ -29,7 +29,10 @@ class TranslatorAgent(BaseAgent):
         super().__init__(model_name)
         self.project_path = ""
         self.current_file = ""
-        self.MAX_ITERATIONS = 80
+        try:
+            self.MAX_ITERATIONS = int(os.getenv("TEST_MAX_ITER", 50))
+        except (ValueError, TypeError):
+            self.MAX_ITERATIONS = 50
         self.step_count = 0  # Track number of agent calls
         self._log_entries: list[str] = []
         self._last_edit_count = 0  # track edits since last compile
@@ -830,31 +833,66 @@ class TranslatorAgent(BaseAgent):
             if self._main_source_locked and any("src/main/java" in err.replace("\\", "/") for err in compiler_errors):
                 self._main_source_locked = False  # Dynamic Unlock
 
-            # Loop stuck monitor — only count as "stuck" when failure count does NOT decrease.
-            # Using strict > means genuine progress (even -1 error) resets the counter.
+            # ── Deadlock / stall detection ─────────────────────────────────────
+            # Two tiers:
+            #  Tier 1 (Signature): if the *exact same* error fingerprint appears
+            #    STUCK_SIG_LIMIT rounds in a row, there is no way the agent can fix
+            #    it — force early exit.
+            #  Tier 2 (Count):  if the *number* of failures doesn't decrease for
+            #    MAX_TEST_FAIL_LOOPS consecutive compile calls, also force exit.
+            # Both tiers are only active when we actually ran the test suite.
+            STUCK_SIG_LIMIT = 5  # identical signature rounds before giving up
             if run_tests:
                 failures_cnt = len(test_failures) + len(compiler_errors)
-                is_stuck = self._last_test_failure_count is not None and failures_cnt >= self._last_test_failure_count
-                if is_stuck:
+
+                # --- Tier 1: error-signature check ---
+                # Build a compact fingerprint from the first 5 error lines so small
+                # surrounding context changes don't reset the clock.
+                all_errors = compiler_errors + test_failures
+                sig_lines = sorted(set(l.strip()[:120] for l in all_errors[:20]))
+                current_sig = "|".join(sig_lines)
+
+                if self._last_failure_signature is not None and current_sig == self._last_failure_signature and current_sig != "":
+                    self._test_fail_loop_count += 1
+                elif self._last_test_failure_count is not None and failures_cnt >= self._last_test_failure_count:
+                    # Tier 2: count didn't decrease either
                     self._test_fail_loop_count += 1
                 else:
-                    # Progress detected — reset counter so we don't trigger a false circuit-break
+                    # Genuine progress — reset both counters
                     self._test_fail_loop_count = 0
+
+                self._last_failure_signature = current_sig
                 self._last_test_failure_count = failures_cnt
 
-                if self._test_fail_loop_count >= self.MAX_TEST_FAIL_LOOPS:
-                    pom_path = project_path / "pom.xml"
-                    if pom_path.exists():
-                        pom_content = pom_path.read_text(encoding="utf-8")
-                        if "9.3.0.51899" in pom_content:
-                            pom_path.write_text(pom_content.replace("9.3.0.51899", "8.9.10.61524"), encoding="utf-8")
-                            clean_res = runner.compile(project_path, clean=True)
-                            self._test_fail_loop_count = 0
-                            return {
-                                "exit_code": clean_res.status,
-                                "success": clean_res.status == 0,
-                                "errors": f"🛑 SHORT-CIRCUIT TRIGGERED: Stuck loops. Downgraded sonar-plugin-api to 8.9.10.61524."
-                            }
+                # --- Check thresholds ---
+                sig_deadlock = (
+                    current_sig == self._last_failure_signature
+                    and self._test_fail_loop_count >= STUCK_SIG_LIMIT
+                )
+                count_deadlock = self._test_fail_loop_count >= self.MAX_TEST_FAIL_LOOPS
+
+                if sig_deadlock or count_deadlock:
+                    reason = (
+                        f"identical error signature repeated {self._test_fail_loop_count} times"
+                        if sig_deadlock
+                        else f"no error-count reduction for {self._test_fail_loop_count} consecutive compile attempts"
+                    )
+                    print(
+                        f"-> [{self.__class__.__name__}] 🛑 DEADLOCK DETECTED ({reason}). "
+                        "Forcing early exit so iterations are not wasted."
+                    )
+                    return {
+                        "exit_code": status,
+                        "success": False,
+                        "DEADLOCK_DETECTED": True,
+                        "errors": (
+                            f"🛑 DEADLOCK DETECTED: Agent is stuck — {reason}.\n"
+                            "The remaining errors cannot be resolved through further edits.\n"
+                            "Calling submit_final_answer now with current migration state.\n\n"
+                            + "\n".join(all_errors[:30])
+                        ),
+                    }
+            # ── End deadlock detection ─────────────────────────────────────────
 
             filtered = [line for line in output.splitlines() if len(line) <= 800 and "-classpath" not in line]
             truncated = "\n".join(filtered[:75]) + "\n... [TRUNCATED] ...\n" + "\n".join(filtered[-75:]) if len(filtered) > 150 else "\n".join(filtered)
@@ -863,6 +901,7 @@ class TranslatorAgent(BaseAgent):
             return {"exit_code": status, "success": False, "errors": errors_str}
         except Exception as e:
             return {"error": f"Failed to compile: {e}"}
+
 
     def _tool_write_file(self, file_path: str, content: str, **kwargs) -> str:
         try:
@@ -1043,9 +1082,11 @@ class TranslatorAgent(BaseAgent):
         return path
 
     def _check_main_source_lock(self, file_path: str) -> str | None:
+        normalized = str(Path(file_path)).replace("\\", "/")
+        if "src/test/" in normalized:
+            return f"🔒 TEST LOCK: File {file_path} is under src/test/ which is strictly forbidden from being modified."
         if not self._main_source_locked:
             return None
-        normalized = str(Path(file_path)).replace("\\", "/")
         if "src/main/java" in normalized and normalized.endswith(".java"):
             return f"🔒 CODE LOCK: File {file_path} is under src/main/java which is locked (compiled successfully)."
         return None

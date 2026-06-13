@@ -150,10 +150,10 @@ Retrieve migration recipes and rules from migration_rules.json.
 
 # STRICT JAVA MIGRATION RULES (APPLY MODE)
 
-### I. STRICT TWO-PHASE WORKFLOW
-You must migrate the project in two distinct, non-overlapping phases:
-* **PHASE 1 (MAIN SOURCE):** Focus EXCLUSIVELY on `src/main/java`. Call `run_maven_command(goal="compile")`. Do not touch test files.
-* **PHASE 2 (TEST SOURCE):** Once Phase 1 compiles cleanly (exit code 0), the main source is **LOCKED**. You must shift focus EXCLUSIVELY to `src/test/java`. Call `run_maven_command(goal="test")` or compile with tests enabled. **NEVER** modify `src/main/java` to fix a test compilation or runtime failure. You must adapt the test mocks and logic to fit the new main architecture.
+### I. STRICT PRODUCTION-ONLY WORKFLOW
+You must migrate the project by modifying ONLY production code and build configurations:
+* **PRODUCTION CODE & CONFIG ONLY:** Focus EXCLUSIVELY on modifying files under `src/main/java` and the build configuration `pom.xml`.
+* **TEST LOCK:** You are strictly FORBIDDEN from modifying any files under the `src/test` directory (e.g. `src/test/java/`). The original tests must pass without any modifications. If a test fails or fails to compile because of a type mismatch or signature change, you must fix it by adjusting the production code (`src/main/java`) to return the compatible types, maintain expected behavior, or adjust dependency versions in `pom.xml`, not by changing the test file itself.
 
 ### II. TOOL USAGE & BATCHING
 1. **Inspect:** Use `read_file` to inspect files with errors. Read multiple files in parallel in a single turn. But: do not always call `read_file`, it's costly, so think before calling `read_file`; do NOT call `read_file` for 15 times continuously - this means you should use it sparingly.
@@ -175,7 +175,10 @@ You must migrate the project in two distinct, non-overlapping phases:
 ### V. STRICT TERMINATION RULE
 * Do NOT output free text to declare that you have completed the task.
 * You are ONLY allowed to declare completion by calling the `submit_final_answer` tool.
-* You MUST ONLY call `submit_final_answer` when your last verification/test run returns an exit code of `0` (clean compilation and 100% test pass). If it does not return `0`, keep working.
+* You MUST ONLY call `submit_final_answer` when **either**:
+  1. Your last verification/test run returns exit code `0` (clean compilation and 100% unit-test pass), **OR**
+  2. The `compile_project` tool returns `"DEADLOCK_DETECTED": true` — this means the system detected that the same errors are repeating with no progress. In this case you **MUST immediately call `submit_final_answer`** with the current migration state. Do NOT attempt any more fixes; further edits will not help.
+* If the exit code is non-zero but `DEADLOCK_DETECTED` is **not** present, keep working.
 
 
 # RECOMMENDED WORKFLOW

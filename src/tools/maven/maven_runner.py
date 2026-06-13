@@ -53,6 +53,8 @@ class Maven:
             return "mvn"
 
     def compile(self, repo_path: Path, clean: bool = False) -> CliResult:
+        # Uses test-compile which compiles both src/main/java AND src/test/java,
+        # matching FreshBrew Gate 1: the full project (main + unit test) must compile.
         repo_path = Path(repo_path)  # ensure Path, not str
         cmd = [
             self._get_base_cmd(repo_path),
@@ -80,14 +82,14 @@ class Maven:
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
             f"-Dmaven.compiler.source={self.target_java_version}",
             f"-Dmaven.compiler.target={self.target_java_version}",
-            "-DskipITs",
         ]
         if skip_tests:
             cmd.append("-DskipTests")
         if clean:
             cmd.insert(1, "clean")
         try:
-            result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=120)
+            # Timeout increased to 300s to allow integration tests to run
+            result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=300)
             return CliResult(
                 status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
             )
@@ -95,7 +97,7 @@ class Maven:
             return CliResult(
                 status=-1,
                 stdout=e.stdout.decode("utf-8") if e.stdout else "",
-                stderr=(e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 120 seconds. A unit test might be hanging or stuck in an infinite loop."
+                stderr=(e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 300 seconds. A test might be hanging or stuck in an infinite loop."
             )
 
     def coverage(self, repo_path: Path, clean: bool = False) -> CoverageResult:

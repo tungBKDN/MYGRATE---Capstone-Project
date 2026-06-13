@@ -141,7 +141,10 @@ def translator_node(state: GlobalState):
     agent = TranslatorAgent()
     result = agent.run(json.dumps(instruction_payload, ensure_ascii=False, indent=2, default=str))
 
-    update = {"last_subagent_result": result}
+    # Always signal that the translator session has ended (success or deadlock).
+    # The supervisor will fast-path to 'end' when it sees this flag, instead of
+    # asking its LLM whether to call translator again.
+    update = {"last_subagent_result": result, "translator_completed": True}
 
     # Extract jdeprscan report from translator result and store in state
     try:

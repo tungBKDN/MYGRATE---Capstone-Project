@@ -204,6 +204,7 @@ def main():
         "current_instruction": "",
         "last_subagent_result": "",
         "next_node": "supervisor",
+        "translator_completed": False,
     }
 
     print(f"\n{BLUE}{'=' * 60}{RESET}")

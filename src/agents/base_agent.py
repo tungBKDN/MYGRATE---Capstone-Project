@@ -496,17 +496,44 @@ class BaseAgent(ABC):
                     observation = self._execute_tool(tool_name, tool_args, tool_map, payload)
 
                     if tool_name == "submit_final_answer":
-                        # Block submission for TranslatorAgent if compiling/tests are not fully passing
+                        # Block submission for TranslatorAgent if compiling/tests are not fully passing.
+                        # We use test-compile (Gate 1) + parse Surefire output (Gate 2 unit tests).
+                        # Failsafe integration-test failures (e.g. missing SonarQube server) are NOT
+                        # a reason to block — those are infrastructure limitations, not migration failures.
                         if self.__class__.__name__ == "TranslatorAgent":
-                            # Try to run compile/test to see if it passes
-                            print(f"-> [{self._agent_name()}] Verifying project compilation before submitting final answer...")
+                            print(f"-> [{self._agent_name()}] Verifying project before submitting final answer...")
                             from src.tools.maven import MavenRunner
                             java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
                             runner = MavenRunner(target_java_version=java_ver)
-                            verify_res = runner.test(Path(payload.get("project_path", "")), skip_tests=False, clean=True)
-                            if verify_res.status != 0:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Project has compilation errors or failing tests (exit code {verify_res.status}). You must fix all issues and ensure compile/tests pass before submitting.")
-                                observation = {"error": f"You cannot submit the final answer yet. The project still has compile/test errors (Maven verification exit code: {verify_res.status}). Please continue fixing the files."}
+                            project_path = Path(payload.get("project_path", ""))
+
+                            # Gate 1: compile (main + test sources)
+                            compile_res = runner.compile(project_path, clean=False)
+                            has_compile_error = compile_res.status != 0
+
+                            # Gate 2: check Surefire unit-test failures only (not Failsafe IT failures)
+                            verify_res = runner.test(project_path, skip_tests=False, clean=False)
+                            combined_out = verify_res.stdout + "\n" + verify_res.stderr
+                            import re as _re
+                            surefire_failures = 0
+                            surefire_errors = 0
+                            for line in combined_out.splitlines():
+                                # Surefire summary lines look like:
+                                #   Tests run: 37, Failures: 2, Errors: 1, Skipped: 0 - in org.foo.SomeTest
+                                # We want to EXCLUDE Failsafe summary lines (which never have " - in ")
+                                if "Tests run:" in line and " - in " in line:
+                                    m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                                    if m:
+                                        surefire_failures += int(m.group(1))
+                                        surefire_errors += int(m.group(2))
+                            has_unit_test_failure = (surefire_failures + surefire_errors) > 0
+
+                            if has_compile_error:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res.status}).")
+                                observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res.status}). Fix all compile errors first."}
+                            elif has_unit_test_failure:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors.")
+                                observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Fix unit tests first."}
                         
                         if isinstance(observation, dict) and "error" in observation:
                             print(f"-> [{self._agent_name()}] Final answer submission BLOCKED: {observation['error']}")

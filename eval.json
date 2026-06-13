@@ -1,11 +1,11 @@
 {
   "cantor": {
     "compilation_success": true,
-    "passed_tests": 26,
+    "passed_tests": 24,
     "total_tests": 26,
     "line_coverage": 75.51622418879056,
     "covered_lines": 256,
     "missed_lines": 83,
-    "step_count": 24
+    "step_count": 5
   }
 }

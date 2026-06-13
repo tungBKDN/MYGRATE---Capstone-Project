@@ -56,7 +56,7 @@ class Maven:
         repo_path = Path(repo_path)  # ensure Path, not str
         cmd = [
             self._get_base_cmd(repo_path),
-            "compile",
+            "test-compile",
             "--batch-mode",
             "-U",
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",

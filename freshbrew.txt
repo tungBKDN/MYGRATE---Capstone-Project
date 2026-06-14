@@ -1,0 +1,462 @@
+License: CC BY 4.0
+arXiv:2510.04852v2 [cs.SE] 13 Oct 2025
+FreshBrew: A Benchmark for Evaluating AI Agents on Java Code Migration
+Victor May
+Google
+Diganta Misra
+Max Planck Institut für Intelligente Systeme (MPI-IS)
+ELLIS Institute, Tübingen
+Yanqi Luo
+Salesforce
+Anjali Sridhar
+Google
+Justine Gehring
+Gologic Inc
+Silvio Soares Ribeiro Junior
+Google
+Abstract
+AI coding assistants are rapidly becoming integral to modern software development. A key challenge in this space is the continual need to migrate and modernize codebases in response to evolving software ecosystems. Traditionally, such migrations have relied on rule-based systems and human intervention. With the advent of powerful large language models (LLMs), AI-driven agentic frameworks offer a promising alternative—but their effectiveness has not been systematically evaluated. In this paper, we introduce FreshBrew1
+1https://github.com/mrcabbage972/freshbrew
+, a novel benchmark for evaluating AI agents on project-level Java migrations, with a specific focus on measuring an agent’s ability to preserve program semantics and avoid reward hacking, which we argue requires projects with high test coverage for a rigorous and reliable evaluation. We benchmark several state-of-the-art LLMs, and compare their performance against established rule-based tools. Our evaluation of AI agents on this benchmark of 228 repositories shows that the top-performing model, Gemini 2.5 Flash, can successfully migrate 52.3% of projects to JDK 17. Our empirical analysis reveals novel insights into the critical strengths and limitations of current agentic approaches, offering actionable insights into their real-world applicability. Our empirical study reveals failure modes of current AI agents in realistic Java modernization tasks, providing a foundation for evaluating trustworthy code-migration systems. By releasing FreshBrew, we aim to facilitate rigorous, reproducible evaluation and catalyze progress in AI-driven codebase modernization.
+
+Keywords Software Modernization 
+⋅
+ Large Language Model Agents 
+⋅
+ Code Generation, Benchmark 
+⋅
+ Java
+
+1Introduction
+Refer to caption
+Figure 1:Overview of the FreshBrew benchmark for automated Java migration. (left) The dataset pipeline curates real-world repositories that build on JDK 8 but fail on JDK 17. (center) A generic migration agent performs the upgrade task. (right) Our evaluation protocol measures success through three sequential gates: (i) successful compilation, (ii) passing all original tests, and (iii) preservation of test coverage within 5 pp of the baseline. These gates ensure that only semantically correct migrations are counted as successes and effectively guard against reward hacking.
+Modernizing Java software projects delivers substantial long-term benefits, including improved security, faster application performance, enhanced code architecture, and streamlined DevOps processes (Shyrobokov, 2025).
+
+Moving forward is, however, painful. Oracle’s own migration manual cautions that: "every new Java SE release introduces some binary, source, and behavioural incompatibilities"2
+2docs.oracle.com/en/java/javase/11/migrate/index.html
+. Java libraries also evolve in breaking ways: Raemaekers et al. (2017) examined >22,000 Maven artifacts and observed that 
+≈
+1
+3
+ of all releases introduce at least one breaking change, regardless of whether the version bump is major or minor.
+
+The tasks of upgrading Java version and upgrading dependency versions are intertwined. Some newer dependency may no longer support older Java versions. For example, Spring Boot 3.0 is a cornerstone for thousands of enterprises and ships on a Java 17 baseline; upgrading the framework (e.g., for security fixes or Jakarta EE 10 support) is therefore impossible without first moving the application to JDK 17 3
+3spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga
+. Conversely, some older dependencies do not support newer Java versions. For example, libraries like Netty, Mockito, and Hazelcast relied on sun.misc.Unsafe for performance-critical operations. The encapsulation of this internal class in Java 9 forced these libraries to be completely re-engineered 4
+4www.infoq.com/articles/java-9-sun-misc-unsafe/
+.
+
+The rise of AI coding agents Yang et al. (2024); Wang et al. (2025a) promises to streamline the efforts of migrating legacy code, however it is not well-established how well they perform on this task.
+
+Executable software benchmarks Jimenez et al. (2024) offer a straightforward path to evaluating AI-generated solutions for many tasks. However, applying the same recipe to the case of migration is far from trivial, as a comprehensive dataset of ground-truth executable tests for migration tasks is difficult to procure, and as far as we know, no such dataset is currently available to the public.
+
+A key challenge is that standard software benchmarks are often ill-equipped to measure the unique failure modes of autonomous agents. Specifically, the problem of reward hacking, where an agent finds a shortcut to satisfy a simple metric without actually solving the underlying task. In code migration, an agent might achieve a "passing" state by simply deleting failing tests or removing problematic modules rather than correctly migrating them. Recent work has shown this is not just a hypothetical concern METR (2025).
+
+This vulnerability of AI agents to reward hacking poses a fundamental challenge to their evaluation. A successful migration must not only produce code that compiles and passes tests, but also preserves the original program’s semantics. We argue that for an evaluation to be reliable, it must be able to verify this semantic preservation. In the absence of formal specifications, a high-coverage test suite is the most effective tool for this purpose. Therefore, a benchmark designed to measure and prevent reward hacking must be built from projects where semantic correctness can be meaningfully assessed through extensive testing.
+
+While concurrent work like MigrationBench Liu et al. (2025) has begun to create datasets for Java migration, these benchmarks do not focus on the agent evaluation problem and lack the necessary safeguards to prevent reward hacking.
+
+To address this gap, we propose FreshBrew - a benchmark that enables reliable measurement of AI agents on Java migration capabilities, via a high test coverage dataset and an evaluation protocol that significantly limits the ability of AI agents to reward hack. In summary, our contributions are highlighted as follows:
+
+• A Curated, High-Coverage Dataset: We provide a dataset of real-world Java projects that are guaranteed to build on JDK 8, fail on modern JDKs, and have significant test coverage (at least 50%) to enable meaningful evaluation and as a necessary prerequisite for reliably evaluating semantic correctness.
+• A Robust Evaluation Protocol: We introduce a multi-faceted protocol that defines success not only by compilation and test passage but also by the preservation of test coverage. This requirement protects from reward hacking, ensuring a more reliable measure of an agent’s migration capability.
+• An Empirical Study of AI Agents: We present a comprehensive evaluation of state-of-the-art LLM-based agents, providing insights into their performance and behavior on Java migration tasks.
+Our empirical study reveals failure modes of current AI agents in realistic Java modernization tasks, providing a foundation for evaluating trustworthy code-migration systems.
+
+The remainder of this paper is organized as follows. Section 2 reviews related work on code migration tasks and repository-level benchmarks. Section 3 details the design of our benchmark, FreshBrew, including the dataset construction process and the evaluation protocol. Section 4 describes the experimental setup, presents the migration success rates of the evaluated models, and provides an analysis of the results. Section 5 discusses the limitations of the current work. Finally, Section 6 concludes the paper by summarizing the key findings and contributions.
+
+2Related Work
+This section situates our work within the existing literature. We first discuss the evolution of code migration techniques, from traditional rule-based systems to modern LLM-based agents. We then survey relevant benchmarks for repository-level code tasks, highlighting the specific gaps in evaluating agentic systems that our work, FreshBrew, aims to address.
+
+2.1LLMs and Agents for Code Migration Tasks
+The application of LLM-powered agents to software engineering has progressed from code generation and summarization (Zheng et al., 2024; Hou et al., 2024) to more complex, high-level tasks like code migration He et al. (2024). Despite their planning capabilities, these agents still face challenges with the deep semantic reasoning that repository-scale migration demands Hou et al. (2024).
+
+Code migration adapts source code and its dependencies to accommodate ecosystem changes while preserving correctness and maintainability. Traditional, rule-based systems like OpenRewrite5
+5docs.openrewrite.org
+ and jSparrow6
+6www.jsparrow.io/
+ offer precision through expert-authored abstract syntax tree (AST) transformation rules, but require substantial manual engineering effort and often struggle to generalize to novel APIs or rapidly evolving language features.
+
+In contrast, LLM- and agent-based migration systems adopt a more adaptive, learning-driven paradigm. A range of tools now apply this approach: Amazon Q Developer7
+7aws.amazon.com/q/developer
+ assists with code modernization, CodePlan Bairi et al. (2023) automates repository-wide edits via planning, and frameworks like SWE-agent Yang et al. (2024) and CodeAct Wang et al. (2024) enable complex, multi-step transformations.
+
+Despite these advances, the effectiveness of LLM-based agents on repo-level migration tasks is not yet well-understood, highlighting the need for rigorous evaluation frameworks and standardized benchmarks specifically tailored to codebase modernization tasks.
+
+2.2Benchmark Datasets for Repository-Level Code Migration
+Benchmarking plays a critical role in evaluating the capabilities of code-oriented large language models and AI agents. While numerous benchmarks exist across various phases of the software development lifecycle (SDLC), the majority focus on code generation tasks at relatively fine-grained levels of abstraction Wang et al. (2025b). For example, HumanEval Chen et al. (2021), MBPP Austin et al. (2021), and CodeXGLUE Lu et al. (2021) target function-level synthesis, small bug fixes, and code auto-completion. While valuable, these benchmarks provide limited insight into a model’s ability to make changes at the scope of an entire project. Accordingly, repository-level benchmarks are critical for evaluating LLM performance on real-world software engineering tasks. Recent efforts such as EvoCodeBench Li et al. (2024a), CoderEval Zhang et al. (2024a), DevEval Li et al. (2024b), and SWE-bench (Jimenez et al., 2024) have begun to address these repository-scale challenges.
+
+Recently, benchmarks were explicitly designed for code modernization tasks. For example, MultiPL-E Cassano et al. (2022) and PolyHumanEval Tao et al. (2024) support multilingual code translation across programming languages. RustEvo2 Liang et al. (2025) focus on API modernization, particularly the replacement of deprecated calls. GitChameleon Misra et al. (2025) models fine-grained, version-aware code evolution over time. Nevertheless, few existing benchmarks are equipped to evaluate project-level migration, particularly in statically typed languages such as Java, where modernization often necessitates coordinated updates to build systems, testing infrastructure, and external dependencies.
+
+One notable exception is the concurrent8
+8MigrationBench was first released publicly on arXiv in May 2025, while FreshBrew was developed independently and submitted in July 2025, with its arXiv preprint first posted in October 2025.
+ work of MigrationBench (Liu et al., 2025), which introduces a repository-level benchmark for migrating Java 8 projects to JDK 17+. It represents a major step toward realistic large-scale evaluation, with a detailed protocol that checks build success, verifies test integrity, and distinguishes minimal vs. maximal migrations. MigrationBench also locates the last buildable Java 8 revision in each repository’s history, ensuring valid starting points for migration.
+
+In contrast, FreshBrew targets evaluation challenges specific to agentic systems, where models actively manipulate files, execute builds, and use tools to perform migration tasks. Such agents are prone to reward hacking—appearing successful by deleting failing tests, removing problematic modules, or altering build settings to suppress errors. To detect and prevent these behaviors, FreshBrew (1) curates high-coverage repositories, (2) enforces test-coverage preservation, and (3) conducts experiments centered on multi-tool AI agents under this protocol. This experimental focus highlights the distinctive failure modes and reward-hacking patterns that arise in autonomous coding agents, complementing benchmarks like MigrationBench that evaluate non-agentic settings.
+
+3Benchmark
+This section details the design and components of our benchmark, FreshBrew. A robust benchmark for migration requires two key elements: (1) a relevant and challenging dataset of migration tasks, and (2) a rigorous evaluation protocol that accurately measures success while preventing exploits like reward hacking. FreshBrew is designed to satisfy both of these requirements. The following subsections describe our dataset curation process and the multi-faceted evaluation protocol that defines a successful migration.
+
+3.1Dataset Construction
+1. Scrape
+GitHub
+for Java Repos
+2. Filter
+by Maven
+build
+system
+3. Checkout
+head
+revision
+4. Build passes
+with Java 8
+5. Build fails
+with Java 17
+6. Filter by
+test
+coverage
+7. Filter
+by license
+Figure 2:Automated dataset‐construction pipeline used in this study.
+To construct our benchmark, we curated a set of Java projects suitable for a migration study through a multi-stage filtering pipeline, as illustrated in Figure 2. Our process is fully automated, ensuring the benchmark can be easily regenerated or extended.
+
+We focused on Maven-based projects as their declarative, XML-based configuration (pom.xml) is more amenable to automated analysis and modification compared to the imperative, code-as-configuration approach of systems like Gradle.
+
+Our dataset curation process started with 30,000 most popular, by star count, Maven-based Java repositories from GitHub. From this initial pool, our automated pipeline first confirmed that 6,554 repositories successfully built and passed all tests on Java 8. We then excluded the projects that also built on Java 17, leaving 1,746 repositories that represent genuine migration tasks. For this set, we enforced quality constraints. Test coverage was calculable for 1,214 of these projects, with 284 meeting our minimum 50% coverage requirement. Finally, after ensuring each project had a permissive license for accessibility, we arrived at our final dataset of 228 popular repositories, with a median star count of 194 and a minimum of 76.
+
+Refer to caption
+(a)Distribution of common dependencies.
+Refer to caption
+(b)Distribution of open-source licenses.
+Figure 3:Overview of repository statistics in the FreshBrew dataset.
+Figure 3(a) illustrates the distribution of dependencies among the 228 repositories. The results show that the dataset is composed of standard, non-trivial projects, with foundational dependencies such as Mockito Faber et al., SLF4J QOS-ch (2025) and Jackson Data Processor FasterXML (2024).
+
+Refer to caption
+Figure 4:Distribution of key statistics for repositories in the dataset. The y-axis for metrics with wide ranges (e.g., Lines of Code) is logarithmic to visualize the heavily skewed data. Each plot shows the median (orange line), interquartile range (box), and outliers (dots).
+Further statistics of the resulting dataset are presented in Figures 4 and 3(b).
+
+3.2Evaluation Protocol
+We measure performance on FreshBrew with the metrics outlined below.
+
+Overall Success Rate A migration is considered a success if and only if all of the following conditions are met:
+
+• Compiles: The migrated project must compile successfully (mvn compile).
+• Passes Tests: All original tests must pass without modification (mvn verify).
+• Maintains Coverage. Test coverage is measured using the JaCoCo tool (v0.8.9) with LINE counters, aggregated across all Maven modules. A migration is considered successful only if the total line coverage does not drop by more than 5 percentage points relative to the original Java 8 baseline.
+Enforcing that test line coverage is maintained is a critical safeguard against reward hacking, as it prevents agents from removing either test code or the production code it covers. An agent could achieve a superficially successful migration by simply deleting tests that fail on the new JDK. Similarly, if an agent cannot fix an incompatibility in a specific module of the main application, it might resort to deleting that module to resolve build errors. In either case, there would be a drop in measured line coverage, which would cause the migration to fail our evaluation.
+
+To establish an appropriate threshold, we conducted an empirical audit of 50 migration attempts, classifying each as either "Legitimate Refactoring" or "Reward Hacking". As shown in Figure 5, the analysis reveals a clear distributional separation between the two classes. Legitimate refactorings consistently resulted in coverage drops below 2.5%, whereas reward hacking attempts showed much larger and more variable drops.
+
+Our analysis revealed that coverage drops greater than 5% were consistently attributable to reward hacking. While many reward hacking instances also occur below this threshold, they are difficult to distinguish from legitimate refactoring using coverage drop alone. We therefore selected 5% as a conservative threshold to reliably identify a clear subset of reward hacking attempts.
+
+Efficiency Metrics Beyond correctness, we also measure the efficiency of each agentic migration to understand its practical costs. We focus on the following metrics:
+
+• Agent Steps. We record the total number of interaction steps (i.e., thought-action cycles) an agent takes to complete a task. This metric serves as a proxy for the complexity of the agent’s solution path. Fewer steps generally indicate a more direct and efficient problem-solving strategy.
+• Cost. We measure the total cost of using the LLM during a migration run. This metric directly correlates with overall latency. We measure the cost of utilizing each agent by calculating the expense based on the per-token input and output pricing for each LLM, as provided by the together.ai9
+9together.ai/
+ API.
+Refer to caption
+Figure 5:Density plot of coverage drops for migrations classified as Legitimate Refactoring versus Reward Hacking. The clear separation between the two distributions supports the 5% threshold as a conservative boundary for identifying reward hacking.
+4Experiments
+To demonstrate the capabilities of our benchmark, FreshBrew, we conducted a comprehensive evaluation of seven state-of-the-art large language models and a deterministic migration tool baseline to perform project-level migrations from Java 8 to both Java 17 and Java 21. This section details our experimental setup (4.1), reports the migration success rates (4.2), and provides an in-depth analysis of agent behavior and performance (4.3).
+
+4.1Experimental Setup
+We configured a tool-augmented agent to perform project-level migrations from Java 8 to both Java 17 and Java 21. To provide a point of comparison, we also evaluated OpenRewrite, a rule-based refactoring tool. This section details our experimental setup, including the agent’s environment, models and tools (4.1.1), the OpenRewrite setup (4.1.2) and the setup of an experiment to determine the failure modes of the the tool-augmented agent (4.1.3).
+
+4.1.1Tool-Augmented agent
+We conducted experiments with a CodeAct Wang et al. (2024) agent, as implemented by the smolagents Roucher et al. (2025) framework 10
+10huggingface.co/docs/smolagents/en/reference/agents#smolagents.CodeAgent
+. To ensure comprehensive coverage, we evaluated a diverse subset of models, including open-weight models, enterprise-grade models, and specialized coding models.
+
+The agent operates in an environment equipped with a set of tools to interact with the file system, build the project, and access external knowledge. The available tools include:
+
+• read_file, write_file, list_dir: For basic file system operations.
+• maven_verify: A script that executes mvn verify to compile the code and run the full test suite.
+• duckduckgo: For web search capabilities to find information on libraries or APIs. The tool returns up to 10 search results at a time.
+The agent was configured to run up to 100 steps and the prompt template is presented in Figure 11. Following Chen et al. (2021), we use a temperature of 0.2 for sampling the models.
+
+4.1.2Deterministic Baseline with OpenRewrite
+To contextualize the performance of the AI agents, we established a baseline using OpenRewrite, a state-of-the-art deterministic refactoring tool. We evaluated its ability to perform the migration using the composite recipe java.migrate.UpgradeToJava21 11
+11docs.openrewrite.org/recipes/java/migrate/upgradetojava21
+. This recipe programmatically applies a series of fine-grained transformations, such as updating Maven compiler settings and replacing deprecated APIs, by operating on a Lossless Semantic Tree (LST) representation of the source code.
+
+For each of the 228 repositories, we attempted to generate an LST and apply the recipe using the Moderne CLI. Due to variations in build configurations and dependency resolution, 69 repositories failed to build an LST. For the remaining 159 repositories, the recipe was applied successfully, and the resulting patches were used for evaluation.
+
+To ensure a direct comparison against the agent-based approaches, these 69 instances where the LST could not be built were considered migration failures. Accordingly, the success rates for OpenRewrite reported in Table 1 are calculated out of the full dataset of 228 repositories.
+
+We note that OpenRewrite was not intended to be used as an autonomous tool, but rather as a means of saving development time. Therefore, it is reasonable to expect that it would underperform on end-to-end migrations, as compared to AI agents.
+
+4.1.3Failure Mode Analysis
+To qualitatively understand the limitations of the agents, we conducted a failure mode analysis on all unsuccessful migration attempts.
+
+We employed an LLM-as-Judge approach Gu et al. (2025), where the Gemini 2.5 Pro Comanici and Authors (2025) model was prompted to classify the root cause of each failure based on the agent’s final 10 steps. We defined a taxonomy of common failure modes, including "Java API Incompatibility," "Dependency Management Failure," "Build Configuration Error," and "Agent Behavioral Failure". An additional "Unknown" category was included for any failures that did not fit the predefined classes; however, all observed failures were classifiable, so this category does not appear in our final analysis. The judge was instructed to select the single best category and provide a brief justification, allowing us to aggregate and quantify the primary reasons for failure for each model.
+
+To ensure the validity of this method, the authors manually reviewed the classifications for 20 randomly sampled failures and found the LLM’s reasoning and categorization to be consistent with our assessment in 19 of the 20 cases. This provided us with confidence in the reliability of the overall failure analysis.
+
+4.2Experimental Results
+The end-to-end success rates of the OpenRewrite baseline and the seven evaluated models, on the JDK 17 and JDK 21 migration tasks are presented in Table 1.
+
+Overall, we observe a wide variance in performance across the different models, demonstrating that the FreshBrew benchmark poses a significant challenge for modern agentic frameworks. The highest end-to-end success rate on the JDK 17 migration task was achieved by Gemini 2.5 Flash at 54.3%, while the lowest was DeepSeek-V3 at 10.7%.
+
+As expected, migrating to JDK 21 proved to be a more challenging task, with all models exhibiting a drop in performance compared to the JDK 17 task. For instance, the top-performing model, Gemini 2.5 Flash, saw its success rate decrease from 52.3% on the JDK 17 task to 49.8% on the JDK 21 task. This trend highlights the increasing complexity and difficulty of migrating to newer Java versions. This observation is discussed in more detail in Section 4.3.2.
+
+Model / Method	JDK 17	JDK 21
+Compilation	Tests	
+Overall
+Success
+Rate
+Compilation	Tests	
+Overall
+Success
+Rate
+Rule-Based Systems
+OpenRewrite	54.4%	7.0%	7.0%	57.5%	7.5%	7.5%
+   on projects w/ successful LST build (159/228) 	78.0%	10.1%	10.1%	82.4%	10.7%	10.7%
+Open-Weights Models
+DeepSeek-V3 DeepSeek-AI et al. (2025) 	55.9%	13.7%	10.7%	50.4%	21.7%	12.4%
+Qwen3  Yang et al. (2025) 	59.2%	18.0%	15.9%	43.0%	14.5%	12.8%
+Enterprise Models
+Gemini 2.5 Flash	79.8%	63.2%	52.3%	75.4%	58.3%	49.8%
+GPT-4.1  OpenAI (2025a) 	76.8%	55.7%	47.1%	70.6%	49.1%	44.2%
+GPT-4o  OpenAI (2024) 	64.0%	34.2%	30.9%	57.0%	28.1%	24.9%
+o3-mini  OpenAI (2025b) 	52.2%	36.9%	27.8%	40.4%	8.3%	4.5%
+Specialized Coding Models
+Arcee AI Coder-Large Arcee 	51.3%	22.8%	21.1%	57.5%	21.7%	20.2%
+Enterprise Models / ADK
+Gemini 2.5 Flash	71.1%	52.6%	48.4%	66.2%	41.7%	37.2%
+Gemini 2.5 Pro	77.6%	56.6%	47.5%	71.8%	53.7%	46.6%
+ 
+Table 1:Performance of AI models on the JDK 17 and JDK 21 migration tasks. Success is measured in three stages: Compilation (the project builds on the target JDK), Tests (all original tests pass unmodified), and Overall Success Rate, which additionally requires that test line coverage does not drop by more than 5 pp relative to the Java 8 baseline (Section 3.2). This safeguard prevents agents from reward-hacking by deleting code or tests.
+4.3Experiment Analysis
+While the overall success rates provide a high-level view of model performance, a deeper analysis is required to understand the underlying behaviors and challenges. In this section, we dissect the experimental outcomes to uncover key insights. We analyze agent traces to compare their problem-solving efficiency, investigate how project complexity impacts performance, categorize the root causes of unsuccessful migrations, and present illustrative case studies to highlight the practical challenge of reward hacking.
+
+4.3.1Agent Trace Analysis
+The distributions of step counts and cost of successful migrations are presented in Figures 6(a) and  6(b). For a clearer analysis of agent efficiency, these figures focus on a representative subset of the models: Gemini 2.5 Flash and GPT-4.1 as leading proprietary models, and DeepSeek-V3 as a top-performing open-weight model.
+
+Refer to caption
+(a)Comparison of step counts.
+Refer to caption
+(b)Comparison of migration costs.
+Figure 6:A comparison of step count and cost distributions for successful migrations to Java 17. The boxplots show the distribution for (a) the number of steps and (b) the associated costs.
+Our analysis of agent steps in Figure 6(a) shows that the models employ distinct approaches. DeepSeek-V3 appears to follow a highly direct strategy, resolving successful migrations with the lowest median number of steps (around 5). GPT-4.1 represents a balanced approach with a median of approximately 13 steps. In contrast, Gemini 2.5 Flash engages in a more extensive exploratory process, requiring a higher median of  17 steps and showing the widest variability.
+
+In regard to cost efficiency, (Figure 6(b)) shows the cost profiles for successful migrations. DeepSeek-V3 is the most economical, with a low median cost and tight distribution. Conversely, GPT-4.1 has the most variable typical costs. Gemini 2.5 Flash also has a low median cost but is distinguished by a long tail of high-cost outliers.
+
+Figure 9(a) provides a granular analysis of model performance by segmenting the success rate according to the number of agent steps required for each task. This metric serves as a proxy for procedural complexity, offering insights into how each model’s effectiveness changes as problems become more difficult.
+
+A notable finding across all models is that peak performance is achieved not on the simplest tasks (1-5 steps), but on those of moderate complexity requiring 6-10 steps. This suggests a potential "sweet spot" where problems are sufficiently involved to engage the models’ reasoning capabilities without becoming intractable.
+
+Among the models evaluated, Gemini 2.5 Flash demonstrates the most robust performance profile. After achieving a near-perfect success rate in the 11-20 step bin, its performance degrades more gradually than its competitors, establishing it as the most effective model for highly complex tasks requiring over 20 steps.
+
+In summary, our trace analysis reveals that the choice of a backend model for agentic migration involves significant trade-offs in cost and speed versus success rate.
+
+4.3.2Success on Java 17 vs Java 21
+Refer to caption
+Figure 7:A scatter plot comparing the success rates of various models on JDK 17 versus JDK 21 migration tasks. The dashed line indicates equal performance on both tasks.
+To directly compare model performance across the two migration tasks, we visualized the overall success rates for the JDK 17 and JDK 21 targets in a scatter plot (Figure 7). This visualization allows for an immediate assessment of model consistency and the relative difficulty of the tasks.
+
+The analysis of Figure 7 shows a strong positive correlation in model performance between the JDK 17 and JDK 21 migration tasks. While all models performed either equally well or marginally worse on JDK 21—as shown by all points lying on or below the line of parity—the performance drop for most top models was minimal. Given the study’s single-run (
+n
+=
+1
+) design, this small decrease may be attributed to model stochasticity, suggesting the two tasks present a largely comparable level of difficulty. A notable exception was o3-mini, whose success rate fell sharply from 27.8% to 4.5%, indicating that some models are significantly less resilient to the specific changes in the newer Java version.
+
+4.3.3Model Performance vs. Project Complexity
+We analyzed model performance across bins of varying project complexity. Figure 8 shows a clear trend: for all models, the migration success rate consistently decreases as project complexity (measured by dependencies, lines of code, and number of tests) increases.
+
+Refer to caption
+Figure 8:Model Performance on the Java 17 Migration Task as a Function of Project Complexity. The migration success rate for each model is plotted against quartiles of different complexity metrics. For all models, performance consistently degrades as the number of external dependencies, lines of code, and unit tests increases, demonstrating that the benchmark effectively measures challenges posed by real-world project complexity.
+4.3.4Case Studies in Reward Hacking
+The following case studies illustrate instances of reward hacking wherein an AI agent had optimized for the proximate reward signal of a successful build, even when its actions undermined the primary goal of a functional migration.
+
+Case Study 1: Targeted Test Exclusion
+Repository: DaisyDiff/DaisyDiff
+
+Model: Gemini 2.5 Flash
+
+Target Java Version: 17
+
+Situation: The failures were isolated to two specific unit tests which exhibited incompatibilities with the new environment.
+
+Agent’s Action: Rather than correcting the code-level incompatibilities, the agent modified the pom.xml file to explicitly exclude the two failing tests from the build lifecycle via the maven-surefire-plugin.
+
+Case Study 2: Ignoring Internal Runtime Failures
+Repository: BottegaIT/ddd-leaven-v2
+
+Model: o3-mini
+
+Target Java Version: 17
+
+Situation: The migration to new Spring and Java versions caused a critical runtime error, org.springframework.beans.factory.NoSuchBeanDefinitionException, for a core business component (OrderShipmentStatusTrackerSaga). This exception was triggered during a test run, but the application’s internal event publisher caught the error and logged it, which allowed the JUnit test itself to complete successfully.
+
+Agent’s Action: The agent correctly identified and resolved all compilation errors by updating dependencies in the pom.xml file. However, it accepted the successful test result from the build tool as a final success, ignoring the critical runtime error logged during the test’s execution. This resulted in a superficially correct migration where a key piece of business logic was non-functional, a failure only made visible by the corresponding drop in test coverage.
+
+Case Study 3: Bypassing Tests Broken by JVM Changes
+Repository: scijava/native-lib-loader
+
+Model: GPT-4.1
+
+Target Java Version: 17
+
+Situation: A key test, NativeLoaderTest, relied on a reflective technique to dynamically add a JAR to the system classloader. This approach worked on Java 8 but is no longer possible on modern JVMs (Java 9+), where the system classloader is no longer a URLClassLoader. The migration to Java 17 broke this reflective call, causing the test to fail.
+
+Agent’s Action: Instead of adapting the test to use a modern approach, the agent wrapped the failing reflective call in a conditional block. It then added logic to the test itself that causes it to silently skip its own execution on modern Java versions. While this allowed the build to pass, it effectively disabled the test, leaving the corresponding production code uncovered.
+
+4.3.5Analysis of Failure Modes
+Refer to caption
+(a)Success rates by task complexity.
+Refer to caption
+(b)Distribution of failure modes.
+Figure 9:Analysis of model performance on Java 17 migration. (a) A comparison of model success rates binned by task complexity, measured in agent steps. (b) The distribution of failure modes for each model, determined by an LLM-as-Judge analysis.
+To understand the limitations of current agents beyond binary success rates, we performed a qualitative analysis on all unsuccessful runs. Using an LLM-as-judge, we categorized each failure based on the agent’s final steps. Figure 9(b) presents a comparative breakdown of these failure modes, highlighting the distinct behavioral profiles of each model.
+
+The analysis reveals that Agent Behavioral Failure - where agents get stuck in repetitive loops, hallucinate commands, or fail to make productive edits - is a common issue overall. It is particularly pronounced for DeepSeek-V3, which saw over 70% of its failures fall into this category.
+
+In contrast, Gemini 2.5 Flash and GPT-4.1, while still susceptible to behavioral issues, failed more frequently due to deeper technical challenges. Both models show a significant percentage of failures in Java API Incompatibility and Dependency Management Failure. This suggests that as models become more capable at basic agentic tasks (like editing files and running commands), their primary bottleneck shifts to the complex reasoning required to resolve breaking API changes and intricate dependency conflicts. For example, GPT-4.1 struggled mostly with Java API incompatibility issues, while Gemini 2.5 Flash’s failures were more evenly spread across behavioral, API, and dependency challenges.
+
+4.3.6Limitations of Deterministic Baselines
+Our baseline experiment with OpenRewrite highlights a fundamental limitation of rule-based systems in complex migration tasks. OpenRewrite operates deterministically; it can only apply transformations for which an explicit rule exists. It is not designed to handle unforeseen challenges, such as a critical third-party library that is incompatible with the target Java version and has no clear, drop-in replacement.
+
+In such cases, the tool correctly completes its prescribed refactoring but leaves the remaining, more complex problem for a human developer to solve. This contrasts sharply with the goal of agentic systems, which are designed to tackle these ambiguous, open-ended problems by searching for solutions and attempting novel code modifications. This distinction is critical: while rule-based tools excel at predictable refactoring, they cannot fully automate migrations that require creative problem-solving or dependency-level changes outside their predefined rules.
+
+5Limitations
+Our benchmark’s external validity is subject to two primary limitations:
+
+• Focus on Maven: FreshBrew currently includes only Maven-based projects. This was a pragmatic choice, as Maven’s standardized, declarative format enabled the creation of a robust, automated curation and evaluation pipeline. Extending this to other systems like Gradle is a challenge due to the complexity and variability of their code-based build scripts. Unlike Maven’s declarative XML, Gradle’s imperative build scripts are executable code, which present a more complex program modification challenge. Supporting such build systems remains an important goal for future work.
+• Representativeness of Open-Source Data: Our dataset’s use of public GitHub repositories is a limitation, as these projects do not fully capture the distinct challenges of enterprise systems. The most critical difference is dependency management; enterprises often rely on stale, private, or forked libraries that require complex code patches, a far harder task than simply updating the public library versions common in our dataset. Furthermore, enterprise environments introduce significant process friction from complex monorepo build systems and strict governance gates. This creates a slower and more costly iteration cycle for an AI agent, meaning success on FreshBrew may not directly translate to enterprise environments where these dependency and infrastructure hurdles are dominant.
+• Selection Bias While our focus on high-coverage, permissively licensed projects introduces a selection bias, these choices were necessary trade-offs. The high test coverage is a core requirement for our reward-hacking detection protocol, and permissive licenses are an ethical prerequisite for building a public benchmark. Consequently, our findings on performance are most applicable to the domain of well-maintained, robustly tested software projects.
+Threats to Experimental and Construct Validity:
+
+• Single Generation Pass: Our study reports results from a single generation pass (
+n
+=
+1
+) per scenario, using a low sampling temperature to favor deterministic outputs. This is a standard practice in large-scale evaluations to ensure reproducibility and manage computational cost, but it does expose a threat Zhang et al. (2024b); Zheng et al. (2025); Jain et al. (2025). We chose this approach due to the significant computational cost of running large-scale agentic evaluations on the full dataset. While multiple runs would provide a measure of variance, we hypothesize that our results are representative, as we used a low sampling temperature and a simple, user-aligned prompt to favor deterministic behavior.
+• Fixed Prompt: Our study has a specific limitation separate from the benchmark itself: the use of a single, fixed prompt template (presented in Figure 11) for all agents. The performance rates we report are consequently tied to this specific set of instructions. We did not perform prompt engineering, and it is possible that agent performance could change with more optimized prompts. This is a limitation of our study’s methodology, not of the FreshBrew benchmark, which can be used with any agent or prompt configuration.
+• The Test Coverage Heuristic: Our evaluation protocol defines a successful migration as one where test line coverage does not drop by more than 5 percentage points. This threshold was chosen as a balanced heuristic to distinguish legitimate refactoring from reward hacking. A stricter rule could unfairly penalize valid code changes, while a more lenient one could fail to prevent reward hacking. While we validated this choice on a random sample of migration attempts, this heuristic may not be universally optimal for every project or migration context.
+6Conclusion
+In this paper, we address a key challenge at the intersection of AI and software engineering: the reliable evaluation of autonomous agents on complex, repository-level code migration tasks. While prior and parallel benchmarks have focused on the migration problem itself, they were not designed to handle the unique failure modes of AI agents, such as reward hacking.
+
+To fill this gap, we introduce FreshBrew, the first benchmark specifically designed for evaluating agentic Java migrations. Our work presents a threefold contribution:
+
+• A curated, high-coverage dataset: We provide a collection of real-world Java projects that are guaranteed to build on JDK 8 but fail on modern JDKs, with each project having significant test coverage to allow for meaningful evaluation.
+• A robust evaluation protocol: We introduce a multi-faceted evaluation method where success is determined not just by compilation and passing tests, but also by maintaining test coverage. This protocol is specifically designed to protect against reward hacking, ensuring a more precise measure of an agent’s migration capabilities.
+• An empirical study of AI agents: We present a comprehensive evaluation of state-of-the-art, LLM-based agents, offering insights into their performance, behaviors, and limitations when performing Java migration tasks.
+Our experiments using FreshBrew yield insights into the current state of AI agents. We find that while leading models like Gemini 2.5 Flash can achieve a promising success rate of 52.3%, performance and cost is highly variable across different models. Our protocol has uncovered that a significant portion of apparent successes would have been classified as reward hacking without integrity checks, underscoring the critical importance of evaluating agents with specialized tools.
+
+By releasing FreshBrew to the community, we aim to provide a robust and extensible platform to drive progress in AI-driven modernization, ensuring the next generation of software engineering agents are not only effective but also reliable and trustworthy.
+
+Data and Code Availability
+All data and code used in this study are publicly available. The FreshBrew benchmark dataset, including the curated repository list, evaluation scripts, and agent prompts, is released under a permissive open-source license at github.com/mrcabbage972/freshbrew. Each experiment in this paper can be reproduced using the configuration files and evaluation pipeline provided in the repository. All third-party Java projects included in the dataset are sourced from public GitHub repositories under compatible open-source licenses as detailed in Section 3.
+
+7Ethics Statement and Broader Impact
+This study uses only publicly available, permissively licensed open-source repositories from GitHub. All projects in the FreshBrew dataset were selected with explicit license checks to exclude non-permissive or proprietary material. The benchmark’s evaluation protocol is designed to discourage reward hacking and other behaviors that could degrade software quality or safety. No personal or user-generated data are included, and no human subjects were involved.
+
+We release FreshBrew to support transparent and reproducible research in AI-assisted software engineering. While the benchmark may help improve automated migration systems, users should remain aware of potential misuse—such as over-reliance on autonomous agents for code changes without human review. Responsible application of these tools should always include developer oversight and verification of functional correctness.
+
+References
+Shyrobokov [2025]
+Valentyn Shyrobokov.Approaches to migrating information systems to modern java versions.Universum:Technical sciences, 131, 02 2025.doi:10.32743/UniTech.2025.131.2.19340.
+Raemaekers et al. [2017]
+S. Raemaekers, A. van Deursen, and J. Visser.Semantic versioning and impact of breaking changes in the maven repository.Journal of Systems and Software, 129:140–158, 2017.ISSN 0164-1212.doi:https://doi.org/10.1016/j.jss.2016.04.008.URL https://www.sciencedirect.com/science/article/pii/S0164121216300243.
+Yang et al. [2024]
+John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, and Ofir Press.Swe-agent: Agent-computer interfaces enable automated software engineering, 2024.URL https://arxiv.org/abs/2405.15793.
+Wang et al. [2025a]
+Xingyao Wang, Boxuan Li, Yufan Song, Frank F. Xu, Xiangru Tang, Mingchen Zhuge, Jiayi Pan, Yueqi Song, Bowen Li, Jaskirat Singh, Hoang H. Tran, Fuqiang Li, Ren Ma, Mingzhang Zheng, Bill Qian, Yanjun Shao, Niklas Muennighoff, Yizhe Zhang, Binyuan Hui, Junyang Lin, Robert Brennan, Hao Peng, Heng Ji, and Graham Neubig.Openhands: An open platform for ai software developers as generalist agents, 2025a.URL https://arxiv.org/abs/2407.16741.
+Jimenez et al. [2024]
+Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan.Swe-bench: Can language models resolve real-world github issues?, 2024.URL https://arxiv.org/abs/2310.06770.
+METR [2025]
+METR.Recent frontier models are reward hacking.https://metr.org/blog/2025-06-05-recent-reward-hacking/, 06 2025.
+Liu et al. [2025]
+Linbo Liu, Xinle Liu, Qiang Zhou, Lin Chen, Yihan Liu, Hoan Nguyen, Behrooz Omidvar-Tehrani, Xi Shen, Jun Huan, Omer Tripp, and Anoop Deoras.Migrationbench: Repository-level code migration benchmark from java 8, 2025.URL https://arxiv.org/abs/2505.09569.
+Zheng et al. [2024]
+Zibin Zheng, Kaiwen Ning, Qingyuan Zhong, Jiachi Chen, Wenqing Chen, Lianghong Guo, Weicheng Wang, and Yanlin Wang.Towards an understanding of large language models in software engineering tasks, 2024.URL https://arxiv.org/abs/2308.11396.
+Hou et al. [2024]
+Xinyi Hou, Yanjie Zhao, Yue Liu, Zhou Yang, Kailong Wang, Li Li, Xiapu Luo, David Lo, John Grundy, and Haoyu Wang.Large language models for software engineering: A systematic literature review, 2024.URL https://arxiv.org/abs/2308.10620.
+He et al. [2024]
+Junda He, Christoph Treude, and David Lo.Llm-based multi-agent systems for software engineering: Literature review, vision and the road ahead, 2024.URL https://arxiv.org/abs/2404.04834.
+Bairi et al. [2023]
+Ramakrishna Bairi, Atharv Sonwane, Aditya Kanade, Vageesh D C, Arun Iyer, Suresh Parthasarathy, Sriram Rajamani, B. Ashok, and Shashank Shet.Codeplan: Repository-level coding using llms and planning, 2023.URL https://arxiv.org/abs/2309.12499.
+Wang et al. [2024]
+Xingyao Wang, Yangyi Chen, Lifan Yuan, Yizhe Zhang, Yunzhu Li, Hao Peng, and Heng Ji.Executable code actions elicit better llm agents, 2024.URL https://arxiv.org/abs/2402.01030.
+Wang et al. [2025b]
+Kaixin Wang, Tianlin Li, Xiaoyu Zhang, Chong Wang, Weisong Sun, Yang Liu, and Bin Shi.Software development life cycle perspective: A survey of benchmarks for code large language models and agents, 2025b.URL https://arxiv.org/abs/2505.05283.
+Chen et al. [2021]
+Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri, Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan, Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mohammad Bavarian, Clemens Winter, Philippe Tillet, Felipe Petroski Such, Dave Cummings, Matthias Plappert, Fotios Chantzis, Elizabeth Barnes, Ariel Herbert-Voss, William Hebgen Guss, Alex Nichol, Alex Paino, Nikolas Tezak, Jie Tang, Igor Babuschkin, Suchir Balaji, Shantanu Jain, William Saunders, Christopher Hesse, Andrew N. Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa, Alec Radford, Matthew Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder, Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, and Wojciech Zaremba.Evaluating large language models trained on code, 2021.URL https://arxiv.org/abs/2107.03374.
+Austin et al. [2021]
+Jacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan, Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, and Charles Sutton.Program synthesis with large language models, 2021.URL https://arxiv.org/abs/2108.07732.
+Lu et al. [2021]
+Shuai Lu, Daya Guo, Shuo Ren, Junjie Huang, Alexey Svyatkovskiy, Ambrosio Blanco, Colin Clement, Dawn Drain, Daxin Jiang, Duyu Tang, Ge Li, Lidong Zhou, Linjun Shou, Long Zhou, Michele Tufano, Ming Gong, Ming Zhou, Nan Duan, Neel Sundaresan, Shao Kun Deng, Shengyu Fu, and Shujie Liu.Codexglue: A machine learning benchmark dataset for code understanding and generation, 2021.URL https://arxiv.org/abs/2102.04664.
+Li et al. [2024a]
+Jia Li, Ge Li, Xuanming Zhang, Yihong Dong, and Zhi Jin.Evocodebench: An evolving code generation benchmark aligned with real-world code repositories, 2024a.URL https://arxiv.org/abs/2404.00599.
+Zhang et al. [2024a]
+Yakun Zhang, Wenjie Zhang, Dezhi Ran, Qihao Zhu, Chengfeng Dou, Dan Hao, Tao Xie, and Lu Zhang.Learning-based widget matching for migrating gui test cases.In Proceedings of the IEEE/ACM 46th International Conference on Software Engineering, ICSE ’24, page 1–13. ACM, February 2024a.doi:10.1145/3597503.3623322.URL http://dx.doi.org/10.1145/3597503.3623322.
+Li et al. [2024b]
+Jia Li, Ge Li, Yunfei Zhao, Yongmin Li, Huanyu Liu, Hao Zhu, Lecheng Wang, Kaibo Liu, Zheng Fang, Lanshen Wang, Jiazheng Ding, Xuanming Zhang, Yuqi Zhu, Yihong Dong, Zhi Jin, Binhua Li, Fei Huang, and Yongbin Li.Deveval: A manually-annotated code generation benchmark aligned with real-world code repositories, 2024b.URL https://arxiv.org/abs/2405.19856.
+Cassano et al. [2022]
+Federico Cassano, John Gouwar, Daniel Nguyen, Sydney Nguyen, Luna Phipps-Costin, Donald Pinckney, Ming-Ho Yee, Yangtian Zi, Carolyn Jane Anderson, Molly Q Feldman, Arjun Guha, Michael Greenberg, and Abhinav Jangda.Multipl-e: A scalable and extensible approach to benchmarking neural code generation, 2022.URL https://arxiv.org/abs/2208.08227.
+Tao et al. [2024]
+Qingxiao Tao, Tingrui Yu, Xiaodong Gu, and Beijun Shen.Unraveling the potential of large language models in code translation: How far are we?, 2024.URL https://arxiv.org/abs/2410.09812.
+Liang et al. [2025]
+Linxi Liang, Jing Gong, Mingwei Liu, Chong Wang, Guangsheng Ou, Yanlin Wang, Xin Peng, and Zibin Zheng.Rustevo2: An evolving benchmark for api evolution in llm-based rust code generation, 2025.URL https://arxiv.org/abs/2503.16922.
+Misra et al. [2025]
+Diganta Misra, Nizar Islah, Victor May, Brice Rauby, Zihan Wang, Justine Gehring, Antonio Orvieto, Muawiz Chaudhary, Eilif B. Muller, Irina Rish, Samira Ebrahimi Kahou, and Massimo Caccia.Gitchameleon: Evaluating ai code generation against python library version incompatibilities, 2025.URL https://arxiv.org/abs/2507.12367.
+[24]
+Szczepan Faber, Rafael Winterhalter Brice Dutheil, and Tim van der Lippe et al.Mockito framework site.URL https://site.mockito.org/.
+QOS-ch [2025]
+QOS-ch.SLF4J: Simple Logging Facade for Java.https://www.slf4j.org/, 2025.
+FasterXML [2024]
+FasterXML.Jackson-databind: General data-binding for Jackson.https://github.com/FasterXML/jackson-databind, 2024.
+Roucher et al. [2025]
+Aymeric Roucher, Albert Villanova del Moral, Thomas Wolf, Leandro von Werra, and Erik Kaunismäki.‘smolagents‘: a smol library to build great agentic systems.https://github.com/huggingface/smolagents, 2025.
+Gu et al. [2025]
+Jiawei Gu, Xuhui Jiang, Zhichao Shi, Hexiang Tan, Xuehao Zhai, Chengjin Xu, Wei Li, Yinghan Shen, Shengjie Ma, Honghao Liu, Saizhuo Wang, Kun Zhang, Yuanzhuo Wang, Wen Gao, Lionel Ni, and Jian Guo.A survey on llm-as-a-judge, 2025.URL https://arxiv.org/abs/2411.15594.
+Comanici and Authors [2025]
+Gheorghe Comanici and Multiple Authors.Gemini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities, 2025.URL https://arxiv.org/abs/2507.06261.
+DeepSeek-AI et al. [2025]
+DeepSeek-AI, Aixin Liu, and Multiple Authors.Deepseek-v3 technical report, 2025.URL https://arxiv.org/abs/2412.19437.
+Yang et al. [2025]
+An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, Chujie Zheng, Dayiheng Liu, Fan Zhou, Fei Huang, Feng Hu, Hao Ge, Haoran Wei, Huan Lin, Jialong Tang, Jian Yang, Jianhong Tu, Jianwei Zhang, Jianxin Yang, Jiaxi Yang, Jing Zhou, Jingren Zhou, Junyang Lin, Kai Dang, Keqin Bao, Kexin Yang, Le Yu, Lianghao Deng, Mei Li, Mingfeng Xue, Mingze Li, Pei Zhang, Peng Wang, Qin Zhu, Rui Men, Ruize Gao, Shixuan Liu, Shuang Luo, Tianhao Li, Tianyi Tang, Wenbiao Yin, Xingzhang Ren, Xinyu Wang, Xinyu Zhang, Xuancheng Ren, Yang Fan, Yang Su, Yichang Zhang, Yinger Zhang, Yu Wan, Yuqiong Liu, Zekun Wang, Zeyu Cui, Zhenru Zhang, Zhipeng Zhou, and Zihan Qiu.Qwen3 technical report, 2025.URL https://arxiv.org/abs/2505.09388.
+OpenAI [2025a]
+OpenAI.Introducing GPT-4.1 in the API.https://openai.com/index/gpt-4-1/, April 2025a.Discusses GPT-4.1, GPT-4.1 mini, and GPT-4.1 nano.
+OpenAI [2024]
+OpenAI.GPT-4o System Card.arXiv preprint arXiv:2410.21276, 2024.URL https://arxiv.org/abs/2410.21276.Cited for GPT-4o.
+OpenAI [2025b]
+OpenAI.OpenAI o3-mini System Card.https://openai.com/index/o3-mini-system-card/, 2025b.Discusses the o3-mini model.
+[35]
+Arcee.Model Selection | Arcee AI Documentation — docs.arcee.ai.https://docs.arcee.ai/arcee-conductor/arcee-small-language-models/model-selection##caller-large-tool-use-and-function-call.[Accessed 15-07-2025].
+Zhang et al. [2024b]
+Yuntong Zhang, Haifeng Ruan, Zhiyu Fan, and Abhik Roychoudhury.Autocoderover: Autonomous program improvement, 2024b.URL https://arxiv.org/abs/2404.05427.
+Zheng et al. [2025]
+Kunhao Zheng, Juliette Decugis, Jonas Gehring, Taco Cohen, Benjamin Negrevergne, and Gabriel Synnaeve.What makes large language models reason in (multi-turn) code generation?, 2025.URL https://arxiv.org/abs/2410.08105.
+Jain et al. [2025]
+Kush Jain, Gabriel Synnaeve, and Baptiste Rozière.Testgeneval: A real world unit test generation and test completion benchmark, 2025.URL https://arxiv.org/abs/2410.00752.
+Appendix ABenchmark - Additional Details
+Figure 10 presents details on the temporal distribution of the dataset.
+
+Refer to caption
+Figure 10:The temporal distribution of the dataset, showing the number of repositories based on the year of their sampled commit. The dataset is primarily composed of modern projects, with a high concentration from 2018 onwards.
+Appendix BPrompts
+This appendix contains the full text of the prompts used in our experiments to ensure reproducibility.
+
+Figure 11 shows the primary instruction given to the AI agent for the migration task. The prompt clearly defines the objective (upgrade to a target JDK version), the success criteria (build and tests must pass), and includes a critical constraint forbidding the agent from deleting or commenting out tests. This instruction is central to our study’s focus on preventing reward hacking by guiding the agent toward genuine problem-solving.
+
+Figure 12 presents the prompt given to the LLM-as-judge for our qualitative failure analysis. This prompt establishes the judge’s persona as an expert, provides a strict classification schema for failure modes, and specifies a structured JSON output to ensure consistent and parsable results from the analysis.
+
+Upgrade the Maven project rooted at the current working dir to use JDK {version}. Ensure that the build and the tests pass. You can make source code and dependency changes. You cannot delete or comment-out tests. To do a final verification of your work before calling the ‘final_answer‘ tool, verify your work by making sure that ‘maven_verify‘ tool succeeds with the parameter ‘clean‘ set to ‘True‘, because this is how we are going to evaluate your success. DO NOT call maven_verify with ‘clean=True‘ before ensuring it passes without it, because its slow and outputs a lot of tokens.
+Figure 11:The prompt template used for our experiments with smolagents.
+You are an expert Java software engineer and researcher specializing in code migration and developer tool evaluation. Your task is to analyze the final {{n_steps}} ’thought-action’ steps from a failed attempt by an AI agent to migrate a Java 8 project to Java 17.
+Based on the provided trace, identify the primary technical reason for the failure. Do not simply state that the agent failed or ran out of steps. Pinpoint the specific build, dependency, or code-level issue that the agent was unable to resolve.
+Choose ONLY ONE of the following categories that best describes the failure:
+* Dependency Management Failure
+* Build Configuration Error
+* Java API Incompatibility
+* Agent Behavioral Failure
+* Root Cause Not in Final Steps
+* Unknown
+The agent’s final {{n_steps}} steps are as follows:
+--- BEGIN TRACE ---
+{{final_steps_trace}}
+--- END TRACE ---
+Provide your output in JSON format with two keys: "failure_category" and "reasoning". The reasoning should be a brief, one-sentence explanation supporting your choice.
+Figure 12:The prompt used for failure mode analysis.

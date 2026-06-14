@@ -405,7 +405,7 @@ def _step_b0_maven(project: Path, jdk8: Optional[Path], mvn: Optional[str], logg
         dep_result = subprocess.run(
             [mvn, "dependency:copy-dependencies",
              "-U",
-             "-DincludeScope=compile,runtime,provided",
+             "-DincludeScope=test",
              f"-DoutputDirectory={dep_dir}",
              "-f", str(pom_file)],
             timeout=300, env=env, shell=(os.name == "nt"),

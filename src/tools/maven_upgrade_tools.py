@@ -473,6 +473,8 @@ def _check_jdk_available() -> bool:
 # DependencySolver — orchestrates Steps 1-4
 # ---------------------------------------------------------------------------
 
+import threading
+
 class DependencySolver:
     def __init__(self, target_java: str, logger=None):
         self.target_java = target_java
@@ -481,8 +483,9 @@ class DependencySolver:
         self.solutions: List[Dict[Tuple[str, str], str]] = []
         self.reports: Dict[Tuple[str, str, str], dict] = {}
         self.logger = logger
+        self.lock = threading.Lock()
 
-    def add_library(self, group_id: str, artifact_id: str, max_versions: int = 5) -> None:
+    def add_library(self, group_id: str, artifact_id: str, max_versions: int = 3) -> None:
         _emit(self.logger, f"[Step 1] Fetching Maven versions for {group_id}:{artifact_id}")
         all_v = _fetch_maven_versions(group_id, artifact_id)
         v_list = heuristic_filter(all_v, max_output=max_versions)
@@ -492,33 +495,67 @@ class DependencySolver:
         for v in v_list:
             jar_p = prepare_jar_for_check(group_id, artifact_id, v, logger=self.logger)
             res = check_java_compatibility(group_id, artifact_id, v, self.target_java, logger=self.logger, jar_path=jar_p or None)
-            self.reports[(group_id, artifact_id, v)] = {"step3": res}
+            
+            with self.lock:
+                self.reports[(group_id, artifact_id, v)] = {"step3": res}
+            
             if res["analysis"]["compatibility_status"] in ("Yes", "Warning"):
                 candidates_v3.append(v)
                 _emit(self.logger, f"[Step 5] Fetching transitive dependencies for {artifact_id}:{v}")
                 t_deps_raw = get_transitive_dependencies(group_id, artifact_id, v, logger=self.logger)
-                self.constraints[(group_id, artifact_id, v)] = json.loads(t_deps_raw)
+                with self.lock:
+                    self.constraints[(group_id, artifact_id, v)] = json.loads(t_deps_raw)
+                
+                # SHORT-CIRCUIT
+                if res["analysis"]["compatibility_status"] == "Yes":
+                    _emit(self.logger, f"[Step 2-3] Short-circuiting: {artifact_id}:{v} is perfectly compatible.")
+                    break
 
-        if candidates_v3:
-            self.candidates[(group_id, artifact_id)] = candidates_v3
-            _emit(self.logger, f"[Step 3] {artifact_id} kept {len(candidates_v3)} candidate(s)")
-        else:
-            _emit(self.logger, f"[Step 3] {artifact_id} produced no compatible candidates")
+        with self.lock:
+            if candidates_v3:
+                self.candidates[(group_id, artifact_id)] = candidates_v3
+                _emit(self.logger, f"[Step 3] {artifact_id} kept {len(candidates_v3)} candidate(s)")
+            else:
+                _emit(self.logger, f"[Step 3] {artifact_id} produced no compatible candidates")
 
     def run_step4(self) -> None:
+        import concurrent.futures
+        
+        def check_candidate(g, a, v):
+            jar_p = prepare_jar_for_check(g, a, v, logger=self.logger)
+            res = run_compile_check(jar_p, self.target_java, logger=self.logger)
+            return g, a, v, res
+
+        tasks = []
         for (g, a), versions in self.candidates.items():
-            passed = []
             for v in versions:
-                jar_p = prepare_jar_for_check(g, a, v, logger=self.logger)
-                res = run_compile_check(jar_p, self.target_java, logger=self.logger)
-                self.reports.setdefault((g, a, v), {})["step4"] = res
+                tasks.append((g, a, v))
+                
+        results_by_lib = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            futures = [executor.submit(check_candidate, g, a, v) for g, a, v in tasks]
+            for future in concurrent.futures.as_completed(futures):
+                g, a, v, res = future.result()
+                with self.lock:
+                    self.reports.setdefault((g, a, v), {})["step4"] = res
                 if res["status"] in ("PASS",):
+                    results_by_lib.setdefault((g, a), []).append((v, res))
+
+        # Preserve order of versions
+        for (g, a), versions in list(self.candidates.items()):
+            passed = []
+            lib_res = results_by_lib.get((g, a), [])
+            v_res_map = {v: r for v, r in lib_res}
+            for v in versions:
+                if v in v_res_map:
                     passed.append(v)
-            if passed:
-                self.candidates[(g, a)] = passed
-                _emit(self.logger, f"[Step 4] {a} kept {len(passed)} version(s) after compile check")
-            else:
-                _emit(self.logger, f"[Step 4] {a} had no versions that passed compile check")
+            with self.lock:
+                if passed:
+                    self.candidates[(g, a)] = passed
+                    _emit(self.logger, f"[Step 4] {a} kept {len(passed)} version(s) after compile check")
+                else:
+                    self.candidates[(g, a)] = [versions[0]]
+                    _emit(self.logger, f"[Step 4] {a} had no versions pass compile check. Keeping {versions[0]} as fallback for Translator to fix.")
 
     def solve(self) -> None:
         self.solutions = []
@@ -566,7 +603,14 @@ def inject_constrained_versions(solver: DependencySolver) -> None:
 # Step 5: Transitive constraint modeling
 # ---------------------------------------------------------------------------
 
+_TRANSITIVE_CACHE = {}
+
 def get_transitive_dependencies(group_id: str, artifact_id: str, version: str, logger=None) -> str:
+    global _TRANSITIVE_CACHE
+    cache_key = f"{group_id}:{artifact_id}:{version}"
+    if cache_key in _TRANSITIVE_CACHE:
+        return _TRANSITIVE_CACHE[cache_key]
+
     import urllib.parse as _urlparse
     pkg_name = _urlparse.quote(f"{group_id}:{artifact_id}", safe="")
     url = f"https://api.deps.dev/v3/systems/maven/packages/{pkg_name}/versions/{version}:dependencies"
@@ -585,12 +629,15 @@ def get_transitive_dependencies(group_id: str, artifact_id: str, version: str, l
                     g, a = name_parts
                     v = vk.get("version", "")
                     resolved.append({"groupId": g, "artifactId": a, "version": v, "scope": "compile"})
-            return json.dumps(resolved)
+            _TRANSITIVE_CACHE[cache_key] = json.dumps(resolved)
+            return _TRANSITIVE_CACHE[cache_key]
         _emit(logger, f"[Step 5] deps.dev returned HTTP {response.status_code} for {artifact_id}:{version}")
-        return json.dumps([])
+        _TRANSITIVE_CACHE[cache_key] = json.dumps([])
+        return _TRANSITIVE_CACHE[cache_key]
     except Exception:
         _emit(logger, f"[Step 5] deps.dev lookup failed for {group_id}:{artifact_id}:{version}")
-        return json.dumps([])
+        _TRANSITIVE_CACHE[cache_key] = json.dumps([])
+        return _TRANSITIVE_CACHE[cache_key]
 
 
 def _fetch_transitive_recursive(group_id, artifact_id, version, solver_constraints, depth=1, max_depth=2, visited=None):
@@ -1181,7 +1228,7 @@ def index_java_project(project_path: str) -> dict:
 # Entry point: full B1-B7 pipeline (for Architect)
 # ---------------------------------------------------------------------------
 
-def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versions: int = 5, max_solutions: int = 5, logger=None) -> dict:
+def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versions: int = 3, max_solutions: int = 5, logger=None) -> dict:
     """Run the full 7-step pipeline to find compatible dependency combinations."""
     root_deps = [d for d in dependencies if d.get("scope") in ("compile", "runtime", None) or d.get("version") != "Managed"]
     if not root_deps:
@@ -1191,11 +1238,16 @@ def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versio
 
     # Steps 1-3: fetch, filter, static check
     solver = DependencySolver(target_java, logger=logger)
-    for dep in root_deps:
-        g = dep.get("groupId", "")
-        a = dep.get("artifactId", "")
-        if g and a:
-            solver.add_library(g, a, max_versions=max_versions)
+    
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        futures = []
+        for dep in root_deps:
+            g = dep.get("groupId", "")
+            a = dep.get("artifactId", "")
+            if g and a:
+                futures.append(executor.submit(solver.add_library, g, a, max_versions))
+        concurrent.futures.wait(futures)
 
     inject_constrained_versions(solver)
 

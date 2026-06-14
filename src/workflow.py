@@ -137,6 +137,7 @@ def translator_node(state: GlobalState):
         "current_instruction": state.get("current_instruction", ""),
         "migration_tasks": state.get("migration_tasks", []),
         "jdeprscan_report": state.get("jdeprscan_report"),
+        "baseline_coverage": state.get("baseline_coverage", 0.0),
     }
     agent = TranslatorAgent()
     result = agent.run(json.dumps(instruction_payload, ensure_ascii=False, indent=2, default=str))

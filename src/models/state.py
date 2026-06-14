@@ -41,6 +41,9 @@ class GlobalState(TypedDict):
     last_subagent_result: str
     next_node: str
 
+    # --- Baseline Evaluation ---
+    baseline_coverage: Optional[float]
+
     # --- Termination signal ---
     # Set to True by translator_node when migration is complete (success or deadlock).
     # Supervisor reads this to immediately route to "end" without LLM reasoning.

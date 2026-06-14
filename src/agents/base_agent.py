@@ -528,12 +528,25 @@ class BaseAgent(ABC):
                                         surefire_errors += int(m.group(2))
                             has_unit_test_failure = (surefire_failures + surefire_errors) > 0
 
+                            baseline_coverage = payload.get("baseline_coverage", 0.0)
+                            has_gate3_failure = False
+                            gate3_drop = 0.0
+                            if not has_compile_error and not has_unit_test_failure and baseline_coverage > 0:
+                                cov_res = runner.coverage(project_path, clean=False)
+                                current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                                gate3_drop = baseline_coverage - current_coverage
+                                if gate3_drop > 5.0:
+                                    has_gate3_failure = True
+
                             if has_compile_error:
                                 print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res.status}).")
                                 observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res.status}). Fix all compile errors first."}
                             elif has_unit_test_failure:
                                 print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors.")
                                 observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Fix unit tests first."}
+                            elif has_gate3_failure:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
+                                observation = {"error": f"Cannot submit yet — Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. Add unit tests or restore original logic."}
                         
                         if isinstance(observation, dict) and "error" in observation:
                             print(f"-> [{self._agent_name()}] Final answer submission BLOCKED: {observation['error']}")
@@ -585,7 +598,19 @@ class BaseAgent(ABC):
                     from src.tools.maven import MavenRunner
                     java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
                     runner = MavenRunner(target_java_version=java_ver)
-                    verify_res = runner.test(Path(payload.get("project_path", "")), skip_tests=False, clean=True)
+                    project_path = Path(payload.get("project_path", ""))
+                    verify_res = runner.test(project_path, skip_tests=False, clean=True)
+                    
+                    baseline_coverage = payload.get("baseline_coverage", 0.0)
+                    has_gate3_failure = False
+                    gate3_drop = 0.0
+                    if verify_res.status == 0 and baseline_coverage > 0:
+                        cov_res = runner.coverage(project_path, clean=False)
+                        current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                        gate3_drop = baseline_coverage - current_coverage
+                        if gate3_drop > 5.0:
+                            has_gate3_failure = True
+
                     if verify_res.status != 0:
                         print(f"-> [{self._agent_name()}] Direct response BLOCKED: Project still has compile/test errors (exit code {verify_res.status}). Forcing agent to continue.")
                         from langchain_core.messages import HumanMessage
@@ -593,6 +618,15 @@ class BaseAgent(ABC):
                         messages.append(HumanMessage(
                             content=f"You attempted to finish, but compilation/tests are still failing (exit code: {verify_res.status}). "
                                     f"You MUST continue editing the files and call compile_project(run_tests=true) until everything compiles and passes cleanly."
+                        ))
+                        continue
+                    elif has_gate3_failure:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
+                        from langchain_core.messages import HumanMessage
+                        messages.append(response)
+                        messages.append(HumanMessage(
+                            content=f"You attempted to finish, but Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. "
+                                    f"You MUST add unit tests or restore original logic before finishing."
                         ))
                         continue
 

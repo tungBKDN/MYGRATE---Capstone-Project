@@ -131,38 +131,43 @@ class Maven:
             )
         
         # Now find the jacoco.xml report
-        jacoco_xml = repo_path / "target" / "site" / "jacoco" / "jacoco.xml"
-        
         metrics = {
             "status": result.returncode,
             "stdout": result.stdout.decode("utf-8"),
             "stderr": result.stderr.decode("utf-8"),
-            "jacoco_xml_path": str(jacoco_xml),
+            "jacoco_xml_path": "",
             "coverage_found": False,
             "line_coverage_pct": 0.0,
             "missed_lines": 0,
             "covered_lines": 0,
         }
         
-        if jacoco_xml.exists():
+        total_missed = 0
+        total_covered = 0
+        coverage_found = False
+
+        # Aggregate coverage across all modules in multi-module projects
+        for jacoco_xml in repo_path.rglob("jacoco.xml"):
             try:
                 import xml.etree.ElementTree as ET
                 tree = ET.parse(jacoco_xml)
                 root = tree.getroot()
-                # Find <counter type="LINE" missed="..." covered="..."/> at the report root level
                 for counter in root.findall("counter"):
                     if counter.get("type") == "LINE":
-                        missed = int(counter.get("missed", 0))
-                        covered = int(counter.get("covered", 0))
-                        total = missed + covered
-                        metrics["missed_lines"] = missed
-                        metrics["covered_lines"] = covered
-                        if total > 0:
-                            metrics["line_coverage_pct"] = (covered / total) * 100.0
-                            metrics["coverage_found"] = True
+                        total_missed += int(counter.get("missed", 0))
+                        total_covered += int(counter.get("covered", 0))
+                        coverage_found = True
                         break
             except Exception as e:
-                logger.error(f"Error parsing jacoco.xml: {e}")
+                pass
+                
+        metrics["missed_lines"] = total_missed
+        metrics["covered_lines"] = total_covered
+        total_lines = total_missed + total_covered
+        
+        if coverage_found and total_lines > 0:
+            metrics["line_coverage_pct"] = (total_covered / total_lines) * 100.0
+            metrics["coverage_found"] = True
                 
         return CoverageResult(**metrics)
 
@@ -202,7 +207,7 @@ class Maven:
             "--batch-mode",
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
             "dependency:build-classpath",
-            "-Dmdep.includeScope=compile,runtime,provided",
+            "-Dmdep.includeScope=test",
             f"-Dmdep.outputFile={str(output_path)}",
             f"-Dmaven.compiler.source={self.target_java_version}",
             f"-Dmaven.compiler.target={self.target_java_version}",

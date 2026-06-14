@@ -51,6 +51,7 @@ class TranslatorAgent(BaseAgent):
     def run(self, instruction: str) -> str:
         payload = self._parse_instruction(instruction)
         self.project_path = payload.get("project_path", "")
+        self.baseline_coverage = payload.get("baseline_coverage", 0.0)
         self._log_entries = []
         self._last_edit_count = 0
         self._classpath_cache = {}
@@ -292,6 +293,7 @@ class TranslatorAgent(BaseAgent):
             "compilation_success": compilation_success,
             "passed_tests": passed_tests,
             "total_tests": total_tests,
+            "baseline_coverage": getattr(self, "baseline_coverage", 0.0),
             "line_coverage": line_coverage,
             "covered_lines": covered_lines,
             "missed_lines": missed_lines,
@@ -780,7 +782,7 @@ class TranslatorAgent(BaseAgent):
         except Exception as e:
             return f"Error applying edits: {e}"
 
-    def _tool_compile_project(self, run_tests: bool = False, **kwargs) -> dict[str, Any]:
+    def _tool_compile_project(self, run_tests: bool = False, baseline_coverage: float = 0.0, **kwargs) -> dict[str, Any]:
         try:
             project_path = Path(self.project_path)
             runner = MavenRunner(target_java_version="17")
@@ -806,6 +808,19 @@ class TranslatorAgent(BaseAgent):
                 self._last_failure_signature = None
                 if not run_tests and not self._main_source_locked:
                     self._main_source_locked = True
+                
+                # Gate 3 Check
+                if run_tests and baseline_coverage > 0:
+                    cov_res = runner.coverage(project_path, clean=False)
+                    current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                    drop = baseline_coverage - current_coverage
+                    if drop > 5.0:
+                        return {
+                            "exit_code": 1,
+                            "success": False,
+                            "errors": f"Gate 3 Failed: Coverage dropped by {drop:.1f}% (from {baseline_coverage:.1f}% to {current_coverage:.1f}%). Threshold is <= 5.0%. You must add unit tests or restore original logic."
+                        }
+
                 return {"exit_code": 0, "success": True, "errors": "Project compiles successfully!"}
 
             # Extract errors

@@ -38,6 +38,7 @@ def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0
     line_coverage = 0.0
     covered_lines = 0
     missed_lines = 0
+    baseline_coverage = 0.0
     
     # Try reading eval.json
     eval_file = Path.cwd() / "eval.json"
@@ -53,6 +54,7 @@ def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0
                     line_coverage = cb_data.get("line_coverage", 0.0)
                     covered_lines = cb_data.get("covered_lines", 0)
                     missed_lines = cb_data.get("missed_lines", 0)
+                    baseline_coverage = cb_data.get("baseline_coverage", 0.0)
                     if cb_data.get("step_count"):
                         step_count = cb_data.get("step_count")
         except Exception:
@@ -62,6 +64,16 @@ def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0
     test_pct = (passed_tests / total_tests * 100.0) if total_tests > 0 else 0.0
     test_status = f"{passed_tests} / {total_tests} ({test_pct:.1f}%)"
     
+    # Check Gate 3 status
+    coverage_drop = baseline_coverage - line_coverage
+    if baseline_coverage > 0:
+        if coverage_drop <= 5.0:
+            gate_3_status = f"{GREEN}{BOLD}PASS{RESET} (Drop: {coverage_drop:.1f}pp)"
+        else:
+            gate_3_status = f"{RED}{BOLD}FAIL{RESET} (Drop: {coverage_drop:.1f}pp > 5pp)"
+    else:
+        gate_3_status = f"{YELLOW}{BOLD}N/A{RESET}"
+    
     print(f"\n{BLUE}{BOLD}┌────────────────────────────────────────────────────────┐{RESET}")
     print(f"{BLUE}│{RESET}               {BOLD}{MAGENTA}MIGRATION RUN SUMMARY{RESET}                    {BLUE}│{RESET}")
     print(f"{BLUE}├────────────────────────────────────────────────────────┤{RESET}")
@@ -69,9 +81,9 @@ def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0
     print(f"{BLUE}│{RESET}  {BOLD}Target Java{RESET}:       {CYAN}{target_java:<36}{RESET} {BLUE}│{RESET}")
     print(f"{BLUE}│{RESET}  {BOLD}Compilation{RESET}:       {comp_status:<45} {BLUE}│{RESET}")
     print(f"{BLUE}│{RESET}  {BOLD}Tests Passed{RESET}:      {test_status:<36}{RESET} {BLUE}│{RESET}")
-    print(f"{BLUE}│{RESET}  {BOLD}Line Coverage{RESET}:     {YELLOW}{line_coverage:.1f}%{RESET:<44} {BLUE}│{RESET}")
-    print(f"{BLUE}│{RESET}  {BOLD}Covered Lines{RESET}:     {GREEN}{covered_lines:<36}{RESET} {BLUE}│{RESET}")
-    print(f"{BLUE}│{RESET}  {BOLD}Missed Lines{RESET}:      {RED}{missed_lines:<36}{RESET} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Baseline Cov{RESET}:      {YELLOW}{baseline_coverage:.1f}%{RESET:<44} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Final Coverage{RESET}:    {YELLOW}{line_coverage:.1f}%{RESET:<44} {BLUE}│{RESET}")
+    print(f"{BLUE}│{RESET}  {BOLD}Gate 3 (Drop){RESET}:     {gate_3_status:<45} {BLUE}│{RESET}")
     print(f"{BLUE}│{RESET}  {BOLD}Agent Step Count{RESET}:  {CYAN}{step_count:<36}{RESET} {BLUE}│{RESET}")
     print(f"{BLUE}└────────────────────────────────────────────────────────┘{RESET}\n")
 
@@ -190,6 +202,18 @@ def main():
             print(f"\n{RED}Wizard aborted.{RESET}")
             sys.exit(1)
 
+    print(f"\n{BLUE}{'=' * 60}{RESET}")
+    print(f"{BOLD}{GREEN}⚡ Starting MYGRATE workflow for project:{RESET} {CYAN}{project_path}{RESET}")
+    print(f"{BOLD}{GREEN}🎯 Target Java version:{RESET} {YELLOW}{target_java}{RESET}")
+    print(f"{BLUE}{'=' * 60}{RESET}\n")
+
+    print(f"-> {GREEN}[EVAL] Calculating baseline coverage for {project_path}...{RESET}")
+    from src.tools.maven import MavenRunner
+    baseline_runner = MavenRunner(target_java_version="")
+    baseline_res = baseline_runner.coverage(Path(project_path), clean=True)
+    baseline_coverage = baseline_res.line_coverage_pct if baseline_res.coverage_found else 0.0
+    print(f"-> {GREEN}[EVAL] Baseline coverage: {baseline_coverage:.2f}%{RESET}")
+
     initial_state = {
         "project_path": project_path,
         "target_java_version": target_java,
@@ -204,13 +228,9 @@ def main():
         "current_instruction": "",
         "last_subagent_result": "",
         "next_node": "supervisor",
+        "baseline_coverage": baseline_coverage,
         "translator_completed": False,
     }
-
-    print(f"\n{BLUE}{'=' * 60}{RESET}")
-    print(f"{BOLD}{GREEN}⚡ Starting MYGRATE workflow for project:{RESET} {CYAN}{project_path}{RESET}")
-    print(f"{BOLD}{GREEN}🎯 Target Java version:{RESET} {YELLOW}{target_java}{RESET}")
-    print(f"{BLUE}{'=' * 60}{RESET}\n")
 
     if os.environ.get("LANGSMITH_API_KEY"):
         print(f"-> {GREEN}[TELEMETRY] LangSmith Tracing is ENABLED.{RESET}")

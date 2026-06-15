@@ -43,6 +43,8 @@ class GlobalState(TypedDict):
 
     # --- Baseline Evaluation ---
     baseline_coverage: Optional[float]
+    baseline_total_tests: Optional[int]
+    baseline_passed_tests: Optional[int]
 
     # --- Termination signal ---
     # Set to True by translator_node when migration is complete (success or deadlock).

@@ -134,10 +134,12 @@ def translator_node(state: GlobalState):
         "project_path": state.get("project_path", ""),
         "target_java_version": state.get("target_java_version", "17"),
         "project_type": state.get("project_type"),
-        "current_instruction": state.get("current_instruction", ""),
+        "current_instruction": "APPLY: " + state.get("current_instruction", "") if not state.get("current_instruction", "").startswith("APPLY:") else state.get("current_instruction", ""),
         "migration_tasks": state.get("migration_tasks", []),
         "jdeprscan_report": state.get("jdeprscan_report"),
         "baseline_coverage": state.get("baseline_coverage", 0.0),
+        "baseline_total_tests": state.get("baseline_total_tests", 0),
+        "baseline_passed_tests": state.get("baseline_passed_tests", 0),
     }
     agent = TranslatorAgent()
     result = agent.run(json.dumps(instruction_payload, ensure_ascii=False, indent=2, default=str))

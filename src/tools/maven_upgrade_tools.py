@@ -438,9 +438,12 @@ def prepare_jar_for_check(group_id: str, artifact_id: str, version: str, cache_d
 def run_compile_check(jar_path: str, target_jdk: str = "17", logger=None) -> dict:
     if not jar_path or not os.path.exists(jar_path):
         return {"status": "FAIL", "reason": "JAR not found"}
-    stub_file = "MigrationStub.java"
+    import uuid
+    unique_id = uuid.uuid4().hex
+    stub_class = f"MigrationStub_{unique_id}"
+    stub_file = f"{stub_class}.java"
     with open(stub_file, "w") as f:
-        f.write("public class MigrationStub { public static void main(String[] args) {} }")
+        f.write(f"public class {stub_class} {{ public static void main(String[] args) {{}} }}")
     try:
         cmd = ["javac", "-cp", jar_path, "--release", target_jdk, stub_file]
         _emit(logger, f"[Step 4] Running javac --release {target_jdk} for {Path(jar_path).name}")
@@ -559,18 +562,23 @@ class DependencySolver:
 
     def solve(self) -> None:
         self.solutions = []
+        self.backtrack_steps = 0
         self._solve_backtrack({}, list(self.candidates.keys()))
 
     def _solve_backtrack(self, current: dict, remaining: list) -> None:
+        self.backtrack_steps += 1
+        if self.backtrack_steps > 50000:
+            return
+        if not self._is_valid(current):
+            return
         if not remaining:
-            if self._is_valid(current):
-                self.solutions.append(current.copy())
+            self.solutions.append(current.copy())
             return
         key = remaining[0]
         for v in self.candidates[key]:
             current[key] = v
             self._solve_backtrack(current, remaining[1:])
-            if len(self.solutions) >= 5:
+            if len(self.solutions) >= 5 or self.backtrack_steps > 50000:
                 return
             del current[key]
 
@@ -578,10 +586,14 @@ class DependencySolver:
         version_map = {f"{g}:{a}": v for (g, a), v in combo.items()}
         for (g, a), v in combo.items():
             for t in self.constraints.get((g, a, v), []):
-                t_key = f"{t['groupId']}:{t['artifactId']}"
-                if t_key in version_map and t.get("version") != "Managed":
-                    if version_map[t_key] != t["version"]:
-                        return False
+                t_key_tuple = (t["groupId"], t["artifactId"])
+                t_key_str = f"{t['groupId']}:{t['artifactId']}"
+                if t.get("version") != "Managed":
+                    if t_key_tuple in self.candidates:
+                        if t["version"] not in self.candidates[t_key_tuple]:
+                            return False
+                        if t_key_str in version_map and version_map[t_key_str] != t["version"]:
+                            return False
         return True
 
 

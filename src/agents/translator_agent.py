@@ -52,6 +52,8 @@ class TranslatorAgent(BaseAgent):
         payload = self._parse_instruction(instruction)
         self.project_path = payload.get("project_path", "")
         self.baseline_coverage = payload.get("baseline_coverage", 0.0)
+        self.baseline_total_tests = payload.get("baseline_total_tests", 0)
+        self.baseline_passed_tests = payload.get("baseline_passed_tests", 0)
         self._log_entries = []
         self._last_edit_count = 0
         self._classpath_cache = {}
@@ -256,48 +258,72 @@ class TranslatorAgent(BaseAgent):
     # ── Evaluation Report Generation ──
 
     def generate_evaluation_report(self):
-        """Run Maven coverage and export metrics to eval.json in the current working directory."""
+        """Run Maven test + coverage and export metrics to eval.json.
+
+        FreshBrew 3-gate protocol:
+          Gate 1: project compiles (mvn test-compile succeeds)
+          Gate 2: ALL original tests pass — uses mvn verify WITHOUT failure.ignore
+          Gate 3: line coverage does not drop by more than 5 pp vs baseline
+        """
         if not self.project_path:
             return
 
         p_path = Path(self.project_path)
         codebase_name = p_path.name
+        baseline_cov = getattr(self, "baseline_coverage", 0.0)
 
         print(f"-> [EVAL] Starting final evaluation for codebase: {codebase_name}...")
         runner = MavenRunner(target_java_version="17")
-        cov_res = runner.coverage(p_path, clean=True)
 
-        compilation_success = (cov_res.status == 0)
+        # ── Gate 1 + Gate 2: mvn verify ──
+        # We ignore test failures at Maven level to get the full test counts in multi-module projects,
+        # and check against baseline passed/total test counts programmatically.
+        print(f"-> [EVAL] Running mvn verify (Gate 1 + Gate 2)...")
+        test_res = runner.test(p_path, skip_tests=False, clean=True, ignore_test_failures=True)
+        total_tests = test_res.total_tests
+        passed_tests = test_res.passed_tests
 
-        # Parse test results
-        total_tests = 0
-        passed_tests = 0
-        stdout_to_parse = cov_res.stdout or ""
+        baseline_total = getattr(self, "baseline_total_tests", 0)
+        baseline_passed = getattr(self, "baseline_passed_tests", 0)
 
-        # regex search for Tests run:, Failures:, Errors:
-        for line in stdout_to_parse.splitlines():
-            if "Tests run:" in line and " - in " not in line:
-                match = re.search(r"Tests run:\s*(\d+),\s*Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
-                if match:
-                    total = int(match.group(1))
-                    failures = int(match.group(2))
-                    errors = int(match.group(3))
-                    total_tests += total
-                    passed_tests += (total - failures - errors)
+        gate1_ok = (test_res.status == 0)
+        gate2_ok = gate1_ok and (passed_tests >= baseline_passed)
+        if baseline_total > 0 and total_tests < baseline_total:
+            print(f"-> [EVAL] Gate 2 Failed: Final test count {total_tests} is less than baseline {baseline_total}. Test skipping detected!")
+            gate2_ok = False
 
+        # ── Gate 3: coverage drop check ──
+        print(f"-> [EVAL] Running JaCoCo coverage (Gate 3)...")
+        cov_res = runner.coverage(p_path, clean=False)
         line_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
         covered_lines = cov_res.covered_lines if cov_res.coverage_found else 0
-        missed_lines = cov_res.missed_lines if cov_res.coverage_found else 0
+        missed_lines  = cov_res.missed_lines  if cov_res.coverage_found else 0
+
+        coverage_drop = baseline_cov - line_coverage
+        # Gate 3 is N/A (treated as passing) when baseline was 0 (no coverage data)
+        gate3_ok = (baseline_cov == 0.0) or (coverage_drop <= 5.0)
+
+        overall_success = gate1_ok and gate2_ok and gate3_ok
 
         eval_data = {
-            "compilation_success": compilation_success,
+            # ── Gate results ──
+            "compilation_success": gate1_ok,
+            "gate2_tests_pass":    gate2_ok,
+            "gate3_coverage_ok":   gate3_ok,
+            "overall_success":     overall_success,   # True only when all 3 gates pass
+            # ── Test metrics ──
             "passed_tests": passed_tests,
-            "total_tests": total_tests,
-            "baseline_coverage": getattr(self, "baseline_coverage", 0.0),
-            "line_coverage": line_coverage,
-            "covered_lines": covered_lines,
-            "missed_lines": missed_lines,
-            "step_count": self.step_count
+            "total_tests":  total_tests,
+            "baseline_total_tests": baseline_total,
+            "baseline_passed_tests": baseline_passed,
+            # ── Coverage metrics ──
+            "baseline_coverage": baseline_cov,
+            "line_coverage":     line_coverage,
+            "coverage_drop_pp":  round(coverage_drop, 2),
+            "covered_lines":     covered_lines,
+            "missed_lines":      missed_lines,
+            # ── Efficiency ──
+            "step_count": self.step_count,
         }
 
         eval_file = Path.cwd() / "eval.json"
@@ -309,13 +335,13 @@ class TranslatorAgent(BaseAgent):
             except Exception:
                 pass
 
-        # Update report with key as codebase name
         existing_data[codebase_name] = eval_data
 
         with open(eval_file, "w", encoding="utf-8") as f:
             json.dump(existing_data, f, ensure_ascii=False, indent=2)
 
         print(f"-> [EVAL] Saved evaluation report for {codebase_name} to {eval_file}")
+        print(f"-> [EVAL] overall_success={overall_success} | Gate1={gate1_ok} Gate2={gate2_ok} Gate3={gate3_ok} (drop={coverage_drop:.1f}pp)")
 
     # ── Tool Definitions ──
 
@@ -794,7 +820,7 @@ class TranslatorAgent(BaseAgent):
                 run_tests = True
 
             if run_tests:
-                compile_res = runner.test(project_path, skip_tests=False, clean=True)
+                compile_res = runner.test(project_path, skip_tests=False, clean=True, ignore_test_failures=True)
             else:
                 compile_res = runner.compile(project_path, clean=True)
 
@@ -802,7 +828,33 @@ class TranslatorAgent(BaseAgent):
             status = compile_res.status
             self._last_edit_count = 0
 
-            if status == 0:
+            # Evaluate test failures and test count integrity programmatically
+            surefire_failures = 0
+            surefire_errors = 0
+            for line in output.splitlines():
+                if "Tests run:" in line and " - in " in line:
+                    import re as _re
+                    m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                    if m:
+                        surefire_failures += int(m.group(1))
+                        surefire_errors += int(m.group(2))
+            
+            baseline_total = getattr(self, "baseline_total_tests", 0)
+            baseline_passed = getattr(self, "baseline_passed_tests", 0)
+            baseline_failed = max(0, baseline_total - baseline_passed)
+            current_failures = surefire_failures + surefire_errors
+
+            has_unit_test_failure = False
+            if run_tests:
+                has_unit_test_failure = current_failures > baseline_failed
+
+            has_skipped_tests_failure = False
+            if run_tests and baseline_total > 0 and compile_res.total_tests < baseline_total:
+                has_skipped_tests_failure = True
+
+            compilation_success = (status == 0) and not has_unit_test_failure and not has_skipped_tests_failure
+
+            if compilation_success:
                 self._test_fail_loop_count = 0
                 self._last_test_failure_count = None
                 self._last_failure_signature = None
@@ -823,9 +875,16 @@ class TranslatorAgent(BaseAgent):
 
                 return {"exit_code": 0, "success": True, "errors": "Project compiles successfully!"}
 
+            # Force status to 1 to indicate failure
+            status = 1
+
             # Extract errors
             compiler_errors = []
             test_failures = []
+            if has_skipped_tests_failure:
+                test_failures.append(f"[ERROR] test count {compile_res.total_tests} is less than baseline {baseline_total}. Test skipping/exclusion detected. Restore and run all original tests.")
+            if has_unit_test_failure:
+                test_failures.append(f"[ERROR] {surefire_failures} unit-test failures, {surefire_errors} errors. Baseline allowed: {baseline_failed}.")
             in_error = False
             in_fail = False
             for line in output.splitlines():
@@ -974,10 +1033,10 @@ class TranslatorAgent(BaseAgent):
 
     def _tool_fetch_migration_rule(self, keywords: list[str], **kwargs) -> dict[str, Any]:
         try:
-            rule_file = Path("D:/capstone_project/MYGRATE---Capstone-Project/migration_rules.json")
+            # Canonical location: src/resources/migration_rules.json (portable, relative to this file)
+            rule_file = Path(__file__).resolve().parent.parent / "resources" / "migration_rules.json"
             if not rule_file.exists():
-                rule_file = Path(self.project_path).parent / "migration_rules.json"
-            if not rule_file.exists():
+                # Legacy fallback: project root
                 rule_file = Path(__file__).resolve().parent.parent.parent / "migration_rules.json"
             if not rule_file.exists():
                 return {"error": "migration_rules.json file not found."}
@@ -1035,7 +1094,7 @@ class TranslatorAgent(BaseAgent):
                     return {"status": "ok", "message": f"Added dependency {group_id}:{artifact_id}:{version}"}
             elif action == "ensure_property":
                 # Anti-reward-hacking: block test-skip properties being set to true
-                _SKIP_TEST_PROPS = {"skiptests", "skipits", "maven.test.skip", "maven.test.failure.ignore"}
+                _SKIP_TEST_PROPS = {"skiptests", "skipits", "maven.test.skip", "maven.test.failure.ignore", "testfailureignore", "skip"}
                 if property_name and property_name.lower() in _SKIP_TEST_PROPS:
                     if str(version or "").strip().lower() == "true":
                         return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip property to 'true' in pom.xml is forbidden."}
@@ -1043,10 +1102,10 @@ class TranslatorAgent(BaseAgent):
                 return {"status": "ok", "message": f"Property {property_name} set to {version}"}
             elif action == "update_element_text":
                 # Anti-reward-hacking: block skipTests/maven.test.skip element updates to true
-                _SKIP_XPATHS = ("skiptests", "skipits", "maven.test.skip", "maven.test.failure.ignore")
+                _SKIP_XPATHS = ("skiptests", "skipits", "maven.test.skip", "maven.test.failure.ignore", "testfailureignore", "skip", "exclude")
                 if xpath and any(s in xpath.lower() for s in _SKIP_XPATHS):
                     if str(version or "").strip().lower() == "true":
-                        return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip element to 'true' in pom.xml is forbidden."}
+                        return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip/exclude element to 'true' in pom.xml is forbidden."}
                 editor.update_element_text(xpath, version)
                 return {"status": "ok", "message": f"Updated elements at xpath '{xpath}' to '{version}'"}
             else:
@@ -1113,6 +1172,22 @@ class TranslatorAgent(BaseAgent):
             new_skips = re.findall(r"<(skipTests|skipITs|maven\.test\.skip)>\s*true\s*</\1>", new_content)
             if len(new_skips) > len(old_skips):
                 return "⚠️ REWARD HACKING DETECTED: Setting test skipping to true in pom.xml is forbidden."
+
+            old_fail_ignores = re.findall(r"<(testFailureIgnore|maven\.test\.failure\.ignore)>\s*true\s*</\1>", old_content)
+            new_fail_ignores = re.findall(r"<(testFailureIgnore|maven\.test\.failure\.ignore)>\s*true\s*</\1>", new_content)
+            if len(new_fail_ignores) > len(old_fail_ignores):
+                return "⚠️ REWARD HACKING DETECTED: Setting test failure ignore to true in pom.xml is forbidden."
+
+            old_plugin_skips = re.findall(r"<skip>\s*true\s*</skip>", old_content)
+            new_plugin_skips = re.findall(r"<skip>\s*true\s*</skip>", new_content)
+            if len(new_plugin_skips) > len(old_plugin_skips):
+                return "⚠️ REWARD HACKING DETECTED: Setting plugin skip to true in pom.xml is forbidden."
+
+            old_excludes = len(re.findall(r"<exclude\b", old_content))
+            new_excludes = len(re.findall(r"<exclude\b", new_content))
+            if new_excludes > old_excludes:
+                return "⚠️ REWARD HACKING DETECTED: Adding exclude elements in pom.xml is forbidden."
+
         normalized_path = str(path).replace("\\", "/")
         if "src/test/java" in normalized_path and normalized_path.endswith(".java"):
             def strip_comments(text: str) -> str:

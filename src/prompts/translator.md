@@ -57,7 +57,7 @@ Enrich a migration report with LLM-generated recommendations. Takes the existing
 **Returns:** The enriched report as JSON with added markdown_report and migration_notes.
 
 ## 4. find_code_usages
-Find semantic Java code usages using tree-sitter. Searches for method calls, class declarations, imports, or variable declarations matching a specific identifier.
+Find semantic Java code usages using tree-sitter. Searches for method calls, class declarations, imports, or variable declarations matching a specific identifier. This tool is slower but accurate, concerning to use when the problem gets hard.
 
 **Parameters:**
 - `node_type` (required): Fixed list of node types to search (method_invocation, class_declaration, import_declaration, variable_declarator)
@@ -66,7 +66,7 @@ Find semantic Java code usages using tree-sitter. Searches for method calls, cla
 **Returns:** A list of usages with line/column coordinates and code snippets.
 
 ## 5. search_codebase
-Grep/Regex search text content within specified file extensions in the codebase. Use this to find configuration keys, properties, or hardcoded strings.
+Grep/Regex search text content within specified file extensions in the codebase. Use this to find configuration keys, properties, or hardcoded strings. This tool is faster but less accurate than find_code_usages, concerning to use when the problem gets easy or the target of search is less common.
 
 **Parameters:**
 - `regex_pattern` (required): Regular expression pattern to search

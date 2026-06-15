@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -12,6 +13,8 @@ class CliResult(BaseModel):
     status: int
     stdout: str
     stderr: str
+    total_tests: int = 0
+    passed_tests: int = 0
 
 
 class CoverageResult(BaseModel):
@@ -23,12 +26,34 @@ class CoverageResult(BaseModel):
     line_coverage_pct: float
     missed_lines: int
     covered_lines: int
+    total_tests: int = 0
+    passed_tests: int = 0
 
 
 
 class Maven:
     def __init__(self, target_java_version: str):
         self.target_java_version = target_java_version
+
+    def _parse_test_counts(self, stdout: str) -> tuple[int, int]:
+        total_tests = 0
+        passed_tests = 0
+        if not stdout:
+            return 0, 0
+        for line in stdout.splitlines():
+            if "Tests run:" in line and " - in " not in line:
+                match = re.search(
+                    r"Tests run:\s*(\d+),\s*Failures:\s*(\d+),\s*Errors:\s*(\d+)(?:,\s*Skipped:\s*(\d+))?",
+                    line,
+                )
+                if match:
+                    total    = int(match.group(1))
+                    failures = int(match.group(2))
+                    errors   = int(match.group(3))
+                    skipped  = int(match.group(4) or 0)
+                    total_tests  += total
+                    passed_tests += (total - failures - errors - skipped)
+        return total_tests, passed_tests
 
     def _ensure_mvnw_executable(self, repo_path: Path):
         mvnw_path = repo_path / "mvnw"
@@ -62,9 +87,12 @@ class Maven:
             "--batch-mode",
             "-U",
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
-            f"-Dmaven.compiler.source={self.target_java_version}",
-            f"-Dmaven.compiler.target={self.target_java_version}",
         ]
+        if self.target_java_version:
+            cmd.extend([
+                f"-Dmaven.compiler.source={self.target_java_version}",
+                f"-Dmaven.compiler.target={self.target_java_version}"
+            ])
         if clean:
             cmd.insert(1, "clean")
         result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"))
@@ -72,7 +100,7 @@ class Maven:
             status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
         )
 
-    def test(self, repo_path: Path, skip_tests: bool = False, clean: bool = False) -> CliResult:
+    def test(self, repo_path: Path, skip_tests: bool = False, clean: bool = False, ignore_test_failures: bool = False) -> CliResult:
         repo_path = Path(repo_path)  # ensure Path, not str
         cmd = [
             self._get_base_cmd(repo_path),
@@ -80,24 +108,41 @@ class Maven:
             "--batch-mode",
             "-U",
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
-            f"-Dmaven.compiler.source={self.target_java_version}",
-            f"-Dmaven.compiler.target={self.target_java_version}",
         ]
+        if self.target_java_version:
+            cmd.extend([
+                f"-Dmaven.compiler.source={self.target_java_version}",
+                f"-Dmaven.compiler.target={self.target_java_version}"
+            ])
         if skip_tests:
             cmd.append("-DskipTests")
+        if ignore_test_failures:
+            cmd.append("-Dmaven.test.failure.ignore=true")
         if clean:
             cmd.insert(1, "clean")
         try:
             # Timeout increased to 300s to allow integration tests to run
             result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=300)
+            stdout = result.stdout.decode("utf-8")
+            stderr = result.stderr.decode("utf-8")
+            total, passed = self._parse_test_counts(stdout)
             return CliResult(
-                status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
+                status=result.returncode,
+                stdout=stdout,
+                stderr=stderr,
+                total_tests=total,
+                passed_tests=passed
             )
         except subprocess.TimeoutExpired as e:
+            stdout = e.stdout.decode("utf-8") if e.stdout else ""
+            stderr = (e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 300 seconds. A test might be hanging or stuck in an infinite loop."
+            total, passed = self._parse_test_counts(stdout)
             return CliResult(
                 status=-1,
-                stdout=e.stdout.decode("utf-8") if e.stdout else "",
-                stderr=(e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 300 seconds. A test might be hanging or stuck in an infinite loop."
+                stdout=stdout,
+                stderr=stderr,
+                total_tests=total,
+                passed_tests=passed
             )
 
     def coverage(self, repo_path: Path, clean: bool = False) -> CoverageResult:
@@ -110,31 +155,42 @@ class Maven:
             "--batch-mode",
             "-U",
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
-            f"-Dmaven.compiler.source={self.target_java_version}",
-            f"-Dmaven.compiler.target={self.target_java_version}",
-            "-Dmaven.test.failure.ignore=true",
         ]
+        if self.target_java_version:
+            cmd.extend([
+                f"-Dmaven.compiler.source={self.target_java_version}",
+                f"-Dmaven.compiler.target={self.target_java_version}"
+            ])
+        cmd.append("-Dmaven.test.failure.ignore=true")
         if clean:
             cmd.insert(1, "clean")
         try:
-            result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=180)
+            # Sync timeout to 300s to match test() and allow longer integration tests
+            result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), shell=(os.name == "nt"), timeout=300)
+            stdout = result.stdout.decode("utf-8")
+            stderr = result.stderr.decode("utf-8")
         except subprocess.TimeoutExpired as e:
+            stdout = e.stdout.decode("utf-8") if e.stdout else ""
+            stderr = (e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven coverage execution timed out after 300 seconds."
+            total, passed = self._parse_test_counts(stdout)
             return CoverageResult(
                 status=-1,
-                stdout=e.stdout.decode("utf-8") if e.stdout else "",
-                stderr=(e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven coverage execution timed out after 180 seconds.",
+                stdout=stdout,
+                stderr=stderr,
                 jacoco_xml_path="",
                 coverage_found=False,
                 line_coverage_pct=0.0,
                 missed_lines=0,
-                covered_lines=0
+                covered_lines=0,
+                total_tests=total,
+                passed_tests=passed
             )
         
         # Now find the jacoco.xml report
         metrics = {
             "status": result.returncode,
-            "stdout": result.stdout.decode("utf-8"),
-            "stderr": result.stderr.decode("utf-8"),
+            "stdout": stdout,
+            "stderr": stderr,
             "jacoco_xml_path": "",
             "coverage_found": False,
             "line_coverage_pct": 0.0,
@@ -148,6 +204,13 @@ class Maven:
 
         # Aggregate coverage across all modules in multi-module projects
         for jacoco_xml in repo_path.rglob("jacoco.xml"):
+            # Avoid aggregate reports to prevent double-counting
+            parts = [p.lower() for p in jacoco_xml.parts]
+            if "jacoco-aggregate" in parts:
+                continue
+            # Also ensure it is in the target directory of a module
+            if "target" not in parts or "site" not in parts or "jacoco" not in parts:
+                continue
             try:
                 import xml.etree.ElementTree as ET
                 tree = ET.parse(jacoco_xml)
@@ -168,6 +231,10 @@ class Maven:
         if coverage_found and total_lines > 0:
             metrics["line_coverage_pct"] = (total_covered / total_lines) * 100.0
             metrics["coverage_found"] = True
+
+        total, passed = self._parse_test_counts(stdout)
+        metrics["total_tests"] = total
+        metrics["passed_tests"] = passed
                 
         return CoverageResult(**metrics)
 
@@ -185,9 +252,12 @@ class Maven:
             "--batch-mode",
             "-U",
             "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn",
-            f"-Dmaven.compiler.source={self.target_java_version}",
-            f"-Dmaven.compiler.target={self.target_java_version}",
         ]
+        if self.target_java_version:
+            cmd.extend([
+                f"-Dmaven.compiler.source={self.target_java_version}",
+                f"-Dmaven.compiler.target={self.target_java_version}"
+            ])
         if skip_tests:
             cmd.append("-DskipTests")
         if ignore_test_failures:
@@ -209,9 +279,12 @@ class Maven:
             "dependency:build-classpath",
             "-Dmdep.includeScope=test",
             f"-Dmdep.outputFile={str(output_path)}",
-            f"-Dmaven.compiler.source={self.target_java_version}",
-            f"-Dmaven.compiler.target={self.target_java_version}",
         ]
+        if self.target_java_version:
+            cmd.extend([
+                f"-Dmaven.compiler.source={self.target_java_version}",
+                f"-Dmaven.compiler.target={self.target_java_version}"
+            ])
 
         logger.info(f"Running command: {' '.join(cmd)}")
 

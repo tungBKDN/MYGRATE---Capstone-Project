@@ -212,7 +212,9 @@ def main():
     baseline_runner = MavenRunner(target_java_version="")
     baseline_res = baseline_runner.coverage(Path(project_path), clean=True)
     baseline_coverage = baseline_res.line_coverage_pct if baseline_res.coverage_found else 0.0
-    print(f"-> {GREEN}[EVAL] Baseline coverage: {baseline_coverage:.2f}%{RESET}")
+    baseline_total_tests = baseline_res.total_tests
+    baseline_passed_tests = baseline_res.passed_tests
+    print(f"-> {GREEN}[EVAL] Baseline coverage: {baseline_coverage:.2f}% (Tests run: {baseline_total_tests}, Passed: {baseline_passed_tests}){RESET}")
 
     initial_state = {
         "project_path": project_path,
@@ -229,6 +231,8 @@ def main():
         "last_subagent_result": "",
         "next_node": "supervisor",
         "baseline_coverage": baseline_coverage,
+        "baseline_total_tests": baseline_total_tests,
+        "baseline_passed_tests": baseline_passed_tests,
         "translator_completed": False,
     }
 

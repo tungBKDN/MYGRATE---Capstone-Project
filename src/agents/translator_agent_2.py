@@ -1,1 +1,1 @@
-# Deprecated. Merged into translator_agent.py.
+#

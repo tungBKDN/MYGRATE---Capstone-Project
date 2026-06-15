@@ -511,27 +511,36 @@ class BaseAgent(ABC):
                             compile_res = runner.compile(project_path, clean=False)
                             has_compile_error = compile_res.status != 0
 
-                            # Gate 2: check Surefire unit-test failures only (not Failsafe IT failures)
-                            verify_res = runner.test(project_path, skip_tests=False, clean=False)
+                            # Gate 2: check surefire unit-test failures only
+                            # We ignore test failures at Maven level to get the full test counts in multi-module projects,
+                            # and check against baseline failure counts programmatically.
+                            verify_res = runner.test(project_path, skip_tests=False, clean=False, ignore_test_failures=True)
                             combined_out = verify_res.stdout + "\n" + verify_res.stderr
                             import re as _re
                             surefire_failures = 0
                             surefire_errors = 0
                             for line in combined_out.splitlines():
-                                # Surefire summary lines look like:
-                                #   Tests run: 37, Failures: 2, Errors: 1, Skipped: 0 - in org.foo.SomeTest
-                                # We want to EXCLUDE Failsafe summary lines (which never have " - in ")
                                 if "Tests run:" in line and " - in " in line:
                                     m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
                                     if m:
                                         surefire_failures += int(m.group(1))
                                         surefire_errors += int(m.group(2))
-                            has_unit_test_failure = (surefire_failures + surefire_errors) > 0
+                            
+                            baseline_total = payload.get("baseline_total_tests", 0)
+                            baseline_passed = payload.get("baseline_passed_tests", 0)
+                            baseline_failed = max(0, baseline_total - baseline_passed)
+                            current_failures = surefire_failures + surefire_errors
+                            has_unit_test_failure = current_failures > baseline_failed
+
+                            # Test count integrity check
+                            has_skipped_tests_failure = False
+                            if baseline_total > 0 and verify_res.total_tests < baseline_total:
+                                has_skipped_tests_failure = True
 
                             baseline_coverage = payload.get("baseline_coverage", 0.0)
                             has_gate3_failure = False
                             gate3_drop = 0.0
-                            if not has_compile_error and not has_unit_test_failure and baseline_coverage > 0:
+                            if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
                                 cov_res = runner.coverage(project_path, clean=False)
                                 current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
                                 gate3_drop = baseline_coverage - current_coverage
@@ -542,8 +551,11 @@ class BaseAgent(ABC):
                                 print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res.status}).")
                                 observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res.status}). Fix all compile errors first."}
                             elif has_unit_test_failure:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors.")
-                                observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Fix unit tests first."}
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors (baseline allowed: {baseline_failed}).")
+                                observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Baseline allowed: {baseline_failed}. Fix unit tests first."}
+                            elif has_skipped_tests_failure:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: test count {verify_res.total_tests} is less than baseline {baseline_total}.")
+                                observation = {"error": f"Cannot submit yet — test count {verify_res.total_tests} is less than baseline {baseline_total}. Test skipping/exclusion detected. Restore and run all original tests."}
                             elif has_gate3_failure:
                                 print(f"-> [{self._agent_name()}] Final answer BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
                                 observation = {"error": f"Cannot submit yet — Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. Add unit tests or restore original logic."}
@@ -599,25 +611,72 @@ class BaseAgent(ABC):
                     java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
                     runner = MavenRunner(target_java_version=java_ver)
                     project_path = Path(payload.get("project_path", ""))
-                    verify_res = runner.test(project_path, skip_tests=False, clean=True)
                     
+                    # Gate 1: compile
+                    compile_res = runner.compile(project_path, clean=False)
+                    has_compile_error = compile_res.status != 0
+
+                    # Gate 2: check surefire unit-test failures only
+                    # We ignore test failures at Maven level to get the full test counts in multi-module projects,
+                    # and check against baseline failure counts programmatically.
+                    verify_res = runner.test(project_path, skip_tests=False, clean=True, ignore_test_failures=True)
+                    combined_out = verify_res.stdout + "\n" + verify_res.stderr
+                    import re as _re
+                    surefire_failures = 0
+                    surefire_errors = 0
+                    for line in combined_out.splitlines():
+                        if "Tests run:" in line and " - in " in line:
+                            m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                            if m:
+                                surefire_failures += int(m.group(1))
+                                surefire_errors += int(m.group(2))
+                    
+                    baseline_total = payload.get("baseline_total_tests", 0)
+                    baseline_passed = payload.get("baseline_passed_tests", 0)
+                    baseline_failed = max(0, baseline_total - baseline_passed)
+                    current_failures = surefire_failures + surefire_errors
+                    has_unit_test_failure = current_failures > baseline_failed
+
+                    # Test count integrity check
+                    has_skipped_tests_failure = False
+                    if baseline_total > 0 and verify_res.total_tests < baseline_total:
+                        has_skipped_tests_failure = True
+
                     baseline_coverage = payload.get("baseline_coverage", 0.0)
                     has_gate3_failure = False
                     gate3_drop = 0.0
-                    if verify_res.status == 0 and baseline_coverage > 0:
+                    if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
                         cov_res = runner.coverage(project_path, clean=False)
                         current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
                         gate3_drop = baseline_coverage - current_coverage
                         if gate3_drop > 5.0:
                             has_gate3_failure = True
 
-                    if verify_res.status != 0:
-                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: Project still has compile/test errors (exit code {verify_res.status}). Forcing agent to continue.")
+                    if has_compile_error:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: Compile errors detected (exit code {compile_res.status}).")
                         from langchain_core.messages import HumanMessage
                         messages.append(response)
                         messages.append(HumanMessage(
-                            content=f"You attempted to finish, but compilation/tests are still failing (exit code: {verify_res.status}). "
-                                    f"You MUST continue editing the files and call compile_project(run_tests=true) until everything compiles and passes cleanly."
+                            content=f"You attempted to finish, but compilation failed (exit code: {compile_res.status}). "
+                                    f"You MUST continue editing the files and call compile_project(run_tests=false) or similar to fix compile errors."
+                        ))
+                        continue
+                    elif has_unit_test_failure:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors (baseline allowed: {baseline_failed}).")
+                        from langchain_core.messages import HumanMessage
+                        messages.append(response)
+                        messages.append(HumanMessage(
+                            content=f"You attempted to finish, but unit tests are failing: {surefire_failures} failures, {surefire_errors} errors. "
+                                    f"Baseline allowed: {baseline_failed}. You MUST fix the test failures before finishing."
+                        ))
+                        continue
+                    elif has_skipped_tests_failure:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: test count {verify_res.total_tests} is less than baseline {baseline_total}.")
+                        from langchain_core.messages import HumanMessage
+                        messages.append(response)
+                        messages.append(HumanMessage(
+                            content=f"You attempted to finish, but the final test count ({verify_res.total_tests}) is less than baseline ({baseline_total}). "
+                                    f"Test skipping/exclusion detected. You MUST restore and run all original tests before finishing."
                         ))
                         continue
                     elif has_gate3_failure:

@@ -591,7 +591,8 @@ def _step_b3_dep_scan(jdeprscan_path: Optional[str], b0: dict, target_release: s
         return result
 
     # Multi-threaded scan
-    workers = n_workers or min(4, max(2, (os.cpu_count() or 4) // 2))
+    # workers = n_workers or min(4, max(2, (os.cpu_count() or 4) // 2))
+    workers = 2
     log(f"[jdeprscan] B3: scanning {total_jars} JARs với {workers} luồng...")
 
     summary = []

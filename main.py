@@ -200,7 +200,7 @@ def make_logger(state: Dict[str, Any], no_clear: bool = False):
 
 
 def build_report_path(project_path: Path) -> Path:
-    report_root = Path("artifacts") / "codebase_discovery"
+    report_root = Path("test") / "artifacts" / "codebase_discovery"
     report_root.mkdir(parents=True, exist_ok=True)
     safe_name = "".join(ch if ch.isalnum() or ch in {".", "_", "-"} else "_" for ch in project_path.name).strip("_")
     if not safe_name:
@@ -528,6 +528,26 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+class Tee:
+    def __init__(self, log_path: Path, stream):
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        self.log_file = open(log_path, "a", encoding="utf-8")
+        self.stream = stream
+
+    def write(self, data):
+        self.stream.write(data)
+        self.log_file.write(data)
+        self.log_file.flush()
+
+    def flush(self):
+        self.stream.flush()
+        self.log_file.flush()
+
+    def close(self):
+        if not self.log_file.closed:
+            self.log_file.close()
+
+
 def main() -> int:
     load_dotenv()
     parser = build_parser()
@@ -536,6 +556,15 @@ def main() -> int:
     if not Path(args.path).exists():
         print(color_text(f"Project path not found: {args.path}", "red", True))
         return 1
+
+    project_root = normalize_project_path(args.path)
+    log_dir = project_root / "test" / "artifacts"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / "cli_output.log"
+    tee_stdout = Tee(log_path, sys.stdout)
+    tee_stderr = Tee(log_path, sys.stderr)
+    sys.stdout = tee_stdout
+    sys.stderr = tee_stderr
 
     try:
         run_pipeline(
@@ -553,7 +582,26 @@ def main() -> int:
     except Exception as exc:
         print(color_text(f"Unhandled error: {exc}", "red", True))
         return 1
+    finally:
+        sys.stdout = tee_stdout.stream
+        sys.stderr = tee_stderr.stream
+        tee_stdout.close()
+        tee_stderr.close()
+
+        # Copy artifacts to working directory after migration run completes
+        try:
+            mygrate_root = Path(__file__).resolve().parent
+            src_dir = project_root / "test" / "artifacts"
+            codebase_name = project_root.name
+            dest_dir = mygrate_root / "working" / codebase_name / "artifacts"
+            if src_dir.exists():
+                import shutil
+                shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+                print(f"\n-> [POST-RUN] Successfully copied artifacts from {src_dir} to {dest_dir}\n")
+        except Exception as e:
+            print(f"\n-> [POST-RUN] Error copying artifacts to working directory: {e}\n")
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

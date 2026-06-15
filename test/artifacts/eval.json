@@ -1,0 +1,50 @@
+{
+  "sample_project": {
+    "compilation_success": false,
+    "gate2_tests_pass": false,
+    "gate3_coverage_ok": true,
+    "overall_success": false,
+    "passed_tests": 0,
+    "total_tests": 0,
+    "baseline_total_tests": 0,
+    "baseline_passed_tests": 0,
+    "baseline_coverage": 0.0,
+    "line_coverage": 0.0,
+    "coverage_drop_pp": 0.0,
+    "covered_lines": 0,
+    "missed_lines": 0,
+    "step_count": 0
+  },
+  "rome": {
+    "compilation_success": true,
+    "gate2_tests_pass": true,
+    "gate3_coverage_ok": true,
+    "overall_success": true,
+    "passed_tests": 1478,
+    "total_tests": 1480,
+    "baseline_total_tests": 1480,
+    "baseline_passed_tests": 1478,
+    "baseline_coverage": 76.91200805813368,
+    "line_coverage": 76.91200805813368,
+    "coverage_drop_pp": 0.0,
+    "covered_lines": 10690,
+    "missed_lines": 3209,
+    "step_count": 10
+  },
+  "amazon-kinesis-client": {
+    "compilation_success": false,
+    "gate2_tests_pass": false,
+    "gate3_coverage_ok": true,
+    "overall_success": false,
+    "passed_tests": 0,
+    "total_tests": 0,
+    "baseline_total_tests": 0,
+    "baseline_passed_tests": 0,
+    "baseline_coverage": 0.0,
+    "line_coverage": 0.0,
+    "coverage_drop_pp": 0.0,
+    "covered_lines": 0,
+    "missed_lines": 0,
+    "step_count": 40
+  }
+}

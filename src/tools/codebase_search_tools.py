@@ -149,11 +149,11 @@ def get_file_migration_details(project_path: str, file_path: str) -> dict[str, A
     path = Path(project_path)
     jdeprscan_file = path / "target" / "jdeprscan_report.json"
     if not jdeprscan_file.exists():
-        jdeprscan_file = path / "artifacts" / "jdeprscan_report.json"
+        jdeprscan_file = path / "test" / "artifacts" / "jdeprscan_report.json"
         
     mygrate_file = path / "target" / "mygrate_report.json"
     if not mygrate_file.exists():
-        mygrate_file = path / "artifacts" / "mygrate_report.json"
+        mygrate_file = path / "test" / "artifacts" / "mygrate_report.json"
     
     details = {
         "file_path": file_path,

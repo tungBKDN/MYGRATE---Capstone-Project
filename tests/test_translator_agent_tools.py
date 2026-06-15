@@ -1,4 +1,4 @@
-"""Unit tests for TranslatorAgent_2 new tools and overlap validation checks."""
+"""Unit tests for TranslatorAgent tools and overlap validation checks."""
 import json
 import tempfile
 import sys
@@ -125,6 +125,7 @@ def test_reward_hacking_prevention(tmp_path):
     
     agent = TranslatorAgent()
     agent.project_path = str(project_dir)
+    agent._allow_test_edits = True
     
     edits_pom_hack = [
         {"start_line": 1, "end_line": 1, "replacement": "<project><properties><skipTests>true</skipTests></properties></project>"}
@@ -153,7 +154,7 @@ public class MyTest {
     ]
     res_ignore = agent._tool_apply_edits("src/test/java/MyTest.java", edits_ignore_hack)
     assert "REWARD HACKING DETECTED" in res_ignore
-    assert "added @Ignore or @Disabled" in res_ignore
+    assert "@Ignore or @Disabled" in res_ignore
     
     # Try deleting @Test
     edits_delete_test_hack = [
@@ -161,7 +162,7 @@ public class MyTest {
     ]
     res_del_test = agent._tool_apply_edits("src/test/java/MyTest.java", edits_delete_test_hack)
     assert "REWARD HACKING DETECTED" in res_del_test
-    assert "number of active @Test annotations decreased" in res_del_test
+    assert "Deleting @Test methods" in res_del_test
     
     # Try deleting assertion
     edits_delete_assert_hack = [
@@ -169,7 +170,7 @@ public class MyTest {
     ]
     res_del_assert = agent._tool_apply_edits("src/test/java/MyTest.java", edits_delete_assert_hack)
     assert "REWARD HACKING DETECTED" in res_del_assert
-    assert "number of active assertions/verifications decreased" in res_del_assert
+    assert "Deleting assertions" in res_del_assert
     
     # Try adding early return
     edits_early_return = [
@@ -177,7 +178,7 @@ public class MyTest {
     ]
     res_return = agent._tool_apply_edits("src/test/java/MyTest.java", edits_early_return)
     assert "REWARD HACKING DETECTED" in res_return
-    assert "added a return statement" in res_return
+    assert "Adding early return" in res_return
     
     # Verify write_file also blocks reward hacking
     res_write_hack = agent._tool_write_file("src/test/java/MyTest.java", "package org.test; public class MyTest {}")
@@ -200,6 +201,7 @@ def test_code_lock(tmp_path):
     
     agent = TranslatorAgent()
     agent.project_path = str(project_dir)
+    agent._allow_test_edits = True
     
     # 1. Main source NOT locked initially -> edit main source should pass
     edits = [{"start_line": 1, "end_line": 1, "replacement": "public class Main { // edit1 }"}]
@@ -261,7 +263,6 @@ def test_check_class_batch(tmp_path):
 
 
 if __name__ == "__main__":
-    import sys
     # Create a dummy temp directory to run tests in standalone execution
     with tempfile.TemporaryDirectory() as td:
         tdp = Path(td)
@@ -271,7 +272,4 @@ if __name__ == "__main__":
         test_reward_hacking_prevention(tdp / "reward_hacking")
         test_code_lock(tdp / "code_lock")
         test_check_class_batch(tdp / "check_class")
-    print("\nAll TranslatorAgent_2 tools tests PASSED!")
-
-
-
+    print("\nAll TranslatorAgent tools tests PASSED!")

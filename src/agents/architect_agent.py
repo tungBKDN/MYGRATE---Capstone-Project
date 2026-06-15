@@ -76,10 +76,10 @@ class ArchitectAgent(BaseAgent):
                 logger=lambda msg: print(f"   {msg}"),
             )
 
-            # Save full report to artifacts/ folder
+            # Save full report to test/artifacts/ folder
             project_path = kwargs.get("project_path", "")
             if project_path:
-                report_root = Path(project_path) / "artifacts"
+                report_root = Path(project_path) / "test" / "artifacts"
                 report_root.mkdir(parents=True, exist_ok=True)
                 report_path = report_root / "upgrade_report.json"
                 with open(report_path, "w", encoding="utf-8") as f:

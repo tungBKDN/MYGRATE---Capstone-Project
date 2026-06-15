@@ -299,10 +299,7 @@ class SupervisorAgent(BaseAgent):
             next_node = "architect"
             current_instruction = "Solve version compatibility constraints."
             response_to_user = "Analyzing library version solutions..."
-        elif not has_reader_review:
-            next_node = "reader"
-            current_instruction = "Select the best candidate solutions and output final review."
-            response_to_user = "Performing final compatibility candidate review..."
+
         elif not has_translation:
             next_node = "translator"
             current_instruction = "Translate migration scope."

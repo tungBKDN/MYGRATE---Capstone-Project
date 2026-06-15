@@ -1,4 +1,4 @@
-from .file_system import list_project_structure, read_source_code, get_file_summary, write_file
+from .file_system import write_file
 from .codebase_indexer import index_codebase
 from .change_finder import build_translation_report, find_change_candidates, resolve_default_report_paths, coerce_tasks
 from .report_enricher import enrich_report_with_llm
@@ -31,9 +31,6 @@ from .codebase_search_tools import find_code_usages, search_codebase, get_file_m
 from .maven import MavenPomEditor, MavenProject, MavenRunner
 
 __all__ = [
-    "list_project_structure",
-    "read_source_code",
-    "get_file_summary",
     "write_file",
     "index_codebase",
     "build_translation_report",

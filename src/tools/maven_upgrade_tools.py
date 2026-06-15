@@ -1013,7 +1013,7 @@ def _get_project_properties(project_dir: Path) -> dict:
     # Reports check
     jdeprscan_report = None
     jdeprscan_report_path = None
-    for folder in ("artifacts", "target"):
+    for folder in ("test/artifacts", "target"):
         p = project_dir / folder / "jdeprscan_report.json"
         if p.exists():
             try:
@@ -1025,7 +1025,7 @@ def _get_project_properties(project_dir: Path) -> dict:
                 pass
                 
     migration_report_path = None
-    for folder in ("artifacts", "target"):
+    for folder in ("test/artifacts", "target"):
         p = project_dir / folder / "migration_report.md"
         if p.exists():
             migration_report_path = str(p)
@@ -1115,10 +1115,13 @@ def index_java_project(project_path: str) -> dict:
             
             overview_md = "\n".join(markdown_table)
             
-            # Aggregate dependencies
+            # Aggregate dependencies, filtering out internal sub-project cross-dependencies
             all_dependencies = []
+            sub_project_coords = {(p.get("project", {}).get("groupId"), p.get("project", {}).get("artifactId")) for p in sub_projects_info if p.get("project")}
             for p in sub_projects_info:
                 for dep in p.get("dependencies", []):
+                    if (dep.get("groupId"), dep.get("artifactId")) in sub_project_coords:
+                        continue
                     if not any(d.get("groupId") == dep.get("groupId") and d.get("artifactId") == dep.get("artifactId") for d in all_dependencies):
                         all_dependencies.append(dep)
             
@@ -1138,6 +1141,17 @@ def index_java_project(project_path: str) -> dict:
                 }
             }
             
+            # Write scan reports to artifacts folder
+            try:
+                artifacts_dir = Path(project_path) / "test" / "artifacts"
+                artifacts_dir.mkdir(parents=True, exist_ok=True)
+                with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
+                    json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
+                with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
+                    f.write(scan_report_data.get("markdown_report", ""))
+            except Exception as e:
+                print(f"Warning: Failed to write reader scan reports: {e}")
+
             return scan_report_data
 
     # Fallback/Default: Single project scan
@@ -1161,7 +1175,19 @@ def index_java_project(project_path: str) -> dict:
     project = MavenProject(str(pom_path))
     
     modules_data = {}
-    all_dependencies = list(pom_data.get("dependencies", []))
+    
+    # Filter out internal module dependencies (e.g. submodules of the same project)
+    internal_group = pom_data.get("project", {}).get("groupId")
+    internal_artifacts = {pom_data.get("project", {}).get("artifactId")}
+    if project.is_multi_module():
+        internal_artifacts.update(project.get_modules())
+        for mod in project.get_modules():
+            internal_artifacts.add(mod.split('/')[-1])
+            
+    all_dependencies = [
+        d for d in pom_data.get("dependencies", [])
+        if not (d.get("groupId") == internal_group and d.get("artifactId") in internal_artifacts)
+    ]
     
     if project.is_multi_module():
         modules = project.get_modules()
@@ -1172,6 +1198,8 @@ def index_java_project(project_path: str) -> dict:
                     mod_data = _parse_pom(mod_pom_path)
                     modules_data[mod] = mod_data
                     for dep in mod_data.get("dependencies", []):
+                        if dep.get("groupId") == internal_group and dep.get("artifactId") in internal_artifacts:
+                            continue
                         if not any(d.get("groupId") == dep.get("groupId") and d.get("artifactId") == dep.get("artifactId") for d in all_dependencies):
                             all_dependencies.append(dep)
                 except Exception as e:
@@ -1232,6 +1260,17 @@ def index_java_project(project_path: str) -> dict:
         "project_info": props,
         "markdown_report": overview_md
     }
+
+    # Write scan reports to artifacts folder
+    try:
+        artifacts_dir = Path(project_path) / "test" / "artifacts"
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
+        with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
+            json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
+        with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
+            f.write(scan_report_data.get("markdown_report", ""))
+    except Exception as e:
+        print(f"Warning: Failed to write reader scan reports: {e}")
 
     return scan_report_data
 
@@ -1396,7 +1435,7 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
 
 def _render_dependency_graph(project_path: str, plan: dict) -> Path:
     project_name = Path(project_path).name
-    report_root = Path(project_path) / "artifacts"
+    report_root = Path(project_path) / "test" / "artifacts"
     graph_dir = report_root / "dependency_graphs"
     graph_dir.mkdir(parents=True, exist_ok=True)
 

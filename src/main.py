@@ -41,7 +41,7 @@ def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0
     baseline_coverage = 0.0
     
     # Try reading eval.json
-    eval_file = Path.cwd() / "eval.json"
+    eval_file = Path.cwd() / "test" / "artifacts" / "eval.json"
     if eval_file.exists():
         try:
             with open(eval_file, "r", encoding="utf-8") as f:
@@ -207,97 +207,148 @@ def main():
     print(f"{BOLD}{GREEN}🎯 Target Java version:{RESET} {YELLOW}{target_java}{RESET}")
     print(f"{BLUE}{'=' * 60}{RESET}\n")
 
-    print(f"-> {GREEN}[EVAL] Calculating baseline coverage for {project_path}...{RESET}")
-    from src.tools.maven import MavenRunner
-    baseline_runner = MavenRunner(target_java_version="")
-    baseline_res = baseline_runner.coverage(Path(project_path), clean=True)
-    baseline_coverage = baseline_res.line_coverage_pct if baseline_res.coverage_found else 0.0
-    baseline_total_tests = baseline_res.total_tests
-    baseline_passed_tests = baseline_res.passed_tests
-    print(f"-> {GREEN}[EVAL] Baseline coverage: {baseline_coverage:.2f}% (Tests run: {baseline_total_tests}, Passed: {baseline_passed_tests}){RESET}")
+    # Resolve log path and initialize Tee logging
+    project_root_path = Path(project_path).resolve()
+    log_dir = project_root_path / "test" / "artifacts"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / "cli_output.log"
 
-    initial_state = {
-        "project_path": project_path,
-        "target_java_version": target_java,
-        "project_type": None,
-        "messages": [],
-        "completed_tasks_summary": [],
-        "dependencies": [],
-        "upgrade_report": None,
-        "candidate_solutions": None,
-        "reader_review": None,
-        "migration_tasks": [],
-        "current_instruction": "",
-        "last_subagent_result": "",
-        "next_node": "supervisor",
-        "baseline_coverage": baseline_coverage,
-        "baseline_total_tests": baseline_total_tests,
-        "baseline_passed_tests": baseline_passed_tests,
-        "translator_completed": False,
-    }
+    class Tee:
+        def __init__(self, log_path: Path, stream):
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            self.log_file = open(log_path, "a", encoding="utf-8")
+            self.stream = stream
 
-    if os.environ.get("LANGSMITH_API_KEY"):
-        print(f"-> {GREEN}[TELEMETRY] LangSmith Tracing is ENABLED.{RESET}")
-    else:
-        print(f"-> {YELLOW}[TELEMETRY] LangSmith not configured.{RESET}")
+        def write(self, data):
+            self.stream.write(data)
+            self.log_file.write(data)
+            self.log_file.flush()
 
-    from src.workflow import build_app
-    from langchain_core.messages import HumanMessage
+        def flush(self):
+            self.stream.flush()
+            self.log_file.flush()
 
-    thread_id = "mygrate_cli_thread"
-    config = {"configurable": {"thread_id": thread_id}}
+        def close(self):
+            if not self.log_file.closed:
+                self.log_file.close()
 
-    step_count = 0
+    import sys
+    tee_stdout = Tee(log_path, sys.stdout)
+    tee_stderr = Tee(log_path, sys.stderr)
+    sys.stdout = tee_stdout
+    sys.stderr = tee_stderr
 
-    if args.approve:
-        # Auto-approve: run end-to-end without interrupts
-        initial_state["messages"].append(HumanMessage(content="Approve upgrade and proceed with migration."))
-        run_app = build_app(interrupt=False)
-        print(f"-> {GREEN}[WORKFLOW] Running pipeline automatically...{RESET}")
-        final_state = run_app.invoke(initial_state, config=config)
-        _print_final_summary(final_state)
-        print_boxed_summary(project_path, target_java)
-    else:
-        # Human-in-the-loop mode
-        run_app = build_app(interrupt=True)
-        print(f"-> {GREEN}[WORKFLOW] Starting human-in-the-loop pipeline...{RESET}")
-        run_app.invoke(initial_state, config=config)
+    try:
+        print(f"-> {GREEN}[EVAL] Calculating baseline coverage for {project_path}...{RESET}")
+        from src.tools.maven import MavenRunner
+        baseline_runner = MavenRunner(target_java_version="")
+        baseline_res = baseline_runner.coverage(Path(project_path), clean=True)
+        baseline_coverage = baseline_res.line_coverage_pct if baseline_res.coverage_found else 0.0
+        baseline_total_tests = baseline_res.total_tests
+        baseline_passed_tests = baseline_res.passed_tests
+        print(f"-> {GREEN}[EVAL] Baseline coverage: {baseline_coverage:.2f}% (Tests run: {baseline_total_tests}, Passed: {baseline_passed_tests}){RESET}")
 
-        while True:
-            state_val = run_app.get_state(config).values
-            next_node = state_val.get("next_node", "end")
+        initial_state = {
+            "project_path": project_path,
+            "target_java_version": target_java,
+            "project_type": None,
+            "messages": [],
+            "completed_tasks_summary": [],
+            "dependencies": [],
+            "upgrade_report": None,
+            "candidate_solutions": None,
+            "reader_review": None,
+            "migration_tasks": [],
+            "current_instruction": "",
+            "last_subagent_result": "",
+            "next_node": "supervisor",
+            "baseline_coverage": baseline_coverage,
+            "baseline_total_tests": baseline_total_tests,
+            "baseline_passed_tests": baseline_passed_tests,
+            "translator_completed": False,
+        }
 
-            if next_node == "end":
-                _print_final_summary(state_val)
-                print_boxed_summary(project_path, target_java)
+        if os.environ.get("LANGSMITH_API_KEY"):
+            print(f"-> {GREEN}[TELEMETRY] LangSmith Tracing is ENABLED.{RESET}")
+        else:
+            print(f"-> {YELLOW}[TELEMETRY] LangSmith not configured.{RESET}")
 
-                try:
-                    user_input = input(f"\n{BOLD}{MAGENTA}MYGRATE>{RESET} ").strip()
-                except KeyboardInterrupt:
-                    print("\nAborted.")
-                    break
+        from src.workflow import build_app
+        from langchain_core.messages import HumanMessage
 
-                if user_input.lower() in ("exit", "quit"):
-                    print(f"{GREEN}Goodbye!{RESET}")
-                    break
+        thread_id = "mygrate_cli_thread"
+        config = {"configurable": {"thread_id": thread_id}}
 
-                if not user_input:
+        step_count = 0
+
+        if args.approve:
+            # Auto-approve: run end-to-end without interrupts
+            initial_state["messages"].append(HumanMessage(content="Approve upgrade and proceed with migration."))
+            run_app = build_app(interrupt=False)
+            print(f"-> {GREEN}[WORKFLOW] Running pipeline automatically...{RESET}")
+            final_state = run_app.invoke(initial_state, config=config)
+            _print_final_summary(final_state)
+            print_boxed_summary(project_path, target_java)
+        else:
+            # Human-in-the-loop mode
+            run_app = build_app(interrupt=True)
+            print(f"-> {GREEN}[WORKFLOW] Starting human-in-the-loop pipeline...{RESET}")
+            run_app.invoke(initial_state, config=config)
+
+            while True:
+                state_val = run_app.get_state(config).values
+                next_node = state_val.get("next_node", "end")
+
+                if next_node == "end":
+                    _print_final_summary(state_val)
+                    print_boxed_summary(project_path, target_java)
+
+                    try:
+                        user_input = input(f"\n{BOLD}{MAGENTA}MYGRATE>{RESET} ").strip()
+                    except KeyboardInterrupt:
+                        print("\nAborted.")
+                        break
+
+                    if user_input.lower() in ("exit", "quit"):
+                        print(f"{GREEN}Goodbye!{RESET}")
+                        break
+
+                    if not user_input:
+                        continue
+
+                    run_app.update_state(
+                        config,
+                        {
+                            "messages": [HumanMessage(content=user_input)],
+                            "next_node": "supervisor"
+                        }
+                    )
+                    print(f"-> {GREEN}[WORKFLOW] Resuming workflow with user feedback...{RESET}")
+                    run_app.invoke(None, config=config)
                     continue
 
-                run_app.update_state(
-                    config,
-                    {
-                        "messages": [HumanMessage(content=user_input)],
-                        "next_node": "supervisor"
-                    }
-                )
-                print(f"-> {GREEN}[WORKFLOW] Resuming workflow with user feedback...{RESET}")
+                print(f"{YELLOW}---> Running node: {next_node}{RESET}")
                 run_app.invoke(None, config=config)
-                continue
+    finally:
+        sys.stdout = tee_stdout.stream
+        sys.stderr = tee_stderr.stream
+        tee_stdout.close()
+        tee_stderr.close()
 
-            print(f"{YELLOW}---> Running node: {next_node}{RESET}")
-            run_app.invoke(None, config=config)
+        # Copy artifacts to working directory after migration run completes
+        try:
+            mygrate_root = Path(__file__).resolve().parent.parent
+            src_dir = Path(project_path).resolve() / "test" / "artifacts"
+            codebase_name = Path(project_path).resolve().name
+            dest_dir = mygrate_root / "working" / codebase_name / "artifacts"
+            if src_dir.exists():
+                import shutil
+                shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+                print(f"\n-> [POST-RUN] Successfully copied artifacts from {src_dir} to {dest_dir}\n")
+        except Exception as e:
+            print(f"\n-> [POST-RUN] Error copying artifacts to working directory: {e}\n")
 
 
 if __name__ == "__main__":
     main()
+

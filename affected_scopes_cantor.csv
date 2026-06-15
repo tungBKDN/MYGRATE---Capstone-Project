@@ -1,9 +1,0 @@
-file_path,scope_id,start_byte,end_byte,legacy_hits
-src\main\java\com\adroll\cantor\HLLWritable.java,scope-3111a2a9,161,198,"Writable, hadoop, org.apache.hadoop"
-src\main\java\com\adroll\cantor\HLLWritable.java,scope-ad40f3e3,199,223,"Logger, org.slf4j, slf4j"
-src\main\java\com\adroll\cantor\HLLWritable.java,scope-2f07fdd7,224,255,"LoggerFactory, org.slf4j, slf4j"
-src\main\java\com\adroll\cantor\HLLWritable.java,scope-6e74b865,488,565,"Logger, LoggerFactory"
-src\test\java\com\adroll\cantor\TestHLLCounter.java,scope-b23f3aa5,237,270,junit
-src\test\java\com\adroll\cantor\TestHLLCounter.java,scope-4962f5c7,272,294,junit
-src\test\java\com\adroll\cantor\TestHLLWritable.java,scope-c3870e43,28,61,junit
-src\test\java\com\adroll\cantor\TestHLLWritable.java,scope-2fed8edd,204,226,junit

@@ -77,7 +77,7 @@ class ReaderAgent(BaseAgent):
         try:
             print("-> [READER] Reviewing candidate solutions...")
             payload = {}
-            if payload_json:
+            if payload_json and payload_json != "{}":
                 if isinstance(payload_json, dict):
                     payload = payload_json
                 else:
@@ -86,6 +86,10 @@ class ReaderAgent(BaseAgent):
                     except json.JSONDecodeError:
                         return {"status": "error", "message": "payload_json must be valid JSON."}
             
+            # Fall back to using kwargs if payload_json is empty/missing
+            if not payload and kwargs:
+                payload = kwargs
+
             review = self.review_candidates(payload)
             return review
         except Exception as e:

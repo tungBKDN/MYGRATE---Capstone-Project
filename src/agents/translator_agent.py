@@ -326,7 +326,8 @@ class TranslatorAgent(BaseAgent):
             "step_count": self.step_count,
         }
 
-        eval_file = Path.cwd() / "eval.json"
+        eval_file = Path.cwd() / "test" / "artifacts" / "eval.json"
+        eval_file.parent.mkdir(parents=True, exist_ok=True)
         existing_data = {}
         if eval_file.exists():
             try:
@@ -617,7 +618,7 @@ class TranslatorAgent(BaseAgent):
             focus_report_path=resolved_dep,
             affected_scopes_path=resolved_aff,
         )
-        return {"status": "ok", "task_count": report.get("task_count", 0)}
+        return report
 
     def _tool_enrich_report(
         self,
@@ -1157,7 +1158,7 @@ class TranslatorAgent(BaseAgent):
 
     def _check_main_source_lock(self, file_path: str) -> str | None:
         normalized = str(Path(file_path)).replace("\\", "/")
-        if "src/test/" in normalized:
+        if "src/test/" in normalized and not getattr(self, "_allow_test_edits", False):
             return f"🔒 TEST LOCK: File {file_path} is under src/test/ which is strictly forbidden from being modified."
         if not self._main_source_locked:
             return None
@@ -1223,4 +1224,6 @@ class TranslatorAgent(BaseAgent):
             for k, v in enrich.items():
                 if k not in merged:
                     merged[k] = v
+        if "target_java_version" in payload and "target_java_version" not in merged:
+            merged["target_java_version"] = payload["target_java_version"]
         return json.dumps(merged, ensure_ascii=False, indent=2, default=str)

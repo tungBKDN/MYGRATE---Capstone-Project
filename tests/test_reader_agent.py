@@ -58,6 +58,7 @@ def test_reader_agent_phase2_final_candidate_review() -> None:
     }
 
     agent = ReaderAgent()
+    agent.llm = None
     instruction = f"JSON context:\n{json.dumps(payload)}\n\nNhiệm vụ: Select the best candidate solutions and output final review."
     
     # Run agent in Phase 2 (Final Candidate Review)

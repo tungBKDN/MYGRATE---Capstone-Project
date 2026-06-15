@@ -56,8 +56,8 @@ def reader_node(state: GlobalState):
                 # Ensure the fields are merged correctly in state
                 update["reader_review"] = parsed
                 
-                # Write to target project's artifacts/ folder
-                artifacts_dir = Path(project_path) / "artifacts"
+                # Write to target project's test/artifacts/ folder
+                artifacts_dir = Path(project_path) / "test" / "artifacts"
                 artifacts_dir.mkdir(parents=True, exist_ok=True)
                 
                 # Save reader_review.json

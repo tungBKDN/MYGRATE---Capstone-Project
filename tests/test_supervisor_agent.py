@@ -19,11 +19,12 @@ def test_supervisor_agent_deterministic_routing_no_project_type() -> None:
     }
     
     agent = SupervisorAgent()
+    agent.llm = None
     update = agent.process(state)
     
     # Should route to reader to scan project
     assert update["next_node"] == "reader"
-    assert "Index" in update["current_instruction"]
+    assert "index" in update["current_instruction"].lower()
 
 
 def test_supervisor_agent_deterministic_routing_indexed_no_solutions() -> None:
@@ -41,6 +42,7 @@ def test_supervisor_agent_deterministic_routing_indexed_no_solutions() -> None:
     }
     
     agent = SupervisorAgent()
+    agent.llm = None
     update = agent.process(state)
     
     # Should route to architect to solve constraints
@@ -63,6 +65,7 @@ def test_supervisor_agent_deterministic_routing_solutions_found() -> None:
     }
     
     agent = SupervisorAgent()
+    agent.llm = None
     update = agent.process(state)
     
     # Should route to translator directly in deterministic sequential mode

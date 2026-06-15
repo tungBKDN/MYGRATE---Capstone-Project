@@ -310,6 +310,17 @@ class BaseAgent(ABC):
         except Exception:
             pass
 
+        # Try to extract embedded JSON block (e.g. from prompt wrapper)
+        if "{" in instruction and "}" in instruction:
+            try:
+                start_idx = instruction.find("{")
+                end_idx = instruction.rfind("}")
+                parsed = json.loads(instruction[start_idx:end_idx+1])
+                if isinstance(parsed, dict):
+                    return parsed
+            except Exception:
+                pass
+
         payload: dict[str, Any] = {}
         for label in [
             "Project Path", "project_path",

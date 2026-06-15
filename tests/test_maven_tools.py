@@ -240,7 +240,7 @@ def test_index_java_project_multi_project(tmp_path: Path):
     assert proj_b_info["classification"] == "Yellow"  # No report yet
     
     # Check if report files are written in target artifacts directory
-    assert (tmp_path / "artifacts" / "reader_scan_report.json").exists()
-    assert (tmp_path / "artifacts" / "reader_scan_report.md").exists()
+    assert (tmp_path / "test" / "artifacts" / "reader_scan_report.json").exists()
+    assert (tmp_path / "test" / "artifacts" / "reader_scan_report.md").exists()
 
 

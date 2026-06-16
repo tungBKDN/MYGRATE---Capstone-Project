@@ -1,9 +1,12 @@
+from .base_agent import BaseAgent, ToolDefinition
 from .reader_agent import ReaderAgent
 from .architect_agent import ArchitectAgent
 from .translator_agent import TranslatorAgent
 from .supervisor import SupervisorAgent, get_supervisor_node
 
 __all__ = [
+    "BaseAgent",
+    "ToolDefinition",
     "ReaderAgent",
     "ArchitectAgent",
     "TranslatorAgent",

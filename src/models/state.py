@@ -15,10 +15,6 @@ class GlobalState(TypedDict):
     project_path: str
     target_java_version: str
     project_type: Optional[str]
-    source_framework: Optional[str]
-    source_version: Optional[str]
-    target_framework: Optional[str]
-    target_version: Optional[str]
 
     # --- Chat history (Human <-> Supervisor) ---
     messages: Annotated[list[BaseMessage], operator.add]
@@ -27,15 +23,15 @@ class GlobalState(TypedDict):
     completed_tasks_summary: Annotated[list[str], operator.add]
 
     # --- Reader output ---
-    pom_data: Optional[dict]
     dependencies: list
-    index_report: Optional[dict]
 
     # --- Architect output ---
     upgrade_report: Optional[dict]
     candidate_solutions: Optional[list]
-    compatibility_matrix: dict
     reader_review: Optional[dict]
+
+    # --- jdeprscan output ---
+    jdeprscan_report: Optional[dict]
 
     # --- Migration tasks ---
     migration_tasks: list
@@ -44,3 +40,14 @@ class GlobalState(TypedDict):
     current_instruction: str
     last_subagent_result: str
     next_node: str
+
+    # --- Baseline Evaluation ---
+    baseline_coverage: Optional[float]
+    baseline_total_tests: Optional[int]
+    baseline_passed_tests: Optional[int]
+
+    # --- Termination signal ---
+    # Set to True by translator_node when migration is complete (success or deadlock).
+    # Supervisor reads this to immediately route to "end" without LLM reasoning.
+    translator_completed: Optional[bool]
+

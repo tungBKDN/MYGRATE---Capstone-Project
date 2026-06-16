@@ -21,6 +21,7 @@ import os
 import platform
 import re
 import subprocess
+import shutil
 import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
@@ -200,6 +201,132 @@ def _major(version: str) -> int:
     return int(numbers[0]) if numbers else -1
 
 
+def _find_jdeprscan_executable() -> Optional[str]:
+    candidates = []
+
+    direct = shutil.which("jdeprscan")
+    if direct:
+        candidates.append(direct)
+
+    java_executable = shutil.which("java")
+    if java_executable:
+        java_bin_dir = Path(java_executable).resolve().parent
+        for name in ("jdeprscan.exe", "jdeprscan"):
+            sibling = java_bin_dir / name
+            if sibling.exists():
+                candidates.append(str(sibling))
+
+    java_home = os.getenv("JAVA_HOME")
+    if java_home:
+        java_bin_dir = Path(java_home).expanduser() / "bin"
+        for name in ("jdeprscan.exe", "jdeprscan"):
+            sibling = java_bin_dir / name
+            if sibling.exists():
+                candidates.append(str(sibling))
+
+    if os.name == "nt":
+        common_roots = [
+            os.getenv("ProgramFiles"),
+            os.getenv("ProgramFiles(x86)"),
+            os.getenv("ProgramW6432"),
+        ]
+        common_vendor_dirs = ["Java", "Eclipse Adoptium", "Microsoft"]
+        for root in common_roots:
+            if not root:
+                continue
+            root_path = Path(root)
+            for vendor_dir in common_vendor_dirs:
+                vendor_path = root_path / vendor_dir
+                if not vendor_path.exists():
+                    continue
+                for jdk_dir in vendor_path.glob("jdk*"):
+                    for name in ("jdeprscan.exe", "jdeprscan"):
+                        sibling = jdk_dir / "bin" / name
+                        if sibling.exists():
+                            candidates.append(str(sibling))
+
+    for candidate in candidates:
+        if candidate and Path(candidate).exists():
+            return str(Path(candidate))
+    return None
+
+
+def _parse_jdeprscan_output(output: str) -> List[dict]:
+    findings: List[dict] = []
+    for raw_line in output.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith("Jar file ") or line.startswith("Directory "):
+            continue
+        if "deprecated" not in line.lower():
+            continue
+
+        match = re.search(
+            r"^(?P<owner>\S+) uses deprecated (?P<kind>class|method|field|interface) (?P<symbol>.+)$",
+            line,
+        )
+        if match:
+            findings.append(
+                {
+                    "owner": match.group("owner"),
+                    "kind": match.group("kind"),
+                    "symbol": match.group("symbol"),
+                    "line": line,
+                }
+            )
+        else:
+            findings.append({"line": line})
+    return findings
+
+
+def run_jdeprscan_check(jar_path: str, target_release: str = "17", logger=None) -> dict:
+    if not jar_path or not os.path.exists(jar_path):
+        return {"status": "SKIP", "reason": "JAR not found"}
+
+    jdeprscan_executable = _find_jdeprscan_executable()
+    if not jdeprscan_executable:
+        return {"status": "SKIP", "reason": "jdeprscan not available"}
+
+    try:
+        _emit(logger, f"[Step 3] Running jdeprscan --release {target_release} for {Path(jar_path).name}")
+        result = subprocess.run(
+            [jdeprscan_executable, "--release", target_release, jar_path],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        combined_output = "\n".join(part for part in [result.stdout, result.stderr] if part).strip()
+        findings = _parse_jdeprscan_output(combined_output)
+        return {
+            "status": "WARN" if findings else "PASS",
+            "executable": jdeprscan_executable,
+            "exit_code": result.returncode,
+            "finding_count": len(findings),
+            "findings": findings,
+            "output": combined_output,
+        }
+    except FileNotFoundError:
+        return {"status": "SKIP", "reason": "jdeprscan not available"}
+    except subprocess.TimeoutExpired:
+        return {"status": "FAIL", "reason": "jdeprscan timeout"}
+
+
+def _inspect_jar_signals(content: bytes) -> dict:
+    result = {"max_major": -1, "dangerous_refs": set()}
+    with zipfile.ZipFile(io.BytesIO(content)) as z:
+        classes = [n for n in z.namelist() if n.endswith(".class")][:30]
+        for c_name in classes:
+            with z.open(c_name) as f:
+                data = f.read()
+                if len(data) > 8:
+                    result["max_major"] = max(result["max_major"], int.from_bytes(data[6:8], "big"))
+                for pkg in [b"javax/xml/bind", b"javax/activation", b"javax/annotation"]:
+                    if pkg in data:
+                        result["dangerous_refs"].add(pkg.decode())
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Step 1: Fetch candidate versions
 # ---------------------------------------------------------------------------
@@ -232,35 +359,35 @@ def heuristic_filter(versions: List[str], max_output: int = 5, stable_only: bool
 
 
 # ---------------------------------------------------------------------------
-# Step 3: Static check — bytecode scan + Java EE refs
+# Step 3: Static check — bytecode scan + Java EE refs + jdeprscan
 # ---------------------------------------------------------------------------
 
-def check_java_compatibility(group_id: str, artifact_id: str, version: str, target_java: str = "17", logger=None) -> dict:
+def check_java_compatibility(group_id: str, artifact_id: str, version: str, target_java: str = "17", logger=None, jar_path: str | None = None) -> dict:
     g_path = group_id.replace(".", "/")
     url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.jar"
 
     result = {"max_major": -1, "dangerous_refs": set()}
     try:
         _emit(logger, f"[Step 3] Scanning {group_id}:{artifact_id}:{version} for bytecode and removed Java EE refs")
-        resp = requests.get(url, stream=True, timeout=15)
-        if resp.status_code == 200:
-            content = resp.content
-            with zipfile.ZipFile(io.BytesIO(content)) as z:
-                classes = [n for n in z.namelist() if n.endswith(".class")][:30]
-                for c_name in classes:
-                    with z.open(c_name) as f:
-                        data = f.read()
-                        if len(data) > 8:
-                            result["max_major"] = max(result["max_major"], int.from_bytes(data[6:8], "big"))
-                        for pkg in [b"javax/xml/bind", b"javax/activation", b"javax/annotation"]:
-                            if pkg in data:
-                                result["dangerous_refs"].add(pkg.decode())
+        if jar_path and os.path.exists(jar_path):
+            with open(jar_path, "rb") as handle:
+                content = handle.read()
+            result = _inspect_jar_signals(content)
+        else:
+            resp = requests.get(url, stream=True, timeout=15)
+            if resp.status_code == 200:
+                content = resp.content
+                result = _inspect_jar_signals(content)
     except Exception:
         pass
 
     result["dangerous_refs"] = list(result["dangerous_refs"])
     major_map = {52: "8", 53: "9", 55: "11", 61: "17", 65: "21"}
     bytecode_jdk = major_map.get(result["max_major"], str(result["max_major"] - 44) if result["max_major"] > 44 else "Unknown")
+
+    jdeprscan_report = {"status": "SKIP", "reason": "jar not provided"}
+    if jar_path and os.path.exists(jar_path):
+        jdeprscan_report = run_jdeprscan_check(jar_path, target_java, logger=logger)
 
     status = "Yes"
     target_n = int(target_java)
@@ -269,11 +396,13 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
         status = "No"
     elif target_n >= 11 and result["dangerous_refs"]:
         status = "Warning"
+    elif jdeprscan_report.get("status") == "WARN":
+        status = "Warning"
 
     return {
         "dependency": f"{group_id}:{artifact_id}",
         "version": version,
-        "signals": {"bytecode_jdk": bytecode_jdk, "refs": result["dangerous_refs"]},
+        "signals": {"bytecode_jdk": bytecode_jdk, "refs": result["dangerous_refs"], "jdeprscan": jdeprscan_report},
         "analysis": {"compatibility_status": status},
     }
 
@@ -309,9 +438,12 @@ def prepare_jar_for_check(group_id: str, artifact_id: str, version: str, cache_d
 def run_compile_check(jar_path: str, target_jdk: str = "17", logger=None) -> dict:
     if not jar_path or not os.path.exists(jar_path):
         return {"status": "FAIL", "reason": "JAR not found"}
-    stub_file = "MigrationStub.java"
+    import uuid
+    unique_id = uuid.uuid4().hex
+    stub_class = f"MigrationStub_{unique_id}"
+    stub_file = f"{stub_class}.java"
     with open(stub_file, "w") as f:
-        f.write("public class MigrationStub { public static void main(String[] args) {} }")
+        f.write(f"public class {stub_class} {{ public static void main(String[] args) {{}} }}")
     try:
         cmd = ["javac", "-cp", jar_path, "--release", target_jdk, stub_file]
         _emit(logger, f"[Step 4] Running javac --release {target_jdk} for {Path(jar_path).name}")
@@ -326,7 +458,10 @@ def run_compile_check(jar_path: str, target_jdk: str = "17", logger=None) -> dic
     finally:
         for f in [stub_file, stub_file.replace(".java", ".class")]:
             if os.path.exists(f):
-                os.remove(f)
+                try:
+                    os.remove(f)
+                except Exception:
+                    pass
 
 
 def _check_jdk_available() -> bool:
@@ -341,6 +476,8 @@ def _check_jdk_available() -> bool:
 # DependencySolver — orchestrates Steps 1-4
 # ---------------------------------------------------------------------------
 
+import threading
+
 class DependencySolver:
     def __init__(self, target_java: str, logger=None):
         self.target_java = target_java
@@ -349,8 +486,9 @@ class DependencySolver:
         self.solutions: List[Dict[Tuple[str, str], str]] = []
         self.reports: Dict[Tuple[str, str, str], dict] = {}
         self.logger = logger
+        self.lock = threading.Lock()
 
-    def add_library(self, group_id: str, artifact_id: str, max_versions: int = 5) -> None:
+    def add_library(self, group_id: str, artifact_id: str, max_versions: int = 3) -> None:
         _emit(self.logger, f"[Step 1] Fetching Maven versions for {group_id}:{artifact_id}")
         all_v = _fetch_maven_versions(group_id, artifact_id)
         v_list = heuristic_filter(all_v, max_output=max_versions)
@@ -358,49 +496,89 @@ class DependencySolver:
 
         candidates_v3 = []
         for v in v_list:
-            res = check_java_compatibility(group_id, artifact_id, v, self.target_java, logger=self.logger)
-            self.reports[(group_id, artifact_id, v)] = {"step3": res}
+            jar_p = prepare_jar_for_check(group_id, artifact_id, v, logger=self.logger)
+            res = check_java_compatibility(group_id, artifact_id, v, self.target_java, logger=self.logger, jar_path=jar_p or None)
+            
+            with self.lock:
+                self.reports[(group_id, artifact_id, v)] = {"step3": res}
+            
             if res["analysis"]["compatibility_status"] in ("Yes", "Warning"):
                 candidates_v3.append(v)
                 _emit(self.logger, f"[Step 5] Fetching transitive dependencies for {artifact_id}:{v}")
                 t_deps_raw = get_transitive_dependencies(group_id, artifact_id, v, logger=self.logger)
-                self.constraints[(group_id, artifact_id, v)] = json.loads(t_deps_raw)
+                with self.lock:
+                    self.constraints[(group_id, artifact_id, v)] = json.loads(t_deps_raw)
+                
+                # SHORT-CIRCUIT
+                if res["analysis"]["compatibility_status"] == "Yes":
+                    _emit(self.logger, f"[Step 2-3] Short-circuiting: {artifact_id}:{v} is perfectly compatible.")
+                    break
 
-        if candidates_v3:
-            self.candidates[(group_id, artifact_id)] = candidates_v3
-            _emit(self.logger, f"[Step 3] {artifact_id} kept {len(candidates_v3)} candidate(s)")
-        else:
-            _emit(self.logger, f"[Step 3] {artifact_id} produced no compatible candidates")
+        with self.lock:
+            if candidates_v3:
+                self.candidates[(group_id, artifact_id)] = candidates_v3
+                _emit(self.logger, f"[Step 3] {artifact_id} kept {len(candidates_v3)} candidate(s)")
+            else:
+                _emit(self.logger, f"[Step 3] {artifact_id} produced no compatible candidates")
 
     def run_step4(self) -> None:
+        import concurrent.futures
+        
+        def check_candidate(g, a, v):
+            jar_p = prepare_jar_for_check(g, a, v, logger=self.logger)
+            res = run_compile_check(jar_p, self.target_java, logger=self.logger)
+            return g, a, v, res
+
+        tasks = []
         for (g, a), versions in self.candidates.items():
-            passed = []
             for v in versions:
-                jar_p = prepare_jar_for_check(g, a, v, logger=self.logger)
-                res = run_compile_check(jar_p, self.target_java, logger=self.logger)
-                self.reports.setdefault((g, a, v), {})["step4"] = res
+                tasks.append((g, a, v))
+                
+        results_by_lib = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            futures = [executor.submit(check_candidate, g, a, v) for g, a, v in tasks]
+            for future in concurrent.futures.as_completed(futures):
+                g, a, v, res = future.result()
+                with self.lock:
+                    self.reports.setdefault((g, a, v), {})["step4"] = res
                 if res["status"] in ("PASS",):
+                    results_by_lib.setdefault((g, a), []).append((v, res))
+
+        # Preserve order of versions
+        for (g, a), versions in list(self.candidates.items()):
+            passed = []
+            lib_res = results_by_lib.get((g, a), [])
+            v_res_map = {v: r for v, r in lib_res}
+            for v in versions:
+                if v in v_res_map:
                     passed.append(v)
-            if passed:
-                self.candidates[(g, a)] = passed
-                _emit(self.logger, f"[Step 4] {a} kept {len(passed)} version(s) after compile check")
-            else:
-                _emit(self.logger, f"[Step 4] {a} had no versions that passed compile check")
+            with self.lock:
+                if passed:
+                    self.candidates[(g, a)] = passed
+                    _emit(self.logger, f"[Step 4] {a} kept {len(passed)} version(s) after compile check")
+                else:
+                    self.candidates[(g, a)] = [versions[0]]
+                    _emit(self.logger, f"[Step 4] {a} had no versions pass compile check. Keeping {versions[0]} as fallback for Translator to fix.")
 
     def solve(self) -> None:
         self.solutions = []
+        self.backtrack_steps = 0
         self._solve_backtrack({}, list(self.candidates.keys()))
 
     def _solve_backtrack(self, current: dict, remaining: list) -> None:
+        self.backtrack_steps += 1
+        if self.backtrack_steps > 50000:
+            return
+        if not self._is_valid(current):
+            return
         if not remaining:
-            if self._is_valid(current):
-                self.solutions.append(current.copy())
+            self.solutions.append(current.copy())
             return
         key = remaining[0]
         for v in self.candidates[key]:
             current[key] = v
             self._solve_backtrack(current, remaining[1:])
-            if len(self.solutions) >= 5:
+            if len(self.solutions) >= 5 or self.backtrack_steps > 50000:
                 return
             del current[key]
 
@@ -408,10 +586,14 @@ class DependencySolver:
         version_map = {f"{g}:{a}": v for (g, a), v in combo.items()}
         for (g, a), v in combo.items():
             for t in self.constraints.get((g, a, v), []):
-                t_key = f"{t['groupId']}:{t['artifactId']}"
-                if t_key in version_map and t.get("version") != "Managed":
-                    if version_map[t_key] != t["version"]:
-                        return False
+                t_key_tuple = (t["groupId"], t["artifactId"])
+                t_key_str = f"{t['groupId']}:{t['artifactId']}"
+                if t.get("version") != "Managed":
+                    if t_key_tuple in self.candidates:
+                        if t["version"] not in self.candidates[t_key_tuple]:
+                            return False
+                        if t_key_str in version_map and version_map[t_key_str] != t["version"]:
+                            return False
         return True
 
 
@@ -433,7 +615,14 @@ def inject_constrained_versions(solver: DependencySolver) -> None:
 # Step 5: Transitive constraint modeling
 # ---------------------------------------------------------------------------
 
+_TRANSITIVE_CACHE = {}
+
 def get_transitive_dependencies(group_id: str, artifact_id: str, version: str, logger=None) -> str:
+    global _TRANSITIVE_CACHE
+    cache_key = f"{group_id}:{artifact_id}:{version}"
+    if cache_key in _TRANSITIVE_CACHE:
+        return _TRANSITIVE_CACHE[cache_key]
+
     import urllib.parse as _urlparse
     pkg_name = _urlparse.quote(f"{group_id}:{artifact_id}", safe="")
     url = f"https://api.deps.dev/v3/systems/maven/packages/{pkg_name}/versions/{version}:dependencies"
@@ -452,12 +641,15 @@ def get_transitive_dependencies(group_id: str, artifact_id: str, version: str, l
                     g, a = name_parts
                     v = vk.get("version", "")
                     resolved.append({"groupId": g, "artifactId": a, "version": v, "scope": "compile"})
-            return json.dumps(resolved)
+            _TRANSITIVE_CACHE[cache_key] = json.dumps(resolved)
+            return _TRANSITIVE_CACHE[cache_key]
         _emit(logger, f"[Step 5] deps.dev returned HTTP {response.status_code} for {artifact_id}:{version}")
-        return json.dumps([])
+        _TRANSITIVE_CACHE[cache_key] = json.dumps([])
+        return _TRANSITIVE_CACHE[cache_key]
     except Exception:
         _emit(logger, f"[Step 5] deps.dev lookup failed for {group_id}:{artifact_id}:{version}")
-        return json.dumps([])
+        _TRANSITIVE_CACHE[cache_key] = json.dumps([])
+        return _TRANSITIVE_CACHE[cache_key]
 
 
 def _fetch_transitive_recursive(group_id, artifact_id, version, solver_constraints, depth=1, max_depth=2, visited=None):
@@ -675,12 +867,194 @@ public class RuntimeSmokeTest {{
     finally:
         for f in [stub, stub.replace(".java", ".class")]:
             if os.path.exists(f):
-                os.remove(f)
+                try:
+                    os.remove(f)
+                except Exception:
+                    pass
 
 
 # ---------------------------------------------------------------------------
 # Entry point: lightweight index (for Reader)
 # ---------------------------------------------------------------------------
+
+def _detect_framework(dependencies: list) -> str:
+    has_spring_boot = False
+    has_spring = False
+    has_sonar = False
+    has_jakarta = False
+    has_javax = False
+    for dep in dependencies:
+        g = dep.get("groupId", "").lower() if dep.get("groupId") else ""
+        a = dep.get("artifactId", "").lower() if dep.get("artifactId") else ""
+        if "spring-boot" in a or "spring-boot" in g:
+            has_spring_boot = True
+        elif "spring" in g or "spring" in a:
+            has_spring = True
+        elif "sonar-plugin-api" in a or "sonarqube" in g or "sonar" in g:
+            has_sonar = True
+        elif g.startswith("jakarta."):
+            has_jakarta = True
+        elif g.startswith("javax."):
+            has_javax = True
+    if has_sonar:
+        return "SonarQube Plugin"
+    if has_spring_boot:
+        return "Spring Boot"
+    if has_spring:
+        return "Spring Framework"
+    if has_jakarta:
+        return "Jakarta EE"
+    if has_javax:
+        return "Java EE"
+    return "Standard Java"
+
+def _classify_project(pom_data: dict, jdeprscan_report: dict, jdk_target: str) -> str:
+    dependencies = pom_data.get("dependencies", [])
+    properties = pom_data.get("properties", {})
+    
+    # Red checks: sonar version
+    sonar_version_str = properties.get("sonar.version", "")
+    if sonar_version_str:
+        try:
+            major = int(sonar_version_str.split(".")[0])
+            if major < 9:
+                return "Red"
+        except ValueError:
+            pass
+            
+    for dep in dependencies:
+        g = dep.get("groupId", "").lower() if dep.get("groupId") else ""
+        a = dep.get("artifactId", "").lower() if dep.get("artifactId") else ""
+        v = dep.get("version", "") if dep.get("version") else ""
+        if "sonar-plugin-api" in a or "sonar-plugin-api" in g:
+            try:
+                major = int(v.split(".")[0])
+                if major < 9:
+                    return "Red"
+            except (ValueError, IndexError):
+                pass
+        if "spring-boot" in a or "spring-boot" in g:
+            try:
+                parts = [int(p) for p in re.findall(r"\d+", v)[:2]]
+                if len(parts) >= 2:
+                    major, minor = parts
+                    if major < 2 or (major == 2 and minor < 5):
+                        return "Red"
+            except Exception:
+                pass
+                
+    # Yellow checks: jdeprscan report
+    if jdeprscan_report:
+        status = jdeprscan_report.get("status")
+        b1_compile = jdeprscan_report.get("steps", {}).get("b1_compile", {})
+        if status in ("PARTIAL", "FAIL") or b1_compile.get("status") == "FAIL":
+            return "Yellow"
+        summary = jdeprscan_report.get("summary", {})
+        proj_for_removal = summary.get("project_code", {}).get("for_removal_count", 0)
+        deps_for_removal = summary.get("dependencies", {}).get("critical_count", 0)
+        if proj_for_removal > 0 or deps_for_removal > 0:
+            return "Yellow"
+        return "Green"
+        
+    return "Yellow"  # No jdeprscan report yet
+
+def _get_project_properties(project_dir: Path) -> dict:
+    pom_path = project_dir / "pom.xml"
+    pom_data = {"properties": {}, "dependencies": []}
+    jdk_target = "8"
+    build_system = "unknown"
+    
+    if pom_path.exists():
+        build_system = "Maven"
+        try:
+            pom_data = _parse_pom(pom_path)
+            properties = pom_data.get("properties", {})
+            for key in ["maven.compiler.target", "maven.compiler.source", "java.version", "target.jvm"]:
+                if key in properties:
+                    jdk_target = properties[key]
+                    break
+            if jdk_target == "8":
+                try:
+                    content = pom_path.read_text(encoding="utf-8")
+                    match = re.search(r"<target>([^<]+)</target>", content)
+                    if match:
+                        jdk_target = match.group(1).strip()
+                    else:
+                        match = re.search(r"<source>([^<]+)</source>", content)
+                        if match:
+                            jdk_target = match.group(1).strip()
+                except Exception:
+                    pass
+        except Exception as e:
+            print(f"Warning: Failed to parse POM {pom_path}: {e}")
+    elif (project_dir / "build.gradle").exists() or (project_dir / "build.gradle.kts").exists():
+        build_system = "Gradle"
+        for name in ("build.gradle", "build.gradle.kts"):
+            p = project_dir / name
+            if p.exists():
+                try:
+                    content = p.read_text(encoding="utf-8")
+                    match = re.search(r"targetCompatibility\s*=\s*['\"]?(\d+(?:\.\d+)?)['\"]?", content)
+                    if match:
+                        jdk_target = match.group(1).strip()
+                        break
+                    match = re.search(r"sourceCompatibility\s*=\s*['\"]?(\d+(?:\.\d+)?)['\"]?", content)
+                    if match:
+                        jdk_target = match.group(1).strip()
+                        break
+                except Exception:
+                    pass
+    elif (project_dir / "build.xml").exists():
+        build_system = "Ant"
+
+    java_file_count = len(list(project_dir.rglob("*.java")))
+    framework = _detect_framework(pom_data.get("dependencies", []))
+    
+    # Reports check
+    jdeprscan_report = None
+    jdeprscan_report_path = None
+    for folder in ("test/artifacts", "target"):
+        p = project_dir / folder / "jdeprscan_report.json"
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    jdeprscan_report = json.load(f)
+                    jdeprscan_report_path = str(p)
+                break
+            except Exception:
+                pass
+                
+    migration_report_path = None
+    for folder in ("test/artifacts", "target"):
+        p = project_dir / folder / "migration_report.md"
+        if p.exists():
+            migration_report_path = str(p)
+            break
+            
+    existing_reports = {}
+    if jdeprscan_report_path:
+        existing_reports["jdeprscan"] = {
+            "path": jdeprscan_report_path,
+            "status": jdeprscan_report.get("status") if jdeprscan_report else "unknown",
+            "summary": jdeprscan_report.get("summary") if jdeprscan_report else {}
+        }
+    if migration_report_path:
+        existing_reports["migration_report"] = {
+            "path": migration_report_path
+        }
+        
+    classification = _classify_project(pom_data, jdeprscan_report, jdk_target)
+    
+    return {
+        "build_system": build_system,
+        "jdk_target": jdk_target,
+        "java_file_count": java_file_count,
+        "framework": framework,
+        "existing_reports": existing_reports,
+        "classification": classification,
+        "pom_data": pom_data,
+        "dependencies": pom_data.get("dependencies", [])
+    }
 
 def index_java_project(project_path: str) -> dict:
     """Index a codebase and parse POM — lightweight, no network calls."""
@@ -694,15 +1068,93 @@ def index_java_project(project_path: str) -> dict:
     project_type = index_data.get("project_type", "unknown")
     manifest_files = index_data.get("manifest_files", [])
 
-    if project_type == "python" or (project_type == "mixed" and not _has_java_manifest(manifest_files)):
-        return {
-            "status": "unsupported",
-            "project_path": str(project_root),
-            "project_type": project_type,
-            "message": "Python projects are not yet supported.",
-            "index_summary": _summarize_index(index_data),
-        }
+    # Check if this is a multi-project directory or a single project
+    has_root_manifest = (
+        (project_root / "pom.xml").exists()
+        or (project_root / "build.gradle").exists()
+        or (project_root / "build.gradle.kts").exists()
+        or (project_root / "build.xml").exists()
+    )
 
+    if not has_root_manifest:
+        # Check subdirectories
+        sub_projects_info = []
+        for sub in sorted(project_root.iterdir()):
+            if sub.is_dir() and not sub.name.startswith('.'):
+                if (
+                    (sub / "pom.xml").exists()
+                    or (sub / "build.gradle").exists()
+                    or (sub / "build.gradle.kts").exists()
+                    or (sub / "build.xml").exists()
+                ):
+                    props = _get_project_properties(sub)
+                    props["name"] = sub.name
+                    props["path"] = str(sub.resolve())
+                    sub_projects_info.append(props)
+
+        if sub_projects_info:
+            # Build Markdown summary table of all projects
+            markdown_table = [
+                "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |",
+                "| --- | --- | --- | --- | --- | --- | --- |"
+            ]
+            for p in sub_projects_info:
+                rep_status = "None"
+                j_rep = p.get("existing_reports", {}).get("jdeprscan")
+                if j_rep:
+                    rep_status = f"jdeprscan: {j_rep.get('status')}"
+                    summary = j_rep.get("summary", {})
+                    rem = summary.get("project_code", {}).get("for_removal_count", 0)
+                    dep = summary.get("project_code", {}).get("deprecated_count", 0)
+                    if rem > 0 or dep > 0:
+                        rep_status += f" ({rem} forRemoval, {dep} deprecated)"
+                
+                markdown_table.append(
+                    f"| `{p['name']}` | {p['build_system']} | {p['jdk_target']} | {p['java_file_count']} | {p['framework']} | {rep_status} | **{p['classification']}** |"
+                )
+            
+            overview_md = "\n".join(markdown_table)
+            
+            # Aggregate dependencies, filtering out internal sub-project cross-dependencies
+            all_dependencies = []
+            sub_project_coords = {(p.get("project", {}).get("groupId"), p.get("project", {}).get("artifactId")) for p in sub_projects_info if p.get("project")}
+            for p in sub_projects_info:
+                for dep in p.get("dependencies", []):
+                    if (dep.get("groupId"), dep.get("artifactId")) in sub_project_coords:
+                        continue
+                    if not any(d.get("groupId") == dep.get("groupId") and d.get("artifactId") == dep.get("artifactId") for d in all_dependencies):
+                        all_dependencies.append(dep)
+            
+            scan_report_data = {
+                "status": "ok",
+                "project_path": str(project_root),
+                "project_type": "java",
+                "is_multi_project": True,
+                "projects": sub_projects_info,
+                "dependencies": all_dependencies,
+                "markdown_report": overview_md,
+                "index_summary": {
+                    "project_type": "java",
+                    "is_multi_project": True,
+                    "project_count": len(sub_projects_info),
+                    "projects": [p["name"] for p in sub_projects_info]
+                }
+            }
+            
+            # Write scan reports to artifacts folder
+            try:
+                artifacts_dir = Path(project_path) / "test" / "artifacts"
+                artifacts_dir.mkdir(parents=True, exist_ok=True)
+                with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
+                    json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
+                with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
+                    f.write(scan_report_data.get("markdown_report", ""))
+            except Exception as e:
+                print(f"Warning: Failed to write reader scan reports: {e}")
+
+            return scan_report_data
+
+    # Fallback/Default: Single project scan
     if not _has_java_manifest(manifest_files):
         return {
             "status": "unsupported",
@@ -718,22 +1170,116 @@ def index_java_project(project_path: str) -> dict:
 
     pom_data = _parse_pom(pom_path)
 
-    return {
+    # Analyze project structure and parse submodules using MavenProject
+    from src.tools.maven.maven_project import MavenProject
+    project = MavenProject(str(pom_path))
+    
+    modules_data = {}
+    
+    # Filter out internal module dependencies (e.g. submodules of the same project)
+    internal_group = pom_data.get("project", {}).get("groupId")
+    internal_artifacts = {pom_data.get("project", {}).get("artifactId")}
+    if project.is_multi_module():
+        internal_artifacts.update(project.get_modules())
+        for mod in project.get_modules():
+            internal_artifacts.add(mod.split('/')[-1])
+            
+    all_dependencies = [
+        d for d in pom_data.get("dependencies", [])
+        if not (d.get("groupId") == internal_group and d.get("artifactId") in internal_artifacts)
+    ]
+    
+    if project.is_multi_module():
+        modules = project.get_modules()
+        for mod in modules:
+            mod_pom_path = Path(os.path.dirname(str(pom_path))) / mod / "pom.xml"
+            if mod_pom_path.exists():
+                try:
+                    mod_data = _parse_pom(mod_pom_path)
+                    modules_data[mod] = mod_data
+                    for dep in mod_data.get("dependencies", []):
+                        if dep.get("groupId") == internal_group and dep.get("artifactId") in internal_artifacts:
+                            continue
+                        if not any(d.get("groupId") == dep.get("groupId") and d.get("artifactId") == dep.get("artifactId") for d in all_dependencies):
+                            all_dependencies.append(dep)
+                except Exception as e:
+                    print(f"Warning: Failed to parse POM for module {mod}: {e}")
+
+    # Analyze Java packages and file distribution
+    source_files = index_data.get("source_files", [])
+    java_files = [f.get("path") for f in source_files if f.get("language") == "java"]
+    
+    package_distribution = {}
+    for f_path in java_files:
+        dir_name = os.path.dirname(f_path).replace("\\", "/")
+        package_distribution[dir_name] = package_distribution.get(dir_name, 0) + 1
+        
+    project_structure = {
+        "is_multi_module": project.is_multi_module(),
+        "modules": project.get_modules() if project.is_multi_module() else [],
+        "java_file_count": len(java_files),
+        "package_distribution": package_distribution,
+    }
+
+    # Extract single project props
+    props = _get_project_properties(project_root)
+    props["name"] = project_root.name
+    props["path"] = str(project_root.resolve())
+    
+    # Build single project markdown table/overview
+    markdown_table = [
+        "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |",
+        "| --- | --- | --- | --- | --- | --- | --- |"
+    ]
+    rep_status = "None"
+    j_rep = props.get("existing_reports", {}).get("jdeprscan")
+    if j_rep:
+        rep_status = f"jdeprscan: {j_rep.get('status')}"
+        summary = j_rep.get("summary", {})
+        rem = summary.get("project_code", {}).get("for_removal_count", 0)
+        dep = summary.get("project_code", {}).get("deprecated_count", 0)
+        if rem > 0 or dep > 0:
+            rep_status += f" ({rem} forRemoval, {dep} deprecated)"
+            
+    markdown_table.append(
+        f"| `{props['name']}` | {props['build_system']} | {props['jdk_target']} | {props['java_file_count']} | {props['framework']} | {rep_status} | **{props['classification']}** |"
+    )
+    overview_md = "\n".join(markdown_table)
+
+    scan_report_data = {
         "status": "ok",
         "pipeline": "reader-index",
         "project_path": str(project_root),
         "project_type": project_type,
         "pom_data": pom_data,
-        "dependencies": pom_data.get("dependencies", []),
+        "modules_pom_data": modules_data,
+        "dependencies": all_dependencies,
+        "project_structure": project_structure,
         "index_summary": _summarize_index(index_data),
+        "is_multi_project": False,
+        "project_info": props,
+        "markdown_report": overview_md
     }
+
+    # Write scan reports to artifacts folder
+    try:
+        artifacts_dir = Path(project_path) / "test" / "artifacts"
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
+        with open(artifacts_dir / "reader_scan_report.json", "w", encoding="utf-8") as f:
+            json.dump(scan_report_data, f, ensure_ascii=False, indent=2, default=str)
+        with open(artifacts_dir / "reader_scan_report.md", "w", encoding="utf-8") as f:
+            f.write(scan_report_data.get("markdown_report", ""))
+    except Exception as e:
+        print(f"Warning: Failed to write reader scan reports: {e}")
+
+    return scan_report_data
 
 
 # ---------------------------------------------------------------------------
 # Entry point: full B1-B7 pipeline (for Architect)
 # ---------------------------------------------------------------------------
 
-def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versions: int = 5, max_solutions: int = 5, logger=None) -> dict:
+def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versions: int = 3, max_solutions: int = 5, logger=None) -> dict:
     """Run the full 7-step pipeline to find compatible dependency combinations."""
     root_deps = [d for d in dependencies if d.get("scope") in ("compile", "runtime", None) or d.get("version") != "Managed"]
     if not root_deps:
@@ -743,11 +1289,16 @@ def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versio
 
     # Steps 1-3: fetch, filter, static check
     solver = DependencySolver(target_java, logger=logger)
-    for dep in root_deps:
-        g = dep.get("groupId", "")
-        a = dep.get("artifactId", "")
-        if g and a:
-            solver.add_library(g, a, max_versions=max_versions)
+    
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        futures = []
+        for dep in root_deps:
+            g = dep.get("groupId", "")
+            a = dep.get("artifactId", "")
+            if g and a:
+                futures.append(executor.submit(solver.add_library, g, a, max_versions))
+        concurrent.futures.wait(futures)
 
     inject_constrained_versions(solver)
 
@@ -849,12 +1400,11 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
     if candidates:
         project_name = Path(project_path).name
         for mode in ("conservative", "balanced", "modern"):
-            graph_path = _render_dependency_graph(project_name, {
+            graph_path = _render_dependency_graph(project_path, {
                 "name": mode,
                 "dependencies": [
-                    {"groupId": g, "artifactId": a, "version": v, "chosen_version": v, "upgrade_type": "unchanged"}
-                    for (g, a), vs in solver_obj.candidates.items() if mode == "balanced"
-                    for v in vs[:1]
+                    {"groupId": lib_key.split(":")[0], "artifactId": lib_key.split(":")[1] if ":" in lib_key else lib_key, "version": vs[0], "chosen_version": vs[0], "upgrade_type": "unchanged"}
+                    for lib_key, vs in candidates.items() if mode == "balanced" and vs
                 ] if mode == "balanced" else [],
                 "score": 0,
             })
@@ -876,16 +1426,6 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
     pipeline_result["best_solution"] = best
     pipeline_result["visualizations"] = visualizations
 
-    # Write report files
-    report_root = Path("artifacts") / "codebase_discovery"
-    report_root.mkdir(parents=True, exist_ok=True)
-    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", Path(project_path).name).strip("_") or "project"
-
-    report_path = report_root / f"{safe_name}_upgrade_report.json"
-    with open(report_path, "w", encoding="utf-8") as f:
-        json.dump(pipeline_result, f, ensure_ascii=False, indent=2, default=str)
-    pipeline_result["report_path"] = str(report_path)
-
     return pipeline_result
 
 
@@ -893,9 +1433,10 @@ def build_java_upgrade_report(project_path: str, target_java: str = "17") -> dic
 # Visualization
 # ---------------------------------------------------------------------------
 
-def _render_dependency_graph(project_name: str, plan: dict) -> Path:
-    report_root = Path("artifacts") / "codebase_discovery"
-    graph_dir = report_root / re.sub(r"[^A-Za-z0-9._-]+", "_", project_name).strip("_")
+def _render_dependency_graph(project_path: str, plan: dict) -> Path:
+    project_name = Path(project_path).name
+    report_root = Path(project_path) / "test" / "artifacts"
+    graph_dir = report_root / "dependency_graphs"
     graph_dir.mkdir(parents=True, exist_ok=True)
 
     graph = nx.DiGraph()

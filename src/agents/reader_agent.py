@@ -1,52 +1,106 @@
+from __future__ import annotations
+
 import json
-import os
+import re
+from pathlib import Path
+from typing import Any
 
-from dotenv import load_dotenv
-from langchain_groq import ChatGroq
-
+from src.agents.base_agent import BaseAgent, ToolDefinition
 from src.tools.maven_upgrade_tools import index_java_project
 
 
-class ReaderAgent:
+class ReaderAgent(BaseAgent):
     """Discovery agent: indexes codebase, parses POM, returns project info.
 
     It also supports a final review mode that synthesizes the best candidate
     solution and explains the selection.
     """
 
-    def __init__(self, model_name: str = None):
-        load_dotenv()
-        if model_name is None:
-            model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-        api_key = os.getenv("GROQ_API_KEY")
-        self.llm = ChatGroq(model_name=model_name, groq_api_key=api_key, temperature=0) if api_key else None
+    def get_prompt_file(self) -> str | None:
+        """Load the detailed markdown prompt for the Reader Agent."""
+        return "reader.md"
 
-    def run(self, instruction: str) -> str:
-        if self._looks_like_final_review(instruction):
-            return self.review_candidates(instruction)
+    def get_tools(self) -> list[ToolDefinition]:
+        return [
+            ToolDefinition(
+                name="run_lightweight_index",
+                description=(
+                    "Index the target Java project layout, parse build manifest files (POMs), "
+                    "aggregate submodule dependencies, and analyze package structures."
+                ),
+                func=self._tool_run_lightweight_index,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "project_path": {
+                            "type": "string",
+                            "description": "Path to the Java project root directory",
+                        }
+                    },
+                    "required": ["project_path"],
+                },
+            ),
+            ToolDefinition(
+                name="review_upgrade_candidates",
+                description=(
+                    "Evaluate compatibility solver solutions, compare runtime smoke test outcomes, "
+                    "and select the final recommended dependency version configurations."
+                ),
+                func=self._tool_review_upgrade_candidates,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "payload_json": {
+                            "type": "string",
+                            "description": "A JSON string containing the full dependency solving context (solutions, candidates, smoke test results)",
+                        }
+                    },
+                    "required": ["payload_json"],
+                },
+            ),
+        ]
 
-        print(f"-> [READER] Indexing codebase: {instruction[:80]}...")
+    def _tool_run_lightweight_index(self, project_path: str = "", **kwargs) -> dict[str, Any]:
+        """Tool: Run codebase indexer and POM parser."""
+        try:
+            print(f"-> [READER] Indexing codebase at '{project_path}'...")
+            if not project_path:
+                return {"status": "error", "message": "Missing project path."}
+            result = index_java_project(project_path)
+            return result
+        except Exception as e:
+            print(f"-> [READER] index_java_project exception: {e}")
+            return {"status": "error", "message": str(e)}
 
-        # Extract project path from instruction
-        project_path = self._extract_value(instruction, ["Target Project", "Project Path", "path"])
-        target_java = self._extract_value(instruction, ["Target Java Version", "target_java_version"]) or "17"
+    def _tool_review_upgrade_candidates(self, payload_json: str | dict = "{}", **kwargs) -> dict[str, Any]:
+        """Tool: Run upgrade candidate final review."""
+        try:
+            print("-> [READER] Reviewing candidate solutions...")
+            payload = {}
+            if payload_json and payload_json != "{}":
+                if isinstance(payload_json, dict):
+                    payload = payload_json
+                else:
+                    try:
+                        payload = json.loads(payload_json)
+                    except json.JSONDecodeError:
+                        return {"status": "error", "message": "payload_json must be valid JSON."}
+            
+            # Fall back to using kwargs if payload_json is empty/missing
+            if not payload and kwargs:
+                payload = kwargs
 
-        if not project_path:
-            return json.dumps(
-                {"status": "error", "message": "Missing project path in reader instruction."},
-                ensure_ascii=False,
-            )
+            review = self.review_candidates(payload)
+            return review
+        except Exception as e:
+            print(f"-> [READER] review_upgrade_candidates exception: {e}")
+            return {"status": "error", "message": str(e)}
 
-        result = index_java_project(project_path)
-        return json.dumps(result, ensure_ascii=False, indent=2)
-
-    def review_candidates(self, instruction: str) -> str:
-        print(f"-> [READER] Reviewing candidate solutions: {instruction[:80]}...")
-        payload = self._extract_json_payload(instruction)
+    def review_candidates(self, payload: dict) -> dict:
         summary = self._build_fallback_review(payload)
 
         if self.llm is None:
-            return json.dumps(summary, ensure_ascii=False, indent=2, default=str)
+            return summary
 
         system_prompt = (
             "You are the final review agent for a Java dependency migration pipeline. "
@@ -70,31 +124,21 @@ class ReaderAgent:
                 ("user", user_prompt),
             ])
             content = getattr(response, "content", "") or ""
+            if content.startswith("```"):
+                content = re.sub(r"^```[a-zA-Z]*\n|```$", "", content, flags=re.MULTILINE).strip()
             parsed = json.loads(content)
             if isinstance(parsed, dict):
                 parsed = self._complete_review(parsed, summary)
-                return json.dumps(parsed, ensure_ascii=False, indent=2, default=str)
-        except Exception:
+                return parsed
+        except Exception as e:
+            print(f"-> [READER] LLM review fallback: {e}")
             pass
 
-        return json.dumps(summary, ensure_ascii=False, indent=2, default=str)
+        return summary
 
     def _looks_like_final_review(self, instruction: str) -> bool:
         lowered = instruction.lower()
         return any(token in lowered for token in ["candidate solutions", "final review", "select the best", "why selected", "smoke_test_results"])
-
-    def _extract_json_payload(self, instruction: str) -> dict:
-        marker = "JSON context:"
-        if marker in instruction:
-            candidate = instruction.split(marker, 1)[1].strip()
-            try:
-                return json.loads(candidate)
-            except Exception:
-                pass
-        try:
-            return json.loads(instruction)
-        except Exception:
-            return {}
 
     def _build_fallback_review(self, payload: dict) -> dict:
         solutions = payload.get("solutions", []) or []
@@ -381,15 +425,26 @@ class ReaderAgent:
             return "Chosen as the best available solver output because no PASS candidate was available."
         if smoke_status == "PASS":
             return "Valid candidate, but ranked behind the selected solution by compatibility, upgrade coverage, or version freshness."
-https://arxiv.org/pdf/2504.09691        if smoke_status in {"FAIL", "ERROR"}:
+        if smoke_status in {"FAIL", "ERROR"}:
             return f"Rejected because smoke testing did not pass{': ' + smoke_reason if smoke_reason else ''}."
         return "Kept as a solver candidate but not selected because it lacks stronger runtime validation."
 
-    def _extract_value(self, instruction: str, labels: list[str]) -> str:
-        import re
-        for label in labels:
-            pattern = rf"{re.escape(label)}\s*:\s*(.+)"
-            match = re.search(pattern, instruction, flags=re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
-        return ""
+    def _post_process(self, results: dict[str, Any], instruction: str, payload: dict[str, Any]) -> str:
+        """Post-process deterministic tool results."""
+        merged = dict(results)
+        
+        # Merge run_lightweight_index results if present
+        index_res = results.get("run_lightweight_index")
+        if isinstance(index_res, dict):
+            for key, val in index_res.items():
+                if key not in merged or not merged[key]:
+                    merged[key] = val
+                
+        # Merge review_upgrade_candidates results if present
+        review_res = results.get("review_upgrade_candidates")
+        if isinstance(review_res, dict):
+            for key, val in review_res.items():
+                if key not in merged or not merged[key]:
+                    merged[key] = val
+                
+        return json.dumps(merged, ensure_ascii=False, indent=2, default=str)

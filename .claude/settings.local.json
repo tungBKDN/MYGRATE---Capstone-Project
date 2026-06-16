@@ -6,7 +6,15 @@
       "Bash(python -c \"from src.agents.reader_agent import ReaderAgent; from src.agents.architect_agent import ArchitectAgent; print\\('agents OK'\\)\")",
       "Bash(python -c \"from src.agents.supervisor import SupervisorAgent, get_supervisor_node; print\\('supervisor OK'\\)\")",
       "Bash(python -c \"from src.workflow import app; print\\('workflow OK'\\)\")",
-      "Bash(python -c \"from src.tools import index_java_project, run_upgrade_pipeline, build_java_upgrade_report, DependencySolver, solve_with_z3; print\\('all exports OK'\\)\")"
+      "Bash(python -c \"from src.tools import index_java_project, run_upgrade_pipeline, build_java_upgrade_report, DependencySolver, solve_with_z3; print\\('all exports OK'\\)\")",
+      "Bash(python -c \"from src.agents.base_agent import BaseAgent, ToolDefinition; print\\('Import OK'\\)\")",
+      "Bash(python tests/test_recovery.py)",
+      "Bash(python -c \"from src.agents.supervisor import SupervisorAgent; print\\('Supervisor OK'\\)\")",
+      "Bash(python -c \"from src.agents.translator_agent import TranslatorAgent; print\\('Translator OK'\\)\")",
+      "Bash(pip list *)",
+      "Bash(python -c \"from src.agents.base_agent import BaseAgent, LLMProvider; print\\('base_agent OK'\\); from src.agents.supervisor import SupervisorAgent; print\\('supervisor OK'\\); from src.agents.translator_agent import TranslatorAgent; print\\('translator OK'\\)\")",
+      "Bash(python -c \"from langchain_community.chat_models import ChatOllama; print\\('ChatOllama OK:', type\\(ChatOllama\\)\\)\")",
+      "Bash(python -c \"from langchain_ollama import ChatOllama; print\\('ChatOllama OK:', type\\(ChatOllama\\)\\)\")"
     ]
   }
 }

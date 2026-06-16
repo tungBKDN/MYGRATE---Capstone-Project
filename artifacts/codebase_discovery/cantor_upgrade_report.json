@@ -30,13 +30,6 @@
     }
   ],
   "candidates": {
-    "junit:junit": [
-      "4.13.2",
-      "4.13.1",
-      "4.13",
-      "4.12",
-      "4.11"
-    ],
     "org.slf4j:slf4j-api": [
       "2.0.17",
       "2.0.16",
@@ -56,40 +49,33 @@
   "conflict_edges": [],
   "solutions": [
     {
-      "junit:junit": "4.11",
       "org.slf4j:slf4j-api": "1.7.36",
       "org.apache.hadoop:hadoop-common": "3.4.0"
     },
     {
-      "junit:junit": "4.13",
       "org.slf4j:slf4j-api": "1.7.36",
-      "org.apache.hadoop:hadoop-common": "3.4.0"
+      "org.apache.hadoop:hadoop-common": "3.5.0"
     },
     {
-      "junit:junit": "4.12",
       "org.slf4j:slf4j-api": "1.7.36",
-      "org.apache.hadoop:hadoop-common": "3.4.0"
+      "org.apache.hadoop:hadoop-common": "3.4.2"
     },
     {
-      "junit:junit": "4.13.2",
       "org.slf4j:slf4j-api": "1.7.36",
-      "org.apache.hadoop:hadoop-common": "3.4.0"
+      "org.apache.hadoop:hadoop-common": "3.4.3"
     },
     {
-      "junit:junit": "4.13.1",
       "org.slf4j:slf4j-api": "1.7.36",
-      "org.apache.hadoop:hadoop-common": "3.4.0"
+      "org.apache.hadoop:hadoop-common": "3.4.1"
     }
   ],
   "best_solution": {
-    "junit:junit": "4.11",
     "org.slf4j:slf4j-api": "1.7.36",
-    "org.apache.hadoop:hadoop-common": "3.4.0"
+    "org.apache.hadoop:hadoop-common": "3.5.0"
   },
   "smoke_test_results": [
     {
       "solution": {
-        "junit:junit": "4.11",
         "org.slf4j:slf4j-api": "1.7.36",
         "org.apache.hadoop:hadoop-common": "3.4.0"
       },
@@ -100,9 +86,8 @@
     },
     {
       "solution": {
-        "junit:junit": "4.13",
         "org.slf4j:slf4j-api": "1.7.36",
-        "org.apache.hadoop:hadoop-common": "3.4.0"
+        "org.apache.hadoop:hadoop-common": "3.5.0"
       },
       "result": {
         "status": "PASS",
@@ -111,9 +96,8 @@
     },
     {
       "solution": {
-        "junit:junit": "4.12",
         "org.slf4j:slf4j-api": "1.7.36",
-        "org.apache.hadoop:hadoop-common": "3.4.0"
+        "org.apache.hadoop:hadoop-common": "3.4.2"
       },
       "result": {
         "status": "PASS",
@@ -122,61 +106,6 @@
     }
   ],
   "step3_reports": {
-    "junit:junit:4.13.2": {
-      "dependency": "junit:junit",
-      "version": "4.13.2",
-      "signals": {
-        "bytecode_jdk": "5",
-        "refs": []
-      },
-      "analysis": {
-        "compatibility_status": "Yes"
-      }
-    },
-    "junit:junit:4.13.1": {
-      "dependency": "junit:junit",
-      "version": "4.13.1",
-      "signals": {
-        "bytecode_jdk": "5",
-        "refs": []
-      },
-      "analysis": {
-        "compatibility_status": "Yes"
-      }
-    },
-    "junit:junit:4.13": {
-      "dependency": "junit:junit",
-      "version": "4.13",
-      "signals": {
-        "bytecode_jdk": "5",
-        "refs": []
-      },
-      "analysis": {
-        "compatibility_status": "Yes"
-      }
-    },
-    "junit:junit:4.12": {
-      "dependency": "junit:junit",
-      "version": "4.12",
-      "signals": {
-        "bytecode_jdk": "5",
-        "refs": []
-      },
-      "analysis": {
-        "compatibility_status": "Yes"
-      }
-    },
-    "junit:junit:4.11": {
-      "dependency": "junit:junit",
-      "version": "4.11",
-      "signals": {
-        "bytecode_jdk": "5",
-        "refs": []
-      },
-      "analysis": {
-        "compatibility_status": "Yes"
-      }
-    },
     "org.slf4j:slf4j-api:2.0.17": {
       "dependency": "org.slf4j:slf4j-api",
       "version": "2.0.17",
@@ -395,15 +324,14 @@
       }
     ]
   },
-  "transitive_tree_size": 16,
+  "transitive_tree_size": 11,
   "reader_review": {
     "status": "ok",
     "selected_solution": {
-      "junit:junit": "4.11",
       "org.slf4j:slf4j-api": "1.7.36",
-      "org.apache.hadoop:hadoop-common": "3.4.0"
+      "org.apache.hadoop:hadoop-common": "3.5.0"
     },
-    "selected_solution_index": 1,
+    "selected_solution_index": 2,
     "old_system_state": {
       "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\cantor",
       "project_type": "java",
@@ -426,16 +354,15 @@
           "scope": "compile"
         }
       ],
-      "candidate_count": 3,
+      "candidate_count": 2,
       "solution_count": 5,
       "smoke_test_count": 3,
       "solver_method": "z3"
     },
     "target_system_state": {
       "selected_dependencies": {
-        "junit:junit": "4.11",
         "org.slf4j:slf4j-api": "1.7.36",
-        "org.apache.hadoop:hadoop-common": "3.4.0"
+        "org.apache.hadoop:hadoop-common": "3.5.0"
       },
       "target_java": "17",
       "expected_outcome": "A Java 17-compatible dependency set with validated runtime behavior."
@@ -444,42 +371,38 @@
       {
         "index": 1,
         "solution": {
-          "junit:junit": "4.11",
           "org.slf4j:slf4j-api": "1.7.36",
           "org.apache.hadoop:hadoop-common": "3.4.0"
         },
         "smoke_status": "PASS",
-        "selected": true,
-        "reason": "Chosen because it passed runtime smoke testing and ranked highest among validated candidates."
+        "selected": false,
+        "reason": "Valid candidate, but ranked behind the selected solution by compatibility, upgrade coverage, or version freshness."
       },
       {
         "index": 2,
         "solution": {
-          "junit:junit": "4.13",
           "org.slf4j:slf4j-api": "1.7.36",
-          "org.apache.hadoop:hadoop-common": "3.4.0"
+          "org.apache.hadoop:hadoop-common": "3.5.0"
         },
         "smoke_status": "PASS",
-        "selected": false,
-        "reason": "Valid candidate, but ranked behind the selected solution by the compatibility scoring heuristic."
+        "selected": true,
+        "reason": "Chosen because it passed runtime smoke testing and ranked highest by compatibility, upgrade coverage, and version freshness."
       },
       {
         "index": 3,
         "solution": {
-          "junit:junit": "4.12",
           "org.slf4j:slf4j-api": "1.7.36",
-          "org.apache.hadoop:hadoop-common": "3.4.0"
+          "org.apache.hadoop:hadoop-common": "3.4.2"
         },
         "smoke_status": "PASS",
         "selected": false,
-        "reason": "Valid candidate, but ranked behind the selected solution by the compatibility scoring heuristic."
+        "reason": "Valid candidate, but ranked behind the selected solution by compatibility, upgrade coverage, or version freshness."
       },
       {
         "index": 4,
         "solution": {
-          "junit:junit": "4.13.2",
           "org.slf4j:slf4j-api": "1.7.36",
-          "org.apache.hadoop:hadoop-common": "3.4.0"
+          "org.apache.hadoop:hadoop-common": "3.4.3"
         },
         "smoke_status": "NOT_RUN",
         "selected": false,
@@ -488,9 +411,8 @@
       {
         "index": 5,
         "solution": {
-          "junit:junit": "4.13.1",
           "org.slf4j:slf4j-api": "1.7.36",
-          "org.apache.hadoop:hadoop-common": "3.4.0"
+          "org.apache.hadoop:hadoop-common": "3.4.1"
         },
         "smoke_status": "NOT_RUN",
         "selected": false,
@@ -504,7 +426,7 @@
       "Modeled transitive constraints and solved the candidate graph.",
       "Ran runtime smoke tests for the top solutions."
     ],
-    "why_selected": "Selected a smoke-tested PASS solution with the strongest compatibility score: it passed runtime class-loading and has the lowest detected risk among the validated candidates.",
+    "why_selected": "Selected a smoke-tested PASS solution with the strongest compatibility score: it passed runtime class-loading, upgrades further within the validated candidate set, and has the lowest detected risk among the validated candidates.",
     "risks": [
       "Smaller smoke-test coverage may still miss runtime edge cases.",
       "Transitive dependency drift can still affect downstream consumers."
@@ -513,6 +435,6 @@
       "Use the selected dependency set as the migration baseline.",
       "If desired, rerun on a broader candidate window for more confidence."
     ],
-    "markdown_report": "# ReaderAgent Final Migration Review\n\n## Current Codebase\n\n- Project path: `D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\cantor`\n- Project type: `java`\n- Target Java requested: `17`\n- Dependencies found: `3`\n- Solver method: `z3`\n- Candidate library sets: `3`\n- Candidate solutions: `5`\n- Smoke tests executed: `3`\n\n### Existing Dependencies\n\n| Library | Current version | Scope |\n| --- | --- | --- |\n| `junit:junit` | `4.11` | `test` |\n| `org.slf4j:slf4j-api` | `1.7.5` | `compile` |\n| `org.apache.hadoop:hadoop-common` | `2.2.0` | `compile` |\n\n## Candidate Solutions\n\n| # | Smoke status | Selected | Dependencies | Assessment |\n| --- | --- | --- | --- | --- |\n| 1 | `PASS` | yes | `junit:junit` -> `4.11`<br>`org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.0` | Chosen because it passed runtime smoke testing and ranked highest among validated candidates. |\n| 2 | `PASS` | no | `junit:junit` -> `4.13`<br>`org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.0` | Valid candidate, but ranked behind the selected solution by the compatibility scoring heuristic. |\n| 3 | `PASS` | no | `junit:junit` -> `4.12`<br>`org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.0` | Valid candidate, but ranked behind the selected solution by the compatibility scoring heuristic. |\n| 4 | `NOT_RUN` | no | `junit:junit` -> `4.13.2`<br>`org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.0` | Kept as a solver candidate but not selected because it lacks stronger runtime validation. |\n| 5 | `NOT_RUN` | no | `junit:junit` -> `4.13.1`<br>`org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.0` | Kept as a solver candidate but not selected because it lacks stronger runtime validation. |\n\n## Selected Recommendation\n\nReaderAgent selected candidate **#1**.\n\n- `junit:junit` -> `4.11`\n- `org.slf4j:slf4j-api` -> `1.7.36`\n- `org.apache.hadoop:hadoop-common` -> `3.4.0`\n\n## Target System\n\n- Target Java: `17`\n- Expected outcome: A Java 17-compatible dependency set with validated runtime behavior.\n\n## Why This Choice\n\nSelected a smoke-tested PASS solution with the strongest compatibility score: it passed runtime class-loading and has the lowest detected risk among the validated candidates.\n\n## Work Completed\n\n- Indexed the Java project and parsed its manifest.\n- Fetched candidate versions from Maven Central.\n- Ran bytecode and compile checks.\n- Modeled transitive constraints and solved the candidate graph.\n- Ran runtime smoke tests for the top solutions.\n\n## Remaining Risks\n\n- Smaller smoke-test coverage may still miss runtime edge cases.\n- Transitive dependency drift can still affect downstream consumers.\n\n## Next Steps\n\n- Use the selected dependency set as the migration baseline.\n- If desired, rerun on a broader candidate window for more confidence."
+    "markdown_report": "# ReaderAgent Final Migration Review\n\n## Current Codebase\n\n- Project path: `D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\cantor`\n- Project type: `java`\n- Target Java requested: `17`\n- Dependencies found: `3`\n- Solver method: `z3`\n- Candidate library sets: `2`\n- Candidate solutions: `5`\n- Smoke tests executed: `3`\n\n### Existing Dependencies\n\n| Library | Current version | Scope |\n| --- | --- | --- |\n| `junit:junit` | `4.11` | `test` |\n| `org.slf4j:slf4j-api` | `1.7.5` | `compile` |\n| `org.apache.hadoop:hadoop-common` | `2.2.0` | `compile` |\n\n## Candidate Solutions\n\nSelection policy: prefer runtime `PASS`, then stronger static compatibility, fewer warnings, more actual upgrades from the current POM, and newer validated versions.\n\n| # | Smoke status | Selected | Dependencies | Assessment |\n| --- | --- | --- | --- | --- |\n| 1 | `PASS` | no | `org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.0` | Valid candidate, but ranked behind the selected solution by compatibility, upgrade coverage, or version freshness. |\n| 2 | `PASS` | yes | `org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.5.0` | Chosen because it passed runtime smoke testing and ranked highest by compatibility, upgrade coverage, and version freshness. |\n| 3 | `PASS` | no | `org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.2` | Valid candidate, but ranked behind the selected solution by compatibility, upgrade coverage, or version freshness. |\n| 4 | `NOT_RUN` | no | `org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.3` | Kept as a solver candidate but not selected because it lacks stronger runtime validation. |\n| 5 | `NOT_RUN` | no | `org.slf4j:slf4j-api` -> `1.7.36`<br>`org.apache.hadoop:hadoop-common` -> `3.4.1` | Kept as a solver candidate but not selected because it lacks stronger runtime validation. |\n\n## Selected Recommendation\n\nReaderAgent selected candidate **#2**.\n\n- `org.slf4j:slf4j-api` -> `1.7.36`\n- `org.apache.hadoop:hadoop-common` -> `3.5.0`\n\n## Target System\n\n- Target Java: `17`\n- Expected outcome: A Java 17-compatible dependency set with validated runtime behavior.\n\n## Why This Choice\n\nSelected a smoke-tested PASS solution with the strongest compatibility score: it passed runtime class-loading, upgrades further within the validated candidate set, and has the lowest detected risk among the validated candidates.\n\n## Work Completed\n\n- Indexed the Java project and parsed its manifest.\n- Fetched candidate versions from Maven Central.\n- Ran bytecode and compile checks.\n- Modeled transitive constraints and solved the candidate graph.\n- Ran runtime smoke tests for the top solutions.\n\n## Remaining Risks\n\n- Smaller smoke-test coverage may still miss runtime edge cases.\n- Transitive dependency drift can still affect downstream consumers.\n\n## Next Steps\n\n- Use the selected dependency set as the migration baseline.\n- If desired, rerun on a broader candidate window for more confidence."
   }
 }

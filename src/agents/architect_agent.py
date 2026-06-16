@@ -89,23 +89,7 @@ class ArchitectAgent(BaseAgent):
             # Return a lean version for the LLM to prevent 413 Request Too Large errors
             if self.llm is not None:
                 lean_result = dict(result)
-                if "step3_reports" in lean_result:
-                    lean_step3 = {}
-                    for key, val in lean_result["step3_reports"].items():
-                        if isinstance(val, dict):
-                            lean_val = dict(val)
-                            if "signals" in lean_val and isinstance(lean_val["signals"], dict):
-                                signals = dict(lean_val["signals"])
-                                if "jdeprscan" in signals and isinstance(signals["jdeprscan"], dict):
-                                    jdeprscan = dict(signals["jdeprscan"])
-                                    jdeprscan.pop("output", None)
-                                    jdeprscan.pop("findings", None)
-                                    signals["jdeprscan"] = jdeprscan
-                                lean_val["signals"] = signals
-                            lean_step3[key] = lean_val
-                        else:
-                            lean_step3[key] = val
-                    lean_result["step3_reports"] = lean_step3
+                lean_result.pop("step3_reports", None)  # Completely remove step3_reports to save context
                 return lean_result
 
             return result
@@ -115,13 +99,14 @@ class ArchitectAgent(BaseAgent):
 
     def _post_process(self, results: dict[str, Any], instruction: str, payload: dict[str, Any]) -> str:
         """Post-process deterministic tool results to extract the compatibility solver outcomes."""
-        merged = dict(results)
+        merged = {}
         
-        # If run_upgrade_analysis succeeded and returned a dict, merge its keys (solutions, smoke_test_results, etc.)
+        # Merge run_upgrade_analysis results if present without keeping the duplicate key
         analysis = results.get("run_upgrade_analysis")
         if isinstance(analysis, dict):
             for key, val in analysis.items():
-                if key not in merged or not merged[key]:
-                    merged[key] = val
-
+                merged[key] = val
+        else:
+            merged = dict(results)
+            
         return json.dumps(merged, ensure_ascii=False, indent=2, default=str)

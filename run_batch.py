@@ -11,9 +11,23 @@ from pathlib import Path
 # If empty, all codebases found in freshbrew_dir/ (freshbrew_data) will be run.
 # ==============================================================================``
 CODEBASES_TO_TEST = [
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\amazon-kinesis-client"
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\kafka-spout",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\log4j2-elasticsearch",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\netty-zmtp",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\quilt",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\rhizobia_J",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spark-jobs-rest-client",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-batch-rest",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-boot-rest-example",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-context-support",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-rest-exception-handler",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\sql-to-mongo-db-query-converter",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\suffixtree",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\token-bucket",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\unidecode",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\unix4j",
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\velocity-spring-boot-project"
 ]
-
 
 # Color styling helper
 RESET = "\033[0m"
@@ -52,8 +66,8 @@ def main():
     total = len(codebases)
 
     for i, name in enumerate(codebases):
-        # 1. Pacing check: pause every 3 completed migrations
-        if completed > 0 and completed % 3 == 0:
+        # 1. Pacing check: pause every 5 completed migrations
+        if completed > 0 and completed % 5 == 0:
             print(f"\n{YELLOW}{BOLD}=== PAUSE: Processed {completed} codebases ==={RESET}")
             try:
                 user_choice = input(f"{YELLOW}Continue migrating the next codebases? (Y/n): {RESET}").strip().lower()

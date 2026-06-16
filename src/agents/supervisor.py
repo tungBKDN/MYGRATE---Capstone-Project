@@ -7,7 +7,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from src.agents.base_agent import BaseAgent, ToolDefinition
 from src.models.state import GlobalState
 
-VALID_NODES = {"reader", "architect", "translator", "end"}
+VALID_NODES = {"architect", "translator", "end"}
 
 
 class SupervisorAgent(BaseAgent):
@@ -38,7 +38,7 @@ class SupervisorAgent(BaseAgent):
                     "properties": {
                         "next_node": {
                             "type": "string",
-                            "enum": ["reader", "architect", "translator", "end"],
+                            "enum": ["architect", "translator", "end"],
                             "description": "The next node to route control to.",
                         },
                         "current_instruction": {
@@ -142,6 +142,8 @@ class SupervisorAgent(BaseAgent):
                 break
 
             tool_calls = getattr(response, "tool_calls", None) or []
+            if not tool_calls and hasattr(response, "content") and isinstance(response.content, str):
+                tool_calls = self._parse_tool_calls_from_text(response.content)
             if tool_calls:
                 for tool_call in tool_calls:
                     tool_name = getattr(tool_call, "name", None) or (
@@ -287,19 +289,13 @@ class SupervisorAgent(BaseAgent):
         project_type = payload.get("project_type", "unknown")
         deps_count = payload.get("dependencies_count", 0)
         has_solutions = payload.get("has_solutions", False)
-        has_reader_review = payload.get("has_reader_review", False)
         has_translation = payload.get("has_translation", False)
 
         # Simple sequential fallback
-        if project_type == "unknown" or deps_count == 0:
-            next_node = "reader"
-            current_instruction = "Index codebase and extract dependencies."
-            response_to_user = "Scanning project dependencies..."
-        elif not has_solutions:
+        if project_type == "unknown" or deps_count == 0 or not has_solutions:
             next_node = "architect"
-            current_instruction = "Solve version compatibility constraints."
-            response_to_user = "Analyzing library version solutions..."
-
+            current_instruction = "Perform codebase index and solve dependency version compatibility."
+            response_to_user = "Running project scan and dependency compatibility analysis..."
         elif not has_translation:
             next_node = "translator"
             current_instruction = "Translate migration scope."

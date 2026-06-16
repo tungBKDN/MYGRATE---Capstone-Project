@@ -582,9 +582,64 @@ class TranslatorAgent(BaseAgent):
                     "required": ["goal"],
                 },
             ),
+            ToolDefinition(
+                name="web_search",
+                description=(
+                    "Search the internet for solutions to Java compilation errors, API deprecations, "
+                    "or Java library upgrade issues using the Ollama Web Search API."
+                ),
+                func=self._tool_web_search,
+                parameters={
+                    "type": "object",
+                    "properties": {
+                        "query": {"type": "string", "description": "The search query, e.g., 'Java 17 replacement for AccessController'"}
+                    },
+                    "required": ["query"],
+                },
+            ),
         ]
 
     # ── Tool Implementations ──
+
+    def _tool_web_search(self, query: str = "", **kwargs) -> dict[str, Any]:
+        """Search the internet for solutions to Java compilation errors or API deprecations using the Ollama Web Search API."""
+        if not query:
+            return {"status": "error", "message": "Query cannot be empty."}
+        
+        print(f"-> [TRANSLATOR] Web search query: '{query}'...")
+        base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
+        api_key = os.getenv("OLLAMA_KEY", "")
+        url = f"{base_url}/api/web_search"
+        
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "Mygrate-Agent/1.0"
+        }
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
+            
+        payload = {"query": query}
+        
+        try:
+            req_data = json.dumps(payload).encode("utf-8")
+            req = urllib.request.Request(url, data=req_data, headers=headers, method="POST")
+            with urllib.request.urlopen(req, timeout=15) as response:
+                resp_data = json.loads(response.read().decode("utf-8"))
+                results = resp_data.get("results", [])
+                
+                # Format results for the LLM context
+                formatted = []
+                for idx, r in enumerate(results[:5], 1):
+                    formatted.append({
+                        "index": idx,
+                        "title": r.get("title", ""),
+                        "url": r.get("url", ""),
+                        "snippet": r.get("snippet", "")
+                    })
+                return {"status": "ok", "results": formatted}
+        except Exception as e:
+            print(f"-> [TRANSLATOR] Web search error: {e}")
+            return {"status": "error", "message": f"Web search request failed: {str(e)}"}
 
     def _tool_run_jdeprscan(
         self,
@@ -886,6 +941,10 @@ class TranslatorAgent(BaseAgent):
                 test_failures.append(f"[ERROR] test count {compile_res.total_tests} is less than baseline {baseline_total}. Test skipping/exclusion detected. Restore and run all original tests.")
             if has_unit_test_failure:
                 test_failures.append(f"[ERROR] {surefire_failures} unit-test failures, {surefire_errors} errors. Baseline allowed: {baseline_failed}.")
+            
+            # Extract all maven error lines
+            maven_error_lines = [line.strip() for line in output.splitlines() if line.strip().startswith("[ERROR]")]
+
             in_error = False
             in_fail = False
             for line in output.splitlines():
@@ -972,7 +1031,17 @@ class TranslatorAgent(BaseAgent):
             filtered = [line for line in output.splitlines() if len(line) <= 800 and "-classpath" not in line]
             truncated = "\n".join(filtered[:75]) + "\n... [TRUNCATED] ...\n" + "\n".join(filtered[-75:]) if len(filtered) > 150 else "\n".join(filtered)
 
-            errors_str = ("\n".join(compiler_errors) if compiler_errors else "\n".join(test_failures)) + "\n\nLog:\n" + truncated
+            # Combine all collected errors to present to LLM
+            all_errors_collected = []
+            if compiler_errors:
+                all_errors_collected.extend(compiler_errors)
+            if test_failures:
+                all_errors_collected.extend(test_failures)
+            for err in maven_error_lines:
+                if err not in all_errors_collected:
+                    all_errors_collected.append(err)
+
+            errors_str = "Detected Maven Errors:\n" + "\n".join(all_errors_collected[:100]) + "\n\nBuild Log (Truncated):\n" + truncated
             return {"exit_code": status, "success": False, "errors": errors_str}
         except Exception as e:
             return {"error": f"Failed to compile: {e}"}

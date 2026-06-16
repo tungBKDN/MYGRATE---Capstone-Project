@@ -474,6 +474,8 @@ class BaseAgent(ABC):
 
             # Check if LLM wants to call tools
             tool_calls = getattr(response, "tool_calls", None) or []
+            if not tool_calls and hasattr(response, "content") and isinstance(response.content, str):
+                tool_calls = self._parse_tool_calls_from_text(response.content)
 
             if tool_calls:
                 messages.append(response)
@@ -926,7 +928,80 @@ class BaseAgent(ABC):
 
             any_executed = True
 
-        return True if any_executed else None
+    def _parse_tool_calls_from_text(self, content: str) -> list[dict[str, Any]]:
+        """Parse tool calls from text content. Supports XML tags and JSON code blocks/structures."""
+        import uuid
+        tool_calls = []
+
+        # 1. Try XML parsing (<invoke name="...">...</invoke>)
+        invokes = re.findall(r'<invoke\s+name="([^"]+)"\s*>(.*?)</invoke>', content, re.DOTALL)
+        for name, inner in invokes:
+            args = {}
+            params = re.findall(r'<parameter\s+name="([^"]+)"[^>]*>(.*?)</parameter>', inner, re.DOTALL)
+            for p_name, p_val in params:
+                args[p_name] = p_val.strip()
+            tool_calls.append({
+                "name": name,
+                "args": args,
+                "id": f"call_{uuid.uuid4().hex[:8]}",
+                "type": "tool_call"
+            })
+
+        # 2. Try JSON code blocks or raw JSON parsing
+        json_blocks = re.findall(r'```json\s*(.*?)\s*```', content, re.DOTALL)
+        if not json_blocks:
+            stripped = content.strip()
+            # If the entire content starts and ends with { or [
+            if (stripped.startswith('{') and stripped.endswith('}')) or (stripped.startswith('[') and stripped.endswith(']')):
+                json_blocks = [stripped]
+            else:
+                # Fallback: find any substring resembling a JSON block or object/array
+                candidates = re.findall(r'(\{.*?\}|\[.*?\])', stripped, re.DOTALL)
+                for cand in candidates:
+                    # Filter down to candidates that look like tool call formats
+                    if '"name"' in cand or '"tool"' in cand or '"function"' in cand:
+                        json_blocks.append(cand)
+
+        for block in json_blocks:
+            try:
+                parsed = json.loads(block)
+                items = parsed if isinstance(parsed, list) else [parsed]
+                for item in items:
+                    if isinstance(item, dict):
+                        name = item.get("name") or item.get("tool") or item.get("function")
+                        args = item.get("args") or item.get("arguments") or item.get("parameters")
+                        
+                        # Handle case: {"route_to": {"next_node": "..."}}
+                        if not name and len(item) == 1:
+                            key = list(item.keys())[0]
+                            if isinstance(item[key], dict):
+                                name = key
+                                args = item[key]
+
+                        if name and isinstance(name, str):
+                            if args is None:
+                                args = {}
+                            elif not isinstance(args, dict):
+                                if isinstance(args, str):
+                                    try:
+                                        args = json.loads(args)
+                                    except Exception:
+                                        args = {"value": args}
+                                else:
+                                    args = {"value": args}
+                            
+                            # Avoid duplicates from XML parser
+                            if not any(tc["name"] == name for tc in tool_calls):
+                                tool_calls.append({
+                                    "name": name,
+                                    "args": args,
+                                    "id": f"call_{uuid.uuid4().hex[:8]}",
+                                    "type": "tool_call"
+                                })
+            except Exception:
+                pass
+
+        return tool_calls
 
     def _coerce_tool_args(self, args: dict[str, Any], schema_props: dict[str, Any]) -> dict[str, Any]:
         """Coerce tool arguments to match the declared JSON schema types.

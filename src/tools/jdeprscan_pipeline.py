@@ -465,10 +465,17 @@ def _step_b1_compile(project: Path, jdk8: Optional[Path], b0: dict, logger=None)
         result["status"] = "FAIL"
         return result
 
-    src_dir = project / "src" / "main" / "java"
     out_dir = project / "target" / "classes"
     out_dir.mkdir(parents=True, exist_ok=True)
-    java_files = list(src_dir.rglob("*.java"))
+    
+    java_files = []
+    for p in project.rglob("*.java"):
+        parts = p.parts
+        if any(part in ("target", ".git", ".venv", "bin", ".idea", ".vscode") for part in parts):
+            continue
+        if "test" in parts:
+            continue
+        java_files.append(p)
 
     if not java_files:
         log("[jdeprscan] B1: Không tìm thấy .java files")
@@ -592,7 +599,7 @@ def _step_b3_dep_scan(jdeprscan_path: Optional[str], b0: dict, target_release: s
 
     # Multi-threaded scan
     # workers = n_workers or min(4, max(2, (os.cpu_count() or 4) // 2))
-    workers = 2
+    workers = 3
     log(f"[jdeprscan] B3: scanning {total_jars} JARs với {workers} luồng...")
 
     summary = []

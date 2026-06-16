@@ -85,6 +85,9 @@ def find_code_usages(project_path: str, node_type: str, identifier: str) -> list
 
     # Sort results for deterministic output
     results.sort(key=lambda x: (x["file_path"], x["start_line"], x["start_column"]))
+    if len(results) > 100:
+        results = results[:100]
+        results.append({"warning": "Too many results. Only the first 100 results are shown."})
     return results
 
 
@@ -128,6 +131,9 @@ def search_codebase(project_path: str, regex_pattern: str, file_extensions: list
                                 "start_column": match.start(),
                                 "end_column": match.end(),
                             })
+                            if len(results) >= 100:
+                                results.append({"warning": "Too many results. Search results truncated to 100."})
+                                return results
                 except Exception:
                     # Ignore reading errors
                     pass

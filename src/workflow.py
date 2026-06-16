@@ -14,95 +14,27 @@ from src.agents.translator_agent import TranslatorAgent
 
 # --- Wrapper Nodes ---
 
-def reader_node(state: GlobalState):
-    """Reader: index codebase, parse POM, return project info + dependencies.
-
-    Has two phases:
-      Phase 1 (default): Initial codebase scan — extract project_type + dependencies.
-      Phase 2 (candidate review): Runs when upgrade_report AND candidate_solutions are
-        both present in state AND Supervisor explicitly routes back here.
-        NOTE: The Supervisor currently routes reader→architect→translator in sequence;
-        Phase 2 is only triggered if the Supervisor decides a second reader pass is needed.
-    """
+def architect_node(state: GlobalState):
+    """Architect: run initial project index (if not done yet), then run the full 7-step dependency pipeline and candidate review."""
     project_path = state.get("project_path", "")
     target_java = state.get("target_java_version", "17")
-
-    # If upgrade_report exists, run Phase 2 (Final Candidate Review)
-    if state.get("upgrade_report") or state.get("candidate_solutions"):
-        payload = {
-            "project_path": project_path,
-            "project_type": state.get("project_type"),
-            "target_java": target_java,
-            "dependencies": state.get("dependencies", []),
-            "candidates": state.get("upgrade_report", {}).get("candidates", {}),
-            "solutions": state.get("candidate_solutions", []),
-            "smoke_test_results": state.get("upgrade_report", {}).get("smoke_test_results", []),
-            "solver_method": state.get("upgrade_report", {}).get("solver_method", "z3"),
-            "step3_reports": state.get("upgrade_report", {}).get("step3_reports", {})
-        }
-        
-        full_instruction = (
-            f"JSON context:\n{json.dumps(payload, ensure_ascii=False, indent=2, default=str)}\n\n"
-            f"Nhiệm vụ: Select the best candidate solutions and output final review."
-        )
-        
-        agent = ReaderAgent()
-        result = agent.run(full_instruction)
-        update = {"last_subagent_result": result}
-        
-        try:
-            parsed = json.loads(result)
-            if isinstance(parsed, dict):
-                # Ensure the fields are merged correctly in state
-                update["reader_review"] = parsed
-                
-                # Write to target project's test/artifacts/ folder
-                artifacts_dir = Path(project_path) / "test" / "artifacts"
-                artifacts_dir.mkdir(parents=True, exist_ok=True)
-                
-                # Save reader_review.json
-                with open(artifacts_dir / "reader_review.json", "w", encoding="utf-8") as f:
-                    json.dump(parsed, f, ensure_ascii=False, indent=2, default=str)
-                    
-                # Save reader_review.md
-                md_content = parsed.get("markdown_report")
-                if md_content:
-                    with open(artifacts_dir / "reader_review.md", "w", encoding="utf-8") as f:
-                        f.write(md_content)
-        except Exception as e:
-            print(f"Warning: Failed to save ReaderAgent review reports: {e}")
-            
-        return update
-
-    # Otherwise run Phase 1 (Initial Discovery Scan)
-    full_instruction = (
-        f"Target Project: {project_path}\n"
-        f"Target Java Version: {target_java}\n"
-        f"Nhiệm vụ: Index the codebase and extract dependencies."
-    )
-
-    agent = ReaderAgent()
-    result = agent.run(full_instruction)
-    update = {"last_subagent_result": result}
-
-    try:
-        parsed = json.loads(result)
-        if isinstance(parsed, dict):
-            if parsed.get("project_type"):
-                update["project_type"] = parsed.get("project_type")
-            if parsed.get("dependencies"):
-                update["dependencies"] = parsed.get("dependencies")
-    except Exception:
-        pass
-
-    return update
-
-
-def architect_node(state: GlobalState):
-    """Architect: run full 7-step dependency pipeline."""
+    
+    # 1. Run lightweight index programmatically if dependencies are missing
     dependencies = state.get("dependencies", [])
-    target_java = state.get("target_java_version", "17")
+    project_type = state.get("project_type")
+    
+    if not dependencies or not project_type:
+        from src.tools.maven_upgrade_tools import index_java_project
+        print(f"-> [ARCHITECT] Running programmatic initial project scan...")
+        scan_res = index_java_project(project_path)
+        if scan_res.get("status") == "ok":
+            dependencies = scan_res.get("dependencies", [])
+            project_type = scan_res.get("project_type", "java")
+        else:
+            dependencies = []
+            project_type = "java"
 
+    # 2. Run the full 7-step upgrade analysis
     full_instruction = (
         f"Dependencies: {json.dumps(dependencies)}\n"
         f"Target Java Version: {target_java}\n"
@@ -111,20 +43,57 @@ def architect_node(state: GlobalState):
 
     agent = ArchitectAgent()
     result = agent.run(full_instruction)
-    update = {"last_subagent_result": result}
+    
+    # Base updates
+    update = {
+        "last_subagent_result": result,
+        "project_type": project_type,
+        "dependencies": dependencies
+    }
 
     try:
         parsed = json.loads(result)
         if isinstance(parsed, dict):
             if parsed.get("solutions"):
                 update["candidate_solutions"] = parsed.get("solutions")
-            # Bug fix: always persist upgrade_report when we have a valid result so
-            # the Supervisor can see that Architect ran and won't loop back here.
-            # Previously only saved when smoke_test_results was present, causing
-            # an infinite Supervisor → Architect loop when the solver didn't emit it.
             update["upgrade_report"] = parsed
-    except Exception:
-        pass
+
+            # 3. Perform final candidate review programmatically
+            try:
+                from src.agents.reader_agent import ReaderAgent
+                payload = {
+                    "project_path": project_path,
+                    "project_type": project_type,
+                    "target_java": target_java,
+                    "dependencies": dependencies,
+                    "candidates": parsed.get("candidates", {}),
+                    "solutions": parsed.get("solutions", []),
+                    "smoke_test_results": parsed.get("smoke_test_results", []),
+                    "solver_method": parsed.get("solver_method", "z3"),
+                    "step3_reports": {
+                        k: {"analysis": {"compatibility_status": v.get("analysis", {}).get("compatibility_status")}}
+                        for k, v in parsed.get("step3_reports", {}).items()
+                        if isinstance(v, dict)
+                    }
+                }
+                print(f"-> [ARCHITECT] Running final candidate review...")
+                review_agent = ReaderAgent()
+                review_res = review_agent.review_candidates(payload)
+                update["reader_review"] = review_res
+                
+                # Write reports to artifacts folder
+                artifacts_dir = Path(project_path) / "test" / "artifacts"
+                artifacts_dir.mkdir(parents=True, exist_ok=True)
+                with open(artifacts_dir / "reader_review.json", "w", encoding="utf-8") as f:
+                    json.dump(review_res, f, ensure_ascii=False, indent=2, default=str)
+                md_content = review_res.get("markdown_report")
+                if md_content:
+                    with open(artifacts_dir / "reader_review.md", "w", encoding="utf-8") as f:
+                        f.write(md_content)
+            except Exception as e:
+                print(f"Warning: Failed to run candidate review in Architect: {e}")
+    except Exception as e:
+        print(f"Warning: Failed to parse ArchitectAgent result: {e}")
 
     return update
 
@@ -172,7 +141,6 @@ def build_app(interrupt: bool = True):
     workflow = StateGraph(GlobalState)
 
     workflow.add_node("supervisor", get_supervisor_node)
-    workflow.add_node("reader", reader_node)
     workflow.add_node("architect", architect_node)
     workflow.add_node("translator", translator_node)
 
@@ -182,7 +150,6 @@ def build_app(interrupt: bool = True):
         "supervisor",
         lambda x: x["next_node"],
         {
-            "reader": "reader",
             "architect": "architect",
             "translator": "translator",
             "end": END,
@@ -190,7 +157,6 @@ def build_app(interrupt: bool = True):
         },
     )
 
-    workflow.add_edge("reader", "supervisor")
     workflow.add_edge("architect", "supervisor")
     workflow.add_edge("translator", "supervisor")
 

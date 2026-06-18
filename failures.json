@@ -1,0 +1,16 @@
+{
+   "Qwen3.5": {
+      "Namespace Migration": 5,
+      "Target Settings Not Updated": 4,
+      "No Compatible Dependency Replacement Available": 4,
+      "Breaking API Changes in Upgraded Dependencies": 5,
+      "Ineffective Agent Loop Behavior": 7
+   },
+   "DeepSeek-V3": {
+      "Namespace Migration": 6,
+      "Target Settings Not Updated": 4,
+      "No Compatible Dependency Replacement Available": 4,
+      "Breaking API Changes in Upgraded Dependencies": 5,
+      "Ineffective Agent Loop Behavior": 9
+   }
+}

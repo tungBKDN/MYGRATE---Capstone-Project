@@ -514,64 +514,67 @@ class BaseAgent(ABC):
                         # Failsafe integration-test failures (e.g. missing SonarQube server) are NOT
                         # a reason to block — those are infrastructure limitations, not migration failures.
                         if self.__class__.__name__ == "TranslatorAgent":
-                            print(f"-> [{self._agent_name()}] Verifying project before submitting final answer...")
-                            from src.tools.maven import MavenRunner
-                            java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
-                            runner = MavenRunner(target_java_version=java_ver)
-                            project_path = Path(payload.get("project_path", ""))
+                            current_inst = str(payload.get("current_instruction", ""))
+                            is_apply = current_inst.startswith("APPLY:") or "APPLY:" in current_inst
+                            if not is_apply:
+                                print(f"-> [{self._agent_name()}] PLAN mode detected. Skipping compilation verification.")
+                            else:
+                                print(f"-> [{self._agent_name()}] Verifying project before submitting final answer...")
+                                from src.tools.maven import MavenRunner
+                                java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
+                                runner = MavenRunner(target_java_version=java_ver)
+                                project_path = Path(payload.get("project_path", ""))
 
-                            # Gate 1: compile (main + test sources)
-                            compile_res = runner.compile(project_path, clean=False)
-                            has_compile_error = compile_res.status != 0
+                                # Gate 1: compile (main + test sources)
+                                compile_res = runner.compile(project_path, clean=False)
+                                has_compile_error = compile_res.status != 0
 
-                            # Gate 2: check surefire unit-test failures only
-                            # We ignore test failures at Maven level to get the full test counts in multi-module projects,
-                            # and check against baseline failure counts programmatically.
-                            verify_res = runner.test(project_path, skip_tests=False, clean=False, ignore_test_failures=True)
-                            combined_out = verify_res.stdout + "\n" + verify_res.stderr
-                            import re as _re
-                            surefire_failures = 0
-                            surefire_errors = 0
-                            for line in combined_out.splitlines():
-                                if "Tests run:" in line and " - in " in line:
-                                    m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
-                                    if m:
-                                        surefire_failures += int(m.group(1))
-                                        surefire_errors += int(m.group(2))
-                            
-                            baseline_total = payload.get("baseline_total_tests", 0)
-                            baseline_passed = payload.get("baseline_passed_tests", 0)
-                            baseline_failed = max(0, baseline_total - baseline_passed)
-                            current_failures = surefire_failures + surefire_errors
-                            has_unit_test_failure = current_failures > baseline_failed
+                                # Gate 2: check surefire unit-test failures only
+                                verify_res = runner.test(project_path, skip_tests=False, clean=False, ignore_test_failures=True)
+                                combined_out = verify_res.stdout + "\n" + verify_res.stderr
+                                import re as _re
+                                surefire_failures = 0
+                                surefire_errors = 0
+                                for line in combined_out.splitlines():
+                                    if "Tests run:" in line and " - in " in line:
+                                        m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                                        if m:
+                                            surefire_failures += int(m.group(1))
+                                            surefire_errors += int(m.group(2))
 
-                            # Test count integrity check
-                            has_skipped_tests_failure = False
-                            if baseline_total > 0 and verify_res.total_tests < baseline_total:
-                                has_skipped_tests_failure = True
+                                baseline_total = payload.get("baseline_total_tests", 0)
+                                baseline_passed = payload.get("baseline_passed_tests", 0)
+                                baseline_failed = max(0, baseline_total - baseline_passed)
+                                current_failures = surefire_failures + surefire_errors
+                                has_unit_test_failure = current_failures > baseline_failed
 
-                            baseline_coverage = payload.get("baseline_coverage", 0.0)
-                            has_gate3_failure = False
-                            gate3_drop = 0.0
-                            if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
-                                cov_res = runner.coverage(project_path, clean=False)
-                                current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
-                                gate3_drop = baseline_coverage - current_coverage
-                                if gate3_drop > 5.0:
-                                    has_gate3_failure = True
+                                # Test count integrity check
+                                has_skipped_tests_failure = False
+                                if baseline_total > 0 and verify_res.total_tests < baseline_total:
+                                    has_skipped_tests_failure = True
 
-                            if has_compile_error:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res.status}).")
-                                observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res.status}). Fix all compile errors first."}
-                            elif has_unit_test_failure:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors (baseline allowed: {baseline_failed}).")
-                                observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Baseline allowed: {baseline_failed}. Fix unit tests first."}
-                            elif has_skipped_tests_failure:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: test count {verify_res.total_tests} is less than baseline {baseline_total}.")
-                                observation = {"error": f"Cannot submit yet — test count {verify_res.total_tests} is less than baseline {baseline_total}. Test skipping/exclusion detected. Restore and run all original tests."}
-                            elif has_gate3_failure:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
-                                observation = {"error": f"Cannot submit yet — Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. Add unit tests or restore original logic."}
+                                baseline_coverage = payload.get("baseline_coverage", 0.0)
+                                has_gate3_failure = False
+                                gate3_drop = 0.0
+                                if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
+                                    cov_res = runner.coverage(project_path, clean=False)
+                                    current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                                    gate3_drop = baseline_coverage - current_coverage
+                                    if gate3_drop > 5.0:
+                                        has_gate3_failure = True
+
+                                if has_compile_error:
+                                    print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res.status}).")
+                                    observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res.status}). Fix all compile errors first."}
+                                elif has_unit_test_failure:
+                                    print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors (baseline allowed: {baseline_failed}).")
+                                    observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Baseline allowed: {baseline_failed}. Fix unit tests first."}
+                                elif has_skipped_tests_failure:
+                                    print(f"-> [{self._agent_name()}] Final answer BLOCKED: test count {verify_res.total_tests} is less than baseline {baseline_total}.")
+                                    observation = {"error": f"Cannot submit yet — test count {verify_res.total_tests} is less than baseline {baseline_total}. Test skipping/exclusion detected. Restore and run all original tests."}
+                                elif has_gate3_failure:
+                                    print(f"-> [{self._agent_name()}] Final answer BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
+                                    observation = {"error": f"Cannot submit yet — Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. Add unit tests or restore original logic."}
                         
                         if isinstance(observation, dict) and "error" in observation:
                             print(f"-> [{self._agent_name()}] Final answer submission BLOCKED: {observation['error']}")
@@ -619,51 +622,60 @@ class BaseAgent(ABC):
             else:
                 # No tool calls — this is the final answer
                 if self.__class__.__name__ == "TranslatorAgent":
-                    print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
-                    from src.tools.maven import MavenRunner
-                    java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
-                    runner = MavenRunner(target_java_version=java_ver)
-                    project_path = Path(payload.get("project_path", ""))
-                    
-                    # Gate 1: compile
-                    compile_res = runner.compile(project_path, clean=False)
-                    has_compile_error = compile_res.status != 0
+                    current_inst = str(payload.get("current_instruction", ""))
+                    is_apply = current_inst.startswith("APPLY:") or "APPLY:" in current_inst
+                    if not is_apply:
+                        print(f"-> [{self._agent_name()}] PLAN mode detected. Skipping compilation verification for direct response.")
+                        has_compile_error = False
+                        has_unit_test_failure = False
+                        has_skipped_tests_failure = False
+                        has_gate3_failure = False
+                    else:
+                        print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
+                        from src.tools.maven import MavenRunner
+                        java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
+                        runner = MavenRunner(target_java_version=java_ver)
+                        project_path = Path(payload.get("project_path", ""))
+                        
+                        # Gate 1: compile
+                        compile_res = runner.compile(project_path, clean=False)
+                        has_compile_error = compile_res.status != 0
 
-                    # Gate 2: check surefire unit-test failures only
-                    # We ignore test failures at Maven level to get the full test counts in multi-module projects,
-                    # and check against baseline failure counts programmatically.
-                    verify_res = runner.test(project_path, skip_tests=False, clean=True, ignore_test_failures=True)
-                    combined_out = verify_res.stdout + "\n" + verify_res.stderr
-                    import re as _re
-                    surefire_failures = 0
-                    surefire_errors = 0
-                    for line in combined_out.splitlines():
-                        if "Tests run:" in line and " - in " in line:
-                            m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
-                            if m:
-                                surefire_failures += int(m.group(1))
-                                surefire_errors += int(m.group(2))
-                    
-                    baseline_total = payload.get("baseline_total_tests", 0)
-                    baseline_passed = payload.get("baseline_passed_tests", 0)
-                    baseline_failed = max(0, baseline_total - baseline_passed)
-                    current_failures = surefire_failures + surefire_errors
-                    has_unit_test_failure = current_failures > baseline_failed
+                        # Gate 2: check surefire unit-test failures only
+                        # We ignore test failures at Maven level to get the full test counts in multi-module projects,
+                        # and check against baseline failure counts programmatically.
+                        verify_res = runner.test(project_path, skip_tests=False, clean=True, ignore_test_failures=True)
+                        combined_out = verify_res.stdout + "\n" + verify_res.stderr
+                        import re as _re
+                        surefire_failures = 0
+                        surefire_errors = 0
+                        for line in combined_out.splitlines():
+                            if "Tests run:" in line and " - in " in line:
+                                m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                                if m:
+                                    surefire_failures += int(m.group(1))
+                                    surefire_errors += int(m.group(2))
+                        
+                        baseline_total = payload.get("baseline_total_tests", 0)
+                        baseline_passed = payload.get("baseline_passed_tests", 0)
+                        baseline_failed = max(0, baseline_total - baseline_passed)
+                        current_failures = surefire_failures + surefire_errors
+                        has_unit_test_failure = current_failures > baseline_failed
 
-                    # Test count integrity check
-                    has_skipped_tests_failure = False
-                    if baseline_total > 0 and verify_res.total_tests < baseline_total:
-                        has_skipped_tests_failure = True
+                        # Test count integrity check
+                        has_skipped_tests_failure = False
+                        if baseline_total > 0 and verify_res.total_tests < baseline_total:
+                            has_skipped_tests_failure = True
 
-                    baseline_coverage = payload.get("baseline_coverage", 0.0)
-                    has_gate3_failure = False
-                    gate3_drop = 0.0
-                    if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
-                        cov_res = runner.coverage(project_path, clean=False)
-                        current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
-                        gate3_drop = baseline_coverage - current_coverage
-                        if gate3_drop > 5.0:
-                            has_gate3_failure = True
+                        baseline_coverage = payload.get("baseline_coverage", 0.0)
+                        has_gate3_failure = False
+                        gate3_drop = 0.0
+                        if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
+                            cov_res = runner.coverage(project_path, clean=False)
+                            current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                            gate3_drop = baseline_coverage - current_coverage
+                            if gate3_drop > 5.0:
+                                has_gate3_failure = True
 
                     if has_compile_error:
                         print(f"-> [{self._agent_name()}] Direct response BLOCKED: Compile errors detected (exit code {compile_res.status}).")

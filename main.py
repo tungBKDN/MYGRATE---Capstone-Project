@@ -27,6 +27,8 @@ from src.tools.maven_upgrade_tools import (
 colorama_init(autoreset=True)
 
 DEFAULT_PROJECT_PATH = Path(__file__).resolve().parent / "freshbrew_data" / "cantor"
+DEFAULT_PROJECT_PATH = ""
+
 DEFAULT_TARGET_JAVA = "17"
 DEFAULT_MAX_VERSIONS = 5
 DEFAULT_MAX_SOLUTIONS = 5
@@ -543,9 +545,13 @@ class Tee:
         self.stream.flush()
         self.log_file.flush()
 
+    def isatty(self):
+        return hasattr(self.stream, "isatty") and self.stream.isatty()
+
     def close(self):
         if not self.log_file.closed:
             self.log_file.close()
+
 
 
 def main() -> int:

@@ -11,22 +11,23 @@ from pathlib import Path
 # If empty, all codebases found in freshbrew_dir/ (freshbrew_data) will be run.
 # ==============================================================================``
 CODEBASES_TO_TEST = [
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\kafka-spout",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\log4j2-elasticsearch",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\netty-zmtp",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\quilt",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\rhizobia_J",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spark-jobs-rest-client",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-batch-rest",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-boot-rest-example",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-context-support",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-rest-exception-handler",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\sql-to-mongo-db-query-converter",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\suffixtree",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\token-bucket",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\unidecode",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\unix4j",
-    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\velocity-spring-boot-project"
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\log4j2-elasticsearch",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\netty-zmtp",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\quilt",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\rhizobia_J",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spark-jobs-rest-client",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-batch-rest",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-boot-rest-example",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-context-support",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\spring-rest-exception-handler",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\sql-to-mongo-db-query-converter",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\suffixtree",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\token-bucket",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\unidecode",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\unix4j",
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\velocity-spring-boot-project"
+    # r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\mini-spring"
+    r"D:\capstone_project\MYGRATE---Capstone-Project\freshbrew_data\jersey-jwt"
 ]
 
 # Color styling helper
@@ -81,13 +82,13 @@ def main():
         # Resolve folders safely: name could be an absolute path or relative path
         path_obj = Path(name)
         folder_name = path_obj.name
-        
+
         # If 'name' is absolute, use it directly as the source path
         if path_obj.is_absolute():
             source_path = path_obj
         else:
             source_path = freshbrew_dir / name
-            
+
         target_path = working_dir / folder_name
 
         if not source_path.exists():
@@ -115,8 +116,8 @@ def main():
             sys.executable,
             "-m", "src.main",
             "--path", str(target_path.absolute()),
-            "--target-java", args.target_java,
-            "--approve"
+            "--target-java", args.target_java
+            # "--approve"
         ]
 
         print(f"  -> Running: {' '.join(cmd)}")

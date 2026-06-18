@@ -1279,7 +1279,7 @@ def index_java_project(project_path: str) -> dict:
 # Entry point: full B1-B7 pipeline (for Architect)
 # ---------------------------------------------------------------------------
 
-def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versions: int = 3, max_solutions: int = 5, logger=None) -> dict:
+def run_upgrade_pipeline(dependencies: list, target_java: str = "17", max_versions: int = 3, max_solutions: int = 3, logger=None) -> dict:
     """Run the full 7-step pipeline to find compatible dependency combinations."""
     root_deps = [d for d in dependencies if d.get("scope") in ("compile", "runtime", None) or d.get("version") != "Managed"]
     if not root_deps:

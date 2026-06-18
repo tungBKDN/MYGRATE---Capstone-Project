@@ -228,9 +228,13 @@ def main():
             self.stream.flush()
             self.log_file.flush()
 
+        def isatty(self):
+            return hasattr(self.stream, "isatty") and self.stream.isatty()
+
         def close(self):
             if not self.log_file.closed:
                 self.log_file.close()
+
 
     import sys
     tee_stdout = Tee(log_path, sys.stdout)

@@ -1,3 +1,31 @@
+- commit: 0194cd215000672c78cc4c9ba761b5ac641921b3
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 164
+    number_of_java_files: 473
+    number_of_lines_of_code: 42977
+    number_of_modules: 7
+    number_of_unit_tests: 2287
+  repo_name: rfoltyns/log4j2-elasticsearch
+  test_count:
+    tests_failed: 0
+    tests_run: 2447
+    tests_skipped: 0
+    tests_successful: 2447
+- commit: 0a14861c7be1a942a6cfe037ba012a59dfca2755
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 16
+    number_of_java_files: 98
+    number_of_lines_of_code: 3868
+    number_of_modules: 1
+    number_of_unit_tests: 34
+  repo_name: DerekYRC/mini-spring
+  test_count:
+    tests_failed: 0
+    tests_run: 34
+    tests_skipped: 0
+    tests_successful: 34
 - commit: c10defe2d3f44327495ffde0b1ab05470a8f1453
   license: MIT
   repo_features:
@@ -12,6 +40,76 @@
     tests_run: 2
     tests_skipped: 0
     tests_successful: 2
+- commit: 5a3bc87c5314f7771ea3968e9015a3d25536343e
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 16
+    number_of_java_files: 48
+    number_of_lines_of_code: 7941
+    number_of_modules: 1
+    number_of_unit_tests: 152
+  repo_name: addthis/stream-lib
+  test_count:
+    tests_failed: 0
+    tests_run: 152
+    tests_skipped: 12
+    tests_successful: 140
+- commit: a03105ee1f98f8c5878f4e3c4d03c8732c6384bd
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 211
+    number_of_java_files: 172
+    number_of_lines_of_code: 15370
+    number_of_modules: 11
+    number_of_unit_tests: 466
+  repo_name: spotify/apollo
+  test_count:
+    tests_failed: 0
+    tests_run: 462
+    tests_skipped: 0
+    tests_successful: 462
+- commit: e0d486d5cd7e84339d39db25c21aaa6804676e6c
+  license: BSD-2-Clause
+  repo_features:
+    number_of_external_dependencies: 14
+    number_of_java_files: 306
+    number_of_lines_of_code: 55054
+    number_of_modules: 1
+    number_of_unit_tests: 1188
+  repo_name: mangstadt/biweekly
+  test_count:
+    tests_failed: 0
+    tests_run: 1156
+    tests_skipped: 1
+    tests_successful: 1155
+- commit: d5d4a2c6b7ef578582f37a59d48ccb1ecc2217a8
+  license: MIT
+  repo_features:
+    number_of_external_dependencies: 16
+    number_of_java_files: 596
+    number_of_lines_of_code: 153627
+    number_of_modules: 1
+    number_of_unit_tests: 180
+  repo_name: OPCFoundation/UA-Java-Legacy
+  test_count:
+    tests_failed: 0
+    tests_run: 246
+    tests_skipped: 0
+    tests_successful: 246
+- commit: 3aab711e746c155b1a0359c7abb928ffeca2280e
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 0
+    number_of_java_files: 16
+    number_of_lines_of_code: 2490
+    number_of_modules: 1
+    number_of_unit_tests: 6
+  repo_name: twitter/joauth
+  test_count:
+    tests_failed: 0
+    tests_run: 308
+    tests_skipped: 0
+    tests_successful: 308
 - commit: 2d41d1f274d4054123250698a596c02ff0b63687
   license: Apache-2.0
   repo_features:
@@ -26,6 +124,34 @@
     tests_run: 76
     tests_skipped: 0
     tests_successful: 76
+- commit: fedca18ae1ca3e5167487f737e48877939ca8dc7
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 4
+    number_of_java_files: 0
+    number_of_lines_of_code: 0
+    number_of_modules: 1
+    number_of_unit_tests: 0
+  repo_name: vidstige/jadb
+  test_count:
+    tests_failed: 0
+    tests_run: 42
+    tests_skipped: 0
+    tests_successful: 42
+- commit: a415710efce1aa25ad3bade754b8b57ed398f36e
+  license: MIT
+  repo_features:
+    number_of_external_dependencies: 23
+    number_of_java_files: 248
+    number_of_lines_of_code: 20075
+    number_of_modules: 5
+    number_of_unit_tests: 397
+  repo_name: feroult/yawp
+  test_count:
+    tests_failed: 0
+    tests_run: 380
+    tests_skipped: 1
+    tests_successful: 379
 - commit: 495d8ffb7cd191d287a4ef409d19eef27292d750
   license: MIT
   repo_features:
@@ -68,6 +194,20 @@
     tests_run: 442
     tests_skipped: 0
     tests_successful: 442
+- commit: e9e7b8cb158013464caa792b3e2de9cf7179678a
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 143
+    number_of_java_files: 205
+    number_of_lines_of_code: 19610
+    number_of_modules: 17
+    number_of_unit_tests: 764
+  repo_name: spring-attic/spring-cloud-aws
+  test_count:
+    tests_failed: 0
+    tests_run: 751
+    tests_skipped: 0
+    tests_successful: 751
 - commit: eb6bc8cbc3400ed75c733d7c4dccd3e7135c9aac
   license: MIT
   repo_features:
@@ -82,6 +222,20 @@
     tests_run: 15
     tests_skipped: 0
     tests_successful: 15
+- commit: 692371a515f0a645a03af97f17575c542f3307b3
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 14
+    number_of_java_files: 16
+    number_of_lines_of_code: 1867
+    number_of_modules: 1
+    number_of_unit_tests: 42
+  repo_name: meixuesong/aggregate-persistence
+  test_count:
+    tests_failed: 0
+    tests_run: 42
+    tests_skipped: 0
+    tests_successful: 42
 - commit: 5eb0ef5a209145a627e14e8448f4f3fc103ccc35
   license: Apache-2.0
   repo_features:
@@ -96,6 +250,20 @@
     tests_run: 38
     tests_skipped: 0
     tests_successful: 38
+- commit: a081e15e107b77304ce2c68f7e7a17bba8243059
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 7
+    number_of_java_files: 76
+    number_of_lines_of_code: 11028
+    number_of_modules: 5
+    number_of_unit_tests: 384
+  repo_name: beckchr/staxon
+  test_count:
+    tests_failed: 0
+    tests_run: 382
+    tests_skipped: 2
+    tests_successful: 380
 - commit: 508ce33c91ef89c37773ef2cb3c7d126901c2036
   license: Apache-2.0
   repo_features:
@@ -124,6 +292,20 @@
     tests_run: 244
     tests_skipped: 0
     tests_successful: 244
+- commit: cdc1f259f727c12c0fc489a62769529e611af413
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 8
+    number_of_java_files: 54
+    number_of_lines_of_code: 1376
+    number_of_modules: 1
+    number_of_unit_tests: 25
+  repo_name: code4craft/hello-design-pattern
+  test_count:
+    tests_failed: 0
+    tests_run: 25
+    tests_skipped: 0
+    tests_successful: 25
 - commit: a11c45be88ada011f529cbd896a669e2f2b14656
   license: Apache-2.0
   repo_features:
@@ -152,6 +334,48 @@
     tests_run: 44
     tests_skipped: 0
     tests_successful: 44
+- commit: 924610151ea5408e077882f3cfc552e4f4a2c678
+  license: MIT
+  repo_features:
+    number_of_external_dependencies: 30
+    number_of_java_files: 29
+    number_of_lines_of_code: 2817
+    number_of_modules: 1
+    number_of_unit_tests: 174
+  repo_name: AmadeusITGroup/sonar-stash
+  test_count:
+    tests_failed: 0
+    tests_run: 168
+    tests_skipped: 0
+    tests_successful: 168
+- commit: 0df11c350e08048d0b347ba07ebe41d1bd9b0be6
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 132
+    number_of_java_files: 131
+    number_of_lines_of_code: 7361
+    number_of_modules: 10
+    number_of_unit_tests: 128
+  repo_name: apache/servicecomb-saga-actuator
+  test_count:
+    tests_failed: 0
+    tests_run: 138
+    tests_skipped: 1
+    tests_successful: 137
+- commit: 653943a3012fe104ff5d226351cebbe52785eba5
+  license: BSD-3-Clause
+  repo_features:
+    number_of_external_dependencies: 18
+    number_of_java_files: 75
+    number_of_lines_of_code: 8255
+    number_of_modules: 1
+    number_of_unit_tests: 264
+  repo_name: amihaiemil/docker-java-api
+  test_count:
+    tests_failed: 0
+    tests_run: 240
+    tests_skipped: 0
+    tests_successful: 240
 - commit: 88a1f81e995beb1b64bc68241a7ab9894dc7d2fe
   license: MIT
   repo_features:
@@ -166,6 +390,20 @@
     tests_run: 38
     tests_skipped: 0
     tests_successful: 38
+- commit: dd360aa3a1911b5d835579fc1c0f1db4cc8c3753
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 43
+    number_of_java_files: 382
+    number_of_lines_of_code: 46377
+    number_of_modules: 7
+    number_of_unit_tests: 712
+  repo_name: hypercube1024/firefly
+  test_count:
+    tests_failed: 0
+    tests_run: 1862
+    tests_skipped: 9
+    tests_successful: 1853
 - commit: d5bb0867acd3e897c3a55b23de59bdea46ba6bc7
   license: Apache-2.0
   repo_features:
@@ -236,6 +474,20 @@
     tests_run: 51
     tests_skipped: 0
     tests_successful: 51
+- commit: 193d1c4edffe634371e7663a36b313c23b9e1cd5
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 8
+    number_of_java_files: 113
+    number_of_lines_of_code: 13772
+    number_of_modules: 1
+    number_of_unit_tests: 198
+  repo_name: twitter-archive/cloudhopper-smpp
+  test_count:
+    tests_failed: 0
+    tests_run: 196
+    tests_skipped: 3
+    tests_successful: 193
 - commit: 2daf31fbeefb0d8c5187e483e503b6675431706d
   license: Apache-2.0
   repo_features:
@@ -320,6 +572,20 @@
     tests_run: 10
     tests_skipped: 0
     tests_successful: 10
+- commit: 21f2ec64ed8f8294dcd7705a55477a4f85ed9d0a
+  license: Apache-2.0
+  repo_features:
+    number_of_external_dependencies: 63
+    number_of_java_files: 113
+    number_of_lines_of_code: 12748
+    number_of_modules: 5
+    number_of_unit_tests: 190
+  repo_name: dschulten/hydra-java
+  test_count:
+    tests_failed: 0
+    tests_run: 184
+    tests_skipped: 1
+    tests_successful: 183
 - commit: 72a6bfe08337951e00eeb19860b24ef2fb7a327b
   license: Apache-2.0
   repo_features:
@@ -390,31 +656,17 @@
     tests_run: 11
     tests_skipped: 0
     tests_successful: 11
-- commit: a03105ee1f98f8c5878f4e3c4d03c8732c6384bd
+- commit: 468ba47b722eab199841eea0832a13ca08f9bb34
   license: Apache-2.0
   repo_features:
-    number_of_external_dependencies: 211
-    number_of_java_files: 172
-    number_of_lines_of_code: 15370
-    number_of_modules: 11
-    number_of_unit_tests: 466
-  repo_name: spotify/apollo
-  test_count:
-    tests_failed: 0
-    tests_run: 462
-    tests_skipped: 0
-    tests_successful: 462
-- commit: 0a14861c7be1a942a6cfe037ba012a59dfca2755
-  license: Apache-2.0
-  repo_features:
-    number_of_external_dependencies: 16
-    number_of_java_files: 98
-    number_of_lines_of_code: 3868
+    number_of_external_dependencies: 32
+    number_of_java_files: 0
+    number_of_lines_of_code: 0
     number_of_modules: 1
-    number_of_unit_tests: 34
-  repo_name: DerekYRC/mini-spring
+    number_of_unit_tests: 0
+  repo_name: amazon-archives/aws-apigateway-importer
   test_count:
     tests_failed: 0
-    tests_run: 34
-    tests_skipped: 0
-    tests_successful: 34
+    tests_run: 22
+    tests_skipped: 2
+    tests_successful: 20

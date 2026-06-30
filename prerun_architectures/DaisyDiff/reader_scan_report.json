@@ -1,0 +1,284 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.outerj.daisy",
+      "artifactId": "daisydiff",
+      "version": "1.2-NX5-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.outerj.daisy",
+      "project.artifactId": "daisydiff",
+      "project.version": "1.2-NX5-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.cyberneko",
+        "artifactId": "html",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.eclipse.core.runtime",
+        "artifactId": "eclipse-core-runtime",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "xerces",
+        "artifactId": "xercesImpl",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "org.cyberneko",
+      "artifactId": "html",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.eclipse.core.runtime",
+      "artifactId": "eclipse-core-runtime",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "xerces",
+      "artifactId": "xercesImpl",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 66,
+    "package_distribution": {
+      "src/main/java/org/eclipse/compare/internal": 3,
+      "src/main/java/org/eclipse/compare/rangedifferencer": 6,
+      "src/main/java/org/outerj/daisy/diff": 4,
+      "src/main/java/org/outerj/daisy/diff/helper": 3,
+      "src/main/java/org/outerj/daisy/diff/html": 3,
+      "src/main/java/org/outerj/daisy/diff/html/ancestor": 6,
+      "src/main/java/org/outerj/daisy/diff/html/ancestor/tagtostring": 4,
+      "src/main/java/org/outerj/daisy/diff/html/dom": 9,
+      "src/main/java/org/outerj/daisy/diff/html/dom/helper": 2,
+      "src/main/java/org/outerj/daisy/diff/html/modification": 3,
+      "src/main/java/org/outerj/daisy/diff/output": 4,
+      "src/main/java/org/outerj/daisy/diff/tag": 9,
+      "src/test/java/org/outerj/daisy/diff": 2,
+      "src/test/java/org/outerj/daisy/diff/html": 5,
+      "src/test/java/org/outerj/daisy/diff/html/dom": 1,
+      "src/test/java/org/outerj/daisy/diff/tag": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 66,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 66,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\internal\\CompareMessages.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\internal\\CompareMessages.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\internal\\LCS.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\internal\\LCS.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\internal\\LCSSettings.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\internal\\LCSSettings.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\DifferencesIterator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\DifferencesIterator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\IRangeComparator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\IRangeComparator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\OldDifferencer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\OldDifferencer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\RangeComparatorLCS.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\RangeComparatorLCS.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\RangeDifference.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\RangeDifference.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\RangeDifferencer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\eclipse\\compare\\rangedifferencer\\RangeDifferencer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\outerj\\daisy\\diff\\DaisyDiff.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\outerj\\daisy\\diff\\DaisyDiff.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\outerj\\daisy\\diff\\HtmlCleaner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\outerj\\daisy\\diff\\HtmlCleaner.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\outerj\\daisy\\diff\\Main.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\outerj\\daisy\\diff\\Main.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\outerj\\daisy\\diff\\XslFilter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\outerj\\daisy\\diff\\XslFilter.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\outerj\\daisy\\diff\\helper\\MergeCharacterEventsHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\outerj\\daisy\\diff\\helper\\MergeCharacterEventsHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\outerj\\daisy\\diff\\helper\\NekoHtmlParser.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff\\src\\main\\java\\org\\outerj\\daisy\\diff\\helper\\NekoHtmlParser.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 66,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.outerj.daisy",
+        "artifactId": "daisydiff",
+        "version": "1.2-NX5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.outerj.daisy",
+        "project.artifactId": "daisydiff",
+        "project.version": "1.2-NX5-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.cyberneko",
+          "artifactId": "html",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.eclipse.core.runtime",
+          "artifactId": "eclipse-core-runtime",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "xerces",
+          "artifactId": "xercesImpl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.cyberneko",
+        "artifactId": "html",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.eclipse.core.runtime",
+        "artifactId": "eclipse-core-runtime",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "xerces",
+        "artifactId": "xercesImpl",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "DaisyDiff",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\DaisyDiff"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `DaisyDiff` | Maven | 1.6 | 66 | Standard Java | None | **Yellow** |"
+}

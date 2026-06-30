@@ -25,14 +25,20 @@ class TranslatorAgent(BaseAgent):
 
     READ_FILE_KEEP_MESSAGES = 10
 
+    # Default iteration caps per mode (overridable via env vars)
+    _PLAN_MAX_ITER_DEFAULT = 21
+    _APPLY_MAX_ITER_DEFAULT = 50
+
     def __init__(self, model_name: str | None = None):
         super().__init__(model_name)
         self.project_path = ""
         self.current_file = ""
+        # MAX_ITERATIONS is set dynamically per-run in run() based on PLAN/APPLY mode.
+        # These class-level defaults are kept as a fallback only.
         try:
-            self.MAX_ITERATIONS = int(os.getenv("TEST_MAX_ITER", 50))
+            self.MAX_ITERATIONS = int(os.getenv("APPLY_MAX_ITER", self._APPLY_MAX_ITER_DEFAULT))
         except (ValueError, TypeError):
-            self.MAX_ITERATIONS = 50
+            self.MAX_ITERATIONS = self._APPLY_MAX_ITER_DEFAULT
         self.step_count = 0  # Track number of agent calls
         self._log_entries: list[str] = []
         self._last_edit_count = 0  # track edits since last compile
@@ -43,10 +49,77 @@ class TranslatorAgent(BaseAgent):
         self._test_fail_loop_count = 0
         self._last_test_failure_count = None
         self._last_failure_signature = None
+        self._cached_structure = ""
+        self._cached_root_pom = ""
+        self._edits_since_last_jdeprscan = 0
+        self._cached_jdeprscan_result = None
 
     def get_prompt_file(self) -> str | None:
         """Load the combined prompt for Translator Agent (Phase 1 + Phase 2)."""
         return "translator.md"
+
+    def get_context(self, instruction: str, payload: dict[str, Any]) -> str:
+        project_path = payload.get("project_path", "")
+        if not project_path:
+            return ""
+        
+        self.project_path = project_path
+        
+        # Cache project structure tree if not already cached
+        if not getattr(self, "_cached_structure", ""):
+            try:
+                self._cached_structure = self._tool_list_project_files(relative_path="")
+            except Exception as e:
+                self._cached_structure = f"Error listing project files: {e}"
+        
+        # Cache root pom.xml if not already cached
+        if not getattr(self, "_cached_root_pom", ""):
+            try:
+                root_pom_path = Path(project_path) / "pom.xml"
+                if root_pom_path.exists():
+                    self._cached_root_pom = root_pom_path.read_text(encoding="utf-8")
+                else:
+                    self._cached_root_pom = "No root pom.xml found."
+            except Exception as e:
+                self._cached_root_pom = f"Error reading root pom.xml: {e}"
+            
+        context = (
+            f"=== PROJECT STRUCTURE TREE ===\n"
+            f"{self._cached_structure}\n"
+            f"==============================\n"
+            f"\n=== ROOT POM.XML ===\n"
+            f"{self._cached_root_pom}\n"
+            f"====================\n"
+        )
+        
+        proposed_plan = payload.get("proposed_plan")
+        migration_notes = payload.get("migration_notes")
+        if proposed_plan:
+            if len(proposed_plan) > 4000:
+                proposed_plan = proposed_plan[:4000] + "\n... [TRUNCATED DUE TO CONTEXT LIMITS] ..."
+            context += f"\n=== PROPOSED MIGRATION PLAN ===\n{proposed_plan}\n===============================\n"
+        if migration_notes:
+            if len(migration_notes) > 4000:
+                migration_notes = migration_notes[:4000] + "\n... [TRUNCATED DUE TO CONTEXT LIMITS] ..."
+            context += f"\n=== MIGRATION NOTES ===\n{migration_notes}\n=======================\n"
+            
+        upgrade_report = payload.get("upgrade_report")
+        reader_review = payload.get("reader_review")
+        if upgrade_report:
+            # Prune verbose fields like conflict_edges and step3_reports to prevent context length errors
+            pruned_report = {}
+            if isinstance(upgrade_report, dict):
+                for k, v in upgrade_report.items():
+                    if k not in ("conflict_edges", "step3_reports"):
+                        pruned_report[k] = v
+            else:
+                pruned_report = upgrade_report
+            context += f"\n=== ARCHITECT UPGRADE REPORT ===\n{json.dumps(pruned_report, ensure_ascii=False, indent=2)}\n=================================\n"
+
+        if reader_review:
+            context += f"\n=== ARCHITECT READER REVIEW ===\n{json.dumps(reader_review, ensure_ascii=False, indent=2)}\n================================\n"
+
+        return context
 
     def run(self, instruction: str) -> str:
         payload = self._parse_instruction(instruction)
@@ -54,7 +127,10 @@ class TranslatorAgent(BaseAgent):
         self.baseline_coverage = payload.get("baseline_coverage", 0.0)
         self.baseline_total_tests = payload.get("baseline_total_tests", 0)
         self.baseline_passed_tests = payload.get("baseline_passed_tests", 0)
+        self.jdeprscan_report = payload.get("jdeprscan_report")
         self._log_entries = []
+        self._cached_jdeprscan_result = None
+        self._edits_since_last_jdeprscan = 0
         self._last_edit_count = 0
         self._classpath_cache = {}
         self._maven_plugin_cache = {}
@@ -62,16 +138,37 @@ class TranslatorAgent(BaseAgent):
         self._test_fail_loop_count = 0
         self._last_test_failure_count = None
         self._last_failure_signature = None
+        self._cached_structure = ""
+        self._cached_root_pom = ""
+
+        # ── Mode-aware iteration cap ──
+        # Detect PLAN vs APPLY before starting the ReAct loop so MAX_ITERATIONS
+        # is honoured from the very first iteration.
+        current_inst = payload.get("current_instruction", "")
+        is_apply_mode = current_inst.startswith("APPLY:")
+        if is_apply_mode:
+            try:
+                self.MAX_ITERATIONS = int(os.getenv("APPLY_MAX_ITER", self._APPLY_MAX_ITER_DEFAULT))
+            except (ValueError, TypeError):
+                self.MAX_ITERATIONS = self._APPLY_MAX_ITER_DEFAULT
+        else:
+            try:
+                self.MAX_ITERATIONS = int(os.getenv("PLAN_MAX_ITER", self._PLAN_MAX_ITER_DEFAULT))
+            except (ValueError, TypeError):
+                self.MAX_ITERATIONS = self._PLAN_MAX_ITER_DEFAULT
+        print(f"-> [TRANSLATOR] Mode={'APPLY' if is_apply_mode else 'PLAN'}, MAX_ITERATIONS={self.MAX_ITERATIONS}")
 
         # Run ReAct loop
         result = super().run(instruction)
-
-        # Post-execution Phase: Generate evaluation report
-        try:
-            self.generate_evaluation_report()
-        except Exception as e:
-            print(f"Warning: Failed to generate evaluation report: {e}")
-
+        
+        # Post-execution Phase: Generate evaluation report (only in APPLY mode)
+        current_inst = payload.get("current_instruction", "")
+        if current_inst.startswith("APPLY:"):
+            try:
+                self.generate_evaluation_report()
+            except Exception as e:
+                print(f"Warning: Failed to generate evaluation report: {e}")
+        
         return result
 
     def _invoke_with_retry(
@@ -85,30 +182,159 @@ class TranslatorAgent(BaseAgent):
         # Increment step count for every LLM call
         self.step_count += 1
 
-        # Keep messages history clean from large read_file contents
-        from langchain_core.messages import ToolMessage
-        keep = self.READ_FILE_KEEP_MESSAGES
-        for i, msg in enumerate(messages):
+        from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
+
+        # Two-tier message history:
+        #   • Last FULL_HISTORY_WINDOW react messages → passed verbatim (full ToolMessage content).
+        #   • Older messages → ToolMessage responses collapsed to a 1-line summary so the LLM
+        #     retains awareness of what it already called and roughly what came back, without
+        #     re-paying the full token cost for stale results.
+        #   • AIMessages in the older tier are kept as-is (they already contain short explanations).
+        FULL_HISTORY_WINDOW = 40
+        COLLAPSED_PREVIEW_LEN = 200
+
+        setup_messages = []
+        react_messages = []
+        for msg in messages:
+            if isinstance(msg, SystemMessage) or (isinstance(msg, HumanMessage) and not react_messages):
+                setup_messages.append(msg)
+            else:
+                react_messages.append(msg)
+
+        if len(react_messages) > FULL_HISTORY_WINDOW:
+            older = react_messages[:-FULL_HISTORY_WINDOW]
+            recent = react_messages[-FULL_HISTORY_WINDOW:]
+
+            # Build tool_call_id → (name, args_preview) from AIMessages in the older tier
+            tool_call_meta: dict[str, tuple[str, str]] = {}
+            for msg in older:
+                for tc in getattr(msg, "tool_calls", []):
+                    tc_id = tc.get("id", "")
+                    if tc_id:
+                        tc_name = tc.get("name", "tool")
+                        tc_args = json.dumps(tc.get("args", {}), default=str)[:120]
+                        tool_call_meta[tc_id] = (tc_name, tc_args)
+
+            # Collapse ToolMessages in the older tier
+            collapsed_older: list = []
+            for msg in older:
+                if isinstance(msg, ToolMessage):
+                    tc_id = getattr(msg, "tool_call_id", "")
+                    tc_name, tc_args = tool_call_meta.get(tc_id, ("tool", ""))
+                    content_str = str(msg.content)
+                    preview = content_str[:COLLAPSED_PREVIEW_LEN].replace("\n", " ")
+                    hidden = len(content_str) - COLLAPSED_PREVIEW_LEN
+                    ellipsis = f" ... [{hidden} chars hidden]" if hidden > 0 else ""
+                    collapsed_content = (
+                        f"[HISTORY] Called {tc_name}({tc_args}). "
+                        f"Result: {preview}{ellipsis}"
+                    )
+                    collapsed_older.append(ToolMessage(
+                        content=collapsed_content,
+                        tool_call_id=tc_id or tc_name,
+                    ))
+                else:
+                    # AIMessages are kept intact — they contain 1-2 sentence explanations
+                    collapsed_older.append(msg)
+
+            react_messages = collapsed_older + recent
+
+        # Ensure history doesn't start with a ToolMessage (would confuse the LLM)
+        while react_messages and isinstance(react_messages[0], ToolMessage):
+            react_messages.pop(0)
+
+        pruned_messages = setup_messages + react_messages
+
+        # Within the recent window, truncate any single ToolMessage that is
+        # excessively large (> 50 000 chars) and not in the last 2 positions.
+        keep = 2
+        for i, msg in enumerate(pruned_messages):
             if not isinstance(msg, ToolMessage):
                 continue
-            messages_after = len(messages) - i - 1
+            messages_after = len(pruned_messages) - i - 1
             if messages_after <= keep:
                 continue
             if i == 0:
                 continue
-            prev_msg = messages[i - 1]
+            prev_msg = pruned_messages[i - 1]
             tool_calls = getattr(prev_msg, "tool_calls", [])
-            is_read_file = False
             for tc in tool_calls:
-                if tc.get("id") == msg.tool_call_id and tc.get("name") == "read_file":
-                    is_read_file = True
+                if tc.get("id") == msg.tool_call_id:
+                    tname = tc.get("name", "")
+                    limit = 50000
+                    content_str = str(msg.content)
+                    if len(content_str) > limit:
+                        pruned_messages[i] = ToolMessage(
+                            content=f"[Large {tname} output truncated: {content_str[:limit//2]}... [truncated {len(content_str)-limit//2} chars]]",
+                            tool_call_id=msg.tool_call_id,
+                        )
                     break
-            if is_read_file:
-                messages[i] = ToolMessage(
-                    content="[File content was shown earlier. Re-call read_file if you need to see it again.]",
-                    tool_call_id=msg.tool_call_id,
-                )
-        return super()._invoke_with_retry(llm_with_tools, messages, tool_map, payload, react_tool_results)
+
+
+
+        response = super()._invoke_with_retry(llm_with_tools, pruned_messages, tool_map, payload, react_tool_results)
+        
+        # Refactored: Call dedicated thoughts analyzer and interactive handler
+        return self._analyze_and_handle_llm_thoughts(response, messages, llm_with_tools, tool_map, payload, react_tool_results)
+
+    def _analyze_and_handle_llm_thoughts(
+        self,
+        response: Any,
+        messages: list,
+        llm_with_tools: Any,
+        tool_map: dict[str, ToolDefinition],
+        payload: dict[str, Any],
+        react_tool_results: dict[str, Any],
+    ) -> Any | None:
+        """Inspects LLM response, displays thoughts on specific triggers, and handles user feedback in interactive mode."""
+        if not (response and hasattr(response, "content") and isinstance(response.content, str) and response.content.strip()):
+            return response
+
+        content = response.content
+        content_lower = content.lower()
+
+        # Identify triggers for confusion, plan changes, missing information, or interesting findings
+        confused = any(w in content_lower for w in ["confused", "unsure", "not clear", "bối rối", "không rõ", "phân vân", "uncertain", "ambiguous"])
+        plan_change = any(w in content_lower for w in ["change plan", "update plan", "alternative plan", "thay đổi kế hoạch", "hướng đi khác", "điều chỉnh kế hoạch"])
+        not_found = any(w in content_lower for w in ["not found", "no results", "could not find", "không tìm thấy", "không có kết quả", "chịu chết"])
+        cool_stuff = any(w in content_lower for w in ["cool", "interesting", "eureka", "thú vị", "phát hiện", "hay ho", "chú ý"])
+
+        if confused or plan_change or not_found or cool_stuff:
+            # Map trigger to an appropriate styled header tag
+            prefix = "🤔 LLM THOUGHTS"
+            if confused:
+                prefix = "❓ LLM IS CONFUSED"
+            elif plan_change:
+                prefix = "🔄 LLM CHANGING PLAN"
+            elif not_found:
+                prefix = "🔍 LLM SEARCH NOT FOUND"
+            elif cool_stuff:
+                prefix = "💡 LLM INTERESTING FINDING"
+
+            # Print thoughts in a styled terminal box
+            print(f"\n\033[33m\033[1m=== {prefix} ===\033[0m")
+            print(content.strip())
+            print("\033[33m\033[1m==================================\033[0m\n")
+
+            # Check if interactive human-in-the-loop (HITL) mode is active (no --approve flag)
+            import sys
+            is_auto_approve = "--approve" in " ".join(sys.argv)
+
+            if not is_auto_approve:
+                try:
+                    print("\033[35m\033[1m[HUMAN INTERACTION REQUIRED]\033[0m")
+                    print("Enter your guidance / feedback (or press Enter to let LLM proceed automatically):")
+                    user_feedback = input("\033[35mMYGRATE>\033[0m ").strip()
+                    if user_feedback:
+                        # Append human guidance to conversation memory and re-invoke LLM
+                        from langchain_core.messages import HumanMessage
+                        messages.append(HumanMessage(content=f"Human feedback: {user_feedback}"))
+                        print("-> [TRANSLATOR] Re-invoking LLM with user feedback...")
+                        return self._invoke_with_retry(llm_with_tools, messages, tool_map, payload, react_tool_results)
+                except (KeyboardInterrupt, EOFError):
+                    print("\nAborted feedback.")
+
+        return response
 
     def _log(self, entry: str):
         self._log_entries.append(entry)
@@ -287,7 +513,7 @@ class TranslatorAgent(BaseAgent):
         baseline_passed = getattr(self, "baseline_passed_tests", 0)
 
         gate1_ok = (test_res.status == 0)
-        gate2_ok = gate1_ok and (passed_tests >= baseline_passed)
+        gate2_ok = gate1_ok and (passed_tests == total_tests)
         if baseline_total > 0 and total_tests < baseline_total:
             print(f"-> [EVAL] Gate 2 Failed: Final test count {total_tests} is less than baseline {baseline_total}. Test skipping detected!")
             gate2_ok = False
@@ -306,6 +532,7 @@ class TranslatorAgent(BaseAgent):
         overall_success = gate1_ok and gate2_ok and gate3_ok
 
         eval_data = {
+            "is_skip":             False,
             # ── Gate results ──
             "compilation_success": gate1_ok,
             "gate2_tests_pass":    gate2_ok,
@@ -326,7 +553,10 @@ class TranslatorAgent(BaseAgent):
             "step_count": self.step_count,
         }
 
-        eval_file = Path.cwd() / "test" / "artifacts" / "eval.json"
+        # Save to centralized eval_{model}.json at the MYGRATE project root
+        model_slug = os.getenv("OLLAMA_MODEL", os.getenv("GROQ_MODEL", "default")).replace(":", "_").replace("/", "_")
+        mygrate_root = Path(__file__).resolve().parent.parent.parent
+        eval_file = mygrate_root / f"eval_{model_slug}.json"
         eval_file.parent.mkdir(parents=True, exist_ok=True)
         existing_data = {}
         if eval_file.exists():
@@ -342,29 +572,16 @@ class TranslatorAgent(BaseAgent):
             json.dump(existing_data, f, ensure_ascii=False, indent=2)
 
         print(f"-> [EVAL] Saved evaluation report for {codebase_name} to {eval_file}")
-        print(f"-> [EVAL] overall_success={overall_success} | Gate1={gate1_ok} Gate2={gate2_ok} Gate3={gate3_ok} (drop={coverage_drop:.1f}pp)")
+        print(f"-> [EVAL] overall_success={overall_success}")
+        print(f"-> [EVAL] Gate 1 (Compilation): {'PASS' if gate1_ok else 'FAIL'}")
+        print(f"-> [EVAL] Gate 2 (Test Suites): {'PASS' if gate2_ok else 'FAIL'} | Passed: {passed_tests}/{total_tests} (Baseline: {baseline_passed}/{baseline_total})")
+        print(f"-> [EVAL] Gate 3 (Coverage): {'PASS' if gate3_ok else 'FAIL'} | Coverage: {line_coverage:.2f}% (Baseline: {baseline_cov:.2f}%, Drop: {coverage_drop:.2f}pp)")
 
     # ── Tool Definitions ──
 
     def get_tools(self) -> list[ToolDefinition]:
         return [
             # Discovery / Scanning tools
-            ToolDefinition(
-                name="run_jdeprscan",
-                description=(
-                    "Run the jdeprscan pipeline (B0-B3) to discover deprecated API usage "
-                    "in both project code and dependencies."
-                ),
-                func=self._tool_run_jdeprscan,
-                parameters={
-                    "type": "object",
-                    "properties": {
-                        "project_path": {"type": "string", "description": "Path to the Java project root"},
-                        "target_java_version": {"type": "string", "description": "Target Java version (e.g. '17')"},
-                    },
-                    "required": ["project_path"],
-                },
-            ),
             ToolDefinition(
                 name="build_change_plan",
                 description="Build a translation report from change candidates.",
@@ -438,14 +655,20 @@ class TranslatorAgent(BaseAgent):
             # Source Editing / Operations tools
             ToolDefinition(
                 name="read_file",
-                description="Read the full content of a file (with line numbers) relative to project root.",
+                description="Read the content of one or more files relative to project root. If the file is XML and no line range is specified, it returns a token-saving structured summary with line coordinates. You can read a specific line range by passing 'start_line' and 'end_line' parameters.",
                 func=self._tool_read_file,
                 parameters={
                     "type": "object",
                     "properties": {
-                        "file_path": {"type": "string"}
-                    },
-                    "required": ["file_path"]
+                        "file_path": {"type": "string", "description": "Single file path to read."},
+                        "file_paths": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "List of up to 3 file paths to read simultaneously."
+                        },
+                        "start_line": {"type": "integer", "description": "Optional start line number (1-indexed) to read a specific range."},
+                        "end_line": {"type": "integer", "description": "Optional end line number (1-indexed) to read a specific range."}
+                    }
                 }
             ),
             ToolDefinition(
@@ -641,23 +864,7 @@ class TranslatorAgent(BaseAgent):
             print(f"-> [TRANSLATOR] Web search error: {e}")
             return {"status": "error", "message": f"Web search request failed: {str(e)}"}
 
-    def _tool_run_jdeprscan(
-        self,
-        project_path: str = "",
-        target_java_version: str = "17",
-        **kwargs,
-    ) -> dict[str, Any]:
-        target_java = str(target_java_version).replace("JDK ", "").replace("jdk ", "") or "17"
-        try:
-            print(f"-> [TRANSLATOR] Running jdeprscan pipeline for JDK {target_java}...")
-            result = run_jdeprscan_pipeline(
-                project_path=project_path,
-                target_release=target_java,
-                logger=lambda msg: print(f"   {msg}"),
-            )
-            return {"status": result.get("status", "FAIL"), "summary": result.get("summary", {})}
-        except Exception as e:
-            return {"status": "FAIL", "error": str(e)}
+
 
     def _tool_build_change_plan(
         self,
@@ -722,18 +929,144 @@ class TranslatorAgent(BaseAgent):
         except Exception as e:
             return {"status": "error", "error": str(e)}
 
-    def _tool_read_file(self, file_path: str, **kwargs) -> str:
-        try:
-            path = self._resolve_path(file_path)
-            if not path.exists():
-                return f"Error: File {file_path} does not exist."
-            self.current_file = str(path)
-            content = path.read_text(encoding="utf-8")
-            lines = content.splitlines()
-            numbered = [f"{i+1:4d} | {line}" for i, line in enumerate(lines)]
-            return "\n".join(numbered)
-        except Exception as e:
-            return f"Error reading file {file_path}: {e}"
+    def _tool_read_file(self, file_path: str = None, file_paths: list[str] = None, start_line: int = None, end_line: int = None, **kwargs) -> str:
+        if not file_path and not file_paths:
+            return "Error: Must provide either 'file_path' or 'file_paths'."
+        
+        s_line = start_line or kwargs.get("start_line")
+        e_line = end_line or kwargs.get("end_line")
+        
+        paths_to_read = []
+        if file_paths:
+            # Limit to at most 3 files
+            paths_to_read = file_paths[:3]
+        elif file_path:
+            paths_to_read = [file_path]
+            
+        results = []
+        for fp in paths_to_read:
+            try:
+                path = self._resolve_path(fp)
+                if not path.exists():
+                    results.append(f"=== FILE: {fp} ===\nError: File does not exist.")
+                    continue
+                self.current_file = str(path)
+                content = path.read_text(encoding="utf-8")
+                
+                is_xml = path.suffix.lower() == ".xml" or path.name.lower() == "pom.xml"
+                if is_xml and s_line is None and e_line is None:
+                    results.append(f"=== FILE: {fp} ===\n" + self._parse_pom_summary_to_yaml(content))
+                    continue
+
+                lines = content.splitlines()
+                start_idx = max(0, int(s_line) - 1) if s_line is not None else 0
+                end_idx = min(len(lines), int(e_line)) if e_line is not None else len(lines)
+                
+                sliced_lines = lines[start_idx:end_idx]
+                numbered = [f"{start_idx + i + 1:4d} | {line}" for i, line in enumerate(sliced_lines)]
+                results.append(f"=== FILE: {fp} (lines {start_idx+1}-{end_idx}) ===\n" + "\n".join(numbered))
+            except Exception as e:
+                results.append(f"=== FILE: {fp} ===\nError reading file: {e}")
+                
+        return "\n\n".join(results)
+
+    def _parse_pom_summary_to_yaml(self, content: str) -> str:
+        lines = content.splitlines()
+        dependencies = []
+        plugins = []
+        properties = []
+        
+        in_dependencies = False
+        in_plugins = False
+        in_properties = False
+        
+        current_dep = None
+        current_plugin = None
+        
+        import re
+        for idx, line in enumerate(lines, start=1):
+            line_strip = line.strip()
+            
+            if "<properties>" in line_strip:
+                in_properties = True
+                continue
+            elif "</properties>" in line_strip:
+                in_properties = False
+                continue
+                
+            if in_properties:
+                m = re.search(r"<([^>]+)>([^<]+)</\1>", line_strip)
+                if m:
+                    properties.append(f"  - {m.group(1)}: {m.group(2)} (line {idx})")
+                continue
+                
+            if "<dependency>" in line_strip:
+                current_dep = {"start": idx, "lines": []}
+                continue
+            elif "</dependency>" in line_strip and current_dep:
+                current_dep["end"] = idx
+                dep_text = "\n".join(current_dep["lines"])
+                gid = re.search(r"<groupId>([^<]+)</groupId>", dep_text)
+                aid = re.search(r"<artifactId>([^<]+)</artifactId>", dep_text)
+                ver = re.search(r"<version>([^<]+)</version>", dep_text)
+                scope = re.search(r"<scope>([^<]+)</scope>", dep_text)
+                
+                gid_str = gid.group(1).strip() if gid else "?"
+                aid_str = aid.group(1).strip() if aid else "?"
+                ver_str = ver.group(1).strip() if ver else "?"
+                scope_str = scope.group(1).strip() if scope else "compile"
+                
+                dependencies.append(f"  - coordinate: {gid_str}:{aid_str}:{ver_str}:{scope_str}\n    lines: {current_dep['start']}-{current_dep['end']}")
+                current_dep = None
+                continue
+                
+            if current_dep:
+                current_dep["lines"].append(line_strip)
+                
+            if "<plugin>" in line_strip:
+                current_plugin = {"start": idx, "lines": []}
+                continue
+            elif "</plugin>" in line_strip and current_plugin:
+                current_plugin["end"] = idx
+                plg_text = "\n".join(current_plugin["lines"])
+                gid = re.search(r"<groupId>([^<]+)</groupId>", plg_text)
+                aid = re.search(r"<artifactId>([^<]+)</artifactId>", plg_text)
+                ver = re.search(r"<version>([^<]+)</version>", plg_text)
+                
+                gid_str = gid.group(1).strip() if gid else "org.apache.maven.plugins"
+                aid_str = aid.group(1).strip() if aid else "?"
+                ver_str = ver.group(1).strip() if ver else "?"
+                
+                plugins.append(f"  - plugin: {gid_str}:{aid_str}:{ver_str}\n    lines: {current_plugin['start']}-{current_plugin['end']}")
+                current_plugin = None
+                continue
+                
+            if current_plugin:
+                current_plugin["lines"].append(line_strip)
+
+        summary = []
+        summary.append("=== STRUCTURED XML/POM SUMMARY (Token-Saving Format) ===")
+        summary.append("properties:")
+        if properties:
+            summary.extend(properties)
+        else:
+            summary.append("  (none)")
+            
+        summary.append("dependencies:")
+        if dependencies:
+            summary.extend(dependencies)
+        else:
+            summary.append("  (none)")
+            
+        summary.append("plugins:")
+        if plugins:
+            summary.extend(plugins)
+        else:
+            summary.append("  (none)")
+            
+        summary.append("=========================================================")
+        summary.append("NOTE: This XML file was summarized to save tokens. To view raw content of a specific line range, call read_file with 'start_line' and 'end_line' parameters.")
+        return "\n".join(summary)
 
     def _tool_check_class(self, class_names: list[str] = None, class_name: str = None, **kwargs) -> dict[str, Any]:
         try:
@@ -858,7 +1191,10 @@ class TranslatorAgent(BaseAgent):
                 return hacking_err
 
             path.write_text(new_content, encoding="utf-8")
+            if path.name == "pom.xml":
+                self._cached_root_pom = ""
             self._last_edit_count += len(validated)
+            self._edits_since_last_jdeprscan += len(validated)
             numbered = [f"{i+1:4d} | {line}" for i, line in enumerate(lines)]
             return f"Applied {len(validated)} edit(s) to {file_path}.\nNew content:\n" + "\n".join(numbered)
         except Exception as e:
@@ -871,7 +1207,7 @@ class TranslatorAgent(BaseAgent):
             
             # Check git status for modified tests
             import subprocess
-            git_status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=str(project_path))
+            git_status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, errors="replace", cwd=str(project_path))
             if "src/test/" in git_status.stdout.replace("\\", "/"):
                 run_tests = True
 
@@ -902,39 +1238,13 @@ class TranslatorAgent(BaseAgent):
 
             has_unit_test_failure = False
             if run_tests:
-                has_unit_test_failure = current_failures > baseline_failed
+                has_unit_test_failure = current_failures > 0
 
             has_skipped_tests_failure = False
             if run_tests and baseline_total > 0 and compile_res.total_tests < baseline_total:
                 has_skipped_tests_failure = True
 
-            compilation_success = (status == 0) and not has_unit_test_failure and not has_skipped_tests_failure
-
-            if compilation_success:
-                self._test_fail_loop_count = 0
-                self._last_test_failure_count = None
-                self._last_failure_signature = None
-                if not run_tests and not self._main_source_locked:
-                    self._main_source_locked = True
-                
-                # Gate 3 Check
-                if run_tests and baseline_coverage > 0:
-                    cov_res = runner.coverage(project_path, clean=False)
-                    current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
-                    drop = baseline_coverage - current_coverage
-                    if drop > 5.0:
-                        return {
-                            "exit_code": 1,
-                            "success": False,
-                            "errors": f"Gate 3 Failed: Coverage dropped by {drop:.1f}% (from {baseline_coverage:.1f}% to {current_coverage:.1f}%). Threshold is <= 5.0%. You must add unit tests or restore original logic."
-                        }
-
-                return {"exit_code": 0, "success": True, "errors": "Project compiles successfully!"}
-
-            # Force status to 1 to indicate failure
-            status = 1
-
-            # Extract errors
+            # Extract errors early
             compiler_errors = []
             test_failures = []
             if has_skipped_tests_failure:
@@ -964,7 +1274,42 @@ class TranslatorAgent(BaseAgent):
                     elif line.startswith("[ERROR]") and "Run " not in line:
                         test_failures.append(line)
 
-            if self._main_source_locked and any("src/main/java" in err.replace("\\", "/") for err in compiler_errors):
+            compilation_success = (status == 0) and not has_unit_test_failure and not has_skipped_tests_failure
+
+            if compilation_success:
+                self._test_fail_loop_count = 0
+                self._last_test_failure_count = None
+                self._last_failure_signature = None
+                if not run_tests and not self._main_source_locked:
+                    self._main_source_locked = True
+                
+                # Gate 3 Check
+                if run_tests and baseline_coverage > 0:
+                    cov_res = runner.coverage(project_path, clean=False)
+                    current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                    drop = baseline_coverage - current_coverage
+                    if drop > 5.0:
+                        return {
+                            "exit_code": 1,
+                            "success": False,
+                            "errors": f"Gate 3 Failed: Coverage dropped by {drop:.1f}% (from {baseline_coverage:.1f}% to {current_coverage:.1f}%). Threshold is <= 5.0%. You must add unit tests or restore original logic."
+                        }
+
+                res_dict = {"exit_code": 0, "success": True, "errors": "Project compiles successfully!"}
+                if run_tests and test_failures:
+                    # Provide details of failing tests to the agent
+                    res_dict["info"] = (
+                        f"Warning: There are {current_failures} test failures matching/below the baseline count. "
+                        f"If these failures are due to JDK 17 incompatibilities (such as CGLIB reflection InaccessibleObjectException), "
+                        f"you MUST fix them by configuring 'maven-surefire-plugin' in pom.xml with <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>.\n"
+                        f"Failing tests details:\n" + "\n".join(test_failures[:20])
+                    )
+                return res_dict
+
+            # Force status to 1 to indicate failure
+            status = 1
+
+            if self._main_source_locked and (any("src/main/java" in err.replace("\\", "/") for err in compiler_errors) or test_failures):
                 self._main_source_locked = False  # Dynamic Unlock
 
             # ── Deadlock / stall detection ─────────────────────────────────────
@@ -1060,7 +1405,11 @@ class TranslatorAgent(BaseAgent):
 
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding="utf-8")
+            if path.name == "pom.xml":
+                self._cached_root_pom = ""
+            self._cached_structure = ""
             self._last_edit_count += 1
+            self._edits_since_last_jdeprscan += 1
             lines = content.splitlines()
             numbered = [f"{i+1:4d} | {line}" for i, line in enumerate(lines)]
             return f"Overwrote {file_path} content successfully.\nNew content:\n" + "\n".join(numbered)
@@ -1069,9 +1418,14 @@ class TranslatorAgent(BaseAgent):
 
     def _tool_list_project_files(self, relative_path: str = "", **kwargs) -> str:
         try:
-            root = Path(self.project_path)
+            base_path = Path(self.project_path).resolve()
+            root = base_path
             if relative_path:
-                root = root / relative_path
+                root = (base_path / relative_path).resolve()
+                try:
+                    root.relative_to(base_path)
+                except ValueError:
+                    return f"Error: Path traversal detected! Path '{relative_path}' is outside the workspace."
             if not root.exists():
                 return f"Path {relative_path} does not exist."
 
@@ -1138,7 +1492,6 @@ class TranslatorAgent(BaseAgent):
         **kwargs,
     ) -> dict[str, Any]:
         try:
-            # Bug fix: fall back to self.project_path when caller omits the arg
             p_path = Path(project_path or self.project_path)
             root_pom = p_path / "pom.xml"
             if not root_pom.exists():
@@ -1148,6 +1501,9 @@ class TranslatorAgent(BaseAgent):
 
             if action == "add_dependency":
                 editor.add_dependency(group_id, artifact_id, version, scope=scope)
+                self._cached_root_pom = ""
+                self._last_edit_count += 1
+                self._edits_since_last_jdeprscan += 1
                 return {"status": "ok", "message": f"Added dependency {group_id}:{artifact_id}:{version}"}
             elif action == "update_dependency":
                 if editor.dependency_exists(group_id, artifact_id):
@@ -1158,9 +1514,15 @@ class TranslatorAgent(BaseAgent):
                             scope_elem = editor.ensure_element(dep_elem, "m:scope")
                             scope_elem.text = scope
                     editor.update_dependency(group_id, artifact_id, update_func)
+                    self._cached_root_pom = ""
+                    self._last_edit_count += 1
+                    self._edits_since_last_jdeprscan += 1
                     return {"status": "ok", "message": f"Updated dependency {group_id}:{artifact_id} to version {version}"}
                 else:
                     editor.add_dependency(group_id, artifact_id, version, scope=scope)
+                    self._cached_root_pom = ""
+                    self._last_edit_count += 1
+                    self._edits_since_last_jdeprscan += 1
                     return {"status": "ok", "message": f"Added dependency {group_id}:{artifact_id}:{version}"}
             elif action == "ensure_property":
                 # Anti-reward-hacking: block test-skip properties being set to true
@@ -1169,6 +1531,9 @@ class TranslatorAgent(BaseAgent):
                     if str(version or "").strip().lower() == "true":
                         return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip property to 'true' in pom.xml is forbidden."}
                 editor.ensure_property(property_name, version)
+                self._cached_root_pom = ""
+                self._last_edit_count += 1
+                self._edits_since_last_jdeprscan += 1
                 return {"status": "ok", "message": f"Property {property_name} set to {version}"}
             elif action == "update_element_text":
                 # Anti-reward-hacking: block skipTests/maven.test.skip element updates to true
@@ -1177,6 +1542,9 @@ class TranslatorAgent(BaseAgent):
                     if str(version or "").strip().lower() == "true":
                         return {"status": "error", "error": "⚠️ REWARD HACKING BLOCKED: Setting test-skip/exclude element to 'true' in pom.xml is forbidden."}
                 editor.update_element_text(xpath, version)
+                self._cached_root_pom = ""
+                self._last_edit_count += 1
+                self._edits_since_last_jdeprscan += 1
                 return {"status": "ok", "message": f"Updated elements at xpath '{xpath}' to '{version}'"}
             else:
                 return {"status": "error", "error": f"Unknown action: {action}"}
@@ -1198,7 +1566,7 @@ class TranslatorAgent(BaseAgent):
             if not resolved_path:
                 return {"status": "error", "error": "project_path is not set. Cannot run Maven command."}
             p_path = Path(resolved_path)
-            runner = MavenRunner(target_java_version)
+            runner = MavenRunner(target_java_version="17")
             if goal == "compile":
                 res = runner.compile(p_path, clean=clean)
             elif goal == "test":
@@ -1220,10 +1588,17 @@ class TranslatorAgent(BaseAgent):
     # ── Utility Helpers ──
 
     def _resolve_path(self, file_path: str) -> Path:
+        base_path = Path(self.project_path).resolve()
         path = Path(file_path)
         if not path.is_absolute():
-            path = Path(self.project_path) / path
-        return path
+            path = base_path / path
+        resolved = path.resolve()
+        try:
+            # Verify that the resolved path is inside base_path (workspace boundary)
+            resolved.relative_to(base_path)
+        except ValueError:
+            raise ValueError(f"Path traversal detected! Path '{file_path}' resolves to '{resolved}' which is outside the workspace.")
+        return resolved
 
     def _check_main_source_lock(self, file_path: str) -> str | None:
         normalized = str(Path(file_path)).replace("\\", "/")

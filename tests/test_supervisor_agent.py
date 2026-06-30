@@ -22,8 +22,8 @@ def test_supervisor_agent_deterministic_routing_no_project_type() -> None:
     agent.llm = None
     update = agent.process(state)
     
-    # Should route to reader to scan project
-    assert update["next_node"] == "reader"
+    # Should route to architect to scan project
+    assert update["next_node"] == "architect"
     assert "index" in update["current_instruction"].lower()
 
 
@@ -47,7 +47,7 @@ def test_supervisor_agent_deterministic_routing_indexed_no_solutions() -> None:
     
     # Should route to architect to solve constraints
     assert update["next_node"] == "architect"
-    assert "Solve" in update["current_instruction"]
+    assert "solve" in update["current_instruction"].lower()
 
 
 def test_supervisor_agent_deterministic_routing_solutions_found() -> None:

@@ -210,6 +210,15 @@ class SupervisorAgent(BaseAgent):
         # When translator_completed is True, skip LLM reasoning entirely and
         # route to 'end' so main.py pauses and waits for user input.
         if state.get("translator_completed"):
+            # If we are in auto-approve mode and have only run PLAN, proceed to APPLY
+            if state.get("auto_mode") and (state.get("translator_run_count") or 0) == 0:
+                print("--> [SUPERVISOR] Translator completed PLAN phase in auto-mode. Routing to APPLY instead of END.")
+                return {
+                    "next_node": "translator",
+                    "current_instruction": "APPLY: Apply the migration changes to the codebase. Edit pom.xml dependencies, update source files to replace deprecated APIs, and verify compilation with run_maven_command.",
+                    "translator_completed": False,
+                }
+
             print("--> [SUPERVISOR] Translator session completed. Routing to END and awaiting user input.")
             from langchain_core.messages import AIMessage as _AI
             return {
@@ -248,6 +257,8 @@ class SupervisorAgent(BaseAgent):
                 or "markdown_report" in str(state.get("last_subagent_result", ""))
             ),
             "has_translation": state.get("jdeprscan_report") is not None or "change_candidates" in str(state.get("last_subagent_result", "")),
+            "auto_mode": state.get("auto_mode", False),
+            "translator_run_count": state.get("translator_run_count", 0),
         }
 
         # Run agent
@@ -290,9 +301,29 @@ class SupervisorAgent(BaseAgent):
         deps_count = payload.get("dependencies_count", 0)
         has_solutions = payload.get("has_solutions", False)
         has_translation = payload.get("has_translation", False)
+        translator_run_count = payload.get("translator_run_count", 0)
+
+        # Check if user explicitly approved or if in auto_mode
+        approved = False
+        if payload.get("auto_mode"):
+            approved = True
+        else:
+            if self._messages_from_state:
+                from langchain_core.messages import HumanMessage
+                for msg in reversed(self._messages_from_state):
+                    if isinstance(msg, HumanMessage):
+                        content_lower = str(msg.content).lower().strip()
+                        if any(w in content_lower for w in ["yes", "ok", "approved", "apply", "next", "do it", "proceed", "go ahead", "continue", "run it", "start", "execute"]):
+                            approved = True
+                        break
 
         # Simple sequential fallback
-        if project_type == "unknown" or deps_count == 0 or not has_solutions:
+        has_upgrade_report = (
+            payload.get("upgrade_report") is not None 
+            or "upgrade_report" in str(payload.get("last_subagent_result", ""))
+            or payload.get("has_solutions")  # if has_solutions is True, upgrade_report must exist
+        )
+        if project_type == "unknown" or deps_count == 0 or (not has_solutions and not has_upgrade_report):
             next_node = "architect"
             current_instruction = "Perform codebase index and solve dependency version compatibility."
             response_to_user = "Running project scan and dependency compatibility analysis..."
@@ -300,10 +331,17 @@ class SupervisorAgent(BaseAgent):
             next_node = "translator"
             current_instruction = "Translate migration scope."
             response_to_user = "Proceeding with migration and code changes..."
+        elif approved and translator_run_count == 0:
+            next_node = "translator"
+            current_instruction = "APPLY: Apply the migration changes to the codebase. Edit pom.xml dependencies, update source files to replace deprecated APIs, and verify compilation with run_maven_command."
+            response_to_user = "Applying migration changes to the codebase..."
         else:
             next_node = "end"
             current_instruction = ""
-            response_to_user = "Migration and translation plan has been generated successfully. Let me know if you need anything else!"
+            if translator_run_count > 0:
+                response_to_user = "Migration and translation successfully completed!"
+            else:
+                response_to_user = "Migration and translation plan has been generated successfully. Do you want to apply these migration changes to the codebase? (Type 'continue' or 'yes' to proceed)"
 
         return json.dumps({
             "next_node": next_node,

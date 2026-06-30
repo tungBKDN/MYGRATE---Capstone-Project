@@ -222,5 +222,53 @@
     "covered_lines": 0,
     "missed_lines": 0,
     "step_count": 2
+  },
+  "mini-spring": {
+    "compilation_success": true,
+    "gate2_tests_pass": false,
+    "gate3_coverage_ok": true,
+    "overall_success": false,
+    "passed_tests": 52,
+    "total_tests": 68,
+    "baseline_total_tests": 68,
+    "baseline_passed_tests": 52,
+    "baseline_coverage": 85.91248665955176,
+    "line_coverage": 85.91248665955176,
+    "coverage_drop_pp": 0.0,
+    "covered_lines": 805,
+    "missed_lines": 132,
+    "step_count": 8
+  },
+  "aggregate-persistence": {
+    "compilation_success": true,
+    "gate2_tests_pass": false,
+    "gate3_coverage_ok": true,
+    "overall_success": false,
+    "passed_tests": 62,
+    "total_tests": 84,
+    "baseline_total_tests": 84,
+    "baseline_passed_tests": 84,
+    "baseline_coverage": 76.67910447761194,
+    "line_coverage": 75.3731343283582,
+    "coverage_drop_pp": 1.31,
+    "covered_lines": 404,
+    "missed_lines": 132,
+    "step_count": 0
+  },
+  "log4j2-elasticsearch": {
+    "compilation_success": false,
+    "gate2_tests_pass": false,
+    "gate3_coverage_ok": false,
+    "overall_success": false,
+    "passed_tests": 0,
+    "total_tests": 0,
+    "baseline_total_tests": 2447,
+    "baseline_passed_tests": 2440,
+    "baseline_coverage": 100.0,
+    "line_coverage": 0.0,
+    "coverage_drop_pp": 100.0,
+    "covered_lines": 0,
+    "missed_lines": 0,
+    "step_count": 50
   }
 }

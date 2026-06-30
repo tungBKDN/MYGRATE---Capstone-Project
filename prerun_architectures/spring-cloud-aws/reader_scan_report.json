@@ -1,0 +1,1860 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.springframework.cloud",
+      "artifactId": "spring-cloud-aws",
+      "version": "3.0.0-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.springframework.cloud",
+      "project.artifactId": "spring-cloud-aws",
+      "project.version": "3.0.0-SNAPSHOT",
+      "bintray.package": "aws",
+      "tomcat.version": "8.0.33",
+      "javax-mail.version": "1.5.5",
+      "maven-deploy-plugin.version": "2.8.2",
+      "javax.activation.version": "1.2.0",
+      "spring-cloud-commons.version": "3.0.0-RC1",
+      "spring-javaformat.version": "0.0.25"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "spring-cloud-aws-dependencies": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-dependencies",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-dependencies",
+        "project.version": "3.0.0-SNAPSHOT",
+        "aws-java-sdk.version": "1.11.907",
+        "elasticache.version": "1.1.1",
+        "jmemcached.version": "1.0.0"
+      },
+      "dependencies": []
+    },
+    "spring-cloud-aws-core": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-core",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-core",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-beans",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-aop",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-s3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-ec2",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-cloudformation",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-context": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-context",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-context",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context-support",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.mail",
+          "artifactId": "javax.mail-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.sun.mail",
+          "artifactId": "jakarta.mail",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-elasticache",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-cloudformation",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-ses",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.thimbleware.jmemcached",
+          "artifactId": "jmemcached-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "elasticache-java-cluster-client",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.data",
+          "artifactId": "spring-data-redis",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "redis.clients",
+          "artifactId": "jedis",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-jdbc": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-jdbc",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-jdbc",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-jdbc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.tomcat",
+          "artifactId": "tomcat-jdbc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.retry",
+          "artifactId": "spring-retry",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-rds",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-iam",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "mysql",
+          "artifactId": "mysql-connector-java",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.tomcat.extras",
+          "artifactId": "tomcat-extras-juli-adapters",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-messaging": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-messaging",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-messaging",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-sns",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-sqs",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-messaging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.datatype",
+          "artifactId": "jackson-datatype-jdk8",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.datatype",
+          "artifactId": "jackson-datatype-jsr310",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-autoconfigure": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-autoconfigure",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-autoconfigure",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-messaging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-jdbc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-parameter-store-config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-ses",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-autoconfigure",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-actuator-autoconfigure",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.security",
+          "artifactId": "spring-security-config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.security",
+          "artifactId": "spring-security-oauth2-jose",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.security",
+          "artifactId": "spring-security-oauth2-resource-server",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.micrometer",
+          "artifactId": "micrometer-registry-cloudwatch",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context-support",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-ses",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-cloudformation",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-cloudwatch",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.thimbleware.jmemcached",
+          "artifactId": "jmemcached-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.mail",
+          "artifactId": "javax.mail-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "elasticache-java-cluster-client",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-elasticache",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.data",
+          "artifactId": "spring-data-redis",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-autoconfigure-processor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-configuration-processor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "mysql",
+          "artifactId": "mysql-connector-java",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-parameter-store-config": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-parameter-store-config",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-parameter-store-config",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-autoconfigure",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-ssm",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-configuration-processor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-secrets-manager-config": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-secrets-manager-config",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-secrets-manager-config",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-autoconfigure",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-secretsmanager",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-configuration-processor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-ses": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-ses",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-ses",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context-support",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-ses",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.mail",
+          "artifactId": "javax.mail-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.sun.mail",
+          "artifactId": "jakarta.mail",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-starter-aws": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-starter-aws",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-starter-aws",
+        "project.version": "3.0.0-SNAPSHOT",
+        "main.basedir": "${basedir}/../.."
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-context",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-autoconfigure",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-starter-aws-jdbc": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-starter-aws-jdbc",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-starter-aws-jdbc",
+        "project.version": "3.0.0-SNAPSHOT",
+        "main.basedir": "${basedir}/../.."
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-jdbc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-starter-aws-messaging": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-starter-aws-messaging",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-starter-aws-messaging",
+        "project.version": "3.0.0-SNAPSHOT",
+        "main.basedir": "${basedir}/../.."
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-messaging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-starter-aws-parameter-store-config": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-starter-aws-parameter-store-config",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-starter-aws-parameter-store-config",
+        "project.version": "3.0.0-SNAPSHOT",
+        "main.basedir": "${basedir}/../.."
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-parameter-store-config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-starter-aws-secrets-manager-config": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-starter-aws-secrets-manager-config",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-starter-aws-secrets-manager-config",
+        "project.version": "3.0.0-SNAPSHOT",
+        "main.basedir": "${basedir}/../.."
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-secrets-manager-config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-starter-aws-ses": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-starter-aws-ses",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-starter-aws-ses",
+        "project.version": "3.0.0-SNAPSHOT",
+        "main.basedir": "${basedir}/../.."
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-ses",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-cloud-aws-integration-test": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-integration-test",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-integration-test",
+        "project.version": "3.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-context",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-jdbc",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-messaging",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-ses",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-aws-autoconfigure",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.mail",
+          "artifactId": "javax.mail-api",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.sun.mail",
+          "artifactId": "jakarta.mail",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.tomcat",
+          "artifactId": "tomcat-jdbc",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "mysql",
+          "artifactId": "mysql-connector-java",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.tomcat.extras",
+          "artifactId": "tomcat-extras-juli-adapters",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.retry",
+          "artifactId": "spring-retry",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context-support",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.aspectj",
+          "artifactId": "aspectjweaver",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.data",
+          "artifactId": "spring-data-redis",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "redis.clients",
+          "artifactId": "jedis",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-elasticache",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "aws-java-sdk-cloudformation",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.amazonaws",
+          "artifactId": "elasticache-java-cluster-client",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.awaitility",
+          "artifactId": "awaitility",
+          "version": "4.0.3",
+          "scope": "test",
+          "raw_version": "4.0.3"
+        }
+      ]
+    },
+    "docs": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws-docs",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws-docs",
+        "project.version": "3.0.0-SNAPSHOT",
+        "docs.main": "spring-cloud-aws",
+        "main.basedir": "${basedir}/..",
+        "docs.whitelisted.branches": "2.1.x,2.2.x,2.3.x",
+        "configprops.inclusionPattern": "cloud.aws.*|aws.*|spring.cloud.aws.*",
+        "upload-docs-zip.phase": "deploy",
+        "generated-docs-multipage-output.dir": "${project.build.directory}/generated-docs/${project.version}/reference/html",
+        "generated-docs-singlepage-output.dir": "${project.build.directory}/generated-docs/${project.version}/reference/htmlsingle",
+        "generated-docs-pdf-output.dir": "${project.build.directory}/generated-docs/${project.version}/reference/pdf"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws-jdbc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws-messaging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws-parameter-store-config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.cloud",
+          "artifactId": "spring-cloud-starter-aws-secrets-manager-config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-beans",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-aop",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-s3",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-ec2",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-cloudformation",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-context",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-context-support",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.mail",
+      "artifactId": "javax.mail-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.sun.mail",
+      "artifactId": "jakarta.mail",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-elasticache",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-ses",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.thimbleware.jmemcached",
+      "artifactId": "jmemcached-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "elasticache-java-cluster-client",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.data",
+      "artifactId": "spring-data-redis",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "redis.clients",
+      "artifactId": "jedis",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-jdbc",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.tomcat",
+      "artifactId": "tomcat-jdbc",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.retry",
+      "artifactId": "spring-retry",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-rds",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-iam",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "mysql",
+      "artifactId": "mysql-connector-java",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.tomcat.extras",
+      "artifactId": "tomcat-extras-juli-adapters",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-sns",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-sqs",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-messaging",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-web",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-webmvc",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "javax.servlet-api",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.datatype",
+      "artifactId": "jackson-datatype-jdk8",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.datatype",
+      "artifactId": "jackson-datatype-jsr310",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-autoconfigure",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-actuator-autoconfigure",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.security",
+      "artifactId": "spring-security-config",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.security",
+      "artifactId": "spring-security-oauth2-jose",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.security",
+      "artifactId": "spring-security-oauth2-resource-server",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.micrometer",
+      "artifactId": "micrometer-registry-cloudwatch",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-cloudwatch",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-autoconfigure-processor",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-configuration-processor",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.cloud",
+      "artifactId": "spring-cloud-context",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-ssm",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.amazonaws",
+      "artifactId": "aws-java-sdk-secretsmanager",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.aspectj",
+      "artifactId": "aspectjweaver",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.awaitility",
+      "artifactId": "awaitility",
+      "version": "4.0.3",
+      "scope": "test",
+      "raw_version": "4.0.3"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "spring-cloud-aws-dependencies",
+      "spring-cloud-aws-core",
+      "spring-cloud-aws-context",
+      "spring-cloud-aws-jdbc",
+      "spring-cloud-aws-messaging",
+      "spring-cloud-aws-autoconfigure",
+      "spring-cloud-aws-parameter-store-config",
+      "spring-cloud-aws-secrets-manager-config",
+      "spring-cloud-aws-ses",
+      "spring-cloud-starter-aws",
+      "spring-cloud-starter-aws-jdbc",
+      "spring-cloud-starter-aws-messaging",
+      "spring-cloud-starter-aws-parameter-store-config",
+      "spring-cloud-starter-aws-secrets-manager-config",
+      "spring-cloud-starter-aws-ses",
+      "spring-cloud-aws-integration-test",
+      "docs"
+    ],
+    "java_file_count": 393,
+    "package_distribution": {
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/cache": 2,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/condition": 2,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/context": 5,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/context/properties": 5,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/jdbc": 2,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/mail": 4,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/messaging": 4,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/metrics": 3,
+      "spring-cloud-aws-autoconfigure/src/main/java/org/springframework/cloud/aws/autoconfigure/security": 2,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/cache": 2,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/context": 6,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/context/properties": 3,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/jdbc": 1,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/mail": 2,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/messaging": 2,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/metrics": 2,
+      "spring-cloud-aws-autoconfigure/src/test/java/org/springframework/cloud/aws/autoconfigure/security": 1,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/cache": 3,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/cache/config/annotation": 4,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/cache/config/xml": 2,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/cache/memcached": 2,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/cache/redis": 1,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/annotation": 8,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/config": 1,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/config/annotation": 11,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/config/support": 1,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/config/xml": 7,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/support/env": 1,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/context/support/io": 1,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/mail/config/xml": 2,
+      "spring-cloud-aws-context/src/main/java/org/springframework/cloud/aws/mail/simplemail": 2,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/cache": 1,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/cache/config": 1,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/cache/config/annotation": 1,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/cache/config/xml": 2,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/cache/memcached": 2,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/cache/redis": 1,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/context": 1,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/context/annotation": 2,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/context/config": 1,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/context/config/annotation": 5,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/context/config/xml": 7,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/context/support/io": 2,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/mail/config/xml": 2,
+      "spring-cloud-aws-context/src/test/java/org/springframework/cloud/aws/mail/simplemail": 2,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core": 1,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/config": 3,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/config/xml": 1,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/credentials": 1,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/env": 2,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/env/ec2": 4,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/env/stack": 3,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/env/stack/config": 5,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/io/s3": 6,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/naming": 1,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/region": 4,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/support/documentation": 1,
+      "spring-cloud-aws-core/src/main/java/org/springframework/cloud/aws/core/task": 1,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/config": 4,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/credentials": 1,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/env": 1,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/env/ec2": 2,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/env/stack/config": 2,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/io/s3": 6,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/naming": 1,
+      "spring-cloud-aws-core/src/test/java/org/springframework/cloud/aws/core/region": 2,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it": 2,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/cache": 5,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/context/support/io": 8,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/core/env/ec2": 6,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/core/env/stack": 5,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/jdbc": 6,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/mail": 3,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/messaging": 17,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/support": 3,
+      "spring-cloud-aws-integration-test/src/test/java/org/springframework/cloud/aws/it/support/profile": 3,
+      "spring-cloud-aws-jdbc/src/main/java/org/springframework/cloud/aws/jdbc/config/annotation": 4,
+      "spring-cloud-aws-jdbc/src/main/java/org/springframework/cloud/aws/jdbc/config/xml": 3,
+      "spring-cloud-aws-jdbc/src/main/java/org/springframework/cloud/aws/jdbc/datasource": 4,
+      "spring-cloud-aws-jdbc/src/main/java/org/springframework/cloud/aws/jdbc/datasource/support": 4,
+      "spring-cloud-aws-jdbc/src/main/java/org/springframework/cloud/aws/jdbc/rds": 3,
+      "spring-cloud-aws-jdbc/src/main/java/org/springframework/cloud/aws/jdbc/retry": 5,
+      "spring-cloud-aws-jdbc/src/test/java/org/springframework/cloud/aws/jdbc/config/annotation": 1,
+      "spring-cloud-aws-jdbc/src/test/java/org/springframework/cloud/aws/jdbc/config/xml": 4,
+      "spring-cloud-aws-jdbc/src/test/java/org/springframework/cloud/aws/jdbc/datasource": 2,
+      "spring-cloud-aws-jdbc/src/test/java/org/springframework/cloud/aws/jdbc/datasource/support": 1,
+      "spring-cloud-aws-jdbc/src/test/java/org/springframework/cloud/aws/jdbc/rds": 3,
+      "spring-cloud-aws-jdbc/src/test/java/org/springframework/cloud/aws/jdbc/retry": 3,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/config": 2,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/config/annotation": 8,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/config/xml": 7,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/core": 7,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/core/support": 1,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/endpoint": 5,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/endpoint/annotation": 3,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/endpoint/config": 2,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/listener": 11,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/listener/annotation": 1,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/listener/support": 2,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/support": 3,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/support/converter": 2,
+      "spring-cloud-aws-messaging/src/main/java/org/springframework/cloud/aws/messaging/support/destination": 2,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/config/annotation": 2,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/config/xml": 6,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/core": 5,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/core/support": 1,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/endpoint": 9,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/endpoint/config": 1,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/listener": 4,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/listener/support": 2,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/support": 2,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/support/converter": 2,
+      "spring-cloud-aws-messaging/src/test/java/org/springframework/cloud/aws/messaging/support/destination": 2,
+      "spring-cloud-aws-parameter-store-config/src/main/java/org/springframework/cloud/aws/paramstore": 4,
+      "spring-cloud-aws-parameter-store-config/src/test/java/org/springframework/cloud/aws/paramstore": 3,
+      "spring-cloud-aws-secrets-manager-config/src/main/java/org/springframework/cloud/aws/secretsmanager": 4,
+      "spring-cloud-aws-secrets-manager-config/src/test/java/org/springframework/cloud/aws/secretsmanager": 3,
+      "spring-cloud-aws-ses/src/main/java/org/springframework/cloud/aws/ses": 2,
+      "spring-cloud-aws-ses/src/test/java/org/springframework/cloud/aws/ses": 2,
+      "spring-cloud-starter-aws-parameter-store-config/src/main/java/org/springframework/cloud/aws/autoconfigure/paramstore": 4,
+      "spring-cloud-starter-aws-parameter-store-config/src/test/java/org/springframework/cloud/aws/autoconfigure/paramstore": 2,
+      "spring-cloud-starter-aws-secrets-manager-config/src/main/java/org/springframework/cloud/aws/autoconfigure/secretsmanager": 4,
+      "spring-cloud-starter-aws-secrets-manager-config/src/test/java/org/springframework/cloud/aws/autoconfigure/secretsmanager": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 393,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 393,
+    "manifest_count": 18,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "docs\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\docs\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-context\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-context\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-dependencies\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-dependencies\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-integration-test\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-integration-test\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-jdbc\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-jdbc\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-messaging\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-messaging\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-parameter-store-config\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-parameter-store-config\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-secrets-manager-config\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-secrets-manager-config\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-aws-ses\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-ses\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-starter-aws-jdbc\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-starter-aws-jdbc\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-starter-aws-messaging\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-starter-aws-messaging\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-starter-aws-parameter-store-config\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-starter-aws-parameter-store-config\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-starter-aws-secrets-manager-config\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-starter-aws-secrets-manager-config\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-starter-aws-ses\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-starter-aws-ses\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-cloud-starter-aws\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-starter-aws\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\cache\\ElastiCacheAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\cache\\ElastiCacheAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\cache\\ElastiCacheProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\cache\\ElastiCacheProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\condition\\ConditionalOnAwsCloudEnvironment.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\condition\\ConditionalOnAwsCloudEnvironment.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\condition\\OnAwsCloudEnvironmentCondition.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\condition\\OnAwsCloudEnvironmentCondition.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextCredentialsAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextCredentialsAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextInstanceDataAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextInstanceDataAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextRegionProviderAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextRegionProviderAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextResourceLoaderAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextResourceLoaderAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextStackAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\ContextStackAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsCredentialsProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsCredentialsProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsRegionProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsRegionProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsS3ResourceLoaderProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsS3ResourceLoaderProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsStackProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\AwsStackProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\context\\properties\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\jdbc\\AmazonRdsDatabaseAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws\\spring-cloud-aws-autoconfigure\\src\\main\\java\\org\\springframework\\cloud\\aws\\autoconfigure\\jdbc\\AmazonRdsDatabaseAutoConfiguration.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "8",
+    "java_file_count": 394,
+    "framework": "Spring Boot",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.springframework.cloud",
+        "artifactId": "spring-cloud-aws",
+        "version": "3.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.springframework.cloud",
+        "project.artifactId": "spring-cloud-aws",
+        "project.version": "3.0.0-SNAPSHOT",
+        "bintray.package": "aws",
+        "tomcat.version": "8.0.33",
+        "javax-mail.version": "1.5.5",
+        "maven-deploy-plugin.version": "2.8.2",
+        "javax.activation.version": "1.2.0",
+        "spring-cloud-commons.version": "3.0.0-RC1",
+        "spring-javaformat.version": "0.0.25"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "spring-cloud-aws",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-cloud-aws"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `spring-cloud-aws` | Maven | 8 | 394 | Spring Boot | None | **Yellow** |"
+}

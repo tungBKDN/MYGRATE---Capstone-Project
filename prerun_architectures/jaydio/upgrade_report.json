@@ -1,0 +1,150 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.slf4j:slf4j-api": [
+      "2.0.17",
+      "2.0.16"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.slf4j:slf4j-api": "2.0.16"
+    },
+    {
+      "org.slf4j:slf4j-api": "2.0.17"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.slf4j:slf4j-api": "2.0.16"
+      },
+      "result": {
+        "status": "SKIP",
+        "reason": "JDK not available"
+      }
+    },
+    {
+      "solution": {
+        "org.slf4j:slf4j-api": "2.0.17"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.slf4j:slf4j-api:2.0.17": {
+      "dependency": "org.slf4j:slf4j-api",
+      "version": "2.0.17",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 5,
+          "findings": [
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/helpers/Util$ClassContextSecurityManager extends deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/helpers/Util$ClassContextSecurityManager uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\slf4j-api-2.0.17.jar:\nclass org/slf4j/LoggerFactory uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/slf4j/LoggerFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/slf4j/LoggerFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/slf4j/helpers/Util$ClassContextSecurityManager extends deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/slf4j/helpers/Util$ClassContextSecurityManager uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.slf4j:slf4j-api:2.0.16": {
+      "dependency": "org.slf4j:slf4j-api",
+      "version": "2.0.16",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 5,
+          "findings": [
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/helpers/Util$ClassContextSecurityManager extends deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/helpers/Util$ClassContextSecurityManager uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\slf4j-api-2.0.16.jar:\nclass org/slf4j/LoggerFactory uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/slf4j/LoggerFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/slf4j/LoggerFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/slf4j/helpers/Util$ClassContextSecurityManager extends deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/slf4j/helpers/Util$ClassContextSecurityManager uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.slf4j:slf4j-api:2.0.15": {
+      "dependency": "org.slf4j:slf4j-api",
+      "version": "2.0.15",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 5,
+          "findings": [
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/LoggerFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/helpers/Util$ClassContextSecurityManager extends deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/slf4j/helpers/Util$ClassContextSecurityManager uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\slf4j-api-2.0.15.jar:\nclass org/slf4j/LoggerFactory uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/slf4j/LoggerFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/slf4j/LoggerFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/slf4j/helpers/Util$ClassContextSecurityManager extends deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/slf4j/helpers/Util$ClassContextSecurityManager uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

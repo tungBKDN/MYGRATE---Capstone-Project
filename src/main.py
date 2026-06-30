@@ -41,7 +41,10 @@ def print_boxed_summary(project_path: str, target_java: str, step_count: int = 0
     baseline_coverage = 0.0
     
     # Try reading eval.json
-    eval_file = Path.cwd() / "test" / "artifacts" / "eval.json"
+    # Try reading central eval_{model}.json
+    model_slug = os.getenv("OLLAMA_MODEL", os.getenv("GROQ_MODEL", "default")).replace(":", "_").replace("/", "_")
+    mygrate_root = Path(__file__).resolve().parent.parent
+    eval_file = mygrate_root / f"eval_{model_slug}.json"
     if eval_file.exists():
         try:
             with open(eval_file, "r", encoding="utf-8") as f:
@@ -134,22 +137,32 @@ def _print_final_summary(final_state: dict):
             print(f"  Why Selected: {why}")
 
     last_result = final_state.get("last_subagent_result", "")
-    if last_result and not upgrade_report and not reader_review:
+    if last_result:
         try:
             parsed = json.loads(last_result)
             if isinstance(parsed, dict):
-                print(f"  Pipeline Status: {parsed.get('status', 'n/a')}")
-                print(f"  Solver Method: {parsed.get('solver_method', 'n/a')}")
-                solutions = parsed.get("solutions", [])
-                if solutions:
-                    print(f"  Solutions Found: {len(solutions)}")
-                    best = solutions[0] if solutions else {}
-                    if isinstance(best, dict):
-                        print(f"  Best Solution: {best}")
-                smoke = parsed.get("smoke_test_results", [])
-                if smoke:
-                    passed = sum(1 for s in smoke if s.get("result", {}).get("status") == "PASS")
-                    print(f"  Smoke Tests: {passed}/{len(smoke)} passed")
+                translator_report = parsed.get("markdown_report") or parsed.get("final_answer", {}).get("markdown_report")
+                if translator_report:
+                    print(f"\n{BOLD}{GREEN}=== TRANSLATOR MIGRATION REPORT ==={RESET}")
+                    print(translator_report)
+                    print(f"{BOLD}{GREEN}==================================={RESET}\n")
+                notes = parsed.get("migration_notes") or parsed.get("final_answer", {}).get("migration_notes")
+                if notes:
+                    print(f"\n{BOLD}{YELLOW}Migration Notes:{RESET}\n{notes}\n")
+
+                if not upgrade_report and not reader_review:
+                    print(f"  Pipeline Status: {parsed.get('status', 'n/a')}")
+                    print(f"  Solver Method: {parsed.get('solver_method', 'n/a')}")
+                    solutions = parsed.get("solutions", [])
+                    if solutions:
+                        print(f"  Solutions Found: {len(solutions)}")
+                        best = solutions[0] if solutions else {}
+                        if isinstance(best, dict):
+                            print(f"  Best Solution: {best}")
+                    smoke = parsed.get("smoke_test_results", [])
+                    if smoke:
+                        passed = sum(1 for s in smoke if s.get("result", {}).get("status") == "PASS")
+                        print(f"  Smoke Tests: {passed}/{len(smoke)} passed")
         except Exception:
             pass
     print(f"{BLUE}{'=' * 50}{RESET}")
@@ -239,14 +252,103 @@ def main():
     sys.stderr = tee_stderr
 
     try:
-        print(f"-> {GREEN}[EVAL] Calculating baseline coverage for {project_path}...{RESET}")
-        from src.tools.maven import MavenRunner
-        baseline_runner = MavenRunner(target_java_version="")
-        baseline_res = baseline_runner.coverage(Path(project_path), clean=True)
-        baseline_coverage = baseline_res.line_coverage_pct if baseline_res.coverage_found else 0.0
-        baseline_total_tests = baseline_res.total_tests
-        baseline_passed_tests = baseline_res.passed_tests
+        project_root_path = Path(project_path).resolve()
+        folder_name = project_root_path.name
+        
+        precalc_path = Path(__file__).resolve().parent.parent / "working" / "precalc_baseline.json"
+        baseline_coverage = 0.0
+        baseline_total_tests = 0
+        baseline_passed_tests = 0
+        found_precalc = False
+        
+        if precalc_path.exists():
+            try:
+                with open(precalc_path, "r", encoding="utf-8") as f:
+                    precalc_data = json.load(f)
+                if folder_name in precalc_data:
+                    metrics = precalc_data[folder_name]
+                    baseline_coverage = metrics.get("cov", 0.0)
+                    baseline_total_tests = metrics.get("total_test", 0)
+                    baseline_passed_tests = metrics.get("test_pass", 0)
+                    found_precalc = True
+                    print(f"-> {GREEN}[EVAL] Loaded precalculated baseline metrics from precalc_baseline.json for {folder_name}{RESET}")
+            except Exception as e:
+                print(f"-> {RED}[EVAL] Warning: Failed to read precalc_baseline.json: {e}{RESET}")
+
+        if not found_precalc:
+            print(f"-> {YELLOW}[EVAL] Precalculated baseline metrics not found for {folder_name}. Running baseline calculation...{RESET}")
+            print(f"-> {GREEN}[EVAL] Calculating baseline coverage for {project_path}...{RESET}")
+            from src.tools.maven import MavenRunner
+            baseline_runner = MavenRunner(target_java_version="")
+            baseline_res = baseline_runner.coverage(Path(project_path), clean=True)
+            baseline_coverage = baseline_res.line_coverage_pct if baseline_res.coverage_found else 0.0
+            baseline_total_tests = baseline_res.total_tests
+            baseline_passed_tests = baseline_res.passed_tests
+            
+            # Save it back to precalc_baseline.json
+            try:
+                precalc_data = {}
+                if precalc_path.exists():
+                    try:
+                        with open(precalc_path, "r", encoding="utf-8") as f:
+                            precalc_data = json.load(f)
+                    except Exception:
+                        pass
+                precalc_data[folder_name] = {
+                    "total_test": baseline_total_tests,
+                    "test_pass": baseline_passed_tests,
+                    "cov": baseline_coverage
+                }
+                precalc_path.parent.mkdir(parents=True, exist_ok=True)
+                with open(precalc_path, "w", encoding="utf-8") as f:
+                    json.dump(precalc_data, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                print(f"-> {RED}[EVAL] Warning: Failed to save baseline metrics to precalc_baseline.json: {e}{RESET}")
+
         print(f"-> {GREEN}[EVAL] Baseline coverage: {baseline_coverage:.2f}% (Tests run: {baseline_total_tests}, Passed: {baseline_passed_tests}){RESET}")
+
+        # Check for abnormal baseline metrics (cov == 0.0 or test_pass == 0 or total_test == 0)
+        is_abnormal = (baseline_coverage == 0.0) or (baseline_passed_tests == 0) or (baseline_total_tests == 0)
+        if is_abnormal:
+            print(f"\n{RED}{BOLD}!!! ABNORMAL BASELINE DETECTED: cov={baseline_coverage:.2f}%, passed_tests={baseline_passed_tests}, total_tests={baseline_total_tests} !!!{RESET}")
+            print(f"{YELLOW}[EVAL] Writing skip entry for {folder_name} to central eval file and terminating workflow.{RESET}\n")
+            
+            # Central eval file path
+            model_slug = os.getenv("OLLAMA_MODEL", os.getenv("GROQ_MODEL", "default")).replace(":", "_").replace("/", "_")
+            mygrate_root = Path(__file__).resolve().parent.parent
+            eval_file = mygrate_root / f"eval_{model_slug}.json"
+            eval_file.parent.mkdir(parents=True, exist_ok=True)
+            
+            existing_data = {}
+            if eval_file.exists():
+                try:
+                    with open(eval_file, "r", encoding="utf-8") as f:
+                        existing_data = json.load(f)
+                except Exception:
+                    pass
+            
+            existing_data[folder_name] = {
+                "is_skip":             True,
+                "compilation_success": False,
+                "gate2_tests_pass":    False,
+                "gate3_coverage_ok":   False,
+                "overall_success":     False,
+                "passed_tests":        0,
+                "total_tests":         0,
+                "baseline_total_tests": baseline_total_tests,
+                "baseline_passed_tests": baseline_passed_tests,
+                "baseline_coverage":    baseline_coverage,
+                "line_coverage":        0.0,
+                "coverage_drop_pp":     0.0,
+                "covered_lines":        0,
+                "missed_lines":         0,
+                "step_count":           0,
+            }
+            
+            with open(eval_file, "w", encoding="utf-8") as f:
+                json.dump(existing_data, f, ensure_ascii=False, indent=2)
+                
+            sys.exit(0)
 
         initial_state = {
             "project_path": project_path,
@@ -266,6 +368,8 @@ def main():
             "baseline_total_tests": baseline_total_tests,
             "baseline_passed_tests": baseline_passed_tests,
             "translator_completed": False,
+            "translator_run_count": 0,
+            "auto_mode": args.approve,
         }
 
         if os.environ.get("LANGSMITH_API_KEY"):
@@ -340,7 +444,8 @@ def main():
             mygrate_root = Path(__file__).resolve().parent.parent
             src_dir = Path(project_path).resolve() / "test" / "artifacts"
             codebase_name = Path(project_path).resolve().name
-            dest_dir = mygrate_root / "working" / codebase_name / "artifacts"
+            model_name = os.getenv("OLLAMA_MODEL", "default").replace(":", "_").replace("/", "_")
+            dest_dir = mygrate_root / "working" / model_name / codebase_name / "artifacts"
             if src_dir.exists():
                 import shutil
                 shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)

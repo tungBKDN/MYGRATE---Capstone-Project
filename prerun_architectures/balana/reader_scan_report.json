@@ -1,0 +1,401 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.wso2.balana",
+      "artifactId": "balana",
+      "version": "1.2.29-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.wso2.balana",
+      "project.artifactId": "balana",
+      "project.version": "1.2.29-SNAPSHOT",
+      "junit.version": "4.13.1",
+      "imp.pkg.version.javax.xml": "[0.0.0,1.0.0)",
+      "exp.pkg.version.balana": "${project.version}",
+      "imp.pkg.version.balana": "[1.2.0, 2.0.0)",
+      "imp.pkg.version.javax.xml.parsers": "[0.0.0, 1.0.0)",
+      "commons-logging.osgi.version.range": "[1.2,2.0)",
+      "xercesImpl.version": "2.8.1.wso2v2",
+      "jacoco.version": "0.7.9",
+      "bundle.plugin.version": "3.2.0",
+      "compiler.plugin.version": "3.8.1",
+      "incremental-build.plugin.version": "1.3.1",
+      "maven.buildnumber.plugin.version": "1.4",
+      "src.java.version": "1.8",
+      "target.java.version": "1.8",
+      "pax.logging.api.version": "1.10.1"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "modules/balana-core": {
+      "project": {
+        "groupId": "org.wso2.balana",
+        "artifactId": "org.wso2.balana",
+        "version": "1.2.29-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.wso2.balana",
+        "project.artifactId": "org.wso2.balana",
+        "project.version": "1.2.29-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.ops4j.pax.logging",
+          "artifactId": "pax-logging-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.wso2.balana",
+          "artifactId": "org.wso2.balana.utils",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "modules/balana-utils": {
+      "project": {
+        "groupId": "org.wso2.balana",
+        "artifactId": "org.wso2.balana.utils",
+        "version": "1.2.29-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.wso2.balana",
+        "project.artifactId": "org.wso2.balana.utils",
+        "project.version": "1.2.29-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.ops4j.pax.logging",
+          "artifactId": "pax-logging-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "xerces.wso2",
+          "artifactId": "xercesImpl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "modules/balana-samples": {
+      "project": {
+        "groupId": "org.wso2.balana",
+        "artifactId": "balana-samples",
+        "version": "1.2.29-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.wso2.balana",
+        "project.artifactId": "balana-samples",
+        "project.version": "1.2.29-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "modules/balana-documentation": {
+      "project": {
+        "groupId": "org.wso2.balana",
+        "artifactId": "balana-documentation",
+        "version": "1.2.29-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.wso2.balana",
+        "project.artifactId": "balana-documentation",
+        "project.version": "1.2.29-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "modules/balana-distribution": {
+      "project": {
+        "groupId": "org.wso2.balana",
+        "artifactId": "balana-distribution",
+        "version": "1.2.29-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.wso2.balana",
+        "project.artifactId": "balana-distribution",
+        "project.version": "1.2.29-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.ops4j.pax.logging",
+      "artifactId": "pax-logging-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.wso2.balana",
+      "artifactId": "org.wso2.balana.utils",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "xerces.wso2",
+      "artifactId": "xercesImpl",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "modules/balana-core",
+      "modules/balana-utils",
+      "modules/balana-samples",
+      "modules/balana-documentation",
+      "modules/balana-distribution"
+    ],
+    "java_file_count": 307,
+    "package_distribution": {
+      "modules/balana-core/src/main/java/org/wso2/balana": 26,
+      "modules/balana-core/src/main/java/org/wso2/balana/attr": 33,
+      "modules/balana-core/src/main/java/org/wso2/balana/attr/proxy": 17,
+      "modules/balana-core/src/main/java/org/wso2/balana/attr/proxy/xacml3": 1,
+      "modules/balana-core/src/main/java/org/wso2/balana/attr/xacml3": 3,
+      "modules/balana-core/src/main/java/org/wso2/balana/combine": 11,
+      "modules/balana-core/src/main/java/org/wso2/balana/combine/xacml2": 11,
+      "modules/balana-core/src/main/java/org/wso2/balana/combine/xacml3": 12,
+      "modules/balana-core/src/main/java/org/wso2/balana/cond": 48,
+      "modules/balana-core/src/main/java/org/wso2/balana/cond/cluster": 24,
+      "modules/balana-core/src/main/java/org/wso2/balana/cond/cluster/xacml3": 6,
+      "modules/balana-core/src/main/java/org/wso2/balana/cond/xacml3": 6,
+      "modules/balana-core/src/main/java/org/wso2/balana/ctx": 15,
+      "modules/balana-core/src/main/java/org/wso2/balana/ctx/xacml2": 4,
+      "modules/balana-core/src/main/java/org/wso2/balana/ctx/xacml3": 3,
+      "modules/balana-core/src/main/java/org/wso2/balana/finder": 8,
+      "modules/balana-core/src/main/java/org/wso2/balana/finder/impl": 3,
+      "modules/balana-core/src/main/java/org/wso2/balana/xacml2": 4,
+      "modules/balana-core/src/main/java/org/wso2/balana/xacml3": 15,
+      "modules/balana-core/src/test/java/org/wso2/balana": 6,
+      "modules/balana-core/src/test/java/org/wso2/balana/advance": 2,
+      "modules/balana-core/src/test/java/org/wso2/balana/basic": 5,
+      "modules/balana-core/src/test/java/org/wso2/balana/conformance": 2,
+      "modules/balana-samples/custom-combining-algo/src/main/java/org/wso2/balana/samples/custom/algo": 2,
+      "modules/balana-samples/hierarchical-resource/src/main/java/org/wso2/balana/samples/hierarchical/resource": 3,
+      "modules/balana-samples/kmarket-trading-sample/src/main/java/org/wso2/balana/samples/kmarket/trading": 2,
+      "modules/balana-samples/kmarket-trading-sample-web-service/src/main/java/org/wso2/balana/balanasamples": 6,
+      "modules/balana-samples/web-page-image-filtering/src/main/java/org/wso2/balana/samples/image/filtering": 2,
+      "modules/balana-utils/src/main/java/org/wso2/balana/utils": 2,
+      "modules/balana-utils/src/main/java/org/wso2/balana/utils/Constants": 1,
+      "modules/balana-utils/src/main/java/org/wso2/balana/utils/exception": 1,
+      "modules/balana-utils/src/main/java/org/wso2/balana/utils/policy": 2,
+      "modules/balana-utils/src/main/java/org/wso2/balana/utils/policy/dto": 21
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 307,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 307,
+    "manifest_count": 11,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "modules\\balana-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-distribution\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-distribution\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-documentation\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-documentation\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-samples\\custom-combining-algo\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-samples\\custom-combining-algo\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-samples\\hierarchical-resource\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-samples\\hierarchical-resource\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-samples\\kmarket-trading-sample-web-service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-samples\\kmarket-trading-sample-web-service\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-samples\\kmarket-trading-sample\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-samples\\kmarket-trading-sample\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-samples\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-samples\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-samples\\web-page-image-filtering\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-samples\\web-page-image-filtering\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\balana-utils\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-utils\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\AbstractObligation.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\AbstractObligation.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\AbstractPolicy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\AbstractPolicy.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\AbstractTarget.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\AbstractTarget.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\Balana.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\Balana.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ConfigurationStore.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ConfigurationStore.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\DefaultNamespaceContext.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\DefaultNamespaceContext.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\DOMHelper.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\DOMHelper.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\Indenter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\Indenter.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\MatchResult.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\MatchResult.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ObligationFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ObligationFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ObligationResult.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ObligationResult.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ParsingException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\ParsingException.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\PDP.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\PDP.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\PDPConfig.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\PDPConfig.java",
+        "language": "java"
+      },
+      {
+        "path": "modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\Policy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana\\modules\\balana-core\\src\\main\\java\\org\\wso2\\balana\\Policy.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "${target.java.version}",
+    "java_file_count": 307,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.wso2.balana",
+        "artifactId": "balana",
+        "version": "1.2.29-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.wso2.balana",
+        "project.artifactId": "balana",
+        "project.version": "1.2.29-SNAPSHOT",
+        "junit.version": "4.13.1",
+        "imp.pkg.version.javax.xml": "[0.0.0,1.0.0)",
+        "exp.pkg.version.balana": "${project.version}",
+        "imp.pkg.version.balana": "[1.2.0, 2.0.0)",
+        "imp.pkg.version.javax.xml.parsers": "[0.0.0, 1.0.0)",
+        "commons-logging.osgi.version.range": "[1.2,2.0)",
+        "xercesImpl.version": "2.8.1.wso2v2",
+        "jacoco.version": "0.7.9",
+        "bundle.plugin.version": "3.2.0",
+        "compiler.plugin.version": "3.8.1",
+        "incremental-build.plugin.version": "1.3.1",
+        "maven.buildnumber.plugin.version": "1.4",
+        "src.java.version": "1.8",
+        "target.java.version": "1.8",
+        "pax.logging.api.version": "1.10.1"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "balana",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\balana"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `balana` | Maven | ${target.java.version} | 307 | Standard Java | None | **Yellow** |"
+}

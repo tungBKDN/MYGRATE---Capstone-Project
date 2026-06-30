@@ -1,0 +1,214 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.openjdk.jmh:jmh-generator-reflection": [
+      "1.37"
+    ],
+    "org.mockito:mockito-all": [
+      "1.10.19",
+      "1.10.18"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.openjdk.jmh:jmh-generator-reflection": "1.37",
+      "org.mockito:mockito-all": "1.10.19"
+    },
+    {
+      "org.openjdk.jmh:jmh-generator-reflection": "1.37",
+      "org.mockito:mockito-all": "1.10.18"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.openjdk.jmh:jmh-generator-reflection": "1.37",
+        "org.mockito:mockito-all": "1.10.19"
+      },
+      "result": {
+        "status": "ERROR",
+        "error": "Command '['javac', '-cp', 'D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\commons-math3-3.6.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jmh-generator-reflection-1.37.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jopt-simple-5.0.4.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\mockito-all-1.10.19.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jmh-core-1.37.jar', '--release', '17', 'RuntimeSmokeTest.java']' timed out after 15 seconds"
+      }
+    },
+    {
+      "solution": {
+        "org.openjdk.jmh:jmh-generator-reflection": "1.37",
+        "org.mockito:mockito-all": "1.10.18"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.openjdk.jmh:jmh-generator-reflection:1.37": {
+      "dependency": "org.openjdk.jmh:jmh-generator-reflection",
+      "version": "1.37",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jmh-generator-reflection-1.37.jar:\n\nerror: cannot find class org/openjdk/jmh/generators/core/ClassInfo\nerror: cannot find class org/openjdk/jmh/generators/core/MethodInfo\nerror: cannot find class org/openjdk/jmh/generators/core/GeneratorSource\nerror: cannot find class org/openjdk/jmh/generators/core/FieldInfo\nerror: cannot find class org/openjdk/jmh/generators/core/ParameterInfo"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.mockito:mockito-all:1.10.19": {
+      "dependency": "org.mockito:mockito-all",
+      "version": "1.10.19",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 36,
+          "findings": [
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/ClassReader uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "interface org/mockito/asm/Opcodes uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/tree/LookupSwitchInsnNode uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/util/CheckMethodAdapter uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/asm/util/TraceMethodVisitor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/CollectionUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/DebuggingClassWriter uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$1 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$13 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$14 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$2 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$3 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$4 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$5 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/EmitUtils$6 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/ReflectUtils uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/core/ReflectUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            },
+            {
+              "line": "class org/mockito/cglib/core/ReflectUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/proxy/CallbackHelper uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/proxy/Enhancer uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/proxy/LazyLoaderGenerator uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/proxy/Mixin$Route uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/reflect/FastClassEmitter$GetIndexCallback uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/transform/AbstractClassLoader uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/mockito/cglib/transform/AbstractTransformTask uses deprecated method java/io/File::toURL()Ljava/net/URL;"
+            },
+            {
+              "line": "class org/mockito/internal/util/reflection/AccessibilityChanger uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\mockito-all-1.10.19.jar:\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/mockito/asm/ClassReader uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\ninterface org/mockito/asm/Opcodes uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/asm/tree/LookupSwitchInsnNode uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/asm/util/CheckMethodAdapter uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/asm/util/TraceMethodVisitor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)\nclass org/mockito/cglib/core/CodeEmitter uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\nclass org/mockito/cglib/core/CollectionUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/DebuggingClassWriter uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$1 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$13 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$14 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$2 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$3 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$4 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$5 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/EmitUtils$6 uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/core/ReflectUtils uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/mockito/cglib/core/ReflectUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z \nclass org/mockito/cglib/core/ReflectUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/proxy/CallbackHelper uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/proxy/Enhancer uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/proxy/LazyLoaderGenerator uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/proxy/Mixin$Route uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/reflect/FastClassEmitter$GetIndexCallback uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/mockito/cglib/transform/AbstractClassLoader uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/mockito/cglib/transform/AbstractTransformTask uses deprecated method java/io/File::toURL()Ljava/net/URL; \nclass org/mockito/internal/util/reflection/AccessibilityChanger uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z \n\nerror: cannot find class org/mockito/asm/signature/SignatureVisitor\nerror: cannot find class org/mockito/asm/signature/SignatureReader\nerror: cannot find class org/apache/tools/ant/Task\nerror: cannot resolve Methodref org/mockito/cglib/transform/AbstractProcessTask.getProject:()Lorg/apache/tools/ant/Project;\nerror: cannot find class org/apache/tools/ant/types/FileSet\nerror: cannot find class org/apache/tools/ant/DirectoryScanner\nerror: cannot find class org/apache/tools/ant/BuildException\nerror: cannot resolve Methodref org/mockito/cglib/transform/AbstractTransformTask.log:(Ljava/lang/String;I)V\nerror: cannot resolve Methodref org/mockito/cglib/transform/AbstractTransformTask.log:(Ljava/lang/String;)V\nerror: cannot find class junit/framework/ComparisonFailure\nerror: cannot resolve Methodref org/mockito/exceptions/verification/junit/ArgumentsAreDifferent.getStackTrace:()[Ljava/lang/StackTraceElement;\nerror: cannot find class org/junit/runners/model/Statement\nerror: cannot find class org/junit/internal/runners/JUnit4ClassRunner\nerror: cannot find class org/junit/runner/notification/RunNotifier\nerror: cannot find class org/junit/runner/manipulation/Filterable\nerror: cannot find class org/junit/runners/BlockJUnit4ClassRunner\nerror: cannot find class org/junit/runner/notification/RunListener\nerror: cannot find class org/junit/runner/notification/Failure\nerror: cannot find class org/junit/rules/MethodRule\nerror: cannot find class org/junit/runner/Runner\nerror: cannot resolve Methodref org/mockito/internal/runners/RunnerImpl.filter:(Lorg/junit/runner/manipulation/Filter;)V\nerror: cannot resolve Methodref org/mockito/internal/runners/RunnerImpl.filter:(Lorg/junit/runner/manipulation/Filter;)V\nerror: cannot resolve Methodref org/mockito/internal/runners/RunnerImpl.filter:(Lorg/junit/runner/manipulation/Filter;)V"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.mockito:mockito-all:1.10.18": {
+      "dependency": "org.mockito:mockito-all",
+      "version": "1.10.18",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

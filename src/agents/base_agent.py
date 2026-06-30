@@ -161,6 +161,7 @@ class BaseAgent(ABC):
                 "model": model_name,
                 "base_url": base_url,
                 "temperature": 0,
+                "timeout": 60,
             }
             # For Ollama Cloud, pass the API key as a Bearer token header
             if api_key:
@@ -190,8 +191,14 @@ class BaseAgent(ABC):
         for code in _TRANSIENT_STATUS_CODES:
             if str(code) in error_str:
                 return True
-        # Check for common transient error phrases
-        for phrase in ("over capacity", "rate limit", "too many requests", "temporarily unavailable", "service unavailable"):
+        # Check for common transient error phrases and network/connection drops
+        transient_phrases = (
+            "over capacity", "rate limit", "too many requests", "temporarily unavailable",
+            "service unavailable", "connection reset", "connection refused", "peer closed",
+            "incomplete chunked read", "timeout", "timed out", "remote disconnected",
+            "connectionerror", "connecttimeout", "readtimeout", "network", "socket"
+        )
+        for phrase in transient_phrases:
             if phrase in error_str:
                 return True
         return False
@@ -455,6 +462,10 @@ class BaseAgent(ABC):
             "you MUST call the 'submit_final_answer' tool with the final structured JSON as arguments. "
             "Do NOT output raw JSON in your chat response, as it will cause a system error."
         )
+        if self.__class__.__name__ == "TranslatorAgent":
+            user_content += (
+                "\nCRITICAL FORMATTING RULE: You MUST populate the content field of your response message with exactly 1 to 2 short sentences describing what you are doing, why you are doing it, and why you are calling the tool. Do NOT leave the content field empty when calling tools. Do NOT output long text blocks, plans, or multiple paragraphs when calling tools."
+            )
 
         messages.append(HumanMessage(content=user_content))
 
@@ -463,21 +474,50 @@ class BaseAgent(ABC):
 
         # Track tool results to merge into final answers
         react_tool_results: dict[str, Any] = {}
+        past_tool_calls: list[tuple[str, dict[str, Any]]] = []
 
-        for iteration in range(self.MAX_ITERATIONS):
+        iteration = 0
+        while iteration < self.MAX_ITERATIONS:
             print(f"-> [{self._agent_name()}] ReAct iteration {iteration + 1}/{self.MAX_ITERATIONS} [provider={self.provider.value}, model={self.model_name}]")
+
+            # If this is the last iteration, append a system instruction forcing a final answer
+            if iteration == self.MAX_ITERATIONS - 1:
+                messages.append(SystemMessage(content=(
+                    "⚠️ WARNING: This is your final turn. You must call 'submit_final_answer' now "
+                    "to submit your migration plan, report, or findings. Do not call any other tools."
+                )))
 
             response = self._invoke_with_retry(llm_with_tools, messages, tool_map, payload, react_tool_results)
             if response is None:
                 # All retries exhausted — treat as fatal for this iteration
                 break
 
+            reasoning = ""
+            if hasattr(response, "additional_kwargs") and isinstance(response.additional_kwargs, dict):
+                reasoning = response.additional_kwargs.get("reasoning_content") or ""
+            if not reasoning and hasattr(response, "response_metadata") and isinstance(response.response_metadata, dict):
+                msg_meta = response.response_metadata.get("message") or {}
+                if isinstance(msg_meta, dict):
+                    reasoning = msg_meta.get("reasoning_content") or ""
+
+            if reasoning:
+                print(f"-> [{self._agent_name()}] Thought:\n{reasoning}")
+
             # Check if LLM wants to call tools
             tool_calls = getattr(response, "tool_calls", None) or []
             if not tool_calls and hasattr(response, "content") and isinstance(response.content, str):
                 tool_calls = self._parse_tool_calls_from_text(response.content)
 
+            # Print conversational explanation to the user
+            content = getattr(response, "content", "") or ""
+            if not content.strip() and tool_calls and self._agent_name() == "TRANSLATOR":
+                content = self._generate_tool_explanation(tool_calls[0])
+
+            if isinstance(content, str) and content.strip():
+                print(f"-> [{self._agent_name()}] Explanation: {content.strip()}")
+
             if tool_calls:
+                iteration += 1
                 messages.append(response)
                 # Process each tool call
                 for tool_call in tool_calls:
@@ -503,6 +543,40 @@ class BaseAgent(ABC):
                         schema_props = tool_def.parameters.get("properties", {})
                         tool_args = self._coerce_tool_args(tool_args, schema_props)
 
+                    # Check for duplicate/repetition consecutively (only block if it's the exact same tool call as the immediate previous one)
+                    is_duplicate = False
+                    if past_tool_calls:
+                        past_name, past_args = past_tool_calls[-1]
+                        if past_name == tool_name and past_args == tool_args:
+                            is_duplicate = True
+
+                    if is_duplicate:
+                        has_explanation = False
+                        content = getattr(response, "content", "") or ""
+                        if isinstance(content, str) and len(content.strip()) >= 15:
+                            has_explanation = True
+
+                        if not has_explanation:
+                            print(f"-> [{self._agent_name()}] Tool call BLOCKED due to repetition: {tool_name}")
+                            observation = {
+                                "error": (
+                                    f"You are repeating the tool call '{tool_name}' with the same arguments: {json.dumps(tool_args)}. "
+                                    "If you must repeat an action, you are strictly required to write a 1-2 sentence explanation in plain text (conversational response) "
+                                    "first to justify this repetition and redirect your strategy. Please rewrite your response to include this explanation."
+                                )
+                            }
+                            from langchain_core.messages import ToolMessage
+                            tool_call_id = getattr(tool_call, "id", None) or (
+                                tool_call.get("id", "") if isinstance(tool_call, dict) else ""
+                            )
+                            messages.append(ToolMessage(
+                                content=json.dumps(observation, ensure_ascii=False, default=str),
+                                tool_call_id=tool_call_id or tool_name,
+                            ))
+                            continue
+
+                    past_tool_calls.append((tool_name, tool_args))
+
                     print(f"-> [{self._agent_name()}] Calling tool: {tool_name}({json.dumps(tool_args, default=str)[:200]})")
 
                     # Execute the tool
@@ -512,67 +586,112 @@ class BaseAgent(ABC):
                         # Block submission for TranslatorAgent if compiling/tests are not fully passing.
                         # We use test-compile (Gate 1) + parse Surefire output (Gate 2 unit tests).
                         # Failsafe integration-test failures (e.g. missing SonarQube server) are NOT
-                        # a reason to block — those are infrastructure limitations, not migration failures.
+                        # a reason to block.
                         if self.__class__.__name__ == "TranslatorAgent":
-                            print(f"-> [{self._agent_name()}] Verifying project before submitting final answer...")
-                            from src.tools.maven import MavenRunner
-                            java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
-                            runner = MavenRunner(target_java_version=java_ver)
-                            project_path = Path(payload.get("project_path", ""))
-
-                            # Gate 1: compile (main + test sources)
-                            compile_res = runner.compile(project_path, clean=False)
-                            has_compile_error = compile_res.status != 0
-
-                            # Gate 2: check surefire unit-test failures only
-                            # We ignore test failures at Maven level to get the full test counts in multi-module projects,
-                            # and check against baseline failure counts programmatically.
-                            verify_res = runner.test(project_path, skip_tests=False, clean=False, ignore_test_failures=True)
-                            combined_out = verify_res.stdout + "\n" + verify_res.stderr
-                            import re as _re
+                            status_val = tool_args.get("status") or tool_args.get("final_answer", {}).get("status")
+                            is_failure_submission = isinstance(status_val, str) and status_val.lower() in ("error", "deadlock", "change_plan_requested")
+                            
+                            has_compile_error = False
+                            has_unit_test_failure = False
+                            has_skipped_tests_failure = False
+                            has_gate3_failure = False
+                            compile_res_status = 0
                             surefire_failures = 0
                             surefire_errors = 0
-                            for line in combined_out.splitlines():
-                                if "Tests run:" in line and " - in " in line:
-                                    m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
-                                    if m:
-                                        surefire_failures += int(m.group(1))
-                                        surefire_errors += int(m.group(2))
-                            
-                            baseline_total = payload.get("baseline_total_tests", 0)
-                            baseline_passed = payload.get("baseline_passed_tests", 0)
-                            baseline_failed = max(0, baseline_total - baseline_passed)
-                            current_failures = surefire_failures + surefire_errors
-                            has_unit_test_failure = current_failures > baseline_failed
-
-                            # Test count integrity check
-                            has_skipped_tests_failure = False
-                            if baseline_total > 0 and verify_res.total_tests < baseline_total:
-                                has_skipped_tests_failure = True
-
-                            baseline_coverage = payload.get("baseline_coverage", 0.0)
-                            has_gate3_failure = False
+                            baseline_failed = 0
+                            verify_res_total_tests = 0
+                            baseline_total = 0
                             gate3_drop = 0.0
-                            if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
-                                cov_res = runner.coverage(project_path, clean=False)
-                                current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
-                                gate3_drop = baseline_coverage - current_coverage
-                                if gate3_drop > 5.0:
-                                    has_gate3_failure = True
+                            baseline_coverage = 0.0
 
-                            if has_compile_error:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res.status}).")
-                                observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res.status}). Fix all compile errors first."}
-                            elif has_unit_test_failure:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors (baseline allowed: {baseline_failed}).")
-                                observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Baseline allowed: {baseline_failed}. Fix unit tests first."}
-                            elif has_skipped_tests_failure:
-                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: test count {verify_res.total_tests} is less than baseline {baseline_total}.")
-                                observation = {"error": f"Cannot submit yet — test count {verify_res.total_tests} is less than baseline {baseline_total}. Test skipping/exclusion detected. Restore and run all original tests."}
-                            elif has_gate3_failure:
+                            if is_failure_submission:
+                                print(f"-> [{self._agent_name()}] Bypassing verification checks due to status '{status_val}'.")
+                            elif not (str(payload.get("current_instruction", "")) or str(instruction) or "").startswith("APPLY:"):
+                                print(f"-> [{self._agent_name()}] Bypassing verification checks in PLAN mode.")
+                            else:
+                                print(f"-> [{self._agent_name()}] Verifying project before submitting final answer...")
+                                from src.tools.maven import MavenRunner
+                                runner = MavenRunner(target_java_version="17")
+                                project_path = Path(payload.get("project_path", ""))
+
+                                # Gate 1: compile (main + test sources)
+                                compile_res = runner.compile(project_path, clean=False)
+                                has_compile_error = compile_res.status != 0
+                                compile_res_status = compile_res.status
+                                
+                                compiler_errors = []
+                                if has_compile_error:
+                                    for line in (compile_res.stdout + "\n" + compile_res.stderr).splitlines():
+                                        if "[ERROR]" in line and (".java:" in line or "pom.xml" in line):
+                                            compiler_errors.append(line.strip())
+                                    if not compiler_errors:
+                                        compiler_errors = [line.strip() for line in (compile_res.stdout + "\n" + compile_res.stderr).splitlines() if "[ERROR]" in line]
+                                compiler_errors_str = "\n".join(compiler_errors[:25])
+
+                                # Gate 2: check surefire unit-test failures only
+                                # We ignore test failures at Maven level to get the full test counts in multi-module projects,
+                                # and check against baseline failure counts programmatically.
+                                verify_res = runner.test(project_path, skip_tests=False, clean=False, ignore_test_failures=True)
+                                verify_res_total_tests = verify_res.total_tests
+                                combined_out = verify_res.stdout + "\n" + verify_res.stderr
+                                import re as _re
+                                surefire_failures = 0
+                                surefire_errors = 0
+                                for line in combined_out.splitlines():
+                                    if "Tests run:" in line and " - in " in line:
+                                        m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                                        if m:
+                                            surefire_failures += int(m.group(1))
+                                            surefire_errors += int(m.group(2))
+                                
+                                current_failures = surefire_failures + surefire_errors
+                                has_unit_test_failure = current_failures > 0
+
+                                test_failures = []
+                                if has_unit_test_failure:
+                                    in_fail = False
+                                    for line in combined_out.splitlines():
+                                        if "Results:" in line or "Failures:" in line or "Tests run:" in line:
+                                            in_fail = True
+                                        if in_fail:
+                                            if line.startswith("[INFO]") and "Build" in line:
+                                                in_fail = False
+                                            elif line.startswith("[ERROR]") and "Run " not in line:
+                                                test_failures.append(line.strip())
+                                    if not test_failures:
+                                        for line in combined_out.splitlines():
+                                            if "<<< FAILURE!" in line or "<<< ERROR!" in line:
+                                                test_failures.append(line.strip())
+                                test_failures_str = "\n".join(test_failures[:25])
+
+                                # Test count integrity check
+                                has_skipped_tests_failure = False
+                                if baseline_total > 0 and verify_res.total_tests < baseline_total:
+                                    has_skipped_tests_failure = True
+
+                                baseline_coverage = payload.get("baseline_coverage", 0.0)
+                                has_gate3_failure = False
+                                gate3_drop = 0.0
+                                if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
+                                    cov_res = runner.coverage(project_path, clean=False)
+                                    current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                                    gate3_drop = baseline_coverage - current_coverage
+                                    if gate3_drop > 5.0:
+                                        has_gate3_failure = True
+
+                            if not is_failure_submission and has_compile_error:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: Compile errors detected (exit code {compile_res_status}). Details:\n{compiler_errors_str}")
+                                observation = {"error": f"Cannot submit yet — compilation failed (exit code {compile_res_status}). Fix all compile errors first. Details:\n{compiler_errors_str}"}
+                            elif not is_failure_submission and has_unit_test_failure:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors. Failing cases:\n{test_failures_str}")
+                                observation = {"error": f"Cannot submit yet — {surefire_failures} unit-test failures and {surefire_errors} errors. Baseline allowed: {baseline_failed}. Fix unit tests first. Failing cases:\n{test_failures_str}"}
+                            elif not is_failure_submission and has_skipped_tests_failure:
+                                print(f"-> [{self._agent_name()}] Final answer BLOCKED: test count {verify_res_total_tests} is less than baseline {baseline_total}.")
+                                observation = {"error": f"Cannot submit yet — test count {verify_res_total_tests} is less than baseline {baseline_total} (current: {verify_res_total_tests}, baseline: {baseline_total}). Test skipping/exclusion detected. Restore and run all original tests."}
+                            elif not is_failure_submission and has_gate3_failure:
                                 print(f"-> [{self._agent_name()}] Final answer BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
-                                observation = {"error": f"Cannot submit yet — Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. Add unit tests or restore original logic."}
-                        
+                                observation = {"error": f"Cannot submit yet — Gate 3 Failed: Coverage dropped by {gate3_drop:.2f}% (from baseline {baseline_coverage:.2f}% to current {current_coverage:.2f}%). Threshold is <= 5.0%. Add unit tests or restore original logic."}
+
                         if isinstance(observation, dict) and "error" in observation:
                             print(f"-> [{self._agent_name()}] Final answer submission BLOCKED: {observation['error']}")
                             # Send error back to LLM as ToolMessage
@@ -619,86 +738,139 @@ class BaseAgent(ABC):
             else:
                 # No tool calls — this is the final answer
                 if self.__class__.__name__ == "TranslatorAgent":
-                    print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
-                    from src.tools.maven import MavenRunner
-                    java_ver = str(payload.get("target_java_version", "17")).replace("JDK ", "").replace("jdk ", "") or "17"
-                    runner = MavenRunner(target_java_version=java_ver)
-                    project_path = Path(payload.get("project_path", ""))
-                    
-                    # Gate 1: compile
-                    compile_res = runner.compile(project_path, clean=False)
-                    has_compile_error = compile_res.status != 0
+                    content = getattr(response, "content", "") or ""
+                    is_failure_submission = False
+                    try:
+                        parsed = json.loads(content)
+                        status_val = parsed.get("status") or parsed.get("final_answer", {}).get("status")
+                        if isinstance(status_val, str) and status_val.lower() in ("error", "deadlock", "change_plan_requested"):
+                            is_failure_submission = True
+                    except Exception:
+                        pass
 
-                    # Gate 2: check surefire unit-test failures only
-                    # We ignore test failures at Maven level to get the full test counts in multi-module projects,
-                    # and check against baseline failure counts programmatically.
-                    verify_res = runner.test(project_path, skip_tests=False, clean=True, ignore_test_failures=True)
-                    combined_out = verify_res.stdout + "\n" + verify_res.stderr
-                    import re as _re
+                    has_compile_error = False
+                    has_unit_test_failure = False
+                    has_skipped_tests_failure = False
+                    has_gate3_failure = False
+                    compile_res_status = 0
                     surefire_failures = 0
                     surefire_errors = 0
-                    for line in combined_out.splitlines():
-                        if "Tests run:" in line and " - in " in line:
-                            m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
-                            if m:
-                                surefire_failures += int(m.group(1))
-                                surefire_errors += int(m.group(2))
-                    
-                    baseline_total = payload.get("baseline_total_tests", 0)
-                    baseline_passed = payload.get("baseline_passed_tests", 0)
-                    baseline_failed = max(0, baseline_total - baseline_passed)
-                    current_failures = surefire_failures + surefire_errors
-                    has_unit_test_failure = current_failures > baseline_failed
-
-                    # Test count integrity check
-                    has_skipped_tests_failure = False
-                    if baseline_total > 0 and verify_res.total_tests < baseline_total:
-                        has_skipped_tests_failure = True
-
-                    baseline_coverage = payload.get("baseline_coverage", 0.0)
-                    has_gate3_failure = False
+                    baseline_failed = 0
+                    verify_res_total_tests = 0
+                    baseline_total = 0
                     gate3_drop = 0.0
-                    if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
-                        cov_res = runner.coverage(project_path, clean=False)
-                        current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
-                        gate3_drop = baseline_coverage - current_coverage
-                        if gate3_drop > 5.0:
-                            has_gate3_failure = True
+                    baseline_coverage = 0.0
 
+                    if is_failure_submission:
+                        print(f"-> [{self._agent_name()}] Bypassing compilation/test checks due to status in direct response.")
+                    elif not (str(payload.get("current_instruction", "")) or str(instruction) or "").startswith("APPLY:"):
+                        print(f"-> [{self._agent_name()}] Bypassing verification checks in PLAN mode (direct response).")
+                    else:
+                        print(f"-> [{self._agent_name()}] Verifying project compilation before accepting final answer...")
+                        from src.tools.maven import MavenRunner
+                        runner = MavenRunner(target_java_version="17")
+                        project_path = Path(payload.get("project_path", ""))
+                        
+                        # Gate 1: compile
+                        compile_res = runner.compile(project_path, clean=False)
+                        has_compile_error = compile_res.status != 0
+                        compile_res_status = compile_res.status
+
+                        # Gate 2: check surefire unit-test failures only
+                        verify_res = runner.test(project_path, skip_tests=False, clean=True, ignore_test_failures=True)
+                        verify_res_total_tests = verify_res.total_tests
+                        combined_out = verify_res.stdout + "\n" + verify_res.stderr
+                        import re as _re
+                        surefire_failures = 0
+                        surefire_errors = 0
+                        for line in combined_out.splitlines():
+                            if "Tests run:" in line and " - in " in line:
+                                m = _re.search(r"Failures:\s*(\d+),\s*Errors:\s*(\d+)", line)
+                                if m:
+                                    surefire_failures += int(m.group(1))
+                                    surefire_errors += int(m.group(2))
+                        
+                        baseline_total = payload.get("baseline_total_tests", 0)
+                        baseline_passed = payload.get("baseline_passed_tests", 0)
+                        baseline_failed = max(0, baseline_total - baseline_passed)
+                        current_failures = surefire_failures + surefire_errors
+                        has_unit_test_failure = current_failures > 0
+
+                        # Test count integrity check
+                        has_skipped_tests_failure = False
+                        if baseline_total > 0 and verify_res.total_tests < baseline_total:
+                            has_skipped_tests_failure = True
+
+                        baseline_coverage = payload.get("baseline_coverage", 0.0)
+                        has_gate3_failure = False
+                        gate3_drop = 0.0
+                        if not has_compile_error and not has_unit_test_failure and not has_skipped_tests_failure and baseline_coverage > 0:
+                            cov_res = runner.coverage(project_path, clean=False)
+                            current_coverage = cov_res.line_coverage_pct if cov_res.coverage_found else 0.0
+                            gate3_drop = baseline_coverage - current_coverage
+                            if gate3_drop > 5.0:
+                                has_gate3_failure = True
+
+                    compiler_errors = []
                     if has_compile_error:
-                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: Compile errors detected (exit code {compile_res.status}).")
+                        for line in (compile_res.stdout + "\n" + compile_res.stderr).splitlines():
+                            if "[ERROR]" in line and (".java:" in line or "pom.xml" in line):
+                                compiler_errors.append(line.strip())
+                        if not compiler_errors:
+                            compiler_errors = [line.strip() for line in (compile_res.stdout + "\n" + compile_res.stderr).splitlines() if "[ERROR]" in line]
+                    compiler_errors_str = "\n".join(compiler_errors[:25])
+
+                    test_failures = []
+                    if has_unit_test_failure:
+                        in_fail = False
+                        for line in combined_out.splitlines():
+                            if "Results:" in line or "Failures:" in line or "Tests run:" in line:
+                                in_fail = True
+                            if in_fail:
+                                if line.startswith("[INFO]") and "Build" in line:
+                                    in_fail = False
+                                elif line.startswith("[ERROR]") and "Run " not in line:
+                                    test_failures.append(line.strip())
+                        if not test_failures:
+                            for line in combined_out.splitlines():
+                                if "<<< FAILURE!" in line or "<<< ERROR!" in line:
+                                    test_failures.append(line.strip())
+                    test_failures_str = "\n".join(test_failures[:25])
+
+                    if not is_failure_submission and has_compile_error:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: Compile errors detected (exit code {compile_res_status}). Details:\n{compiler_errors_str}")
                         from langchain_core.messages import HumanMessage
                         messages.append(response)
                         messages.append(HumanMessage(
-                            content=f"You attempted to finish, but compilation failed (exit code: {compile_res.status}). "
-                                    f"You MUST continue editing the files and call compile_project(run_tests=false) or similar to fix compile errors."
+                            content=f"You attempted to finish, but compilation failed (exit code: {compile_res_status}). "
+                                    f"You MUST continue editing the files and call compile_project(run_tests=false) or similar to fix compile errors. Details:\n{compiler_errors_str}"
                         ))
                         continue
-                    elif has_unit_test_failure:
-                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors (baseline allowed: {baseline_failed}).")
+                    elif not is_failure_submission and has_unit_test_failure:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: {surefire_failures} unit-test failures, {surefire_errors} errors. Failing cases:\n{test_failures_str}")
                         from langchain_core.messages import HumanMessage
                         messages.append(response)
                         messages.append(HumanMessage(
                             content=f"You attempted to finish, but unit tests are failing: {surefire_failures} failures, {surefire_errors} errors. "
-                                    f"Baseline allowed: {baseline_failed}. You MUST fix the test failures before finishing."
+                                    f"Baseline allowed: {baseline_failed}. You MUST fix the test failures before finishing. Failing cases:\n{test_failures_str}"
                         ))
                         continue
-                    elif has_skipped_tests_failure:
-                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: test count {verify_res.total_tests} is less than baseline {baseline_total}.")
+                    elif not is_failure_submission and has_skipped_tests_failure:
+                        print(f"-> [{self._agent_name()}] Direct response BLOCKED: test count {verify_res_total_tests} is less than baseline {baseline_total}.")
                         from langchain_core.messages import HumanMessage
                         messages.append(response)
                         messages.append(HumanMessage(
-                            content=f"You attempted to finish, but the final test count ({verify_res.total_tests}) is less than baseline ({baseline_total}). "
+                            content=f"You attempted to finish, but the final test count ({verify_res_total_tests}) is less than baseline ({baseline_total}). "
                                     f"Test skipping/exclusion detected. You MUST restore and run all original tests before finishing."
                         ))
                         continue
-                    elif has_gate3_failure:
+                    elif not is_failure_submission and has_gate3_failure:
                         print(f"-> [{self._agent_name()}] Direct response BLOCKED: Gate 3 Failed (Coverage drop {gate3_drop:.1f}% > 5%).")
                         from langchain_core.messages import HumanMessage
                         messages.append(response)
                         messages.append(HumanMessage(
-                            content=f"You attempted to finish, but Gate 3 Failed: Coverage dropped by {gate3_drop:.1f}% (from {baseline_coverage:.1f}%). Threshold is <= 5.0%. "
-                                    f"You MUST add unit tests or restore original logic before finishing."
+                            content=f"You attempted to finish, but Gate 3 Failed: Coverage dropped by {gate3_drop:.2f}% (from baseline {baseline_coverage:.2f}% to current {current_coverage:.2f}%). Threshold is <= 5.0%. "
+                                            f"You MUST add unit tests or restore original logic before finishing."
                         ))
                         continue
 
@@ -927,25 +1099,50 @@ class BaseAgent(ABC):
             ))
 
             any_executed = True
+        return True if any_executed else None
 
     def _parse_tool_calls_from_text(self, content: str) -> list[dict[str, Any]]:
         """Parse tool calls from text content. Supports XML tags and JSON code blocks/structures."""
         import uuid
         tool_calls = []
 
-        # 1. Try XML parsing (<invoke name="...">...</invoke>)
-        invokes = re.findall(r'<invoke\s+name="([^"]+)"\s*>(.*?)</invoke>', content, re.DOTALL)
-        for name, inner in invokes:
+        # 1. Try XML parsing (<invoke name="...">...</invoke> or incomplete)
+        # Search for any <invoke name="NAME"> tag
+        invoke_matches = list(re.finditer(r'<invoke\s+name="([^"]+)"\s*>(.*)', content, re.DOTALL))
+        for match in invoke_matches:
+            name = match.group(1)
+            inner = match.group(2)
+            # If there is a closing </invoke>, only take content up to it
+            end_invoke = inner.find('</invoke>')
+            if end_invoke != -1:
+                inner = inner[:end_invoke]
+            
             args = {}
-            params = re.findall(r'<parameter\s+name="([^"]+)"[^>]*>(.*?)</parameter>', inner, re.DOTALL)
-            for p_name, p_val in params:
-                args[p_name] = p_val.strip()
-            tool_calls.append({
-                "name": name,
-                "args": args,
-                "id": f"call_{uuid.uuid4().hex[:8]}",
-                "type": "tool_call"
-            })
+            # Find the starting position of all parameters to segment them
+            param_starts = [m.start() for m in re.finditer(r'<parameter\s+name=', inner)]
+            for i, start_pos in enumerate(param_starts):
+                segment = inner[start_pos:]
+                if i < len(param_starts) - 1:
+                    segment = inner[start_pos:param_starts[i+1]]
+                
+                p_match = re.match(r'<parameter\s+name="([^"]+)"[^>]*>(.*)', segment, re.DOTALL)
+                if p_match:
+                    p_name = p_match.group(1)
+                    p_val = p_match.group(2).strip()
+                    # Strip closing parameter tag if present
+                    if p_val.endswith('</parameter>'):
+                        p_val = p_val[:-12].strip()
+                    elif '</parameter>' in p_val:
+                        p_val = p_val.split('</parameter>')[0].strip()
+                    args[p_name] = p_val
+            
+            if name:
+                tool_calls.append({
+                    "name": name,
+                    "args": args,
+                    "id": f"call_{uuid.uuid4().hex[:8]}",
+                    "type": "tool_call"
+                })
 
         # 2. Try JSON code blocks or raw JSON parsing
         json_blocks = re.findall(r'```json\s*(.*?)\s*```', content, re.DOTALL)
@@ -1032,6 +1229,71 @@ class BaseAgent(ABC):
                     pass
 
         return coerced
+
+    def _generate_tool_explanation(self, tool_call) -> str:
+        name = getattr(tool_call, "name", None) or (tool_call.get("name", "") if isinstance(tool_call, dict) else "")
+        args = getattr(tool_call, "args", None) or (tool_call.get("args", {}) if isinstance(tool_call, dict) else {})
+        if isinstance(args, str):
+            try:
+                import json
+                args = json.loads(args)
+            except Exception:
+                args = {}
+
+        if name == "read_file":
+            fp = args.get("file_path") or (args.get("file_paths")[0] if args.get("file_paths") else "")
+            return f"I am reading the file '{fp}' to inspect its content and identify the code patterns or dependencies that need to be updated."
+        elif name == "list_project_files":
+            rel = args.get("relative_path") or ""
+            path_str = f" under '{rel}'" if rel else ""
+            return f"I am listing the project files{path_str} to map out the structure of the codebase and locate target source files."
+        elif name == "search_codebase":
+            pat = args.get("regex_pattern") or ""
+            return f"I am searching the codebase for the pattern '{pat}' to find deprecated API usages, library configurations, or references."
+        elif name == "build_change_plan":
+            return "I am scanning the codebase and building the migration change plan based on detected compatibility issues."
+        elif name == "enrich_report":
+            return "I am enriching the migration report with LLM-generated recommendations to prioritize required migration tasks."
+        elif name == "find_code_usages":
+            ident = args.get("identifier") or ""
+            return f"I am searching for semantic usages of the identifier '{ident}' in the Java codebase to locate references."
+        elif name == "get_file_migration_details":
+            fp = args.get("file_path") or ""
+            return f"I am retrieving detailed deprecation references and change candidates specifically for '{fp}'."
+        elif name == "edit_pom_dependency":
+            act = args.get("action") or ""
+            gid = args.get("group_id") or ""
+            aid = args.get("artifact_id") or ""
+            ver = args.get("version") or ""
+            return f"I am editing the pom.xml configuration to execute '{act}' for '{gid}:{aid}' with version '{ver}' to align versions."
+        elif name == "apply_edits":
+            fp = args.get("file_path") or ""
+            return f"I am applying incremental code edits directly to '{fp}' to replace deprecated library calls or update syntax."
+        elif name == "write_file":
+            fp = args.get("file_path") or ""
+            return f"I am overwriting/writing the file '{fp}' to apply the updated, compiled version of the class or config."
+        elif name == "run_maven_command":
+            goal = args.get("goal") or ""
+            return f"I am running the Maven goal '{goal}' to compile the source code, execute test suites, and verify build integrity."
+        elif name == "check_class":
+            c_name = args.get("class_name") or (args.get("class_names")[0] if args.get("class_names") else "")
+            return f"I am checking the classpath to verify the presence of class '{c_name}' in the current project dependencies."
+        elif name == "check_maven_plugin":
+            gid = args.get("group_id") or ""
+            aid = args.get("artifact_id") or ""
+            return f"I am checking Maven Central to verify if plugin '{gid}:{aid}' version is available for dependency resolution."
+        elif name == "fetch_migration_rule":
+            kws = args.get("keywords") or []
+            kws_str = ", ".join(kws[:3])
+            return f"I am fetching migration recipes and rules from migration_rules.json matching keywords like {kws_str}."
+        elif name == "web_search":
+            q = args.get("query") or ""
+            return f"I am searching the web for '{q}' to resolve compilation issues or find modern replacements for deprecated APIs."
+        elif name == "submit_final_answer":
+            status = args.get("status") or ""
+            return f"I am submitting the final migration outcome with status '{status}' as the task has been processed and validated."
+
+        return "I am invoking a migration helper tool to progress the migration analysis and codebase updates."
 
     def _agent_name(self) -> str:
         """Return the agent's name for logging."""

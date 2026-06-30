@@ -1,0 +1,339 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.springframework:spring-aop": [
+      "6.2.8"
+    ],
+    "com.amazonaws:aws-java-sdk-ses": [
+      "1.12.797"
+    ],
+    "com.amazonaws:aws-java-sdk-sqs": [
+      "1.12.797"
+    ],
+    "com.amazonaws:aws-java-sdk-secretsmanager": [
+      "1.12.797"
+    ],
+    "org.springframework.boot:spring-boot-autoconfigure-processor": [
+      "3.5.3",
+      "3.5.2",
+      "3.5.1"
+    ]
+  },
+  "conflict_edges": [
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-java-sdk-ses:1.12.797",
+        "aws-java-sdk-sqs:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-java-sdk-ses:1.12.797",
+        "aws-java-sdk-secretsmanager:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-java-sdk-sqs:1.12.797",
+        "aws-java-sdk-ses:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-java-sdk-sqs:1.12.797",
+        "aws-java-sdk-secretsmanager:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-java-sdk-secretsmanager:1.12.797",
+        "aws-java-sdk-ses:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-java-sdk-secretsmanager:1.12.797",
+        "aws-java-sdk-sqs:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-java-sdk-ses:1.12.797",
+        "aws-java-sdk-sqs:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-java-sdk-ses:1.12.797",
+        "aws-java-sdk-secretsmanager:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-java-sdk-sqs:1.12.797",
+        "aws-java-sdk-ses:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-java-sdk-sqs:1.12.797",
+        "aws-java-sdk-secretsmanager:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-java-sdk-secretsmanager:1.12.797",
+        "aws-java-sdk-ses:1.12.797"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-java-sdk-secretsmanager:1.12.797",
+        "aws-java-sdk-sqs:1.12.797"
+      ]
+    }
+  ],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.springframework:spring-aop": "6.2.8",
+      "com.amazonaws:aws-java-sdk-ses": "1.12.797",
+      "com.amazonaws:aws-java-sdk-sqs": "1.12.797",
+      "com.amazonaws:aws-java-sdk-secretsmanager": "1.12.797",
+      "org.springframework.boot:spring-boot-autoconfigure-processor": "3.5.3"
+    },
+    {
+      "org.springframework:spring-aop": "6.2.8",
+      "com.amazonaws:aws-java-sdk-ses": "1.12.797",
+      "com.amazonaws:aws-java-sdk-sqs": "1.12.797",
+      "com.amazonaws:aws-java-sdk-secretsmanager": "1.12.797",
+      "org.springframework.boot:spring-boot-autoconfigure-processor": "3.5.1"
+    },
+    {
+      "org.springframework:spring-aop": "6.2.8",
+      "com.amazonaws:aws-java-sdk-ses": "1.12.797",
+      "com.amazonaws:aws-java-sdk-sqs": "1.12.797",
+      "com.amazonaws:aws-java-sdk-secretsmanager": "1.12.797",
+      "org.springframework.boot:spring-boot-autoconfigure-processor": "3.5.2"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.springframework:spring-aop": "6.2.8",
+        "com.amazonaws:aws-java-sdk-ses": "1.12.797",
+        "com.amazonaws:aws-java-sdk-sqs": "1.12.797",
+        "com.amazonaws:aws-java-sdk-secretsmanager": "1.12.797",
+        "org.springframework.boot:spring-boot-autoconfigure-processor": "3.5.3"
+      },
+      "result": {
+        "status": "FAIL",
+        "stage": "Compile",
+        "error": "error: error reading RuntimeSmokeTest.java; D:\\capstone_project\\MYGRATE---Capstone-Project\\RuntimeSmokeTest.java\n1 error\n"
+      }
+    },
+    {
+      "solution": {
+        "org.springframework:spring-aop": "6.2.8",
+        "com.amazonaws:aws-java-sdk-ses": "1.12.797",
+        "com.amazonaws:aws-java-sdk-sqs": "1.12.797",
+        "com.amazonaws:aws-java-sdk-secretsmanager": "1.12.797",
+        "org.springframework.boot:spring-boot-autoconfigure-processor": "3.5.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "org.springframework:spring-aop": "6.2.8",
+        "com.amazonaws:aws-java-sdk-ses": "1.12.797",
+        "com.amazonaws:aws-java-sdk-sqs": "1.12.797",
+        "com.amazonaws:aws-java-sdk-secretsmanager": "1.12.797",
+        "org.springframework.boot:spring-boot-autoconfigure-processor": "3.5.2"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 0 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.springframework:spring-aop:6.2.8": {
+      "dependency": "org.springframework:spring-aop",
+      "version": "6.2.8",
+      "signals": {
+        "bytecode_jdk": "17",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.amazonaws:aws-java-sdk-ses:1.12.797": {
+      "dependency": "com.amazonaws:aws-java-sdk-ses",
+      "version": "1.12.797",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\aws-java-sdk-ses-1.12.797.jar:\n\nerror: cannot find class com/amazonaws/AmazonServiceException\nerror: cannot find class com/amazonaws/transform/StaxUnmarshallerContext\nerror: cannot find class com/amazonaws/transform/Unmarshaller\nerror: cannot find class com/amazonaws/transform/SimpleTypeStaxUnmarshallers$StringStaxUnmarshaller\nerror: cannot find class com/amazonaws/SdkClientException\nerror: cannot find class com/amazonaws/DefaultRequest\nerror: cannot find class com/amazonaws/util/StringUtils\nerror: cannot find class com/amazonaws/Request\nerror: cannot find class com/amazonaws/http/HttpMethodName\nerror: cannot find class com/amazonaws/transform/Marshaller\nerror: cannot find class com/amazonaws/transform/SimpleTypeStaxUnmarshallers$BooleanStaxUnmarshaller\nerror: cannot find class com/amazonaws/transform/StandardErrorUnmarshaller\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/MessageRejectedExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot find class com/amazonaws/internal/SdkInternalList\nerror: cannot find class com/amazonaws/transform/SimpleTypeStaxUnmarshallers$DateStaxUnmarshallerFactory\nerror: cannot find class com/amazonaws/transform/MapEntry\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidDeliveryOptionsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidSnsTopicExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidSnsTopicExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot find class com/amazonaws/util/XpathUtils\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/MissingRenderingAttributeExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/MissingRenderingAttributeExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot find class com/amazonaws/transform/SimpleTypeStaxUnmarshallers$DoubleStaxUnmarshaller\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/TemplateDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/TemplateDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/AlreadyExistsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/AlreadyExistsExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CustomVerificationEmailTemplateDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CustomVerificationEmailTemplateDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ConfigurationSetSendingPausedExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ConfigurationSetSendingPausedExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/AccountSendingPausedExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/FromEmailAddressNotVerifiedExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/FromEmailAddressNotVerifiedExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidFirehoseDestinationExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidFirehoseDestinationExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidS3ConfigurationExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidS3ConfigurationExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidRenderingParameterExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidRenderingParameterExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/EventDestinationDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/EventDestinationDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot find class com/amazonaws/transform/SimpleTypeStaxUnmarshallers$LongStaxUnmarshaller\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CustomVerificationEmailTemplateAlreadyExistsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CustomVerificationEmailTemplateAlreadyExistsExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidLambdaFunctionExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidLambdaFunctionExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CustomVerificationEmailInvalidContentExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CannotDeleteExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/CannotDeleteExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/TrackingOptionsDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/TrackingOptionsDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ConfigurationSetDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ConfigurationSetDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/MailFromDomainNotVerifiedExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ConfigurationSetAlreadyExistsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ConfigurationSetAlreadyExistsExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidConfigurationSetExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot find class com/amazonaws/transform/SimpleTypeStaxUnmarshallers$ByteBufferStaxUnmarshaller\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/EventDestinationAlreadyExistsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/EventDestinationAlreadyExistsExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/RuleDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/RuleDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/RuleSetDoesNotExistExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/RuleSetDoesNotExistExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/ProductionAccessNotGrantedExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidTrackingOptionsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/LimitExceededExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidCloudWatchDestinationExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidCloudWatchDestinationExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidTemplateExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidTemplateExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/TrackingOptionsAlreadyExistsExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/TrackingOptionsAlreadyExistsExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidPolicyExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidSNSDestinationExceptionUnmarshaller.parseErrorCode:(Lorg/w3c/dom/Node;)Ljava/lang/String;\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/model/transform/InvalidSNSDestinationExceptionUnmarshaller.getErrorPropertyPath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot find class com/amazonaws/AmazonWebServiceResult\nerror: cannot find class com/amazonaws/AmazonWebServiceRequest\nerror: cannot find class com/amazonaws/internal/SdkInternalMap\nerror: cannot find class com/amazonaws/waiters/WaiterExecutorServiceFactory\nerror: cannot find class com/amazonaws/waiters/WaiterBuilder\nerror: cannot find class com/amazonaws/waiters/MaxAttemptsRetryStrategy\nerror: cannot find class com/amazonaws/waiters/FixedDelayStrategy\nerror: cannot find class com/amazonaws/waiters/PollingStrategy\nerror: cannot find class com/amazonaws/waiters/SdkFunction\nerror: cannot find class com/amazonaws/waiters/WaiterAcceptor\nerror: cannot find class com/amazonaws/jmespath/ObjectMapperSingleton\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class com/amazonaws/jmespath/JmesPathEvaluationVisitor\nerror: cannot find class com/amazonaws/waiters/AcceptorPathMatcher\nerror: cannot find class com/amazonaws/jmespath/JmesPathField\nerror: cannot find class com/amazonaws/jmespath/JmesPathValueProjection\nerror: cannot find class com/amazonaws/jmespath/JmesPathExpression\nerror: cannot find class com/amazonaws/waiters/WaiterState\nerror: cannot find class com/amazonaws/handlers/AsyncHandler\nerror: cannot find class javax/mail/Transport\nerror: cannot find class javax/mail/Session\nerror: cannot find class javax/mail/MessagingException\nerror: cannot find class javax/mail/Message\nerror: cannot find class javax/mail/SendFailedException\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/AWSJavaMailTransport.isConnected:()Z\nerror: cannot find class com/amazonaws/auth/BasicAWSCredentials\nerror: cannot find class com/amazonaws/AmazonWebServiceClient\nerror: cannot find class com/amazonaws/RequestClientOptions\nerror: cannot find class com/amazonaws/util/VersionInfoUtils\nerror: cannot find class javax/mail/Message$RecipientType\nerror: cannot find class com/amazonaws/auth/DefaultAWSCredentialsProviderChain\nerror: cannot find class com/amazonaws/ClientConfiguration\nerror: cannot find class com/amazonaws/ClientConfigurationFactory\nerror: cannot find class com/amazonaws/client/AwsAsyncClientParams\nerror: cannot find class com/amazonaws/internal/StaticCredentialsProvider\nerror: cannot find class com/amazonaws/client/AwsSyncClientParams\nerror: cannot find class com/amazonaws/handlers/HandlerChainFactory\nerror: cannot find class com/amazonaws/http/ExecutionContext\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics\nerror: cannot find class com/amazonaws/http/StaxResponseHandler\nerror: cannot find class com/amazonaws/Response\nerror: cannot find class com/amazonaws/http/AmazonHttpClient\nerror: cannot find class com/amazonaws/util/CredentialUtils\nerror: cannot find class com/amazonaws/http/DefaultErrorResponseHandler\nerror: cannot find class org/apache/commons/logging/LogFactory\nerror: cannot find class com/amazonaws/client/builder/AdvancedConfig\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics$Field\nerror: cannot find class com/amazonaws/handlers/HandlerContextKey\nerror: cannot find class com/amazonaws/client/builder/AwsAsyncClientBuilder\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/AmazonSimpleEmailServiceAsyncClientBuilder.build:()Ljava/lang/Object;\nerror: cannot find class com/amazonaws/client/builder/AwsSyncClientBuilder\nerror: cannot resolve Methodref com/amazonaws/services/simpleemail/AmazonSimpleEmailServiceClientBuilder.build:()Ljava/lang/Object;\nerror: cannot find class com/amazonaws/auth/policy/Action"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.amazonaws:aws-java-sdk-sqs:1.12.797": {
+      "dependency": "com.amazonaws:aws-java-sdk-sqs",
+      "version": "1.12.797",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\aws-java-sdk-sqs-1.12.797.jar:\n\nerror: cannot find class com/amazonaws/SdkClientException\nerror: cannot find class com/amazonaws/protocol/MarshallingInfo\nerror: cannot find class com/amazonaws/protocol/MarshallingInfo$Builder\nerror: cannot find class com/amazonaws/protocol/ProtocolMarshaller\nerror: cannot find class com/amazonaws/protocol/MarshallingType\nerror: cannot find class com/amazonaws/protocol/MarshallLocation\nerror: cannot find class com/amazonaws/transform/EnhancedJsonErrorUnmarshaller\nerror: cannot find class com/amazonaws/transform/JsonUnmarshallerContext\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/amazonaws/transform/Unmarshaller\nerror: cannot find class com/amazonaws/transform/MapUnmarshaller\nerror: cannot find class com/amazonaws/protocol/json/SdkJsonProtocolFactory\nerror: cannot find class com/amazonaws/protocol/OperationInfo\nerror: cannot find class com/amazonaws/protocol/OperationInfo$Builder\nerror: cannot find class com/amazonaws/protocol/ProtocolRequestMarshaller\nerror: cannot find class com/amazonaws/protocol/Protocol\nerror: cannot find class com/amazonaws/http/HttpMethodName\nerror: cannot find class com/amazonaws/transform/Marshaller\nerror: cannot find class com/amazonaws/transform/ListUnmarshaller\nerror: cannot find class com/amazonaws/AmazonWebServiceRequest\nerror: cannot find class com/amazonaws/protocol/StructuredPojo\nerror: cannot find class com/amazonaws/AmazonWebServiceResult\nerror: cannot find class com/amazonaws/internal/SdkInternalMap\nerror: cannot find class com/amazonaws/internal/SdkInternalList\nerror: cannot find class com/amazonaws/AmazonServiceException\nerror: cannot find class org/apache/commons/logging/Log\nerror: cannot find class com/amazonaws/handlers/AsyncHandler\nerror: cannot find class com/amazonaws/AmazonClientException\nerror: cannot find class org/apache/commons/logging/LogFactory\nerror: cannot find class com/amazonaws/util/VersionInfoUtils\nerror: cannot find class com/amazonaws/RequestClientOptions\nerror: cannot find class com/amazonaws/AmazonServiceException$ErrorType\nerror: cannot find class com/amazonaws/handlers/AbstractRequestHandler\nerror: cannot find class com/amazonaws/util/Md5Utils\nerror: cannot find class com/amazonaws/util/BinaryUtils\nerror: cannot find class com/amazonaws/Request\nerror: cannot find class com/amazonaws/util/StringUtils\nerror: cannot find class com/amazonaws/util/ReflectionMethodInvoker\nerror: cannot find class com/amazonaws/internal/auth/SignerProvider\nerror: cannot find class com/amazonaws/internal/auth/SignerProviderContext\nerror: cannot find class com/amazonaws/AmazonWebServiceClient\nerror: cannot find class com/amazonaws/auth/DefaultAWSCredentialsProviderChain\nerror: cannot find class com/amazonaws/ClientConfiguration\nerror: cannot find class com/amazonaws/ClientConfigurationFactory\nerror: cannot resolve Methodref com/amazonaws/services/sqs/AmazonSQSClientConfigurationFactory.getConfig:()Lcom/amazonaws/ClientConfiguration;\nerror: cannot find class com/amazonaws/client/AwsAsyncClientParams\nerror: cannot resolve Methodref com/amazonaws/services/sqs/AmazonSQSClientConfigurationFactory.getConfig:()Lcom/amazonaws/ClientConfiguration;\nerror: cannot find class com/amazonaws/internal/StaticCredentialsProvider\nerror: cannot find class com/amazonaws/client/AwsSyncClientParams\nerror: cannot find class com/amazonaws/handlers/HandlerChainFactory\nerror: cannot find class com/amazonaws/http/ExecutionContext\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics\nerror: cannot find class com/amazonaws/protocol/json/JsonOperationMetadata\nerror: cannot find class com/amazonaws/Response\nerror: cannot find class com/amazonaws/http/AmazonHttpClient\nerror: cannot find class com/amazonaws/util/CredentialUtils\nerror: cannot find class com/amazonaws/protocol/json/JsonErrorResponseMetadata\nerror: cannot find class com/amazonaws/protocol/json/JsonClientMetadata\nerror: cannot find class com/amazonaws/protocol/json/JsonErrorShapeMetadata\nerror: cannot find class com/amazonaws/client/builder/AdvancedConfig\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics$Field\nerror: cannot find class com/amazonaws/handlers/HandlerContextKey\nerror: cannot find class com/amazonaws/client/builder/AwsAsyncClientBuilder\nerror: cannot resolve Methodref com/amazonaws/services/sqs/AmazonSQSAsyncClientBuilder.build:()Ljava/lang/Object;\nerror: cannot find class com/amazonaws/client/builder/AwsSyncClientBuilder\nerror: cannot resolve Methodref com/amazonaws/services/sqs/AmazonSQSClientBuilder.build:()Ljava/lang/Object;\nerror: cannot find class com/amazonaws/auth/policy/Action\nerror: cannot find class com/amazonaws/auth/policy/Resource"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.springframework.boot:spring-boot-autoconfigure-processor:3.5.3": {
+      "dependency": "org.springframework.boot:spring-boot-autoconfigure-processor",
+      "version": "3.5.3",
+      "signals": {
+        "bytecode_jdk": "17",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\spring-boot-autoconfigure-processor-3.5.3.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.amazonaws:aws-java-sdk-secretsmanager:1.12.797": {
+      "dependency": "com.amazonaws:aws-java-sdk-secretsmanager",
+      "version": "1.12.797",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\aws-java-sdk-secretsmanager-1.12.797.jar:\n\nerror: cannot find class com/amazonaws/SdkClientException\nerror: cannot find class com/amazonaws/protocol/MarshallingInfo\nerror: cannot find class com/amazonaws/protocol/MarshallingInfo$Builder\nerror: cannot find class com/amazonaws/protocol/ProtocolMarshaller\nerror: cannot find class com/amazonaws/protocol/MarshallingType\nerror: cannot find class com/amazonaws/protocol/MarshallLocation\nerror: cannot find class com/amazonaws/transform/JsonUnmarshallerContext\nerror: cannot find class com/amazonaws/transform/Unmarshaller\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/amazonaws/protocol/json/SdkJsonProtocolFactory\nerror: cannot find class com/amazonaws/protocol/OperationInfo\nerror: cannot find class com/amazonaws/protocol/OperationInfo$Builder\nerror: cannot find class com/amazonaws/protocol/ProtocolRequestMarshaller\nerror: cannot find class com/amazonaws/protocol/Protocol\nerror: cannot find class com/amazonaws/http/HttpMethodName\nerror: cannot find class com/amazonaws/transform/Marshaller\nerror: cannot find class com/amazonaws/transform/ListUnmarshaller\nerror: cannot find class com/amazonaws/transform/SimpleTypeJsonUnmarshallers$DateJsonUnmarshallerFactory\nerror: cannot find class com/amazonaws/transform/EnhancedJsonErrorUnmarshaller\nerror: cannot find class com/amazonaws/util/IdempotentUtils\nerror: cannot find class com/amazonaws/transform/MapUnmarshaller\nerror: cannot find class com/amazonaws/AmazonWebServiceRequest\nerror: cannot find class com/amazonaws/AmazonWebServiceResult\nerror: cannot find class com/amazonaws/protocol/StructuredPojo\nerror: cannot find class com/amazonaws/AmazonServiceException\nerror: cannot find class com/amazonaws/client/builder/AwsAsyncClientBuilder\nerror: cannot resolve Methodref com/amazonaws/services/secretsmanager/AWSSecretsManagerAsyncClientBuilder.build:()Ljava/lang/Object;\nerror: cannot find class com/amazonaws/ClientConfigurationFactory\nerror: cannot find class com/amazonaws/client/builder/AwsSyncClientBuilder\nerror: cannot resolve Methodref com/amazonaws/services/secretsmanager/AWSSecretsManagerClientBuilder.build:()Ljava/lang/Object;\nerror: cannot find class com/amazonaws/AmazonWebServiceClient\nerror: cannot find class com/amazonaws/client/AwsSyncClientParams\nerror: cannot find class com/amazonaws/handlers/HandlerChainFactory\nerror: cannot find class com/amazonaws/http/ExecutionContext\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics\nerror: cannot find class com/amazonaws/protocol/json/JsonOperationMetadata\nerror: cannot find class com/amazonaws/Response\nerror: cannot find class com/amazonaws/http/AmazonHttpClient\nerror: cannot find class com/amazonaws/util/CredentialUtils\nerror: cannot find class com/amazonaws/RequestClientOptions\nerror: cannot find class com/amazonaws/protocol/json/JsonErrorResponseMetadata\nerror: cannot find class org/apache/commons/logging/LogFactory\nerror: cannot find class com/amazonaws/protocol/json/JsonClientMetadata\nerror: cannot find class com/amazonaws/protocol/json/JsonErrorShapeMetadata\nerror: cannot find class com/amazonaws/Request\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics$Field\nerror: cannot find class com/amazonaws/handlers/HandlerContextKey\nerror: cannot find class com/amazonaws/handlers/AsyncHandler\nerror: cannot find class com/amazonaws/client/AwsAsyncClientParams"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.springframework.boot:spring-boot-autoconfigure-processor:3.5.2": {
+      "dependency": "org.springframework.boot:spring-boot-autoconfigure-processor",
+      "version": "3.5.2",
+      "signals": {
+        "bytecode_jdk": "17",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\spring-boot-autoconfigure-processor-3.5.2.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.springframework.boot:spring-boot-autoconfigure-processor:3.5.1": {
+      "dependency": "org.springframework.boot:spring-boot-autoconfigure-processor",
+      "version": "3.5.1",
+      "signals": {
+        "bytecode_jdk": "17",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\spring-boot-autoconfigure-processor-3.5.1.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

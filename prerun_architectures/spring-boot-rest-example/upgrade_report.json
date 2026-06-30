@@ -1,0 +1,95 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.codehaus.jackson:jackson-core-asl": [
+      "1.9.13"
+    ],
+    "org.springframework.boot:spring-boot-starter-security": [
+      "3.5.3"
+    ],
+    "org.hsqldb:hsqldb": [
+      "2.7.4"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.codehaus.jackson:jackson-core-asl": "1.9.13",
+      "org.springframework.boot:spring-boot-starter-security": "3.5.3",
+      "org.hsqldb:hsqldb": "2.7.4"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.codehaus.jackson:jackson-core-asl": "1.9.13",
+        "org.springframework.boot:spring-boot-starter-security": "3.5.3",
+        "org.hsqldb:hsqldb": "2.7.4"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 0 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.springframework.boot:spring-boot-starter-security:3.5.3": {
+      "dependency": "org.springframework.boot:spring-boot-starter-security",
+      "version": "3.5.3",
+      "signals": {
+        "bytecode_jdk": "Unknown",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\spring-boot-starter-security-3.5.3.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.codehaus.jackson:jackson-core-asl:1.9.13": {
+      "dependency": "org.codehaus.jackson:jackson-core-asl",
+      "version": "1.9.13",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-asl-1.9.13.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.hsqldb:hsqldb:2.7.4": {
+      "dependency": "org.hsqldb:hsqldb",
+      "version": "2.7.4",
+      "signals": {
+        "bytecode_jdk": "11",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

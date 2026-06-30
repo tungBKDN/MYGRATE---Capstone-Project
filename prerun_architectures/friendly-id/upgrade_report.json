@@ -1,0 +1,119 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "com.fasterxml.jackson.core:jackson-annotations": [
+      "2.19.0",
+      "2.19.1"
+    ],
+    "com.fasterxml.jackson.core:jackson-core": [
+      "2.19.0",
+      "2.19.1"
+    ],
+    "org.springframework.boot:spring-boot-starter-web": [
+      "3.5.3"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "com.fasterxml.jackson.core:jackson-annotations": "2.19.1",
+      "com.fasterxml.jackson.core:jackson-core": "2.19.1",
+      "org.springframework.boot:spring-boot-starter-web": "3.5.3"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "com.fasterxml.jackson.core:jackson-annotations": "2.19.1",
+        "com.fasterxml.jackson.core:jackson-core": "2.19.1",
+        "org.springframework.boot:spring-boot-starter-web": "3.5.3"
+      },
+      "result": {
+        "status": "ERROR",
+        "error": "Command '['javac', '-cp', 'D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jackson-datatype-jsr310-2.19.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\log4j-to-slf4j-2.24.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\logback-classic-1.5.18.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\tomcat-embed-websocket-10.1.42.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-starter-logging-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jul-to-slf4j-2.0.17.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jakarta.annotation-api-2.1.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jackson-module-parameter-names-2.19.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-expression-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-starter-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\snakeyaml-2.4.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\micrometer-commons-1.14.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\logback-core-1.5.18.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-starter-tomcat-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jackson-datatype-jdk8-2.19.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\log4j-api-2.24.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-autoconfigure-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-web-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-beans-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jackson-annotations-2.19.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-core-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\micrometer-observation-1.14.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-starter-json-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-starter-web-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-webmvc-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jackson-databind-2.19.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-aop-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\slf4j-api-2.0.17.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-jcl-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jackson-core-2.19.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-context-6.2.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\spring-boot-3.5.3.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\tomcat-embed-core-10.1.42.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\tomcat-embed-el-10.1.42.jar', '--release', '17', 'RuntimeSmokeTest.java']' timed out after 15 seconds"
+      }
+    }
+  ],
+  "step3_reports": {
+    "com.fasterxml.jackson.core:jackson-annotations:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.springframework.boot:spring-boot-starter-web:3.5.3": {
+      "dependency": "org.springframework.boot:spring-boot-starter-web",
+      "version": "3.5.3",
+      "signals": {
+        "bytecode_jdk": "Unknown",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-annotations:2.19.1": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.19.1",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.19.1": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.19.1",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

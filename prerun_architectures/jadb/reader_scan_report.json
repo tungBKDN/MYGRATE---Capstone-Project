@@ -1,0 +1,228 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "se.vidstige",
+      "artifactId": "jadb",
+      "version": "1.2.1-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "se.vidstige",
+      "project.artifactId": "jadb",
+      "project.version": "1.2.1-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8",
+      "maven.compiler.target": "1.7",
+      "maven.compiler.source": "1.7",
+      "mockito-core.version": "2.7.17"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.7.17",
+        "scope": "compile",
+        "raw_version": "${mockito-core.version}"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "4.13.1"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "2.7.17",
+      "scope": "compile",
+      "raw_version": "${mockito-core.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 44,
+    "package_distribution": {
+      "src/se/vidstige/jadb": 20,
+      "src/se/vidstige/jadb/managers": 4,
+      "src/se/vidstige/jadb/server": 5,
+      "test/se/vidstige/jadb": 2,
+      "test/se/vidstige/jadb/managers": 1,
+      "test/se/vidstige/jadb/test/fakes": 3,
+      "test/se/vidstige/jadb/test/integration": 3,
+      "test/se/vidstige/jadb/test/unit": 6
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 44,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 44,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\se\\vidstige\\jadb\\AdbFilterInputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\AdbFilterInputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\AdbFilterOutputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\AdbFilterOutputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\AdbServerLauncher.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\AdbServerLauncher.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\ConnectionToRemoteDeviceException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\ConnectionToRemoteDeviceException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\DeviceDetectionListener.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\DeviceDetectionListener.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\DeviceWatcher.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\DeviceWatcher.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\HostConnectionCommand.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\HostConnectionCommand.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\HostConnectToRemoteTcpDevice.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\HostConnectToRemoteTcpDevice.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\HostDisconnectFromRemoteTcpDevice.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\HostDisconnectFromRemoteTcpDevice.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\ITransportFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\ITransportFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\JadbConnection.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\JadbConnection.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\JadbDevice.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\JadbDevice.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\JadbException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\JadbException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\LookBackFilteringOutputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\LookBackFilteringOutputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\se\\vidstige\\jadb\\RemoteFile.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb\\src\\se\\vidstige\\jadb\\RemoteFile.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.7",
+    "java_file_count": 44,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "se.vidstige",
+        "artifactId": "jadb",
+        "version": "1.2.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "se.vidstige",
+        "project.artifactId": "jadb",
+        "project.version": "1.2.1-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8",
+        "maven.compiler.target": "1.7",
+        "maven.compiler.source": "1.7",
+        "mockito-core.version": "2.7.17"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "4.13.1"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "2.7.17",
+          "scope": "compile",
+          "raw_version": "${mockito-core.version}"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.7.17",
+        "scope": "compile",
+        "raw_version": "${mockito-core.version}"
+      }
+    ],
+    "name": "jadb",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jadb"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `jadb` | Maven | 1.7 | 44 | Standard Java | None | **Yellow** |"
+}

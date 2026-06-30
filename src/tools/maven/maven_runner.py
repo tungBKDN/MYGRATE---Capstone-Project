@@ -97,6 +97,8 @@ class Maven:
         root_editor._save()
 
     def _find_jdk8_home(self) -> Optional[str]:
+        if "JDK8_PATH" in os.environ:
+            return os.environ["JDK8_PATH"]
         if "JAVA8_HOME" in os.environ:
             return os.environ["JAVA8_HOME"]
         import glob
@@ -118,14 +120,6 @@ class Maven:
 
     def _get_execution_env(self, target_version: str) -> dict:
         env = os.environ.copy()
-        if target_version in ["1.6", "6", "1.7", "7", "1.8", "8"]:
-            jdk8_home = self._find_jdk8_home()
-            if jdk8_home:
-                env["JAVA_HOME"] = jdk8_home
-                path_sep = ";" if os.name == "nt" else ":"
-                env["PATH"] = os.path.join(jdk8_home, "bin") + path_sep + env.get("PATH", "")
-                logger.info(f"Auto-selected JDK 8 at {jdk8_home} for target version {target_version}")
-                print(f"[MavenRunner] Auto-selected JDK 8 at: {jdk8_home} for target version: {target_version}")
         return env
 
 
@@ -247,7 +241,7 @@ class Maven:
             cmd.insert(1, "clean")
         result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), env=self._get_execution_env(self.target_java_version), shell=(os.name == "nt"))
         return CliResult(
-            status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
+            status=result.returncode, stdout=result.stdout.decode("utf-8", errors="replace"), stderr=result.stderr.decode("utf-8", errors="replace")
         )
 
     def test(self, repo_path: Path, skip_tests: bool = False, clean: bool = False, ignore_test_failures: bool = False) -> CliResult:
@@ -273,8 +267,8 @@ class Maven:
         try:
             # Timeout increased to 300s to allow integration tests to run
             result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), env=self._get_execution_env(self.target_java_version), shell=(os.name == "nt"), timeout=300)
-            stdout = result.stdout.decode("utf-8")
-            stderr = result.stderr.decode("utf-8")
+            stdout = result.stdout.decode("utf-8", errors="replace")
+            stderr = result.stderr.decode("utf-8", errors="replace")
             total, passed = self._parse_test_counts(stdout)
             return CliResult(
                 status=result.returncode,
@@ -284,8 +278,8 @@ class Maven:
                 passed_tests=passed
             )
         except subprocess.TimeoutExpired as e:
-            stdout = e.stdout.decode("utf-8") if e.stdout else ""
-            stderr = (e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 300 seconds. A test might be hanging or stuck in an infinite loop."
+            stdout = e.stdout.decode("utf-8", errors="replace") if e.stdout else ""
+            stderr = (e.stderr.decode("utf-8", errors="replace") if e.stderr else "") + "\n[ERROR] Maven test execution timed out after 300 seconds. A test might be hanging or stuck in an infinite loop."
             total, passed = self._parse_test_counts(stdout)
             return CliResult(
                 status=-1,
@@ -351,11 +345,11 @@ class Maven:
         try:
             # Sync timeout to 300s to match test() and allow longer integration tests
             result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), env=self._get_execution_env(self.target_java_version), shell=(os.name == "nt"), timeout=300)
-            stdout = result.stdout.decode("utf-8")
-            stderr = result.stderr.decode("utf-8")
+            stdout = result.stdout.decode("utf-8", errors="replace")
+            stderr = result.stderr.decode("utf-8", errors="replace")
         except subprocess.TimeoutExpired as e:
-            stdout = e.stdout.decode("utf-8") if e.stdout else ""
-            stderr = (e.stderr.decode("utf-8") if e.stderr else "") + "\n[ERROR] Maven coverage execution timed out after 300 seconds."
+            stdout = e.stdout.decode("utf-8", errors="replace") if e.stdout else ""
+            stderr = (e.stderr.decode("utf-8", errors="replace") if e.stderr else "") + "\n[ERROR] Maven coverage execution timed out after 300 seconds."
             total, passed = self._parse_test_counts(stdout)
             return CoverageResult(
                 status=-1,
@@ -452,7 +446,7 @@ class Maven:
             cmd.append("-DskipDocs")
         result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), env=self._get_execution_env(self.target_java_version), shell=(os.name == "nt"))
         return CliResult(
-            status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
+            status=result.returncode, stdout=result.stdout.decode("utf-8", errors="replace"), stderr=result.stderr.decode("utf-8", errors="replace")
         )
 
     def deps(self, repo_path: Path, output_path: Path) -> CliResult:
@@ -474,7 +468,7 @@ class Maven:
 
         result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), env=self._get_execution_env(self.target_java_version), shell=(os.name == "nt"))
         return CliResult(
-            status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
+            status=result.returncode, stdout=result.stdout.decode("utf-8", errors="replace"), stderr=result.stderr.decode("utf-8", errors="replace")
         )
 
     def copy_deps(self, repo_path: Path) -> CliResult:
@@ -489,5 +483,5 @@ class Maven:
 
         result = subprocess.run(cmd, capture_output=True, cwd=str(repo_path), env=self._get_execution_env(self.target_java_version), shell=(os.name == "nt"))
         return CliResult(
-            status=result.returncode, stdout=result.stdout.decode("utf-8"), stderr=result.stderr.decode("utf-8")
+            status=result.returncode, stdout=result.stdout.decode("utf-8", errors="replace"), stderr=result.stderr.decode("utf-8", errors="replace")
         )

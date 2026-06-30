@@ -1,0 +1,68 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "junit:junit": [
+      "4.13.2"
+    ],
+    "org.springframework:spring-context": [
+      "6.2.8"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "junit:junit": "4.13.2",
+      "org.springframework:spring-context": "6.2.8"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "junit:junit": "4.13.2",
+        "org.springframework:spring-context": "6.2.8"
+      },
+      "result": {
+        "status": "FAIL",
+        "stage": "Compile",
+        "error": "error: file not found: RuntimeSmokeTest.java\nUsage: javac <options> <source files>\nuse --help for a list of possible options\n"
+      }
+    }
+  ],
+  "step3_reports": {
+    "junit:junit:4.13.2": {
+      "dependency": "junit:junit",
+      "version": "4.13.2",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.springframework:spring-context:6.2.8": {
+      "dependency": "org.springframework:spring-context",
+      "version": "6.2.8",
+      "signals": {
+        "bytecode_jdk": "17",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

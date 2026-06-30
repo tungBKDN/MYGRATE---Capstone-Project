@@ -14,9 +14,16 @@ if (Test-Path $VenvActivate) {
 } elseif (Test-Path $VenvActivateFallback) {
     Write-Host "[MYGRATE] Activating virtual environment (venv)..." -ForegroundColor Cyan
     . $VenvActivateFallback
-} else {
-    Write-Warning "Virtual environment folder (.venv or venv) not found. Running with standard python."
 }
 
 # Run the interactive CLI python application
-python (Join-Path $ScriptDir "cli_app.py") $args
+$VenvPython = Join-Path $ScriptDir ".venv\Scripts\python.exe"
+$VenvPythonFallback = Join-Path $ScriptDir "venv\Scripts\python.exe"
+
+if (Test-Path $VenvPython) {
+    & $VenvPython (Join-Path $ScriptDir "cli_app.py") $args
+} elseif (Test-Path $VenvPythonFallback) {
+    & $VenvPythonFallback (Join-Path $ScriptDir "cli_app.py") $args
+} else {
+    python (Join-Path $ScriptDir "cli_app.py") $args
+}

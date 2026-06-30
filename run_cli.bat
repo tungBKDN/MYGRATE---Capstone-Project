@@ -15,7 +15,13 @@ if exist ".venv\Scripts\activate.bat" (
 )
 
 :: Run the interactive CLI application passing any additional arguments
-python cli_app.py %*
+if exist ".venv\Scripts\python.exe" (
+    ".venv\Scripts\python.exe" cli_app.py %*
+) else if exist "venv\Scripts\python.exe" (
+    "venv\Scripts\python.exe" cli_app.py %*
+) else (
+    python cli_app.py %*
+)
 
 :: Pause at the end to keep the window open if double-clicked
 if "%cmdcmdline:~0,2%"=="cmd" (

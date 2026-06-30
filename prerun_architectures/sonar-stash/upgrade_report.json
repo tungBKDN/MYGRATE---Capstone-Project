@@ -1,0 +1,72 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.awaitility:awaitility": [
+      "4.3.0"
+    ],
+    "org.mockito:mockito-core": [
+      "5.18.0"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.awaitility:awaitility": "4.3.0",
+      "org.mockito:mockito-core": "5.18.0"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.awaitility:awaitility": "4.3.0",
+        "org.mockito:mockito-core": "5.18.0"
+      },
+      "result": {
+        "status": "FAIL",
+        "stage": "Runtime",
+        "error": "Error: Could not find or load main class RuntimeSmokeTest\nCaused by: java.lang.ClassNotFoundException: RuntimeSmokeTest"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.awaitility:awaitility:4.3.0": {
+      "dependency": "org.awaitility:awaitility",
+      "version": "4.3.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\awaitility-4.3.0.jar:\n\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Matchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.mockito:mockito-core:5.18.0": {
+      "dependency": "org.mockito:mockito-core",
+      "version": "5.18.0",
+      "signals": {
+        "bytecode_jdk": "11",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

@@ -1,0 +1,67 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "javax.json:javax.json-api": [
+      "1.1.4"
+    ],
+    "org.apache.httpcomponents:httpclient": [
+      "4.5.14"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "javax.json:javax.json-api": "1.1.4",
+      "org.apache.httpcomponents:httpclient": "4.5.14"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "javax.json:javax.json-api": "1.1.4",
+        "org.apache.httpcomponents:httpclient": "4.5.14"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "javax.json:javax.json-api:1.1.4": {
+      "dependency": "javax.json:javax.json-api",
+      "version": "1.1.4",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.apache.httpcomponents:httpclient:4.5.14": {
+      "dependency": "org.apache.httpcomponents:httpclient",
+      "version": "4.5.14",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

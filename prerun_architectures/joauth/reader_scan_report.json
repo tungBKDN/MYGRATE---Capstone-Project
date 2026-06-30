@@ -1,0 +1,309 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.twitter",
+      "artifactId": "joauth",
+      "version": "6.0.3"
+    },
+    "properties": {
+      "project.groupId": "com.twitter",
+      "project.artifactId": "joauth",
+      "project.version": "6.0.3",
+      "maven.compiler.source": "1.6",
+      "maven.compiler.target": "1.6",
+      "project.build.sourceEncoding": "UTF-8",
+      "encoding": "UTF-8",
+      "scala.version": "2.10.6",
+      "slf4j.version": "1.7.5"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "15.0",
+        "scope": "compile",
+        "raw_version": "15.0"
+      },
+      {
+        "groupId": "org.scala-lang",
+        "artifactId": "scala-library",
+        "version": "2.10.6",
+        "scope": "test",
+        "raw_version": "2.10.6"
+      },
+      {
+        "groupId": "org.scala-tools.testing",
+        "artifactId": "specs_2.10",
+        "version": "1.6.9",
+        "scope": "test",
+        "raw_version": "1.6.9"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.11",
+        "scope": "test",
+        "raw_version": "4.11"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-all",
+        "version": "1.9.5",
+        "scope": "test",
+        "raw_version": "1.9.5"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "15.0",
+      "scope": "compile",
+      "raw_version": "15.0"
+    },
+    {
+      "groupId": "org.scala-lang",
+      "artifactId": "scala-library",
+      "version": "2.10.6",
+      "scope": "test",
+      "raw_version": "2.10.6"
+    },
+    {
+      "groupId": "org.scala-tools.testing",
+      "artifactId": "specs_2.10",
+      "version": "1.6.9",
+      "scope": "test",
+      "raw_version": "1.6.9"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.11",
+      "scope": "test",
+      "raw_version": "4.11"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-all",
+      "version": "1.9.5",
+      "scope": "test",
+      "raw_version": "1.9.5"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 18,
+    "package_distribution": {
+      "src/main/java/com/twitter/joauth": 13,
+      "src/main/java/com/twitter/joauth/keyvalue": 3,
+      "src/test/java/com/twitter/joauth/keyvalue": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 18,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 18,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\Base64Util.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\Base64Util.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\MalformedRequest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\MalformedRequest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\NonceValidator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\NonceValidator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\Normalizer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\Normalizer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\OAuthParams.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\OAuthParams.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\Request.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\Request.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\Signer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\Signer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\UnpackedRequest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\UnpackedRequest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\Unpacker.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\Unpacker.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\UnpackerException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\UnpackerException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\UrlCodec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\UrlCodec.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\Verifier.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\Verifier.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\VerifierResult.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\VerifierResult.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\keyvalue\\KeyValueHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\keyvalue\\KeyValueHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\twitter\\joauth\\keyvalue\\KeyValueParser.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth\\src\\main\\java\\com\\twitter\\joauth\\keyvalue\\KeyValueParser.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 18,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.twitter",
+        "artifactId": "joauth",
+        "version": "6.0.3"
+      },
+      "properties": {
+        "project.groupId": "com.twitter",
+        "project.artifactId": "joauth",
+        "project.version": "6.0.3",
+        "maven.compiler.source": "1.6",
+        "maven.compiler.target": "1.6",
+        "project.build.sourceEncoding": "UTF-8",
+        "encoding": "UTF-8",
+        "scala.version": "2.10.6",
+        "slf4j.version": "1.7.5"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "15.0",
+          "scope": "compile",
+          "raw_version": "15.0"
+        },
+        {
+          "groupId": "org.scala-lang",
+          "artifactId": "scala-library",
+          "version": "2.10.6",
+          "scope": "test",
+          "raw_version": "2.10.6"
+        },
+        {
+          "groupId": "org.scala-tools.testing",
+          "artifactId": "specs_2.10",
+          "version": "1.6.9",
+          "scope": "test",
+          "raw_version": "1.6.9"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.11",
+          "scope": "test",
+          "raw_version": "4.11"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-all",
+          "version": "1.9.5",
+          "scope": "test",
+          "raw_version": "1.9.5"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "15.0",
+        "scope": "compile",
+        "raw_version": "15.0"
+      },
+      {
+        "groupId": "org.scala-lang",
+        "artifactId": "scala-library",
+        "version": "2.10.6",
+        "scope": "test",
+        "raw_version": "2.10.6"
+      },
+      {
+        "groupId": "org.scala-tools.testing",
+        "artifactId": "specs_2.10",
+        "version": "1.6.9",
+        "scope": "test",
+        "raw_version": "1.6.9"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.11",
+        "scope": "test",
+        "raw_version": "4.11"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-all",
+        "version": "1.9.5",
+        "scope": "test",
+        "raw_version": "1.9.5"
+      }
+    ],
+    "name": "joauth",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\joauth"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `joauth` | Maven | 1.6 | 18 | Standard Java | None | **Yellow** |"
+}

@@ -294,6 +294,7 @@ def run_jdeprscan_check(jar_path: str, target_release: str = "17", logger=None) 
             [jdeprscan_executable, "--release", target_release, jar_path],
             capture_output=True,
             text=True,
+            errors="replace",
             timeout=30,
         )
         combined_output = "\n".join(part for part in [result.stdout, result.stderr] if part).strip()
@@ -411,27 +412,36 @@ def check_java_compatibility(group_id: str, artifact_id: str, version: str, targ
 # Step 4: Compile check
 # ---------------------------------------------------------------------------
 
+_download_lock = None
+
 def prepare_jar_for_check(group_id: str, artifact_id: str, version: str, cache_dir: str = "./temp_jars", logger=None) -> str:
+    import threading
+    global _download_lock
+    if _download_lock is None:
+        _download_lock = threading.Lock()
+        
     Path(cache_dir).mkdir(parents=True, exist_ok=True)
     g_path = group_id.replace(".", "/")
     url = f"https://repo1.maven.org/maven2/{g_path}/{artifact_id}/{version}/{artifact_id}-{version}.jar"
     jar_path = os.path.abspath(os.path.join(cache_dir, f"{artifact_id}-{version}.jar"))
-    if not os.path.exists(jar_path):
-        try:
-            _emit(logger, f"[Download] Fetching JAR {artifact_id}-{version}.jar")
-            resp = requests.get(url, timeout=20)
-            if resp.status_code == 200:
-                with open(jar_path, "wb") as f:
-                    f.write(resp.content)
-                _emit(logger, f"[Download] Saved {jar_path}")
-            else:
-                _emit(logger, f"[Download] Failed with HTTP {resp.status_code} for {artifact_id}-{version}.jar")
+    
+    with _download_lock:
+        if not os.path.exists(jar_path):
+            try:
+                _emit(logger, f"[Download] Fetching JAR {artifact_id}-{version}.jar")
+                resp = requests.get(url, timeout=20)
+                if resp.status_code == 200:
+                    with open(jar_path, "wb") as f:
+                        f.write(resp.content)
+                    _emit(logger, f"[Download] Saved {jar_path}")
+                else:
+                    _emit(logger, f"[Download] Failed with HTTP {resp.status_code} for {artifact_id}-{version}.jar")
+                    return ""
+            except Exception:
+                _emit(logger, f"[Download] Failed to fetch {artifact_id}-{version}.jar")
                 return ""
-        except Exception:
-            _emit(logger, f"[Download] Failed to fetch {artifact_id}-{version}.jar")
-            return ""
-    else:
-        _emit(logger, f"[Cache] Reusing {jar_path}")
+        else:
+            _emit(logger, f"[Cache] Reusing {jar_path}")
     return jar_path
 
 
@@ -447,7 +457,7 @@ def run_compile_check(jar_path: str, target_jdk: str = "17", logger=None) -> dic
     try:
         cmd = ["javac", "-cp", jar_path, "--release", target_jdk, stub_file]
         _emit(logger, f"[Step 4] Running javac --release {target_jdk} for {Path(jar_path).name}")
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        result = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=15)
         if result.returncode == 0:
             return {"status": "PASS", "details": "Compatible"}
         return {"status": "FAIL", "reason": "Compile error", "error": result.stderr}
@@ -466,7 +476,7 @@ def run_compile_check(jar_path: str, target_jdk: str = "17", logger=None) -> dic
 
 def _check_jdk_available() -> bool:
     try:
-        result = subprocess.run(["javac", "-version"], capture_output=True, text=True, timeout=5)
+        result = subprocess.run(["javac", "-version"], capture_output=True, text=True, errors="replace", timeout=5)
         return result.returncode == 0
     except (FileNotFoundError, subprocess.TimeoutExpired):
         return False
@@ -853,12 +863,12 @@ public class RuntimeSmokeTest {{
         _emit(logger, f"[Step 7] Compiling RuntimeSmokeTest.java against {len(jar_paths)} JAR(s)")
         with open(stub, "w", encoding="utf-8") as f:
             f.write(java_code)
-        c_res = subprocess.run(["javac", "-cp", classpath, "--release", target_jdk, stub], capture_output=True, text=True, timeout=15)
+        c_res = subprocess.run(["javac", "-cp", classpath, "--release", target_jdk, stub], capture_output=True, text=True, errors="replace", timeout=15)
         if c_res.returncode != 0:
             return {"status": "FAIL", "stage": "Compile", "error": c_res.stderr}
         run_cp = f".{cp_sep}{classpath}"
         _emit(logger, f"[Step 7] Running RuntimeSmokeTest with {len(classes_to_test[:5])} class probes")
-        r_res = subprocess.run(["java", "-cp", run_cp, "RuntimeSmokeTest"], capture_output=True, text=True, timeout=15)
+        r_res = subprocess.run(["java", "-cp", run_cp, "RuntimeSmokeTest"], capture_output=True, text=True, errors="replace", timeout=15)
         if r_res.returncode == 0:
             return {"status": "PASS", "log": r_res.stdout.strip()}
         return {"status": "FAIL", "stage": "Runtime", "error": r_res.stderr.strip()}

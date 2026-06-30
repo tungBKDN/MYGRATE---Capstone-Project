@@ -1,0 +1,207 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "com.intellij:annotations": [
+      "12.0"
+    ],
+    "com.damnhandy:handy-uri-templates": [
+      "2.1.8"
+    ],
+    "org.springframework:spring-webmvc": [
+      "6.2.8"
+    ],
+    "org.slf4j:jcl-over-slf4j": [
+      "2.0.17",
+      "2.0.16",
+      "2.0.15"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "com.intellij:annotations": "12.0",
+      "com.damnhandy:handy-uri-templates": "2.1.8",
+      "org.springframework:spring-webmvc": "6.2.8",
+      "org.slf4j:jcl-over-slf4j": "2.0.16"
+    },
+    {
+      "com.intellij:annotations": "12.0",
+      "com.damnhandy:handy-uri-templates": "2.1.8",
+      "org.springframework:spring-webmvc": "6.2.8",
+      "org.slf4j:jcl-over-slf4j": "2.0.15"
+    },
+    {
+      "com.intellij:annotations": "12.0",
+      "com.damnhandy:handy-uri-templates": "2.1.8",
+      "org.springframework:spring-webmvc": "6.2.8",
+      "org.slf4j:jcl-over-slf4j": "2.0.17"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "com.intellij:annotations": "12.0",
+        "com.damnhandy:handy-uri-templates": "2.1.8",
+        "org.springframework:spring-webmvc": "6.2.8",
+        "org.slf4j:jcl-over-slf4j": "2.0.16"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 0 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "com.intellij:annotations": "12.0",
+        "com.damnhandy:handy-uri-templates": "2.1.8",
+        "org.springframework:spring-webmvc": "6.2.8",
+        "org.slf4j:jcl-over-slf4j": "2.0.15"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "com.intellij:annotations": "12.0",
+        "com.damnhandy:handy-uri-templates": "2.1.8",
+        "org.springframework:spring-webmvc": "6.2.8",
+        "org.slf4j:jcl-over-slf4j": "2.0.17"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 0 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "com.intellij:annotations:12.0": {
+      "dependency": "com.intellij:annotations",
+      "version": "12.0",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\annotations-12.0.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.damnhandy:handy-uri-templates:2.1.8": {
+      "dependency": "com.damnhandy:handy-uri-templates",
+      "version": "2.1.8",
+      "signals": {
+        "bytecode_jdk": "7",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\handy-uri-templates-2.1.8.jar:\n\nerror: cannot find class org/joda/time/format/DateTimeFormat\nerror: cannot find class org/joda/time/DateTime\nerror: cannot find class org/joda/time/format/DateTimeFormatter\nerror: cannot find class com/fasterxml/jackson/databind/JsonDeserializer\nerror: cannot find class com/fasterxml/jackson/core/JsonParser\nerror: cannot find class com/fasterxml/jackson/core/JsonParseException\nerror: cannot find class com/fasterxml/jackson/core/Version\nerror: cannot find class com/fasterxml/jackson/databind/module/SimpleModule\nerror: cannot resolve Methodref com/damnhandy/uri/template/jackson/datatype/UriTemplateModule.addDeserializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/JsonDeserializer;)Lcom/fasterxml/jackson/databind/module/SimpleModule;\nerror: cannot resolve Methodref com/damnhandy/uri/template/jackson/datatype/UriTemplateModule.addSerializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/JsonSerializer;)Lcom/fasterxml/jackson/databind/module/SimpleModule;\nerror: cannot find class com/fasterxml/jackson/databind/JsonSerializer\nerror: cannot find class com/fasterxml/jackson/core/JsonGenerator"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.slf4j:jcl-over-slf4j:2.0.17": {
+      "dependency": "org.slf4j:jcl-over-slf4j",
+      "version": "2.0.17",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/apache/commons/logging/impl/SimpleLog uses deprecated class java/security/AccessController (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jcl-over-slf4j-2.0.17.jar:\nclass org/apache/commons/logging/impl/SimpleLog uses deprecated class java/security/AccessController (forRemoval=true)\n\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/spi/LocationAwareLogger\nerror: cannot find class org/slf4j/Logger"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.springframework:spring-webmvc:6.2.8": {
+      "dependency": "org.springframework:spring-webmvc",
+      "version": "6.2.8",
+      "signals": {
+        "bytecode_jdk": "17",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.slf4j:jcl-over-slf4j:2.0.16": {
+      "dependency": "org.slf4j:jcl-over-slf4j",
+      "version": "2.0.16",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/apache/commons/logging/impl/SimpleLog uses deprecated class java/security/AccessController (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jcl-over-slf4j-2.0.16.jar:\nclass org/apache/commons/logging/impl/SimpleLog uses deprecated class java/security/AccessController (forRemoval=true)\n\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/spi/LocationAwareLogger\nerror: cannot find class org/slf4j/Logger"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.slf4j:jcl-over-slf4j:2.0.15": {
+      "dependency": "org.slf4j:jcl-over-slf4j",
+      "version": "2.0.15",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/apache/commons/logging/impl/SimpleLog uses deprecated class java/security/AccessController (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jcl-over-slf4j-2.0.15.jar:\nclass org/apache/commons/logging/impl/SimpleLog uses deprecated class java/security/AccessController (forRemoval=true)\n\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/spi/LocationAwareLogger\nerror: cannot find class org/slf4j/Logger"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

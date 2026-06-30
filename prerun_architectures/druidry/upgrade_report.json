@@ -1,0 +1,108 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "com.fasterxml.jackson.core:jackson-databind": [
+      "2.19.0"
+    ],
+    "org.apache.commons:commons-lang3": [
+      "3.20.0"
+    ],
+    "org.glassfish.jersey.connectors:jersey-apache-connector": [
+      "3.1.10"
+    ],
+    "com.google.guava:guava": [
+      "33.4.8-jre"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+      "org.apache.commons:commons-lang3": "3.20.0",
+      "org.glassfish.jersey.connectors:jersey-apache-connector": "3.1.10",
+      "com.google.guava:guava": "33.4.8-jre"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+        "org.apache.commons:commons-lang3": "3.20.0",
+        "org.glassfish.jersey.connectors:jersey-apache-connector": "3.1.10",
+        "com.google.guava:guava": "33.4.8-jre"
+      },
+      "result": {
+        "status": "FAIL",
+        "stage": "Compile",
+        "error": "error: error reading RuntimeSmokeTest.java; D:\\capstone_project\\MYGRATE---Capstone-Project\\RuntimeSmokeTest.java\n1 error\n"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.apache.commons:commons-lang3:3.20.0": {
+      "dependency": "org.apache.commons:commons-lang3",
+      "version": "3.20.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-databind:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.glassfish.jersey.connectors:jersey-apache-connector:3.1.10": {
+      "dependency": "org.glassfish.jersey.connectors:jersey-apache-connector",
+      "version": "3.1.10",
+      "signals": {
+        "bytecode_jdk": "11",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.google.guava:guava:33.4.8-jre": {
+      "dependency": "com.google.guava:guava",
+      "version": "33.4.8-jre",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

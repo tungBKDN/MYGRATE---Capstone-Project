@@ -1,0 +1,204 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.isomorphism",
+      "artifactId": "token-bucket",
+      "version": "1.8-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.isomorphism",
+      "project.artifactId": "token-bucket",
+      "project.version": "1.8-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "18.0",
+        "scope": "compile",
+        "raw_version": "18.0"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "4.12"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "1.10.19",
+        "scope": "test",
+        "raw_version": "1.10.19"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "18.0",
+      "scope": "compile",
+      "raw_version": "18.0"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.12",
+      "scope": "test",
+      "raw_version": "4.12"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "1.10.19",
+      "scope": "test",
+      "raw_version": "1.10.19"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 7,
+    "package_distribution": {
+      "src/main/java/org/isomorphism/util": 4,
+      "src/test/java/org/isomorphism/util": 3
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 7,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 7,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\org\\isomorphism\\util\\FixedIntervalRefillStrategy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\main\\java\\org\\isomorphism\\util\\FixedIntervalRefillStrategy.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\isomorphism\\util\\TokenBucket.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\main\\java\\org\\isomorphism\\util\\TokenBucket.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\isomorphism\\util\\TokenBucketImpl.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\main\\java\\org\\isomorphism\\util\\TokenBucketImpl.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\isomorphism\\util\\TokenBuckets.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\main\\java\\org\\isomorphism\\util\\TokenBuckets.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\org\\isomorphism\\util\\FixedIntervalRefillStrategyTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\test\\java\\org\\isomorphism\\util\\FixedIntervalRefillStrategyTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\org\\isomorphism\\util\\TokenBucketBuilderTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\test\\java\\org\\isomorphism\\util\\TokenBucketBuilderTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\org\\isomorphism\\util\\TokenBucketImplTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket\\src\\test\\java\\org\\isomorphism\\util\\TokenBucketImplTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "8",
+    "java_file_count": 7,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.isomorphism",
+        "artifactId": "token-bucket",
+        "version": "1.8-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.isomorphism",
+        "project.artifactId": "token-bucket",
+        "project.version": "1.8-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "18.0",
+          "scope": "compile",
+          "raw_version": "18.0"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.12",
+          "scope": "test",
+          "raw_version": "4.12"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "1.10.19",
+          "scope": "test",
+          "raw_version": "1.10.19"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "18.0",
+        "scope": "compile",
+        "raw_version": "18.0"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "4.12"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "1.10.19",
+        "scope": "test",
+        "raw_version": "1.10.19"
+      }
+    ],
+    "name": "token-bucket",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\token-bucket"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `token-bucket` | Maven | 8 | 7 | Standard Java | None | **Yellow** |"
+}

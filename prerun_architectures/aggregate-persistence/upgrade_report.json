@@ -1,0 +1,443 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": [
+      "2.19.0"
+    ],
+    "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": [
+      "2.19.0"
+    ],
+    "org.mockito:mockito-core": [
+      "5.18.0"
+    ],
+    "com.fasterxml.jackson.core:jackson-databind": [
+      "2.19.0"
+    ],
+    "junit:junit": [
+      "4.13.2",
+      "4.13.1",
+      "4.13"
+    ],
+    "org.apache.commons:commons-lang3": [
+      "3.20.0",
+      "3.19.0",
+      "3.18.0"
+    ],
+    "com.fasterxml.jackson.core:jackson-core": [
+      "2.19.0",
+      "2.18.4",
+      "2.18.3"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+      "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+      "org.mockito:mockito-core": "5.18.0",
+      "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+      "junit:junit": "4.13.2",
+      "org.apache.commons:commons-lang3": "3.20.0",
+      "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+    },
+    {
+      "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+      "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+      "org.mockito:mockito-core": "5.18.0",
+      "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+      "junit:junit": "4.13.1",
+      "org.apache.commons:commons-lang3": "3.20.0",
+      "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+    },
+    {
+      "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+      "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+      "org.mockito:mockito-core": "5.18.0",
+      "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+      "junit:junit": "4.13",
+      "org.apache.commons:commons-lang3": "3.20.0",
+      "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+    },
+    {
+      "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+      "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+      "org.mockito:mockito-core": "5.18.0",
+      "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+      "junit:junit": "4.13",
+      "org.apache.commons:commons-lang3": "3.19.0",
+      "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+    },
+    {
+      "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+      "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+      "org.mockito:mockito-core": "5.18.0",
+      "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+      "junit:junit": "4.13",
+      "org.apache.commons:commons-lang3": "3.18.0",
+      "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+        "org.mockito:mockito-core": "5.18.0",
+        "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+        "junit:junit": "4.13.2",
+        "org.apache.commons:commons-lang3": "3.20.0",
+        "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+        "org.mockito:mockito-core": "5.18.0",
+        "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+        "junit:junit": "4.13.1",
+        "org.apache.commons:commons-lang3": "3.20.0",
+        "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8": "2.19.0",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": "2.19.0",
+        "org.mockito:mockito-core": "5.18.0",
+        "com.fasterxml.jackson.core:jackson-databind": "2.19.0",
+        "junit:junit": "4.13",
+        "org.apache.commons:commons-lang3": "3.20.0",
+        "com.fasterxml.jackson.core:jackson-core": "2.19.0"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.19.0": {
+      "dependency": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-datatype-jdk8-2.19.0.jar:\n\nerror: cannot find class com/fasterxml/jackson/databind/deser/std/StdScalarDeserializer\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/StdSerializer\nerror: cannot find class com/fasterxml/jackson/core/JsonGenerator\nerror: cannot find class com/fasterxml/jackson/databind/ser/BeanSerializerModifier\nerror: cannot find class com/fasterxml/jackson/databind/ser/BeanPropertyWriter\nerror: cannot find class com/fasterxml/jackson/databind/JavaType\nerror: cannot find class com/fasterxml/jackson/databind/deser/Deserializers$Base\nerror: cannot find class com/fasterxml/jackson/databind/type/ReferenceType\nerror: cannot find class com/fasterxml/jackson/databind/Module\nerror: cannot find class com/fasterxml/jackson/databind/Module$SetupContext\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/Jdk8OptionalBeanPropertyWriter.get:(Ljava/lang/Object;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/Jdk8OptionalBeanPropertyWriter._nullSerializer:Lcom/fasterxml/jackson/databind/JsonSerializer;\nerror: cannot find class com/fasterxml/jackson/databind/ser/Serializers$Base\nerror: cannot find class com/fasterxml/jackson/databind/SerializationConfig\nerror: cannot find class com/fasterxml/jackson/databind/type/TypeFactory\nerror: cannot find class com/fasterxml/jackson/databind/MapperFeature\nerror: cannot find class com/fasterxml/jackson/databind/type/TypeModifier\nerror: cannot find class com/fasterxml/jackson/databind/ser/impl/UnwrappingBeanPropertyWriter\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/Jdk8UnwrappingOptionalBeanPropertyWriter.get:(Ljava/lang/Object;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/Jdk8UnwrappingOptionalBeanPropertyWriter._nullSerializer:Lcom/fasterxml/jackson/databind/JsonSerializer;\nerror: cannot find class com/fasterxml/jackson/databind/deser/std/ReferenceTypeDeserializer\nerror: cannot find class com/fasterxml/jackson/databind/JsonDeserializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDeserializer._fullType:Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDeserializer._valueInstantiator:Lcom/fasterxml/jackson/databind/deser/ValueInstantiator;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDeserializer._valueDeserializer:Lcom/fasterxml/jackson/databind/JsonDeserializer;\nerror: cannot find class com/fasterxml/jackson/core/JsonParser\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDoubleDeserializer._checkDoubleSpecialValue:(Ljava/lang/String;)Ljava/lang/Double;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDoubleDeserializer._checkFromStringCoercion:(Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDoubleDeserializer._parseDoublePrimitive:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)D\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDoubleDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalDoubleDeserializer.getValueType:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationContext\nerror: cannot find class com/fasterxml/jackson/databind/type/LogicalType\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/fasterxml/jackson/databind/cfg/CoercionAction\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/StdScalarSerializer\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatVisitorWrapper\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonNumberFormatVisitor\nerror: cannot find class com/fasterxml/jackson/core/JsonParser$NumberType\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalIntDeserializer._checkFromStringCoercion:(Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalIntDeserializer._parseIntPrimitive:(Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)I\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalIntDeserializer._checkFloatToIntCoercion:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/Class;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalIntDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalIntDeserializer.getValueType:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalIntDeserializer._valueClass:Ljava/lang/Class;\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonIntegerFormatVisitor\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalLongDeserializer._checkFromStringCoercion:(Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalLongDeserializer._parseLongPrimitive:(Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)J\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalLongDeserializer._checkFloatToIntCoercion:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/Class;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalLongDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalLongDeserializer.getValueType:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalLongDeserializer._valueClass:Ljava/lang/Class;\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/ReferenceTypeSerializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalSerializer._suppressableValue:Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalSerializer._suppressNulls:Z\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalSerializer._property:Lcom/fasterxml/jackson/databind/BeanProperty;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalSerializer._valueTypeSerializer:Lcom/fasterxml/jackson/databind/jsontype/TypeSerializer;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalSerializer._valueSerializer:Lcom/fasterxml/jackson/databind/JsonSerializer;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jdk8/OptionalSerializer._unwrapper:Lcom/fasterxml/jackson/databind/util/NameTransformer;\nerror: cannot find class com/fasterxml/jackson/core/util/VersionUtil\nerror: cannot find class com/fasterxml/jackson/core/Versioned\nerror: cannot find class com/fasterxml/jackson/databind/SerializerProvider\nerror: cannot find class com/fasterxml/jackson/databind/JsonSerializer\nerror: cannot find class com/fasterxml/jackson/databind/ser/ContextualSerializer"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.19.0": {
+      "dependency": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-datatype-jsr310-2.19.0.jar:\n\nerror: cannot find class com/fasterxml/jackson/core/io/NumberInput\nerror: cannot find class com/fasterxml/jackson/databind/deser/ValueInstantiators$Base\nerror: cannot find class com/fasterxml/jackson/databind/BeanDescription\nerror: cannot find class com/fasterxml/jackson/databind/JavaType\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationConfig\nerror: cannot find class com/fasterxml/jackson/databind/introspect/AnnotatedClass\nerror: cannot find class com/fasterxml/jackson/databind/deser/std/StdValueInstantiator\nerror: cannot find class com/fasterxml/jackson/databind/module/SimpleModule\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JSR310Module.addDeserializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/JsonDeserializer;)Lcom/fasterxml/jackson/databind/module/SimpleModule;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JSR310Module.addSerializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/JsonSerializer;)Lcom/fasterxml/jackson/databind/module/SimpleModule;\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/ToStringSerializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JSR310Module.addKeySerializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/JsonSerializer;)Lcom/fasterxml/jackson/databind/module/SimpleModule;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JSR310Module.addKeyDeserializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/KeyDeserializer;)Lcom/fasterxml/jackson/databind/module/SimpleModule;\nerror: cannot find class com/fasterxml/jackson/databind/introspect/AnnotatedMethod\nerror: cannot find class com/fasterxml/jackson/databind/introspect/AnnotatedParameter\nerror: cannot find class com/fasterxml/jackson/databind/Module$SetupContext\nerror: cannot find class com/fasterxml/jackson/core/util/JacksonFeature\nerror: cannot find class com/fasterxml/jackson/databind/introspect/AnnotatedClassResolver\nerror: cannot find class com/fasterxml/jackson/databind/module/SimpleSerializers\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/ToEmptyObjectSerializer\nerror: cannot find class com/fasterxml/jackson/core/util/JacksonFeatureSet\nerror: cannot find class com/fasterxml/jackson/databind/module/SimpleDeserializers\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JavaTimeModule$JavaTimeSerializers.addSerializer:(Ljava/lang/Class;Lcom/fasterxml/jackson/databind/JsonSerializer;)V\nerror: cannot find class com/fasterxml/jackson/databind/module/SimpleKeyDeserializers\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JavaTimeModule._deserializers:Lcom/fasterxml/jackson/databind/module/SimpleDeserializers;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JavaTimeModule._serializers:Lcom/fasterxml/jackson/databind/module/SimpleSerializers;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JavaTimeModule._keySerializers:Lcom/fasterxml/jackson/databind/module/SimpleSerializers;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/JavaTimeModule._keyDeserializers:Lcom/fasterxml/jackson/databind/module/SimpleKeyDeserializers;\nerror: cannot find class com/fasterxml/jackson/core/util/VersionUtil\nerror: cannot find class com/fasterxml/jackson/core/Versioned\nerror: cannot find class com/fasterxml/jackson/databind/deser/std/StdScalarDeserializer\nerror: cannot find class com/fasterxml/jackson/databind/deser/ContextualDeserializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/DurationDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/DurationDeserializer.findFormatOverrides:(Lcom/fasterxml/jackson/databind/DeserializationContext;Lcom/fasterxml/jackson/databind/BeanProperty;Ljava/lang/Class;)Lcom/fasterxml/jackson/annotation/JsonFormat$Value;\nerror: cannot find class com/fasterxml/jackson/annotation/JsonFormat$Value\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/DurationDeserializer.getValueType:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationContext\nerror: cannot find class com/fasterxml/jackson/core/JsonParser\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/DurationDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot find class com/fasterxml/jackson/annotation/JsonFormat$Feature\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/fasterxml/jackson/core/StreamReadCapability\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationFeature\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/InstantDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/InstantDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot find class com/fasterxml/jackson/core/json/JsonReadFeature\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/InstantDeserializer._valueClass:Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310DateTimeDeserializerBase.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310DateTimeDeserializerBase.findFormatOverrides:(Lcom/fasterxml/jackson/databind/DeserializationContext;Lcom/fasterxml/jackson/databind/BeanProperty;Ljava/lang/Class;)Lcom/fasterxml/jackson/annotation/JsonFormat$Value;\nerror: cannot find class com/fasterxml/jackson/databind/MapperFeature\nerror: cannot find class com/fasterxml/jackson/databind/cfg/CoercionAction\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310DeserializerBase._checkFromStringCoercion:(Lcom/fasterxml/jackson/databind/DeserializationContext;Ljava/lang/String;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310DeserializerBase.getEmptyValue:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot find class com/fasterxml/jackson/databind/jsontype/TypeDeserializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310DeserializerBase._isIntNumber:(Ljava/lang/String;)Z\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310DeserializerBase.handledType:()Ljava/lang/Class;\nerror: cannot find class com/fasterxml/jackson/databind/JsonMappingException\nerror: cannot find class com/fasterxml/jackson/databind/util/ClassUtil\nerror: cannot find class com/fasterxml/jackson/databind/type/LogicalType\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310StringParsableDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310StringParsableDeserializer.findFormatOverrides:(Lcom/fasterxml/jackson/databind/DeserializationContext;Lcom/fasterxml/jackson/databind/BeanProperty;Ljava/lang/Class;)Lcom/fasterxml/jackson/annotation/JsonFormat$Value;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310StringParsableDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310StringParsableDeserializer._coercedTypeDesc:()Ljava/lang/String;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310StringParsableDeserializer.getEmptyValue:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/JSR310StringParsableDeserializer._valueClass:Ljava/lang/Class;\nerror: cannot find class com/fasterxml/jackson/databind/cfg/CoercionInputShape\nerror: cannot find class com/fasterxml/jackson/databind/deser/BeanDeserializerModifier\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateDeserializer.handleMissingEndArrayForSingle:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)V\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateDeserializer._checkCoercionFail:(Lcom/fasterxml/jackson/databind/DeserializationContext;Lcom/fasterxml/jackson/databind/cfg/CoercionAction;Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;)Lcom/fasterxml/jackson/databind/cfg/CoercionAction;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateDeserializer.getValueType:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateDeserializer._valueClass:Ljava/lang/Class;\nerror: cannot find class com/fasterxml/jackson/annotation/JsonFormat$Shape\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateTimeDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateTimeDeserializer.handleMissingEndArrayForSingle:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)V\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalDateTimeDeserializer.getValueType:(Lcom/fasterxml/jackson/databind/DeserializationContext;)Lcom/fasterxml/jackson/databind/JavaType;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalTimeDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/LocalTimeDeserializer.handleMissingEndArrayForSingle:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)V\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/MonthDayDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/MonthDayDeserializer.handleMissingEndArrayForSingle:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)V\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/OffsetTimeDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/OffsetTimeDeserializer.handleMissingEndArrayForSingle:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)V\nerror: cannot find class com/fasterxml/jackson/databind/deser/std/DelegatingDeserializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/OneBasedMonthDeserializer.getDelegatee:()Lcom/fasterxml/jackson/databind/JsonDeserializer;\nerror: cannot find class com/fasterxml/jackson/databind/JsonDeserializer\nerror: cannot find class com/fasterxml/jackson/databind/exc/InvalidFormatException\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/YearDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/YearDeserializer._deserializeFromArray:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Ljava/lang/Object;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/YearMonthDeserializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/deser/YearMonthDeserializer.handleMissingEndArrayForSingle:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)V\nerror: cannot find class com/fasterxml/jackson/databind/KeyDeserializer\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/StdSerializer\nerror: cannot find class com/fasterxml/jackson/databind/ser/ContextualSerializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/DurationSerializer.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/DurationSerializer.findFormatOverrides:(Lcom/fasterxml/jackson/databind/SerializerProvider;Lcom/fasterxml/jackson/databind/BeanProperty;Ljava/lang/Class;)Lcom/fasterxml/jackson/annotation/JsonFormat$Value;\nerror: cannot find class com/fasterxml/jackson/databind/SerializerProvider\nerror: cannot find class com/fasterxml/jackson/core/JsonGenerator\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatVisitorWrapper\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonIntegerFormatVisitor\nerror: cannot find class com/fasterxml/jackson/databind/SerializationFeature\nerror: cannot find class com/fasterxml/jackson/core/JsonParser$NumberType\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonValueFormat\nerror: cannot find class com/fasterxml/jackson/databind/SerializationConfig\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonNumberFormatVisitor\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/JSR310FormattedSerializerBase.handledType:()Ljava/lang/Class;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/JSR310FormattedSerializerBase.findFormatOverrides:(Lcom/fasterxml/jackson/databind/SerializerProvider;Lcom/fasterxml/jackson/databind/BeanProperty;Ljava/lang/Class;)Lcom/fasterxml/jackson/annotation/JsonFormat$Value;\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/JSR310FormattedSerializerBase.createSchemaNode:(Ljava/lang/String;Z)Lcom/fasterxml/jackson/databind/node/ObjectNode;\nerror: cannot find class com/fasterxml/jackson/databind/type/TypeFactory\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonStringFormatVisitor\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonArrayFormatVisitor\nerror: cannot find class com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatTypes\nerror: cannot find class com/fasterxml/jackson/databind/jsontype/TypeSerializer\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/JSR310SerializerBase.serialize:(Ljava/lang/Object;Lcom/fasterxml/jackson/core/JsonGenerator;Lcom/fasterxml/jackson/databind/SerializerProvider;)V\nerror: cannot find class com/fasterxml/jackson/databind/ser/BeanSerializerModifier\nerror: cannot find class com/fasterxml/jackson/core/type/WritableTypeId\nerror: cannot find class com/fasterxml/jackson/databind/JsonSerializer\nerror: cannot find class com/fasterxml/jackson/databind/ser/std/ToStringSerializerBase\nerror: cannot resolve Methodref com/fasterxml/jackson/datatype/jsr310/ser/ZoneIdSerializer.serialize:(Ljava/lang/Object;Lcom/fasterxml/jackson/core/JsonGenerator;Lcom/fasterxml/jackson/databind/SerializerProvider;)V"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "junit:junit:4.13.2": {
+      "dependency": "junit:junit",
+      "version": "4.13.2",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::isDaemon()Z (forRemoval=true)"
+            },
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::setDaemon(Z)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.2.jar:\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::isDaemon()Z (forRemoval=true)\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::setDaemon(Z)V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.mockito:mockito-core:5.18.0": {
+      "dependency": "org.mockito:mockito-core",
+      "version": "5.18.0",
+      "signals": {
+        "bytecode_jdk": "11",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\mockito-core-5.18.0.jar:\n\nerror: cannot find class junit/framework/ComparisonFailure\nerror: cannot resolve Methodref org/mockito/exceptions/verification/junit/ArgumentsAreDifferent.getStackTrace:()[Ljava/lang/StackTraceElement;\nerror: cannot find class org/opentest4j/AssertionFailedError\nerror: cannot resolve Methodref org/mockito/exceptions/verification/opentest4j/ArgumentsAreDifferent.getStackTrace:()[Ljava/lang/StackTraceElement;\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class net/bytebuddy/ClassFileVersion\nerror: cannot find class net/bytebuddy/agent/ByteBuddyAgent\nerror: cannot find class net/bytebuddy/matcher/ElementMatchers\nerror: cannot find class net/bytebuddy/matcher/ElementMatcher$Junction\nerror: cannot find class net/bytebuddy/jar/asm/MethodVisitor\nerror: cannot find class net/bytebuddy/utility/OpenedClassReader\nerror: cannot find class net/bytebuddy/jar/asm/ClassVisitor\nerror: cannot find class net/bytebuddy/description/type/TypeDescription\nerror: cannot find class net/bytebuddy/description/method/MethodList\nerror: cannot find class net/bytebuddy/description/method/MethodDescription\nerror: cannot find class net/bytebuddy/description/method/ParameterList\nerror: cannot find class net/bytebuddy/description/method/ParameterDescription\nerror: cannot find class net/bytebuddy/asm/AsmVisitorWrapper$AbstractBase\nerror: cannot find class net/bytebuddy/description/type/TypeDescription$ForLoadedType\nerror: cannot find class net/bytebuddy/implementation/Implementation$Context\nerror: cannot find class net/bytebuddy/ByteBuddy\nerror: cannot find class net/bytebuddy/utility/RandomString\nerror: cannot find class net/bytebuddy/implementation/MethodDelegation\nerror: cannot find class net/bytebuddy/implementation/bind/annotation/TargetMethodAnnotationDrivenBinder$ParameterBinder$ForFixedValue$OfConstant\nerror: cannot find class net/bytebuddy/implementation/MethodDelegation$WithCustomProperties\nerror: cannot find class net/bytebuddy/asm/AsmVisitorWrapper$ForDeclaredMethods\nerror: cannot find class net/bytebuddy/asm/Advice\nerror: cannot find class net/bytebuddy/asm/Advice$WithCustomMapping\nerror: cannot find class org/mockito/internal/creation/bytebuddy/inject/MockMethodDispatcher\nerror: cannot find class net/bytebuddy/dynamic/ClassFileLocator$Simple\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Unloaded\nerror: cannot find class net/bytebuddy/dynamic/scaffold/TypeValidation\nerror: cannot find class net/bytebuddy/implementation/Implementation$Context$Disabled$Factory\nerror: cannot find class net/bytebuddy/dynamic/scaffold/MethodGraph$Compiler$ForDeclaredMethods\nerror: cannot find class net/bytebuddy/jar/asm/Label\nerror: cannot find class net/bytebuddy/jar/asm/Type\nerror: cannot find class net/bytebuddy/implementation/bytecode/StackSize\nerror: cannot find class net/bytebuddy/description/method/MethodDescription$InDefinedShape\nerror: cannot find class net/bytebuddy/description/type/TypeList$Generic\nerror: cannot find class net/bytebuddy/description/type/TypeList\nerror: cannot find class net/bytebuddy/description/type/TypeDescription$Generic\nerror: cannot find class net/bytebuddy/description/field/FieldList\nerror: cannot find class net/bytebuddy/description/field/FieldDescription\nerror: cannot find class net/bytebuddy/jar/asm/Opcodes\nerror: cannot find class net/bytebuddy/asm/AsmVisitorWrapper$ForDeclaredMethods$MethodVisitorWrapper\nerror: cannot find class net/bytebuddy/dynamic/scaffold/MethodGraph$Compiler$Default\nerror: cannot find class net/bytebuddy/description/method/MethodDescription$ForLoadedMethod\nerror: cannot find class net/bytebuddy/dynamic/scaffold/MethodGraph$Node$Sort\nerror: cannot find class net/bytebuddy/dynamic/scaffold/MethodGraph$Compiler\nerror: cannot find class net/bytebuddy/dynamic/scaffold/MethodGraph\nerror: cannot find class net/bytebuddy/dynamic/scaffold/MethodGraph$Node\nerror: cannot find class net/bytebuddy/dynamic/loading/ClassLoadingStrategy$Default\nerror: cannot find class net/bytebuddy/dynamic/loading/ClassLoadingStrategy$UsingLookup\nerror: cannot find class net/bytebuddy/dynamic/loading/MultipleParentClassLoader$Builder\nerror: cannot find class net/bytebuddy/utility/GraalImageCode\nerror: cannot find class net/bytebuddy/dynamic/Transformer$ForMethod\nerror: cannot find class net/bytebuddy/implementation/FieldAccessor\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ImplementationDefinition$Optional\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ImplementationDefinition\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ReceiverTypeDefinition\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$FieldDefinition$Optional$Valuable\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ParameterDefinition$Initial\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Builder$MethodDefinition$ExceptionDefinition\nerror: cannot find class net/bytebuddy/dynamic/DynamicType$Loaded\nerror: cannot find class net/bytebuddy/description/modifier/SynchronizationState\nerror: cannot find class net/bytebuddy/implementation/attribute/MethodAttributeAppender$NoOp\nerror: cannot find class net/bytebuddy/implementation/attribute/MethodAttributeAppender$ForInstrumentedMethod\nerror: cannot find class net/bytebuddy/description/modifier/Visibility\nerror: cannot find class net/bytebuddy/TypeCache$SimpleKey\nerror: cannot find class net/bytebuddy/TypeCache$WithInlineExpunction\nerror: cannot find class net/bytebuddy/TypeCache\nerror: cannot find class net/bytebuddy/TypeCache$Sort\nerror: cannot find class org/objenesis/ObjenesisStd\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/junit/runners/model/FrameworkMethod\nerror: cannot find class org/junit/rules/MethodRule\nerror: cannot find class org/junit/runners/model/Statement\nerror: cannot find class org/junit/runner/Description\nerror: cannot find class org/junit/rules/TestRule\nerror: cannot find class org/junit/runner/notification/Failure\nerror: cannot find class org/junit/runner/notification/RunNotifier\nerror: cannot find class org/junit/runner/notification/RunListener\nerror: cannot find class org/junit/runners/BlockJUnit4ClassRunner\nerror: cannot find class org/junit/runner/manipulation/Filterable\nerror: cannot find class org/junit/runner/manipulation/Filter\nerror: cannot resolve Methodref org/mockito/internal/runners/InternalRunner.filter:(Lorg/junit/runner/manipulation/Filter;)V\nerror: cannot find class net/bytebuddy/dynamic/loading/ByteArrayClassLoader\nerror: cannot find class net/bytebuddy/dynamic/loading/InjectionClassLoader\nerror: cannot find class net/bytebuddy/implementation/MethodCall\nerror: cannot find class net/bytebuddy/implementation/MethodCall$WithoutSpecifiedTarget\nerror: cannot find class net/bytebuddy/dynamic/loading/InjectionClassLoader$Strategy\nerror: cannot find class org/junit/runner/Runner\nerror: cannot resolve Methodref org/mockito/internal/runners/InternalRunner.filter:(Lorg/junit/runner/manipulation/Filter;)V"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.apache.commons:commons-lang3:3.20.0": {
+      "dependency": "org.apache.commons:commons-lang3",
+      "version": "3.20.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class org/apache/commons/lang3/reflect/AccessibleObjects uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            },
+            {
+              "line": "class org/apache/commons/lang3/reflect/FieldUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\commons-lang3-3.20.0.jar:\nclass org/apache/commons/lang3/reflect/AccessibleObjects uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z \nclass org/apache/commons/lang3/reflect/FieldUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            },
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-2.19.0.jar:\nclass com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V \nclass com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V \n\nerror: cannot find class java/lang/foreign/MemorySegment\nerror: cannot find class java/lang/foreign/ValueLayout$OfLong"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-databind:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "junit:junit:4.13.1": {
+      "dependency": "junit:junit",
+      "version": "4.13.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.1.jar:\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.apache.commons:commons-lang3:3.19.0": {
+      "dependency": "org.apache.commons:commons-lang3",
+      "version": "3.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class org/apache/commons/lang3/reflect/AccessibleObjects uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            },
+            {
+              "line": "class org/apache/commons/lang3/reflect/FieldUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\commons-lang3-3.19.0.jar:\nclass org/apache/commons/lang3/reflect/AccessibleObjects uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z \nclass org/apache/commons/lang3/reflect/FieldUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "junit:junit:4.13": {
+      "dependency": "junit:junit",
+      "version": "4.13",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 3,
+          "findings": [
+            {
+              "line": "class junit/framework/Assert uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "class junit/framework/Assert uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.jar:\nclass junit/framework/Assert uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\nclass junit/framework/Assert uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.18.4": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.18.4",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            },
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-2.18.4.jar:\nclass com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V \nclass com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V \n\nerror: cannot find class java/lang/foreign/MemorySegment\nerror: cannot find class java/lang/foreign/ValueLayout$OfLong"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.apache.commons:commons-lang3:3.18.0": {
+      "dependency": "org.apache.commons:commons-lang3",
+      "version": "3.18.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 3,
+          "findings": [
+            {
+              "line": "class org/apache/commons/lang3/reflect/FieldUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            },
+            {
+              "line": "class org/apache/commons/lang3/reflect/MemberUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            },
+            {
+              "line": "class org/apache/commons/lang3/reflect/MethodUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\commons-lang3-3.18.0.jar:\nclass org/apache/commons/lang3/reflect/FieldUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z \nclass org/apache/commons/lang3/reflect/MemberUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z \nclass org/apache/commons/lang3/reflect/MethodUtils uses deprecated method java/lang/reflect/AccessibleObject::isAccessible()Z"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.18.3": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.18.3",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            },
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-2.18.3.jar:\nclass com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V \nclass com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V \n\nerror: cannot find class java/lang/foreign/MemorySegment\nerror: cannot find class java/lang/foreign/ValueLayout$OfLong"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

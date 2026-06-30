@@ -1,0 +1,90 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8": [
+      "1.10.2"
+    ],
+    "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm": [
+      "1.10.2"
+    ]
+  },
+  "conflict_edges": [
+    {
+      "conflict_on": "org.jetbrains:annotations",
+      "v1": "13.0",
+      "v2": "23.0.0",
+      "edge": [
+        "kotlinx-coroutines-jdk8:1.10.2",
+        "kotlinx-coroutines-core-jvm:1.10.2"
+      ]
+    },
+    {
+      "conflict_on": "org.jetbrains:annotations",
+      "v1": "13.0",
+      "v2": "23.0.0",
+      "edge": [
+        "kotlinx-coroutines-core-jvm:1.10.2",
+        "kotlinx-coroutines-jdk8:1.10.2"
+      ]
+    }
+  ],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8": "1.10.2",
+      "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm": "1.10.2"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8": "1.10.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm": "1.10.2"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 0 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.10.2": {
+      "dependency": "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8",
+      "version": "1.10.2",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\kotlinx-coroutines-jdk8-1.10.2.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2": {
+      "dependency": "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm",
+      "version": "1.10.2",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

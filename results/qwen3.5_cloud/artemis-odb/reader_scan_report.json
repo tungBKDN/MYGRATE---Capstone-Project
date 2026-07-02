@@ -1,0 +1,513 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "net.onedaybeard.artemis",
+      "artifactId": "artemis-parent",
+      "version": "2.4.0-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "net.onedaybeard.artemis",
+      "project.artifactId": "artemis-parent",
+      "project.version": "2.4.0-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "junit.version": "4.13.1",
+      "gwt.version": "2.8.2",
+      "matrix.artemis.version": "0.2.0",
+      "assembly.plugin.version": "2.5.5",
+      "jar.plugin.version": "2.6"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "${junit.version}"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "artemis-core": {
+      "project": {
+        "groupId": "net.onedaybeard.artemis",
+        "artifactId": "artemis-core-root",
+        "version": "2.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.onedaybeard.artemis",
+        "project.artifactId": "artemis-core-root",
+        "project.version": "2.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "artemis-build-tools": {
+      "project": {
+        "groupId": "net.onedaybeard.artemis",
+        "artifactId": "artemis-build-tools-root",
+        "version": "2.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.onedaybeard.artemis",
+        "project.artifactId": "artemis-build-tools-root",
+        "project.version": "2.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "artemis-serialization": {
+      "project": {
+        "groupId": "net.onedaybeard.artemis",
+        "artifactId": "artemis-odb-serializer-root",
+        "version": "2.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.onedaybeard.artemis",
+        "project.artifactId": "artemis-odb-serializer-root",
+        "project.version": "2.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "artemis-fluid": {
+      "project": {
+        "groupId": "net.onedaybeard.artemis",
+        "artifactId": "artemis-fluid-root",
+        "version": "2.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.onedaybeard.artemis",
+        "project.artifactId": "artemis-fluid-root",
+        "project.version": "2.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "artemis-backend-gwt": {
+      "project": {
+        "groupId": "net.onedaybeard.artemis",
+        "artifactId": "artemis-backend-gwt-root",
+        "version": "2.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.onedaybeard.artemis",
+        "project.artifactId": "artemis-backend-gwt-root",
+        "project.version": "2.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "${junit.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "artemis-core",
+      "artemis-build-tools",
+      "artemis-serialization",
+      "artemis-fluid",
+      "artemis-backend-gwt"
+    ],
+    "java_file_count": 613,
+    "package_distribution": {
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/com/artemis": 5,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/com/artemis/injection": 1,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/com/artemis/io": 1,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/com/artemis/link": 1,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/com/artemis/utils": 2,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/com/artemis/utils/reflect": 6,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/java/io": 1,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/java/lang": 4,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/backends/gwt/emu/java/util": 2,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/gwtref/client": 8,
+      "artemis-backend-gwt/artemis-gwt/src/main/java/com/artemis/gwtref/gen": 2,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis": 5,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis/component": 30,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis/io": 2,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis/link": 4,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis/managers": 2,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis/system": 5,
+      "artemis-backend-gwt/artemis-gwt-test/src/test/java/com/artemis/util": 1,
+      "artemis-build-tools/artemis-cli/src/main/java/com/artemis/cli": 5,
+      "artemis-build-tools/artemis-cli/src/main/java/com/artemis/cli/converter": 3,
+      "artemis-build-tools/artemis-gradle/src/main/java/net/onedaybeard/gradle": 2,
+      "artemis-build-tools/artemis-maven/src/main/java/com/artemis": 2,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis": 3,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/meta": 7,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/weaver": 10,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/weaver/optimizer": 3,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/weaver/pooled": 2,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/weaver/profile": 4,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/weaver/template": 4,
+      "artemis-build-tools/artemis-weaver/src/main/java/com/artemis/weaver/transplant": 4,
+      "artemis-build-tools/artemis-weaver/src/test/java/com/artemis": 5,
+      "artemis-build-tools/artemis-weaver/src/test/java/com/artemis/component": 8,
+      "artemis-build-tools/artemis-weaver/src/test/java/com/artemis/meta": 1,
+      "artemis-build-tools/artemis-weaver/src/test/java/com/artemis/system": 6,
+      "artemis-build-tools/artemis-weaver/src/test/java/com/artemis/weaver": 1,
+      "artemis-core/artemis/src/main/java/com/artemis": 40,
+      "artemis-core/artemis/src/main/java/com/artemis/annotations": 18,
+      "artemis-core/artemis/src/main/java/com/artemis/components": 1,
+      "artemis-core/artemis/src/main/java/com/artemis/injection": 15,
+      "artemis-core/artemis/src/main/java/com/artemis/io": 1,
+      "artemis-core/artemis/src/main/java/com/artemis/link": 14,
+      "artemis-core/artemis/src/main/java/com/artemis/managers": 6,
+      "artemis-core/artemis/src/main/java/com/artemis/systems": 9,
+      "artemis-core/artemis/src/main/java/com/artemis/utils": 15,
+      "artemis-core/artemis/src/main/java/com/artemis/utils/reflect": 9,
+      "artemis-core/artemis/src/main/java/net/mostlyoriginal/api/utils": 1,
+      "artemis-core/artemis/src/test/java/com/artemis": 39,
+      "artemis-core/artemis/src/test/java/com/artemis/common": 11,
+      "artemis-core/artemis/src/test/java/com/artemis/component": 7,
+      "artemis-core/artemis/src/test/java/com/artemis/injection": 1,
+      "artemis-core/artemis/src/test/java/com/artemis/link": 3,
+      "artemis-core/artemis/src/test/java/com/artemis/managers": 3,
+      "artemis-core/artemis/src/test/java/com/artemis/systems": 5,
+      "artemis-core/artemis/src/test/java/com/artemis/utils": 2,
+      "artemis-core/artemis/src/test/java/com/artemis/utils/reflect": 1,
+      "artemis-core/artemis-performance-test/src/main/java/com/artemis/benchmark": 1,
+      "artemis-core/artemis-performance-test/src/main/java/com/artemis/benchmark/domain": 1,
+      "artemis-core/artemis-test/src/main/java/com/artemis/component": 18,
+      "artemis-core/artemis-test/src/main/java/com/artemis/component/link": 8,
+      "artemis-core/artemis-test/src/main/java/com/artemis/system": 5,
+      "artemis-core/artemis-test/src/main/java/com/artemis/system/iterating": 4,
+      "artemis-core/artemis-test/src/main/java/com/artemis/util": 3,
+      "artemis-core/artemis-test/src/test/java/com/artemis/component": 3,
+      "artemis-core/artemis-test/src/test/java/com/artemis/link": 3,
+      "artemis-core/artemis-test/src/test/java/com/artemis/system": 2,
+      "artemis-core/artemis-test/src/test/java/com/artemis/system/iterating": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator": 1,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/collect": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/common": 3,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/generator": 1,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/model": 1,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/model/artemis": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/model/type": 8,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/strategy/components": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/strategy/e": 16,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/strategy/supermapper": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/util": 5,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/artemis/generator/validator": 2,
+      "artemis-fluid/artemis-fluid-core/src/main/java/com/squareup/javapoet": 1,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/common": 1,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/generator": 2,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/model": 1,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/model/artemis": 1,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/strategy": 1,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/strategy/e": 10,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/test": 5,
+      "artemis-fluid/artemis-fluid-core/src/test/java/com/artemis/generator/validator": 1,
+      "artemis-fluid/artemis-fluid-core-utility-sources/src/test/java/com/artemis": 6,
+      "artemis-fluid/artemis-fluid-gradle-plugin/src/main/java/net/onedaybeard/gradle": 2,
+      "artemis-fluid/artemis-fluid-maven-integration-test/artemis-fluid-maven-integration-test-components/src/main/java/com/artemis": 1,
+      "artemis-fluid/artemis-fluid-maven-integration-test/artemis-fluid-maven-integration-test-components/src/main/java/com/artemis/component": 6,
+      "artemis-fluid/artemis-fluid-maven-integration-test/artemis-fluid-maven-integration-test-components/src/main/java/com/artemis/fieldstrategies": 2,
+      "artemis-fluid/artemis-fluid-maven-integration-test/artemis-fluid-maven-integration-test-systems/src/test/java/com/artemis/annotation": 1,
+      "artemis-fluid/artemis-fluid-maven-integration-test/artemis-fluid-maven-integration-test-systems/src/test/java/com/artemis/fieldstrategies": 1,
+      "artemis-fluid/artemis-fluid-maven-integration-test/artemis-fluid-maven-integration-test-systems/src/test/java/com/artemis/generator/strategy/e": 11,
+      "artemis-fluid/artemis-fluid-maven-plugin/src/main/java/com/artemis": 2,
+      "artemis-serialization/artemis-json/src/main/java/com/artemis/io": 7,
+      "artemis-serialization/artemis-json/src/main/java/com/artemis/prefab": 2,
+      "artemis-serialization/artemis-json/src/test/java/com/artemis/component": 13,
+      "artemis-serialization/artemis-json/src/test/java/com/artemis/component/render": 1,
+      "artemis-serialization/artemis-json/src/test/java/com/artemis/managers": 3,
+      "artemis-serialization/artemis-json/src/test/java/com/artemis/prefab": 3,
+      "artemis-serialization/artemis-json/src/test/java/com/artemis/utils": 2,
+      "artemis-serialization/artemis-json-libgdx/src/main/java/com/artemis/io": 7,
+      "artemis-serialization/artemis-json-libgdx/src/main/java/com/artemis/prefab": 2,
+      "artemis-serialization/artemis-json-libgdx/src/test/java/com/artemis/component": 13,
+      "artemis-serialization/artemis-json-libgdx/src/test/java/com/artemis/component/render": 1,
+      "artemis-serialization/artemis-json-libgdx/src/test/java/com/artemis/managers": 4,
+      "artemis-serialization/artemis-json-libgdx/src/test/java/com/artemis/prefab": 3,
+      "artemis-serialization/artemis-json-libgdx/src/test/java/com/artemis/utils": 2,
+      "artemis-serialization/artemis-kryo/src/main/java/com/artemis/io": 7,
+      "artemis-serialization/artemis-kryo/src/test/java/com/artemis/component": 14,
+      "artemis-serialization/artemis-kryo/src/test/java/com/artemis/component/render": 1,
+      "artemis-serialization/artemis-kryo/src/test/java/com/artemis/managers": 3,
+      "artemis-serialization/artemis-kryo/src/test/java/com/artemis/utils": 1,
+      "artemis-serialization/artemis-serializer/src/main/java/com/artemis": 2,
+      "artemis-serialization/artemis-serializer/src/main/java/com/artemis/io": 9,
+      "artemis-serialization/artemis-serializer/src/main/java/com/artemis/managers": 1,
+      "artemis-serialization/artemis-serializer/src/main/java/com/artemis/prefab": 3,
+      "artemis-serialization/artemis-serializer/src/test/java/com/artemis/component": 3,
+      "artemis-serialization/artemis-serializer/src/test/java/com/artemis/io": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 613,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 613,
+    "manifest_count": 26,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt-test\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt-test\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-backend-gwt\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-build-tools\\artemis-cli\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-build-tools\\artemis-cli\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-build-tools\\artemis-gradle\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-build-tools\\artemis-gradle\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-build-tools\\artemis-maven\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-build-tools\\artemis-maven\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-build-tools\\artemis-weaver\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-build-tools\\artemis-weaver\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-build-tools\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-build-tools\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-core\\artemis-performance-test\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-core\\artemis-performance-test\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-core\\artemis-test\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-core\\artemis-test\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-core\\artemis\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-core\\artemis\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-core-utility-sources\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-core-utility-sources\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-gradle-plugin\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-gradle-plugin\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-maven-integration-test\\artemis-fluid-maven-integration-test-components\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-maven-integration-test\\artemis-fluid-maven-integration-test-components\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-maven-integration-test\\artemis-fluid-maven-integration-test-systems\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-maven-integration-test\\artemis-fluid-maven-integration-test-systems\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-maven-integration-test\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-maven-integration-test\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\artemis-fluid-maven-plugin\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\artemis-fluid-maven-plugin\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-fluid\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-fluid\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-serialization\\artemis-json-libgdx\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-serialization\\artemis-json-libgdx\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-serialization\\artemis-json\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-serialization\\artemis-json\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-serialization\\artemis-kryo\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-serialization\\artemis-kryo\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-serialization\\artemis-serializer\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-serialization\\artemis-serializer\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "artemis-serialization\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-serialization\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\Archetype.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\Archetype.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\Aspect.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\Aspect.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\ComponentManager.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\ComponentManager.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\ComponentType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\ComponentType.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\InvocationStrategy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\InvocationStrategy.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\injection\\SharedInjectionCache.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\injection\\SharedInjectionCache.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\io\\InputStreamHelper.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\io\\InputStreamHelper.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\link\\MutatorUtil.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\link\\MutatorUtil.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\Bag.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\Bag.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\BitVector.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\BitVector.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\Annotation.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\Annotation.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\ArrayReflection.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\ArrayReflection.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\ClassReflection.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\ClassReflection.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\Constructor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\Constructor.java",
+        "language": "java"
+      },
+      {
+        "path": "artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\Field.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb\\artemis-backend-gwt\\artemis-gwt\\src\\main\\java\\com\\artemis\\backends\\gwt\\emu\\com\\artemis\\utils\\reflect\\Field.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.7",
+    "java_file_count": 613,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "net.onedaybeard.artemis",
+        "artifactId": "artemis-parent",
+        "version": "2.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.onedaybeard.artemis",
+        "project.artifactId": "artemis-parent",
+        "project.version": "2.4.0-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "junit.version": "4.13.1",
+        "gwt.version": "2.8.2",
+        "matrix.artemis.version": "0.2.0",
+        "assembly.plugin.version": "2.5.5",
+        "jar.plugin.version": "2.6"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "${junit.version}"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "${junit.version}"
+      }
+    ],
+    "name": "artemis-odb",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\artemis-odb"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `artemis-odb` | Maven | 1.7 | 613 | Standard Java | None | **Yellow** |"
+}

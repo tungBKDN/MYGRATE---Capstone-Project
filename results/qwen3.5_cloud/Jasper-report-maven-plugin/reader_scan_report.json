@@ -1,0 +1,412 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\Jasper-report-maven-plugin",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.alexnederlof",
+      "artifactId": "jasperreports-plugin",
+      "version": "2.9-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.alexnederlof",
+      "project.artifactId": "jasperreports-plugin",
+      "project.version": "2.9-SNAPSHOT",
+      "maven.compiler.source": "1.8",
+      "maven.compiler.target": "1.8",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.2",
+        "scope": "test",
+        "raw_version": "4.13.2"
+      },
+      {
+        "groupId": "org.apache.maven.shared",
+        "artifactId": "maven-plugin-testing-harness",
+        "version": "1.1",
+        "scope": "test",
+        "raw_version": "1.1"
+      },
+      {
+        "groupId": "org.codehaus.plexus",
+        "artifactId": "plexus-utils",
+        "version": "3.3.0",
+        "scope": "test",
+        "raw_version": "3.3.0"
+      },
+      {
+        "groupId": "net.sf.jasperreports",
+        "artifactId": "jasperreports",
+        "version": "6.15.0",
+        "scope": "compile",
+        "raw_version": "6.15.0"
+      },
+      {
+        "groupId": "commons-lang",
+        "artifactId": "commons-lang",
+        "version": "2.6",
+        "scope": "compile",
+        "raw_version": "2.6"
+      },
+      {
+        "groupId": "org.apache.maven",
+        "artifactId": "maven-plugin-api",
+        "version": "3.6.3",
+        "scope": "compile",
+        "raw_version": "3.6.3"
+      },
+      {
+        "groupId": "org.apache.maven.plugin-tools",
+        "artifactId": "maven-plugin-annotations",
+        "version": "3.6.0",
+        "scope": "provided",
+        "raw_version": "3.6.0"
+      },
+      {
+        "groupId": "net.sf.jasperreports",
+        "artifactId": "jasperreports-fonts",
+        "version": "6.15.0",
+        "scope": "compile",
+        "raw_version": "6.15.0"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-simple",
+        "version": "1.7.30",
+        "scope": "compile",
+        "raw_version": "1.7.30"
+      },
+      {
+        "groupId": "org.codehaus.plexus",
+        "artifactId": "plexus-compiler-api",
+        "version": "2.8.8",
+        "scope": "compile",
+        "raw_version": "2.8.8"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "javax.servlet-api",
+        "version": "4.0.1",
+        "scope": "compile",
+        "raw_version": "4.0.1"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.2",
+      "scope": "test",
+      "raw_version": "4.13.2"
+    },
+    {
+      "groupId": "org.apache.maven.shared",
+      "artifactId": "maven-plugin-testing-harness",
+      "version": "1.1",
+      "scope": "test",
+      "raw_version": "1.1"
+    },
+    {
+      "groupId": "org.codehaus.plexus",
+      "artifactId": "plexus-utils",
+      "version": "3.3.0",
+      "scope": "test",
+      "raw_version": "3.3.0"
+    },
+    {
+      "groupId": "net.sf.jasperreports",
+      "artifactId": "jasperreports",
+      "version": "6.15.0",
+      "scope": "compile",
+      "raw_version": "6.15.0"
+    },
+    {
+      "groupId": "commons-lang",
+      "artifactId": "commons-lang",
+      "version": "2.6",
+      "scope": "compile",
+      "raw_version": "2.6"
+    },
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-plugin-api",
+      "version": "3.6.3",
+      "scope": "compile",
+      "raw_version": "3.6.3"
+    },
+    {
+      "groupId": "org.apache.maven.plugin-tools",
+      "artifactId": "maven-plugin-annotations",
+      "version": "3.6.0",
+      "scope": "provided",
+      "raw_version": "3.6.0"
+    },
+    {
+      "groupId": "net.sf.jasperreports",
+      "artifactId": "jasperreports-fonts",
+      "version": "6.15.0",
+      "scope": "compile",
+      "raw_version": "6.15.0"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-simple",
+      "version": "1.7.30",
+      "scope": "compile",
+      "raw_version": "1.7.30"
+    },
+    {
+      "groupId": "org.codehaus.plexus",
+      "artifactId": "plexus-compiler-api",
+      "version": "2.8.8",
+      "scope": "compile",
+      "raw_version": "2.8.8"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "javax.servlet-api",
+      "version": "4.0.1",
+      "scope": "compile",
+      "raw_version": "4.0.1"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 3,
+    "package_distribution": {
+      "src/main/java/com/alexnederlof/jasperreport": 2,
+      "src/test/java/com/alexnederlof/jasperreport": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 3,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 3,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\Jasper-report-maven-plugin\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\alexnederlof\\jasperreport\\CompileTask.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\Jasper-report-maven-plugin\\src\\main\\java\\com\\alexnederlof\\jasperreport\\CompileTask.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alexnederlof\\jasperreport\\JasperReporter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\Jasper-report-maven-plugin\\src\\main\\java\\com\\alexnederlof\\jasperreport\\JasperReporter.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\com\\alexnederlof\\jasperreport\\JasperReportTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\Jasper-report-maven-plugin\\src\\test\\java\\com\\alexnederlof\\jasperreport\\JasperReportTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 3,
+    "framework": "Java EE",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.alexnederlof",
+        "artifactId": "jasperreports-plugin",
+        "version": "2.9-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.alexnederlof",
+        "project.artifactId": "jasperreports-plugin",
+        "project.version": "2.9-SNAPSHOT",
+        "maven.compiler.source": "1.8",
+        "maven.compiler.target": "1.8",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.2",
+          "scope": "test",
+          "raw_version": "4.13.2"
+        },
+        {
+          "groupId": "org.apache.maven.shared",
+          "artifactId": "maven-plugin-testing-harness",
+          "version": "1.1",
+          "scope": "test",
+          "raw_version": "1.1"
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-utils",
+          "version": "3.3.0",
+          "scope": "test",
+          "raw_version": "3.3.0"
+        },
+        {
+          "groupId": "net.sf.jasperreports",
+          "artifactId": "jasperreports",
+          "version": "6.15.0",
+          "scope": "compile",
+          "raw_version": "6.15.0"
+        },
+        {
+          "groupId": "commons-lang",
+          "artifactId": "commons-lang",
+          "version": "2.6",
+          "scope": "compile",
+          "raw_version": "2.6"
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-plugin-api",
+          "version": "3.6.3",
+          "scope": "compile",
+          "raw_version": "3.6.3"
+        },
+        {
+          "groupId": "org.apache.maven.plugin-tools",
+          "artifactId": "maven-plugin-annotations",
+          "version": "3.6.0",
+          "scope": "provided",
+          "raw_version": "3.6.0"
+        },
+        {
+          "groupId": "net.sf.jasperreports",
+          "artifactId": "jasperreports-fonts",
+          "version": "6.15.0",
+          "scope": "compile",
+          "raw_version": "6.15.0"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-simple",
+          "version": "1.7.30",
+          "scope": "compile",
+          "raw_version": "1.7.30"
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-compiler-api",
+          "version": "2.8.8",
+          "scope": "compile",
+          "raw_version": "2.8.8"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "4.0.1",
+          "scope": "compile",
+          "raw_version": "4.0.1"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.2",
+        "scope": "test",
+        "raw_version": "4.13.2"
+      },
+      {
+        "groupId": "org.apache.maven.shared",
+        "artifactId": "maven-plugin-testing-harness",
+        "version": "1.1",
+        "scope": "test",
+        "raw_version": "1.1"
+      },
+      {
+        "groupId": "org.codehaus.plexus",
+        "artifactId": "plexus-utils",
+        "version": "3.3.0",
+        "scope": "test",
+        "raw_version": "3.3.0"
+      },
+      {
+        "groupId": "net.sf.jasperreports",
+        "artifactId": "jasperreports",
+        "version": "6.15.0",
+        "scope": "compile",
+        "raw_version": "6.15.0"
+      },
+      {
+        "groupId": "commons-lang",
+        "artifactId": "commons-lang",
+        "version": "2.6",
+        "scope": "compile",
+        "raw_version": "2.6"
+      },
+      {
+        "groupId": "org.apache.maven",
+        "artifactId": "maven-plugin-api",
+        "version": "3.6.3",
+        "scope": "compile",
+        "raw_version": "3.6.3"
+      },
+      {
+        "groupId": "org.apache.maven.plugin-tools",
+        "artifactId": "maven-plugin-annotations",
+        "version": "3.6.0",
+        "scope": "provided",
+        "raw_version": "3.6.0"
+      },
+      {
+        "groupId": "net.sf.jasperreports",
+        "artifactId": "jasperreports-fonts",
+        "version": "6.15.0",
+        "scope": "compile",
+        "raw_version": "6.15.0"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-simple",
+        "version": "1.7.30",
+        "scope": "compile",
+        "raw_version": "1.7.30"
+      },
+      {
+        "groupId": "org.codehaus.plexus",
+        "artifactId": "plexus-compiler-api",
+        "version": "2.8.8",
+        "scope": "compile",
+        "raw_version": "2.8.8"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "javax.servlet-api",
+        "version": "4.0.1",
+        "scope": "compile",
+        "raw_version": "4.0.1"
+      }
+    ],
+    "name": "Jasper-report-maven-plugin",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\Jasper-report-maven-plugin"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `Jasper-report-maven-plugin` | Maven | 1.8 | 3 | Java EE | None | **Yellow** |"
+}

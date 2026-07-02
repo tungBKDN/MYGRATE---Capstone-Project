@@ -1,0 +1,375 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "nl.minvenj.nfi.storm",
+      "artifactId": "kafka-spout",
+      "version": "0.5-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "nl.minvenj.nfi.storm",
+      "project.artifactId": "kafka-spout",
+      "project.version": "0.5-SNAPSHOT",
+      "maven.compiler.source": "1.8",
+      "maven.compiler.target": "1.8",
+      "coveralls.version": "4.3.0",
+      "hamcrest.version": "1.3",
+      "jacoco.version": "0.7.9",
+      "javadoc.plugin.version": "2.10.4",
+      "junit.version": "4.12",
+      "kafka.version": "0.11.0.0",
+      "mockito.version": "2.8.47",
+      "slf4j.version": "1.7.25",
+      "source.plugin.version": "3.0.1",
+      "storm.version": "1.1.0"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.apache.storm",
+        "artifactId": "storm-core",
+        "version": "1.1.0",
+        "scope": "provided",
+        "raw_version": "${storm.version}"
+      },
+      {
+        "groupId": "org.apache.kafka",
+        "artifactId": "kafka_2.12",
+        "version": "0.11.0.0",
+        "scope": "compile",
+        "raw_version": "${kafka.version}"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "1.7.25",
+        "scope": "compile",
+        "raw_version": "${slf4j.version}"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "${junit.version}"
+      },
+      {
+        "groupId": "org.hamcrest",
+        "artifactId": "hamcrest-library",
+        "version": "1.3",
+        "scope": "test",
+        "raw_version": "${hamcrest.version}"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.8.47",
+        "scope": "test",
+        "raw_version": "${mockito.version}"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-log4j12",
+        "version": "1.7.25",
+        "scope": "test",
+        "raw_version": "${slf4j.version}"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "org.apache.storm",
+      "artifactId": "storm-core",
+      "version": "1.1.0",
+      "scope": "provided",
+      "raw_version": "${storm.version}"
+    },
+    {
+      "groupId": "org.apache.kafka",
+      "artifactId": "kafka_2.12",
+      "version": "0.11.0.0",
+      "scope": "compile",
+      "raw_version": "${kafka.version}"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "1.7.25",
+      "scope": "compile",
+      "raw_version": "${slf4j.version}"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.12",
+      "scope": "test",
+      "raw_version": "${junit.version}"
+    },
+    {
+      "groupId": "org.hamcrest",
+      "artifactId": "hamcrest-library",
+      "version": "1.3",
+      "scope": "test",
+      "raw_version": "${hamcrest.version}"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "2.8.47",
+      "scope": "test",
+      "raw_version": "${mockito.version}"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-log4j12",
+      "version": "1.7.25",
+      "scope": "test",
+      "raw_version": "${slf4j.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 14,
+    "package_distribution": {
+      "src/main/java/nl/minvenj/nfi/storm/kafka": 1,
+      "src/main/java/nl/minvenj/nfi/storm/kafka/fail": 4,
+      "src/main/java/nl/minvenj/nfi/storm/kafka/util": 2,
+      "src/test/java/nl/minvenj/nfi/storm/kafka": 3,
+      "src/test/java/nl/minvenj/nfi/storm/kafka/fail": 2,
+      "src/test/java/nl/minvenj/nfi/storm/kafka/util": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 14,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 14,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpout.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpout.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\AbstractFailHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\AbstractFailHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\FailHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\FailHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\ReliableFailHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\ReliableFailHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\UnreliableFailHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\UnreliableFailHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\ConfigUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\ConfigUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\KafkaMessageId.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\main\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\KafkaMessageId.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpoutBufferBehaviourTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpoutBufferBehaviourTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpoutConstructorTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpoutConstructorTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpoutFailurePolicyTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\KafkaSpoutFailurePolicyTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\ReliableFailHandlerTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\ReliableFailHandlerTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\UnreliableFailHandlerTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\fail\\UnreliableFailHandlerTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\ConfigUtilsTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\ConfigUtilsTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\KafkaMessageIdTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout\\src\\test\\java\\nl\\minvenj\\nfi\\storm\\kafka\\util\\KafkaMessageIdTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 14,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "nl.minvenj.nfi.storm",
+        "artifactId": "kafka-spout",
+        "version": "0.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "nl.minvenj.nfi.storm",
+        "project.artifactId": "kafka-spout",
+        "project.version": "0.5-SNAPSHOT",
+        "maven.compiler.source": "1.8",
+        "maven.compiler.target": "1.8",
+        "coveralls.version": "4.3.0",
+        "hamcrest.version": "1.3",
+        "jacoco.version": "0.7.9",
+        "javadoc.plugin.version": "2.10.4",
+        "junit.version": "4.12",
+        "kafka.version": "0.11.0.0",
+        "mockito.version": "2.8.47",
+        "slf4j.version": "1.7.25",
+        "source.plugin.version": "3.0.1",
+        "storm.version": "1.1.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.apache.storm",
+          "artifactId": "storm-core",
+          "version": "1.1.0",
+          "scope": "provided",
+          "raw_version": "${storm.version}"
+        },
+        {
+          "groupId": "org.apache.kafka",
+          "artifactId": "kafka_2.12",
+          "version": "0.11.0.0",
+          "scope": "compile",
+          "raw_version": "${kafka.version}"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "1.7.25",
+          "scope": "compile",
+          "raw_version": "${slf4j.version}"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.12",
+          "scope": "test",
+          "raw_version": "${junit.version}"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-library",
+          "version": "1.3",
+          "scope": "test",
+          "raw_version": "${hamcrest.version}"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "2.8.47",
+          "scope": "test",
+          "raw_version": "${mockito.version}"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-log4j12",
+          "version": "1.7.25",
+          "scope": "test",
+          "raw_version": "${slf4j.version}"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.apache.storm",
+        "artifactId": "storm-core",
+        "version": "1.1.0",
+        "scope": "provided",
+        "raw_version": "${storm.version}"
+      },
+      {
+        "groupId": "org.apache.kafka",
+        "artifactId": "kafka_2.12",
+        "version": "0.11.0.0",
+        "scope": "compile",
+        "raw_version": "${kafka.version}"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "1.7.25",
+        "scope": "compile",
+        "raw_version": "${slf4j.version}"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "${junit.version}"
+      },
+      {
+        "groupId": "org.hamcrest",
+        "artifactId": "hamcrest-library",
+        "version": "1.3",
+        "scope": "test",
+        "raw_version": "${hamcrest.version}"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.8.47",
+        "scope": "test",
+        "raw_version": "${mockito.version}"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-log4j12",
+        "version": "1.7.25",
+        "scope": "test",
+        "raw_version": "${slf4j.version}"
+      }
+    ],
+    "name": "kafka-spout",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\kafka-spout"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `kafka-spout` | Maven | 1.8 | 14 | Standard Java | None | **Yellow** |"
+}

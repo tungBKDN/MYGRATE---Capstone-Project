@@ -1,0 +1,441 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "de.odysseus.staxon",
+      "artifactId": "staxon-parent",
+      "version": "1.4-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "de.odysseus.staxon",
+      "project.artifactId": "staxon-parent",
+      "project.version": "1.4-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.8.2",
+        "scope": "test",
+        "raw_version": "4.8.2"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "core": {
+      "project": {
+        "groupId": "de.odysseus.staxon",
+        "artifactId": "staxon",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.odysseus.staxon",
+        "project.artifactId": "staxon",
+        "project.version": "1.4-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "gson": {
+      "project": {
+        "groupId": "de.odysseus.staxon",
+        "artifactId": "staxon-gson",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.odysseus.staxon",
+        "project.artifactId": "staxon-gson",
+        "project.version": "1.4-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.google.code.gson",
+          "artifactId": "gson",
+          "version": "2.2.4",
+          "scope": "compile",
+          "raw_version": "2.2.4"
+        },
+        {
+          "groupId": "de.odysseus.staxon",
+          "artifactId": "staxon",
+          "version": "1.4-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        }
+      ]
+    },
+    "jackson": {
+      "project": {
+        "groupId": "de.odysseus.staxon",
+        "artifactId": "staxon-jackson",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.odysseus.staxon",
+        "project.artifactId": "staxon-jackson",
+        "project.version": "1.4-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "2.3.1",
+          "scope": "compile",
+          "raw_version": "2.3.1"
+        },
+        {
+          "groupId": "de.odysseus.staxon",
+          "artifactId": "staxon",
+          "version": "1.4-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        }
+      ]
+    },
+    "jsr353": {
+      "project": {
+        "groupId": "de.odysseus.staxon",
+        "artifactId": "staxon-jsr353",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.odysseus.staxon",
+        "project.artifactId": "staxon-jsr353",
+        "project.version": "1.4-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "de.odysseus.staxon",
+          "artifactId": "staxon",
+          "version": "1.4-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "javax.json",
+          "artifactId": "javax.json-api",
+          "version": "1.0",
+          "scope": "provided",
+          "raw_version": "1.0"
+        },
+        {
+          "groupId": "org.glassfish",
+          "artifactId": "javax.json",
+          "version": "1.0.4",
+          "scope": "test",
+          "raw_version": "1.0.4"
+        }
+      ]
+    },
+    "jaxrs": {
+      "project": {
+        "groupId": "de.odysseus.staxon",
+        "artifactId": "staxon-jaxrs",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.odysseus.staxon",
+        "project.artifactId": "staxon-jaxrs",
+        "project.version": "1.4-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "de.odysseus.staxon",
+          "artifactId": "staxon",
+          "version": "1.4-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "1.4-SNAPSHOT"
+        },
+        {
+          "groupId": "javax.ws.rs",
+          "artifactId": "jsr311-api",
+          "version": "1.1.1",
+          "scope": "provided",
+          "raw_version": "1.1.1"
+        },
+        {
+          "groupId": "com.sun.jersey",
+          "artifactId": "jersey-server",
+          "version": "1.10",
+          "scope": "test",
+          "raw_version": "1.10"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.8.2",
+      "scope": "test",
+      "raw_version": "4.8.2"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "2.2.4",
+      "scope": "compile",
+      "raw_version": "2.2.4"
+    },
+    {
+      "groupId": "de.odysseus.staxon",
+      "artifactId": "staxon",
+      "version": "1.4-SNAPSHOT",
+      "scope": "compile",
+      "raw_version": "${project.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "2.3.1",
+      "scope": "compile",
+      "raw_version": "2.3.1"
+    },
+    {
+      "groupId": "javax.json",
+      "artifactId": "javax.json-api",
+      "version": "1.0",
+      "scope": "provided",
+      "raw_version": "1.0"
+    },
+    {
+      "groupId": "org.glassfish",
+      "artifactId": "javax.json",
+      "version": "1.0.4",
+      "scope": "test",
+      "raw_version": "1.0.4"
+    },
+    {
+      "groupId": "javax.ws.rs",
+      "artifactId": "jsr311-api",
+      "version": "1.1.1",
+      "scope": "provided",
+      "raw_version": "1.1.1"
+    },
+    {
+      "groupId": "com.sun.jersey",
+      "artifactId": "jersey-server",
+      "version": "1.10",
+      "scope": "test",
+      "raw_version": "1.10"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "core",
+      "gson",
+      "jackson",
+      "jsr353",
+      "jaxrs"
+    ],
+    "java_file_count": 126,
+    "package_distribution": {
+      "core/src/main/java/de/odysseus/staxon/base": 9,
+      "core/src/main/java/de/odysseus/staxon/event": 6,
+      "core/src/main/java/de/odysseus/staxon/json": 10,
+      "core/src/main/java/de/odysseus/staxon/json/jaxb": 5,
+      "core/src/main/java/de/odysseus/staxon/json/stream": 5,
+      "core/src/main/java/de/odysseus/staxon/json/stream/impl": 4,
+      "core/src/main/java/de/odysseus/staxon/json/stream/util": 7,
+      "core/src/main/java/de/odysseus/staxon/json/util": 4,
+      "core/src/main/java/de/odysseus/staxon/util": 4,
+      "core/src/main/java/de/odysseus/staxon/xml/util": 4,
+      "core/src/test/java/de/odysseus/staxon/base": 3,
+      "core/src/test/java/de/odysseus/staxon/event": 5,
+      "core/src/test/java/de/odysseus/staxon/json": 2,
+      "core/src/test/java/de/odysseus/staxon/json/jaxb": 4,
+      "core/src/test/java/de/odysseus/staxon/json/jaxb/sample": 4,
+      "core/src/test/java/de/odysseus/staxon/json/stream/impl": 2,
+      "core/src/test/java/de/odysseus/staxon/json/stream/util": 4,
+      "core/src/test/java/de/odysseus/staxon/json/util": 2,
+      "core/src/test/java/de/odysseus/staxon/util": 1,
+      "core/src/test/java/de/odysseus/staxon/xml": 6,
+      "gson/src/main/java/de/odysseus/staxon/json/stream/gson": 3,
+      "gson/src/test/java/de/odysseus/staxon/json/stream/gson": 3,
+      "jackson/src/main/java/de/odysseus/staxon/json/stream/jackson": 3,
+      "jackson/src/test/java/de/odysseus/staxon/json/stream/jackson": 3,
+      "jaxrs/sample/src/main/java/de/odysseus/staxon/sample/data": 3,
+      "jaxrs/sample/src/main/java/de/odysseus/staxon/sample/service": 2,
+      "jaxrs/sample/src/test/java/de/odysseus/staxon/sample/service": 1,
+      "jaxrs/src/main/java/de/odysseus/staxon/json/jaxrs/jaxb": 4,
+      "jaxrs/src/test/java/de/odysseus/staxon/json/jaxrs/jaxb": 3,
+      "jaxrs/src/test/java/de/odysseus/staxon/json/jaxrs/jaxb/model": 4,
+      "jsr353/src/main/java/de/odysseus/staxon/json/stream/jsr353": 3,
+      "jsr353/src/test/java/de/odysseus/staxon/json/stream/jsr353": 3
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 126,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 126,
+    "manifest_count": 7,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "gson\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\gson\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "jackson\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\jackson\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "jaxrs\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\jaxrs\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "jaxrs\\sample\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\jaxrs\\sample\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "jsr353\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\jsr353\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLInputFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLInputFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLOutputFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLOutputFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLStreamReader.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLStreamReader.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLStreamScope.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLStreamScope.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLStreamWriter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\AbstractXMLStreamWriter.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\Pair.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\Pair.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\XMLStreamReaderScope.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\XMLStreamReaderScope.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\base\\XMLStreamWriterScope.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\base\\XMLStreamWriterScope.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\event\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\event\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventAllocator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventAllocator.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventReader.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventReader.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventWriter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLEventWriter.java",
+        "language": "java"
+      },
+      {
+        "path": "core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLFilteredEventReader.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon\\core\\src\\main\\java\\de\\odysseus\\staxon\\event\\SimpleXMLFilteredEventReader.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 126,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "de.odysseus.staxon",
+        "artifactId": "staxon-parent",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.odysseus.staxon",
+        "project.artifactId": "staxon-parent",
+        "project.version": "1.4-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.8.2",
+          "scope": "test",
+          "raw_version": "4.8.2"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.8.2",
+        "scope": "test",
+        "raw_version": "4.8.2"
+      }
+    ],
+    "name": "staxon",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\staxon"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `staxon` | Maven | 1.6 | 126 | Standard Java | None | **Yellow** |"
+}

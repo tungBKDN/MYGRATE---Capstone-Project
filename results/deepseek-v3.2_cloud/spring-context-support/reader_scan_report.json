@@ -1,0 +1,258 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.alibaba.spring",
+      "artifactId": "spring-context-support",
+      "version": "1.0.11"
+    },
+    "properties": {
+      "project.groupId": "com.alibaba.spring",
+      "project.artifactId": "spring-context-support",
+      "project.version": "1.0.11",
+      "maven.compiler.source": "17",
+      "maven.compiler.target": "17",
+      "spring.framework.version": "6.2.8"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-context",
+        "version": "6.2.8",
+        "scope": "compile",
+        "raw_version": "${spring.framework.version}"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.2",
+        "scope": "test",
+        "raw_version": "4.13.2"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-test",
+        "version": "6.2.8",
+        "scope": "test",
+        "raw_version": "${spring.framework.version}"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-context",
+      "version": "6.2.8",
+      "scope": "compile",
+      "raw_version": "${spring.framework.version}"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.2",
+      "scope": "test",
+      "raw_version": "4.13.2"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-test",
+      "version": "6.2.8",
+      "scope": "test",
+      "raw_version": "${spring.framework.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 52,
+    "package_distribution": {
+      "src/main/java/com/alibaba/spring/beans/factory/annotation": 8,
+      "src/main/java/com/alibaba/spring/beans/factory/config": 1,
+      "src/main/java/com/alibaba/spring/context": 1,
+      "src/main/java/com/alibaba/spring/context/annotation": 1,
+      "src/main/java/com/alibaba/spring/context/config": 3,
+      "src/main/java/com/alibaba/spring/context/event": 1,
+      "src/main/java/com/alibaba/spring/core/convert/support": 1,
+      "src/main/java/com/alibaba/spring/util": 11,
+      "src/test/java/com/alibaba/spring/beans/factory/annotation": 7,
+      "src/test/java/com/alibaba/spring/beans/factory/config": 1,
+      "src/test/java/com/alibaba/spring/context": 1,
+      "src/test/java/com/alibaba/spring/context/event": 1,
+      "src/test/java/com/alibaba/spring/core/convert/support": 1,
+      "src/test/java/com/alibaba/spring/util": 14
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 52,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 52,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\AbstractAnnotationBeanPostProcessor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\AbstractAnnotationBeanPostProcessor.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\AnnotationBeanDefinitionRegistryPostProcessor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\AnnotationBeanDefinitionRegistryPostProcessor.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\AnnotationInjectedBeanPostProcessor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\AnnotationInjectedBeanPostProcessor.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\ConfigurationBeanBindingPostProcessor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\ConfigurationBeanBindingPostProcessor.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\ConfigurationBeanBindingRegistrar.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\ConfigurationBeanBindingRegistrar.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\ConfigurationBeanBindingsRegister.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\ConfigurationBeanBindingsRegister.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\EnableConfigurationBeanBinding.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\EnableConfigurationBeanBinding.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\EnableConfigurationBeanBindings.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\annotation\\EnableConfigurationBeanBindings.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\config\\GenericBeanPostProcessorAdapter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\beans\\factory\\config\\GenericBeanPostProcessorAdapter.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\context\\OnceApplicationContextEventListener.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\context\\OnceApplicationContextEventListener.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\context\\annotation\\ExposingClassPathBeanDefinitionScanner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\context\\annotation\\ExposingClassPathBeanDefinitionScanner.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\context\\config\\ConfigurationBeanBinder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\context\\config\\ConfigurationBeanBinder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\context\\config\\ConfigurationBeanCustomizer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\context\\config\\ConfigurationBeanCustomizer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\context\\config\\DefaultConfigurationBeanBinder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\context\\config\\DefaultConfigurationBeanBinder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\alibaba\\spring\\context\\event\\DeferredApplicationEventPublisher.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support\\src\\main\\java\\com\\alibaba\\spring\\context\\event\\DeferredApplicationEventPublisher.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "17",
+    "java_file_count": 52,
+    "framework": "Spring Framework",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.alibaba.spring",
+        "artifactId": "spring-context-support",
+        "version": "1.0.11"
+      },
+      "properties": {
+        "project.groupId": "com.alibaba.spring",
+        "project.artifactId": "spring-context-support",
+        "project.version": "1.0.11",
+        "maven.compiler.source": "17",
+        "maven.compiler.target": "17",
+        "spring.framework.version": "6.2.8"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-context",
+          "version": "6.2.8",
+          "scope": "compile",
+          "raw_version": "${spring.framework.version}"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.2",
+          "scope": "test",
+          "raw_version": "4.13.2"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "6.2.8",
+          "scope": "test",
+          "raw_version": "${spring.framework.version}"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-context",
+        "version": "6.2.8",
+        "scope": "compile",
+        "raw_version": "${spring.framework.version}"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.2",
+        "scope": "test",
+        "raw_version": "4.13.2"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-test",
+        "version": "6.2.8",
+        "scope": "test",
+        "raw_version": "${spring.framework.version}"
+      }
+    ],
+    "name": "spring-context-support",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-context-support"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `spring-context-support` | Maven | 17 | 52 | Spring Framework | None | **Yellow** |"
+}

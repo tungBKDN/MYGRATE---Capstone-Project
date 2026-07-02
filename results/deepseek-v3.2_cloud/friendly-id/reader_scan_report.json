@@ -1,0 +1,481 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.devskiller.friendly-id",
+      "artifactId": "friendly-id-project",
+      "version": "1.1.1-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.devskiller.friendly-id",
+      "project.artifactId": "friendly-id-project",
+      "project.version": "1.1.1-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8",
+      "maven.compiler.source": "1.8",
+      "maven.compiler.target": "1.8",
+      "spring-boot.version": "2.2.2.RELEASE"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "friendly-id": {
+      "project": {
+        "groupId": "com.devskiller.friendly-id",
+        "artifactId": "friendly-id",
+        "version": "1.1.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.devskiller.friendly-id",
+        "project.artifactId": "friendly-id",
+        "project.version": "1.1.1-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.vavr",
+          "artifactId": "vavr-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "friendly-id-jackson-datatype": {
+      "project": {
+        "groupId": "com.devskiller.friendly-id",
+        "artifactId": "friendly-id-jackson-datatype",
+        "version": "1.1.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.devskiller.friendly-id",
+        "project.artifactId": "friendly-id-jackson-datatype",
+        "project.version": "1.1.1-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.devskiller.friendly-id",
+          "artifactId": "friendly-id",
+          "version": "1.1.1-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-parameter-names",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "friendly-id-spring-boot": {
+      "project": {
+        "groupId": "com.devskiller.friendly-id",
+        "artifactId": "friendly-id-spring-boot",
+        "version": "1.1.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.devskiller.friendly-id",
+        "project.artifactId": "friendly-id-spring-boot",
+        "project.version": "1.1.1-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.devskiller.friendly-id",
+          "artifactId": "friendly-id-jackson-datatype",
+          "version": "1.1.1-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        }
+      ]
+    },
+    "friendly-id-spring-boot-starter": {
+      "project": {
+        "groupId": "com.devskiller.friendly-id",
+        "artifactId": "friendly-id-spring-boot-starter",
+        "version": "1.1.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.devskiller.friendly-id",
+        "project.artifactId": "friendly-id-spring-boot-starter",
+        "project.version": "1.1.1-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.devskiller.friendly-id",
+          "artifactId": "friendly-id-spring-boot",
+          "version": "1.1.1-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-autoconfigure-processor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "friendly-id-samples": {
+      "project": {
+        "groupId": "com.devskiller.friendly-id",
+        "artifactId": "friendly-id-samples",
+        "version": "1.1.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.devskiller.friendly-id",
+        "project.artifactId": "friendly-id-samples",
+        "project.version": "1.1.1-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.assertj",
+      "artifactId": "assertj-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.vavr",
+      "artifactId": "vavr-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.module",
+      "artifactId": "jackson-module-parameter-names",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-web",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-autoconfigure-processor",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "friendly-id",
+      "friendly-id-jackson-datatype",
+      "friendly-id-spring-boot",
+      "friendly-id-spring-boot-starter",
+      "friendly-id-samples"
+    ],
+    "java_file_count": 62,
+    "package_distribution": {
+      "friendly-id/src/jmh/java/com/devskiller/friendly_id": 2,
+      "friendly-id/src/main/java/com/devskiller/friendly_id": 5,
+      "friendly-id/src/test/java/com/devskiller/friendly_id": 7,
+      "friendly-id-jackson-datatype/src/main/java/com/devskiller/friendly_id/jackson": 6,
+      "friendly-id-jackson-datatype/src/test/java/com/devskiller/friendly_id/spring": 5,
+      "friendly-id-samples/friendly-id-contracts/src/main/java/com/devskiller/friendly_id/sample/contracts": 8,
+      "friendly-id-samples/friendly-id-contracts/src/main/java/com/devskiller/friendly_id/sample/contracts/domain": 2,
+      "friendly-id-samples/friendly-id-contracts/src/test/java/com/devskiller/friendly_id/sample/contracts": 4,
+      "friendly-id-samples/friendly-id-spring-boot-customized/src/main/java/com/devskiller/friendly_id/sample/customized": 4,
+      "friendly-id-samples/friendly-id-spring-boot-customized/src/test/java/com/devskiller/friendly_id/sample/customized": 1,
+      "friendly-id-samples/friendly-id-spring-boot-hateos/src/main/java/com/devskiller/friendly_id/sample/hateos": 8,
+      "friendly-id-samples/friendly-id-spring-boot-hateos/src/main/java/com/devskiller/friendly_id/sample/hateos/domain": 2,
+      "friendly-id-samples/friendly-id-spring-boot-hateos/src/test/java/com/devskiller/friendly_id/sample/hateos": 2,
+      "friendly-id-samples/friendly-id-spring-boot-simple/src/main/java/com/devskiller/friendly_id/sample/simple": 2,
+      "friendly-id-samples/friendly-id-spring-boot-simple/src/test/java/com/devskiller/friendly_id/sample/simple": 1,
+      "friendly-id-spring-boot/src/main/java/com/devskiller/friendly_id/spring": 2,
+      "friendly-id-spring-boot-starter/src/main/java/com/devskiller/friendly_id/boot": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 62,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 62,
+    "manifest_count": 10,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "friendly-id-jackson-datatype\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-jackson-datatype\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-samples\\friendly-id-contracts\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-samples\\friendly-id-contracts\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-samples\\friendly-id-spring-boot-customized\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-samples\\friendly-id-spring-boot-customized\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-samples\\friendly-id-spring-boot-hateos\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-samples\\friendly-id-spring-boot-hateos\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-samples\\friendly-id-spring-boot-simple\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-samples\\friendly-id-spring-boot-simple\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-samples\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-samples\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-spring-boot-starter\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-spring-boot-starter\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id-spring-boot\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-spring-boot\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "friendly-id\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "friendly-id\\src\\jmh\\java\\com\\devskiller\\friendly_id\\FriendlyIdBenchmark.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\jmh\\java\\com\\devskiller\\friendly_id\\FriendlyIdBenchmark.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\jmh\\java\\com\\devskiller\\friendly_id\\UuidConverterBenchmark.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\jmh\\java\\com\\devskiller\\friendly_id\\UuidConverterBenchmark.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\Base62.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\Base62.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\BigIntegerPairing.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\BigIntegerPairing.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\FriendlyId.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\FriendlyId.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\Url62.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\Url62.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\UuidConverter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\main\\java\\com\\devskiller\\friendly_id\\UuidConverter.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\AnalyzeGeneratedIdsTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\AnalyzeGeneratedIdsTest.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\Base62Test.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\Base62Test.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\BigIntegerPairingTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\BigIntegerPairingTest.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\DataProvider.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\DataProvider.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\FriendlyIdTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\FriendlyIdTest.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\IdUtil.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\IdUtil.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\Url62Test.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id\\src\\test\\java\\com\\devskiller\\friendly_id\\Url62Test.java",
+        "language": "java"
+      },
+      {
+        "path": "friendly-id-jackson-datatype\\src\\main\\java\\com\\devskiller\\friendly_id\\jackson\\FriendlyIdAnnotationIntrospector.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id\\friendly-id-jackson-datatype\\src\\main\\java\\com\\devskiller\\friendly_id\\jackson\\FriendlyIdAnnotationIntrospector.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 63,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.devskiller.friendly-id",
+        "artifactId": "friendly-id-project",
+        "version": "1.1.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.devskiller.friendly-id",
+        "project.artifactId": "friendly-id-project",
+        "project.version": "1.1.1-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8",
+        "maven.compiler.source": "1.8",
+        "maven.compiler.target": "1.8",
+        "spring-boot.version": "2.2.2.RELEASE"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "friendly-id",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\friendly-id"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `friendly-id` | Maven | 1.8 | 63 | Standard Java | None | **Yellow** |"
+}

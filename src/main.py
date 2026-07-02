@@ -255,7 +255,7 @@ def main():
         project_root_path = Path(project_path).resolve()
         folder_name = project_root_path.name
         
-        precalc_path = Path(__file__).resolve().parent.parent / "working" / "precalc_baseline.json"
+        precalc_path = Path(__file__).resolve().parent.parent / "results" / "precalc_baseline.json"
         baseline_coverage = 0.0
         baseline_total_tests = 0
         baseline_passed_tests = 0
@@ -439,19 +439,19 @@ def main():
         tee_stdout.close()
         tee_stderr.close()
 
-        # Copy artifacts to working directory after migration run completes
+        # Copy artifacts to results directory after migration run completes
         try:
             mygrate_root = Path(__file__).resolve().parent.parent
             src_dir = Path(project_path).resolve() / "test" / "artifacts"
             codebase_name = Path(project_path).resolve().name
             model_name = os.getenv("OLLAMA_MODEL", "default").replace(":", "_").replace("/", "_")
-            dest_dir = mygrate_root / "working" / model_name / codebase_name / "artifacts"
+            dest_dir = mygrate_root / "results" / model_name / codebase_name
             if src_dir.exists():
                 import shutil
                 shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
                 print(f"\n-> [POST-RUN] Successfully copied artifacts from {src_dir} to {dest_dir}\n")
         except Exception as e:
-            print(f"\n-> [POST-RUN] Error copying artifacts to working directory: {e}\n")
+            print(f"\n-> [POST-RUN] Error copying artifacts to results directory: {e}\n")
 
 
 if __name__ == "__main__":

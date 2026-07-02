@@ -1,0 +1,621 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "in.zapr.druid",
+      "artifactId": "druidry",
+      "version": "3.2-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "in.zapr.druid",
+      "project.artifactId": "druidry",
+      "project.version": "3.2-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "jackson.databind.version": "2.9.10.4",
+      "jackson.datatype.version": "2.9.9",
+      "jodatime.version": "2.9.7",
+      "lombok.version": "1.18.10",
+      "testng.version": "6.11",
+      "logback.version": "1.2.1",
+      "jsonassert.version": "1.4.0",
+      "commons.version": "3.5",
+      "jersey.version": "2.26",
+      "guava.version": "23.0"
+    },
+    "dependencies": [
+      {
+        "groupId": "joda-time",
+        "artifactId": "joda-time",
+        "version": "2.9.7",
+        "scope": "compile",
+        "raw_version": "${jodatime.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.9.10.4",
+        "scope": "compile",
+        "raw_version": "${jackson.databind.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.datatype",
+        "artifactId": "jackson-datatype-joda",
+        "version": "2.9.9",
+        "scope": "compile",
+        "raw_version": "${jackson.datatype.version}"
+      },
+      {
+        "groupId": "org.projectlombok",
+        "artifactId": "lombok",
+        "version": "1.18.10",
+        "scope": "compile",
+        "raw_version": "${lombok.version}"
+      },
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "1.2.1",
+        "scope": "compile",
+        "raw_version": "${logback.version}"
+      },
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-core",
+        "version": "1.2.1",
+        "scope": "compile",
+        "raw_version": "${logback.version}"
+      },
+      {
+        "groupId": "org.testng",
+        "artifactId": "testng",
+        "version": "6.14.3",
+        "scope": "test",
+        "raw_version": "6.14.3"
+      },
+      {
+        "groupId": "org.skyscreamer",
+        "artifactId": "jsonassert",
+        "version": "1.4.0",
+        "scope": "test",
+        "raw_version": "${jsonassert.version}"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.5",
+        "scope": "compile",
+        "raw_version": "${commons.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.core",
+        "artifactId": "jersey-client",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.media",
+        "artifactId": "jersey-media-json-jackson",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.inject",
+        "artifactId": "jersey-hk2",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.connectors",
+        "artifactId": "jersey-apache-connector",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "23.0",
+        "scope": "compile",
+        "raw_version": "${guava.version}"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "joda-time",
+      "artifactId": "joda-time",
+      "version": "2.9.7",
+      "scope": "compile",
+      "raw_version": "${jodatime.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "2.9.10.4",
+      "scope": "compile",
+      "raw_version": "${jackson.databind.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.datatype",
+      "artifactId": "jackson-datatype-joda",
+      "version": "2.9.9",
+      "scope": "compile",
+      "raw_version": "${jackson.datatype.version}"
+    },
+    {
+      "groupId": "org.projectlombok",
+      "artifactId": "lombok",
+      "version": "1.18.10",
+      "scope": "compile",
+      "raw_version": "${lombok.version}"
+    },
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-classic",
+      "version": "1.2.1",
+      "scope": "compile",
+      "raw_version": "${logback.version}"
+    },
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-core",
+      "version": "1.2.1",
+      "scope": "compile",
+      "raw_version": "${logback.version}"
+    },
+    {
+      "groupId": "org.testng",
+      "artifactId": "testng",
+      "version": "6.14.3",
+      "scope": "test",
+      "raw_version": "6.14.3"
+    },
+    {
+      "groupId": "org.skyscreamer",
+      "artifactId": "jsonassert",
+      "version": "1.4.0",
+      "scope": "test",
+      "raw_version": "${jsonassert.version}"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "3.5",
+      "scope": "compile",
+      "raw_version": "${commons.version}"
+    },
+    {
+      "groupId": "org.glassfish.jersey.core",
+      "artifactId": "jersey-client",
+      "version": "2.26",
+      "scope": "compile",
+      "raw_version": "${jersey.version}"
+    },
+    {
+      "groupId": "org.glassfish.jersey.media",
+      "artifactId": "jersey-media-json-jackson",
+      "version": "2.26",
+      "scope": "compile",
+      "raw_version": "${jersey.version}"
+    },
+    {
+      "groupId": "org.glassfish.jersey.inject",
+      "artifactId": "jersey-hk2",
+      "version": "2.26",
+      "scope": "compile",
+      "raw_version": "${jersey.version}"
+    },
+    {
+      "groupId": "org.glassfish.jersey.connectors",
+      "artifactId": "jersey-apache-connector",
+      "version": "2.26",
+      "scope": "compile",
+      "raw_version": "${jersey.version}"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "23.0",
+      "scope": "compile",
+      "raw_version": "${guava.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 293,
+    "package_distribution": {
+      "src/main/java/in/zapr/druid/druidry/aggregator": 20,
+      "src/main/java/in/zapr/druid/druidry/averager": 11,
+      "src/main/java/in/zapr/druid/druidry/client": 5,
+      "src/main/java/in/zapr/druid/druidry/client/exception": 3,
+      "src/main/java/in/zapr/druid/druidry/dataSource": 5,
+      "src/main/java/in/zapr/druid/druidry/dimension": 9,
+      "src/main/java/in/zapr/druid/druidry/dimension/enums": 2,
+      "src/main/java/in/zapr/druid/druidry/extensions/datasketches/aggregator": 6,
+      "src/main/java/in/zapr/druid/druidry/extensions/datasketches/postAggregator": 20,
+      "src/main/java/in/zapr/druid/druidry/extensions/distinctcount/aggregator": 1,
+      "src/main/java/in/zapr/druid/druidry/extensions/histogram/aggregator": 3,
+      "src/main/java/in/zapr/druid/druidry/extensions/histogram/postAggregator": 6,
+      "src/main/java/in/zapr/druid/druidry/extractionFunctions": 13,
+      "src/main/java/in/zapr/druid/druidry/filter": 11,
+      "src/main/java/in/zapr/druid/druidry/filter/havingSpec": 9,
+      "src/main/java/in/zapr/druid/druidry/filter/searchQuerySpec": 5,
+      "src/main/java/in/zapr/druid/druidry/granularity": 5,
+      "src/main/java/in/zapr/druid/druidry/limitSpec": 1,
+      "src/main/java/in/zapr/druid/druidry/limitSpec/orderByColumnSpec": 3,
+      "src/main/java/in/zapr/druid/druidry/lookUpSpec": 1,
+      "src/main/java/in/zapr/druid/druidry/postAggregator": 8,
+      "src/main/java/in/zapr/druid/druidry/query": 2,
+      "src/main/java/in/zapr/druid/druidry/query/aggregation": 5,
+      "src/main/java/in/zapr/druid/druidry/query/config": 5,
+      "src/main/java/in/zapr/druid/druidry/query/metadata": 4,
+      "src/main/java/in/zapr/druid/druidry/query/scan": 2,
+      "src/main/java/in/zapr/druid/druidry/query/search": 2,
+      "src/main/java/in/zapr/druid/druidry/query/select": 2,
+      "src/main/java/in/zapr/druid/druidry/topNMetric": 5,
+      "src/main/java/in/zapr/druid/druidry/virtualColumn": 2,
+      "src/test/java/in/zapr/druid/druidry/aggregator": 19,
+      "src/test/java/in/zapr/druid/druidry/client": 2,
+      "src/test/java/in/zapr/druid/druidry/dataSource": 3,
+      "src/test/java/in/zapr/druid/druidry/dimension": 6,
+      "src/test/java/in/zapr/druid/druidry/extensions/datasketches/aggregator": 5,
+      "src/test/java/in/zapr/druid/druidry/extensions/datasketches/postAggregator": 18,
+      "src/test/java/in/zapr/druid/druidry/extensions/distinctcount/aggregator": 1,
+      "src/test/java/in/zapr/druid/druidry/extensions/histogram/aggregator": 3,
+      "src/test/java/in/zapr/druid/druidry/extensions/histogram/postAggregator": 6,
+      "src/test/java/in/zapr/druid/druidry/extractionFunctions": 9,
+      "src/test/java/in/zapr/druid/druidry/filter": 9,
+      "src/test/java/in/zapr/druid/druidry/filter/havingSpec": 8,
+      "src/test/java/in/zapr/druid/druidry/filter/searchQuerySpec": 4,
+      "src/test/java/in/zapr/druid/druidry/granularity": 3,
+      "src/test/java/in/zapr/druid/druidry/limitSpec": 2,
+      "src/test/java/in/zapr/druid/druidry/postAggregator": 5,
+      "src/test/java/in/zapr/druid/druidry/query/aggregation": 5,
+      "src/test/java/in/zapr/druid/druidry/query/config": 2,
+      "src/test/java/in/zapr/druid/druidry/query/scan": 1,
+      "src/test/java/in/zapr/druid/druidry/query/search": 1,
+      "src/test/java/in/zapr/druid/druidry/query/select": 1,
+      "src/test/java/in/zapr/druid/druidry/topNMetric": 3,
+      "src/test/java/in/zapr/druid/druidry/virtualColumn": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 293,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 293,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\CardinalityAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\CardinalityAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\CountAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\CountAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleFirstAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleFirstAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleLastAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleLastAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleMaxAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleMaxAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleMinAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleMinAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleSumAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DoubleSumAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DruidAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\DruidAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\FilteredAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\FilteredAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\FloatFirstAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\FloatFirstAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\FloatLastAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\FloatLastAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\HyperUniqueAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\HyperUniqueAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\JavaScriptAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\JavaScriptAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\LongFirstAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\LongFirstAggregator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\LongLastAggregator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry\\src\\main\\java\\in\\zapr\\druid\\druidry\\aggregator\\LongLastAggregator.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 293,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "in.zapr.druid",
+        "artifactId": "druidry",
+        "version": "3.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "in.zapr.druid",
+        "project.artifactId": "druidry",
+        "project.version": "3.2-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "jackson.databind.version": "2.9.10.4",
+        "jackson.datatype.version": "2.9.9",
+        "jodatime.version": "2.9.7",
+        "lombok.version": "1.18.10",
+        "testng.version": "6.11",
+        "logback.version": "1.2.1",
+        "jsonassert.version": "1.4.0",
+        "commons.version": "3.5",
+        "jersey.version": "2.26",
+        "guava.version": "23.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "joda-time",
+          "artifactId": "joda-time",
+          "version": "2.9.7",
+          "scope": "compile",
+          "raw_version": "${jodatime.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "2.9.10.4",
+          "scope": "compile",
+          "raw_version": "${jackson.databind.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.datatype",
+          "artifactId": "jackson-datatype-joda",
+          "version": "2.9.9",
+          "scope": "compile",
+          "raw_version": "${jackson.datatype.version}"
+        },
+        {
+          "groupId": "org.projectlombok",
+          "artifactId": "lombok",
+          "version": "1.18.10",
+          "scope": "compile",
+          "raw_version": "${lombok.version}"
+        },
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-classic",
+          "version": "1.2.1",
+          "scope": "compile",
+          "raw_version": "${logback.version}"
+        },
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-core",
+          "version": "1.2.1",
+          "scope": "compile",
+          "raw_version": "${logback.version}"
+        },
+        {
+          "groupId": "org.testng",
+          "artifactId": "testng",
+          "version": "6.14.3",
+          "scope": "test",
+          "raw_version": "6.14.3"
+        },
+        {
+          "groupId": "org.skyscreamer",
+          "artifactId": "jsonassert",
+          "version": "1.4.0",
+          "scope": "test",
+          "raw_version": "${jsonassert.version}"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.5",
+          "scope": "compile",
+          "raw_version": "${commons.version}"
+        },
+        {
+          "groupId": "org.glassfish.jersey.core",
+          "artifactId": "jersey-client",
+          "version": "2.26",
+          "scope": "compile",
+          "raw_version": "${jersey.version}"
+        },
+        {
+          "groupId": "org.glassfish.jersey.media",
+          "artifactId": "jersey-media-json-jackson",
+          "version": "2.26",
+          "scope": "compile",
+          "raw_version": "${jersey.version}"
+        },
+        {
+          "groupId": "org.glassfish.jersey.inject",
+          "artifactId": "jersey-hk2",
+          "version": "2.26",
+          "scope": "compile",
+          "raw_version": "${jersey.version}"
+        },
+        {
+          "groupId": "org.glassfish.jersey.connectors",
+          "artifactId": "jersey-apache-connector",
+          "version": "2.26",
+          "scope": "compile",
+          "raw_version": "${jersey.version}"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "23.0",
+          "scope": "compile",
+          "raw_version": "${guava.version}"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "joda-time",
+        "artifactId": "joda-time",
+        "version": "2.9.7",
+        "scope": "compile",
+        "raw_version": "${jodatime.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.9.10.4",
+        "scope": "compile",
+        "raw_version": "${jackson.databind.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.datatype",
+        "artifactId": "jackson-datatype-joda",
+        "version": "2.9.9",
+        "scope": "compile",
+        "raw_version": "${jackson.datatype.version}"
+      },
+      {
+        "groupId": "org.projectlombok",
+        "artifactId": "lombok",
+        "version": "1.18.10",
+        "scope": "compile",
+        "raw_version": "${lombok.version}"
+      },
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "1.2.1",
+        "scope": "compile",
+        "raw_version": "${logback.version}"
+      },
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-core",
+        "version": "1.2.1",
+        "scope": "compile",
+        "raw_version": "${logback.version}"
+      },
+      {
+        "groupId": "org.testng",
+        "artifactId": "testng",
+        "version": "6.14.3",
+        "scope": "test",
+        "raw_version": "6.14.3"
+      },
+      {
+        "groupId": "org.skyscreamer",
+        "artifactId": "jsonassert",
+        "version": "1.4.0",
+        "scope": "test",
+        "raw_version": "${jsonassert.version}"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.5",
+        "scope": "compile",
+        "raw_version": "${commons.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.core",
+        "artifactId": "jersey-client",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.media",
+        "artifactId": "jersey-media-json-jackson",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.inject",
+        "artifactId": "jersey-hk2",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "org.glassfish.jersey.connectors",
+        "artifactId": "jersey-apache-connector",
+        "version": "2.26",
+        "scope": "compile",
+        "raw_version": "${jersey.version}"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "23.0",
+        "scope": "compile",
+        "raw_version": "${guava.version}"
+      }
+    ],
+    "name": "druidry",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\druidry"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `druidry` | Maven | 1.8 | 293 | Standard Java | None | **Yellow** |"
+}

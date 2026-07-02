@@ -1,0 +1,1754 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.appenders.log4j",
+      "artifactId": "parent",
+      "version": "1.6.2-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.appenders.log4j",
+      "project.artifactId": "parent",
+      "project.version": "1.6.2-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "java.version": "17",
+      "maven.compiler.source": "17",
+      "maven.compiler.target": "17",
+      "org.appenders.st.jackson.version": "1.0.1",
+      "org.appenders.logging.version": "1.0",
+      "log4j2.version": "2.17.1",
+      "jacoco.version": "0.8.7",
+      "jackson.version": "2.13.4",
+      "jackson-core.version": "${jackson.version}",
+      "jackson-databind.version": "${jackson.version}.2",
+      "jackson-annotations.version": "${jackson.version}",
+      "jackson-afterburner.version": "${jackson.version}",
+      "httpclient.version": "4.5.13",
+      "httpasyncclient.version": "4.1.5",
+      "httpcore.version": "4.4.15",
+      "org.asynchttpclient.version": "2.12.3",
+      "net.openhft.chroniclemap.version": "2026.1",
+      "jctools.version": "3.1.0",
+      "netty.version": "4.1.60.Final",
+      "jupiter.version": "5.8.2",
+      "mockito.version": "4.4.0",
+      "hamcrest.version": "2.2",
+      "jmh.version": "1.36"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.jacoco",
+        "artifactId": "org.jacoco.agent",
+        "version": "0.8.7",
+        "scope": "test",
+        "raw_version": "${jacoco.version}"
+      },
+      {
+        "groupId": "backport-util-concurrent",
+        "artifactId": "backport-util-concurrent",
+        "version": "3.1",
+        "scope": "test",
+        "raw_version": "3.1"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "log4j2-elasticsearch-core": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch-core",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch-core",
+        "project.version": "1.6.2-SNAPSHOT",
+        "jcstress.version": "0.15"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.st",
+          "artifactId": "appenders-jackson-st",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.netty",
+          "artifactId": "netty-buffer",
+          "version": "4.1.75.Final",
+          "scope": "provided",
+          "raw_version": "4.1.75.Final"
+        },
+        {
+          "groupId": "net.openhft",
+          "artifactId": "chronicle-map",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jctools",
+          "artifactId": "jctools-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-generator-annprocess",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jcstress",
+          "artifactId": "jcstress-core",
+          "version": "0.15",
+          "scope": "test",
+          "raw_version": "${jcstress.version}"
+        }
+      ]
+    },
+    "log4j2-elasticsearch-ahc": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch-ahc",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch-ahc",
+        "project.version": "1.6.2-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.asynchttpclient",
+          "artifactId": "async-http-client",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.netty",
+          "artifactId": "netty-buffer",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-slf4j-impl",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "3.4.2",
+          "scope": "provided",
+          "raw_version": "3.4.2"
+        },
+        {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcprov-jdk15on",
+          "version": "1.69",
+          "scope": "provided",
+          "raw_version": "1.69"
+        },
+        {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcpkix-jdk15on",
+          "version": "1.69",
+          "scope": "provided",
+          "raw_version": "1.69"
+        },
+        {
+          "groupId": "net.openhft",
+          "artifactId": "chronicle-map",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jctools",
+          "artifactId": "jctools-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-generator-annprocess",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "log4j2-elasticsearch-hc": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch-hc",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch-hc",
+        "project.version": "1.6.2-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.apache.httpcomponents",
+          "artifactId": "httpasyncclient",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-slf4j-impl",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "3.4.2",
+          "scope": "provided",
+          "raw_version": "3.4.2"
+        },
+        {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcprov-jdk15on",
+          "version": "1.69",
+          "scope": "provided",
+          "raw_version": "1.69"
+        },
+        {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcpkix-jdk15on",
+          "version": "1.69",
+          "scope": "provided",
+          "raw_version": "1.69"
+        },
+        {
+          "groupId": "io.netty",
+          "artifactId": "netty-buffer",
+          "version": "4.1.32.Final",
+          "scope": "provided",
+          "raw_version": "4.1.32.Final"
+        },
+        {
+          "groupId": "net.openhft",
+          "artifactId": "chronicle-map",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jctools",
+          "artifactId": "jctools-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-generator-annprocess",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "log4j2-elasticsearch-jest": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch-jest",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch-jest",
+        "project.version": "1.6.2-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.searchbox",
+          "artifactId": "jest",
+          "version": "6.3.1",
+          "scope": "compile",
+          "raw_version": "6.3.1"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-slf4j-impl",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.httpcomponents",
+          "artifactId": "httpclient",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.httpcomponents",
+          "artifactId": "httpasyncclient",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.httpcomponents",
+          "artifactId": "httpcore",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.httpcomponents",
+          "artifactId": "httpcore-nio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "3.4.2",
+          "scope": "provided",
+          "raw_version": "3.4.2"
+        },
+        {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcprov-jdk15on",
+          "version": "1.69",
+          "scope": "provided",
+          "raw_version": "1.69"
+        },
+        {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcpkix-jdk15on",
+          "version": "1.69",
+          "scope": "provided",
+          "raw_version": "1.69"
+        },
+        {
+          "groupId": "io.netty",
+          "artifactId": "netty-buffer",
+          "version": "4.1.32.Final",
+          "scope": "provided",
+          "raw_version": "4.1.32.Final"
+        },
+        {
+          "groupId": "net.openhft",
+          "artifactId": "chronicle-map",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jctools",
+          "artifactId": "jctools-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.powermock",
+          "artifactId": "powermock-api-mockito2",
+          "version": "2.0.0-beta.5",
+          "scope": "test",
+          "raw_version": "2.0.0-beta.5"
+        }
+      ]
+    },
+    "log4j2-elasticsearch2-bulkprocessor": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch2-bulkprocessor",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch2-bulkprocessor",
+        "project.version": "1.6.2-SNAPSHOT",
+        "elasticsearch.version": "2.4.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "3.4.2",
+          "scope": "provided",
+          "raw_version": "3.4.2"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.elasticsearch",
+          "artifactId": "elasticsearch",
+          "version": "2.4.0",
+          "scope": "compile",
+          "raw_version": "${elasticsearch.version}"
+        },
+        {
+          "groupId": "org.elasticsearch.plugin",
+          "artifactId": "shield",
+          "version": "2.4.6",
+          "scope": "provided",
+          "raw_version": "2.4.6"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-inline",
+          "version": "${mockito.version}",
+          "scope": "test",
+          "raw_version": "${mockito.version}"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "log4j2-elasticsearch5-bulkprocessor": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch5-bulkprocessor",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch5-bulkprocessor",
+        "project.version": "1.6.2-SNAPSHOT",
+        "elasticsearch.version": "5.6.16"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "3.4.2",
+          "scope": "provided",
+          "raw_version": "3.4.2"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.elasticsearch.client",
+          "artifactId": "transport",
+          "version": "5.6.16",
+          "scope": "compile",
+          "raw_version": "${elasticsearch.version}"
+        },
+        {
+          "groupId": "org.elasticsearch.client",
+          "artifactId": "x-pack-transport",
+          "version": "5.6.16",
+          "scope": "provided",
+          "raw_version": "${elasticsearch.version}"
+        },
+        {
+          "groupId": "io.netty",
+          "artifactId": "netty-buffer",
+          "version": "4.1.13.Final",
+          "scope": "compile",
+          "raw_version": "4.1.13.Final"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-inline",
+          "version": "${mockito.version}",
+          "scope": "test",
+          "raw_version": "${mockito.version}"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "log4j2-elasticsearch6-bulkprocessor": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "log4j2-elasticsearch6-bulkprocessor",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "log4j2-elasticsearch6-bulkprocessor",
+        "project.version": "1.6.2-SNAPSHOT",
+        "elasticsearch.version": "6.8.23"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "3.4.2",
+          "scope": "provided",
+          "raw_version": "3.4.2"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.module",
+          "artifactId": "jackson-module-afterburner",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.elasticsearch.client",
+          "artifactId": "transport",
+          "version": "6.8.23",
+          "scope": "compile",
+          "raw_version": "${elasticsearch.version}"
+        },
+        {
+          "groupId": "org.elasticsearch.client",
+          "artifactId": "x-pack-transport",
+          "version": "6.8.23",
+          "scope": "provided",
+          "raw_version": "${elasticsearch.version}"
+        },
+        {
+          "groupId": "io.netty",
+          "artifactId": "netty-buffer",
+          "version": "4.1.32.Final",
+          "scope": "compile",
+          "raw_version": "4.1.32.Final"
+        },
+        {
+          "groupId": "org.appenders.logging",
+          "artifactId": "appenders-logging",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.appenders.log4j",
+          "artifactId": "log4j2-elasticsearch-core",
+          "version": "1.6.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-inline",
+          "version": "${mockito.version}",
+          "scope": "test",
+          "raw_version": "${mockito.version}"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "org.jacoco",
+      "artifactId": "org.jacoco.agent",
+      "version": "0.8.7",
+      "scope": "test",
+      "raw_version": "${jacoco.version}"
+    },
+    {
+      "groupId": "backport-util-concurrent",
+      "artifactId": "backport-util-concurrent",
+      "version": "3.1",
+      "scope": "test",
+      "raw_version": "3.1"
+    },
+    {
+      "groupId": "org.appenders.st",
+      "artifactId": "appenders-jackson-st",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.appenders.logging",
+      "artifactId": "appenders-logging",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-core",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-api",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.module",
+      "artifactId": "jackson-module-afterburner",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.netty",
+      "artifactId": "netty-buffer",
+      "version": "4.1.75.Final",
+      "scope": "provided",
+      "raw_version": "4.1.75.Final"
+    },
+    {
+      "groupId": "net.openhft",
+      "artifactId": "chronicle-map",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jctools",
+      "artifactId": "jctools-core",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.openjdk.jmh",
+      "artifactId": "jmh-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.openjdk.jmh",
+      "artifactId": "jmh-generator-annprocess",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-engine",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-junit-jupiter",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.hamcrest",
+      "artifactId": "hamcrest",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.openjdk.jcstress",
+      "artifactId": "jcstress-core",
+      "version": "0.15",
+      "scope": "test",
+      "raw_version": "${jcstress.version}"
+    },
+    {
+      "groupId": "org.asynchttpclient",
+      "artifactId": "async-http-client",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-slf4j-impl",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.lmax",
+      "artifactId": "disruptor",
+      "version": "3.4.2",
+      "scope": "provided",
+      "raw_version": "3.4.2"
+    },
+    {
+      "groupId": "org.bouncycastle",
+      "artifactId": "bcprov-jdk15on",
+      "version": "1.69",
+      "scope": "provided",
+      "raw_version": "1.69"
+    },
+    {
+      "groupId": "org.bouncycastle",
+      "artifactId": "bcpkix-jdk15on",
+      "version": "1.69",
+      "scope": "provided",
+      "raw_version": "1.69"
+    },
+    {
+      "groupId": "org.apache.httpcomponents",
+      "artifactId": "httpasyncclient",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.searchbox",
+      "artifactId": "jest",
+      "version": "6.3.1",
+      "scope": "compile",
+      "raw_version": "6.3.1"
+    },
+    {
+      "groupId": "org.apache.httpcomponents",
+      "artifactId": "httpclient",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.httpcomponents",
+      "artifactId": "httpcore",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.httpcomponents",
+      "artifactId": "httpcore-nio",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.powermock",
+      "artifactId": "powermock-api-mockito2",
+      "version": "2.0.0-beta.5",
+      "scope": "test",
+      "raw_version": "2.0.0-beta.5"
+    },
+    {
+      "groupId": "org.elasticsearch",
+      "artifactId": "elasticsearch",
+      "version": "2.4.0",
+      "scope": "compile",
+      "raw_version": "${elasticsearch.version}"
+    },
+    {
+      "groupId": "org.elasticsearch.plugin",
+      "artifactId": "shield",
+      "version": "2.4.6",
+      "scope": "provided",
+      "raw_version": "2.4.6"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-inline",
+      "version": "${mockito.version}",
+      "scope": "test",
+      "raw_version": "${mockito.version}"
+    },
+    {
+      "groupId": "org.elasticsearch.client",
+      "artifactId": "transport",
+      "version": "5.6.16",
+      "scope": "compile",
+      "raw_version": "${elasticsearch.version}"
+    },
+    {
+      "groupId": "org.elasticsearch.client",
+      "artifactId": "x-pack-transport",
+      "version": "5.6.16",
+      "scope": "provided",
+      "raw_version": "${elasticsearch.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "log4j2-elasticsearch-core",
+      "log4j2-elasticsearch-ahc",
+      "log4j2-elasticsearch-hc",
+      "log4j2-elasticsearch-jest",
+      "log4j2-elasticsearch2-bulkprocessor",
+      "log4j2-elasticsearch5-bulkprocessor",
+      "log4j2-elasticsearch6-bulkprocessor"
+    ],
+    "java_file_count": 899,
+    "package_distribution": {
+      "log4j2-elasticsearch-ahc/src/main/java/org/appenders/log4j2/elasticsearch/ahc": 66,
+      "log4j2-elasticsearch-ahc/src/main/java/org/appenders/log4j2/elasticsearch/ahc/backoff": 1,
+      "log4j2-elasticsearch-ahc/src/main/java/org/appenders/log4j2/elasticsearch/ahc/discovery": 11,
+      "log4j2-elasticsearch-ahc/src/main/java/org/appenders/log4j2/elasticsearch/ahc/failover": 1,
+      "log4j2-elasticsearch-ahc/src/main/java/org/appenders/log4j2/elasticsearch/ahc/thirdparty": 1,
+      "log4j2-elasticsearch-ahc/src/main/java/org/appenders/log4j2/elasticsearch/ahc/tls": 1,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc": 52,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc/backoff": 1,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc/discovery": 7,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc/failover": 1,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc/jmh": 2,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc/load": 4,
+      "log4j2-elasticsearch-ahc/src/test/java/org/appenders/log4j2/elasticsearch/ahc/tls": 1,
+      "log4j2-elasticsearch-ahc/target/generated-test-sources/test-annotations/org/appenders/log4j2/elasticsearch/ahc/jmh/jmh_generated": 5,
+      "log4j2-elasticsearch-core/src/main/java/org/apache/logging/log4j/core/jackson": 4,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch": 114,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/backoff": 3,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/ecs": 2,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/failover": 30,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/json/jackson": 6,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/metrics": 30,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/spi": 1,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/thirdparty": 8,
+      "log4j2-elasticsearch-core/src/main/java/org/appenders/log4j2/elasticsearch/util": 3,
+      "log4j2-elasticsearch-core/src/test/java/io/netty/buffer": 1,
+      "log4j2-elasticsearch-core/src/test/java/org/apache/logging/log4j/core/jackson": 2,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/core/util": 2,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch": 89,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/backoff": 2,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/ecs": 1,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/failover": 16,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/jcstress": 2,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/jmh": 13,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/json/jackson": 2,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/load": 9,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/metrics": 21,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/mock": 1,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/spi": 3,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/thirdparty": 1,
+      "log4j2-elasticsearch-core/src/test/java/org/appenders/log4j2/elasticsearch/util": 7,
+      "log4j2-elasticsearch-hc/src/main/java/org/appenders/log4j2/elasticsearch/hc": 74,
+      "log4j2-elasticsearch-hc/src/main/java/org/appenders/log4j2/elasticsearch/hc/backoff": 1,
+      "log4j2-elasticsearch-hc/src/main/java/org/appenders/log4j2/elasticsearch/hc/discovery": 11,
+      "log4j2-elasticsearch-hc/src/main/java/org/appenders/log4j2/elasticsearch/hc/failover": 1,
+      "log4j2-elasticsearch-hc/src/main/java/org/appenders/log4j2/elasticsearch/hc/thirdparty": 1,
+      "log4j2-elasticsearch-hc/src/main/java/org/appenders/log4j2/elasticsearch/hc/tls": 1,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc": 61,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc/backoff": 1,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc/discovery": 7,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc/failover": 1,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc/jmh": 2,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc/load": 4,
+      "log4j2-elasticsearch-hc/src/test/java/org/appenders/log4j2/elasticsearch/hc/tls": 1,
+      "log4j2-elasticsearch-hc/target/generated-test-sources/test-annotations/org/appenders/log4j2/elasticsearch/hc/jmh/jmh_generated": 5,
+      "log4j2-elasticsearch-jest/src/main/java/io/searchbox/action": 1,
+      "log4j2-elasticsearch-jest/src/main/java/io/searchbox/core": 1,
+      "log4j2-elasticsearch-jest/src/main/java/org/apache/http/client/entity": 2,
+      "log4j2-elasticsearch-jest/src/main/java/org/appenders/log4j2/elasticsearch/jest": 39,
+      "log4j2-elasticsearch-jest/src/main/java/org/appenders/log4j2/elasticsearch/jest/backoff": 1,
+      "log4j2-elasticsearch-jest/src/main/java/org/appenders/log4j2/elasticsearch/jest/failover": 2,
+      "log4j2-elasticsearch-jest/src/main/java/org/appenders/log4j2/elasticsearch/jest/thirdparty": 1,
+      "log4j2-elasticsearch-jest/src/main/java/org/appenders/log4j2/elasticsearch/tls": 1,
+      "log4j2-elasticsearch-jest/src/test/java/io/searchbox/action": 1,
+      "log4j2-elasticsearch-jest/src/test/java/org/apache/http/client/entity": 1,
+      "log4j2-elasticsearch-jest/src/test/java/org/appenders/log4j2/elasticsearch/jest": 33,
+      "log4j2-elasticsearch-jest/src/test/java/org/appenders/log4j2/elasticsearch/jest/backoff": 1,
+      "log4j2-elasticsearch-jest/src/test/java/org/appenders/log4j2/elasticsearch/jest/failover": 2,
+      "log4j2-elasticsearch-jest/src/test/java/org/appenders/log4j2/elasticsearch/jest/load": 4,
+      "log4j2-elasticsearch-jest/src/test/java/org/appenders/log4j2/elasticsearch/tls": 1,
+      "log4j2-elasticsearch2-bulkprocessor/src/main/java/org/appenders/log4j2/elasticsearch/bulkprocessor": 16,
+      "log4j2-elasticsearch2-bulkprocessor/src/main/java/org/elasticsearch/action/bulk": 1,
+      "log4j2-elasticsearch2-bulkprocessor/src/main/java/org/elasticsearch/action/index": 1,
+      "log4j2-elasticsearch2-bulkprocessor/src/test/java/action": 1,
+      "log4j2-elasticsearch2-bulkprocessor/src/test/java/org/appenders/log4j2/elasticsearch/bulkprocessor": 15,
+      "log4j2-elasticsearch2-bulkprocessor/src/test/java/org/appenders/log4j2/elasticsearch/bulkprocessor/load": 1,
+      "log4j2-elasticsearch2-bulkprocessor/src/test/java/org/elasticsearch/action/support/master": 1,
+      "log4j2-elasticsearch5-bulkprocessor/src/main/java/org/appenders/log4j2/elasticsearch/bulkprocessor": 16,
+      "log4j2-elasticsearch5-bulkprocessor/src/main/java/org/elasticsearch/action/bulk": 1,
+      "log4j2-elasticsearch5-bulkprocessor/src/main/java/org/elasticsearch/action/index": 1,
+      "log4j2-elasticsearch5-bulkprocessor/src/test/java/action": 1,
+      "log4j2-elasticsearch5-bulkprocessor/src/test/java/org/appenders/log4j2/elasticsearch/bulkprocessor": 16,
+      "log4j2-elasticsearch5-bulkprocessor/src/test/java/org/appenders/log4j2/elasticsearch/bulkprocessor/load": 1,
+      "log4j2-elasticsearch5-bulkprocessor/src/test/java/org/elasticsearch/action/support/master": 1,
+      "log4j2-elasticsearch6-bulkprocessor/src/main/java/org/appenders/log4j2/elasticsearch/bulkprocessor": 16,
+      "log4j2-elasticsearch6-bulkprocessor/src/main/java/org/elasticsearch/action/bulk": 1,
+      "log4j2-elasticsearch6-bulkprocessor/src/main/java/org/elasticsearch/action/index": 1,
+      "log4j2-elasticsearch6-bulkprocessor/src/test/java/action": 1,
+      "log4j2-elasticsearch6-bulkprocessor/src/test/java/org/appenders/log4j2/elasticsearch/bulkprocessor": 16,
+      "log4j2-elasticsearch6-bulkprocessor/src/test/java/org/appenders/log4j2/elasticsearch/bulkprocessor/load": 1,
+      "log4j2-elasticsearch6-bulkprocessor/src/test/java/org/elasticsearch/action/support/master": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 899,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 899,
+    "manifest_count": 8,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "log4j2-elasticsearch-ahc\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "log4j2-elasticsearch-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "log4j2-elasticsearch-hc\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-hc\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "log4j2-elasticsearch-jest\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-jest\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "log4j2-elasticsearch2-bulkprocessor\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch2-bulkprocessor\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "log4j2-elasticsearch5-bulkprocessor\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch5-bulkprocessor\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "log4j2-elasticsearch6-bulkprocessor\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch6-bulkprocessor\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCBatchOperations.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCBatchOperations.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCHttp.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCHttp.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCHttpPlugin.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCHttpPlugin.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCRequestFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCRequestFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCResultCallback.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AHCResultCallback.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AsyncBatchEmitterFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\AsyncBatchEmitterFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BasicCredentials.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BasicCredentials.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BasicCredentialsPlugin.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BasicCredentialsPlugin.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BasicResponse.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BasicResponse.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\Batch.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\Batch.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchingClientObjectFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchingClientObjectFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchItemResult.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchItemResult.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchItemResultMixIn.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchItemResultMixIn.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchRequest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchRequest.java",
+        "language": "java"
+      },
+      {
+        "path": "log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchResult.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch\\log4j2-elasticsearch-ahc\\src\\main\\java\\org\\appenders\\log4j2\\elasticsearch\\ahc\\BatchResult.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "17",
+    "java_file_count": 899,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.appenders.log4j",
+        "artifactId": "parent",
+        "version": "1.6.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.appenders.log4j",
+        "project.artifactId": "parent",
+        "project.version": "1.6.2-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "java.version": "17",
+        "maven.compiler.source": "17",
+        "maven.compiler.target": "17",
+        "org.appenders.st.jackson.version": "1.0.1",
+        "org.appenders.logging.version": "1.0",
+        "log4j2.version": "2.17.1",
+        "jacoco.version": "0.8.7",
+        "jackson.version": "2.13.4",
+        "jackson-core.version": "${jackson.version}",
+        "jackson-databind.version": "${jackson.version}.2",
+        "jackson-annotations.version": "${jackson.version}",
+        "jackson-afterburner.version": "${jackson.version}",
+        "httpclient.version": "4.5.13",
+        "httpasyncclient.version": "4.1.5",
+        "httpcore.version": "4.4.15",
+        "org.asynchttpclient.version": "2.12.3",
+        "net.openhft.chroniclemap.version": "2026.1",
+        "jctools.version": "3.1.0",
+        "netty.version": "4.1.60.Final",
+        "jupiter.version": "5.8.2",
+        "mockito.version": "4.4.0",
+        "hamcrest.version": "2.2",
+        "jmh.version": "1.36"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.jacoco",
+          "artifactId": "org.jacoco.agent",
+          "version": "0.8.7",
+          "scope": "test",
+          "raw_version": "${jacoco.version}"
+        },
+        {
+          "groupId": "backport-util-concurrent",
+          "artifactId": "backport-util-concurrent",
+          "version": "3.1",
+          "scope": "test",
+          "raw_version": "3.1"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.jacoco",
+        "artifactId": "org.jacoco.agent",
+        "version": "0.8.7",
+        "scope": "test",
+        "raw_version": "${jacoco.version}"
+      },
+      {
+        "groupId": "backport-util-concurrent",
+        "artifactId": "backport-util-concurrent",
+        "version": "3.1",
+        "scope": "test",
+        "raw_version": "3.1"
+      }
+    ],
+    "name": "log4j2-elasticsearch",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\log4j2-elasticsearch"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `log4j2-elasticsearch` | Maven | 17 | 899 | Standard Java | None | **Yellow** |"
+}

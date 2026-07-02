@@ -1,0 +1,658 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "io.yawp",
+      "artifactId": "yawp-root",
+      "version": "2.09alpha"
+    },
+    "properties": {
+      "project.groupId": "io.yawp",
+      "project.artifactId": "yawp-root",
+      "project.version": "2.09alpha",
+      "project.build.sourceEncoding": "UTF-8"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "yawp-core": {
+      "project": {
+        "groupId": "io.yawp",
+        "artifactId": "yawp-core",
+        "version": "2.09alpha"
+      },
+      "properties": {
+        "project.groupId": "io.yawp",
+        "project.artifactId": "yawp-core",
+        "project.version": "2.09alpha"
+      },
+      "dependencies": [
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "servlet-api",
+          "version": "2.5",
+          "scope": "provided",
+          "raw_version": "2.5"
+        },
+        {
+          "groupId": "com.google.code.gson",
+          "artifactId": "gson",
+          "version": "2.2.4",
+          "scope": "compile",
+          "raw_version": "2.2.4"
+        },
+        {
+          "groupId": "com.owlike",
+          "artifactId": "genson",
+          "version": "1.4",
+          "scope": "compile",
+          "raw_version": "1.4"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.1",
+          "scope": "compile",
+          "raw_version": "3.1"
+        },
+        {
+          "groupId": "org.reflections",
+          "artifactId": "reflections",
+          "version": "0.9.10",
+          "scope": "compile",
+          "raw_version": "0.9.10"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "19.0",
+          "scope": "compile",
+          "raw_version": "19.0"
+        },
+        {
+          "groupId": "commons-beanutils",
+          "artifactId": "commons-beanutils",
+          "version": "1.9.4",
+          "scope": "compile",
+          "raw_version": "1.9.4"
+        },
+        {
+          "groupId": "org.yaml",
+          "artifactId": "snakeyaml",
+          "version": "1.16",
+          "scope": "compile",
+          "raw_version": "1.16"
+        },
+        {
+          "groupId": "org.jetbrains.kotlin",
+          "artifactId": "kotlin-stdlib-jdk8",
+          "version": "1.2.71",
+          "scope": "compile",
+          "raw_version": "1.2.71"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.11",
+          "scope": "test",
+          "raw_version": "4.11"
+        }
+      ]
+    },
+    "yawp-appengine": {
+      "project": {
+        "groupId": "io.yawp",
+        "artifactId": "yawp",
+        "version": "2.09alpha"
+      },
+      "properties": {
+        "project.groupId": "io.yawp",
+        "project.artifactId": "yawp",
+        "project.version": "2.09alpha",
+        "appengine.app.version": "1",
+        "appengine.target.version": "1.9.71"
+      },
+      "dependencies": [
+        {
+          "groupId": "io.yawp",
+          "artifactId": "yawp-core",
+          "version": "2.09alpha",
+          "scope": "compile",
+          "raw_version": "2.09alpha"
+        },
+        {
+          "groupId": "com.google.appengine",
+          "artifactId": "appengine-api-1.0-sdk",
+          "version": "1.9.71",
+          "scope": "compile",
+          "raw_version": "${appengine.target.version}"
+        },
+        {
+          "groupId": "com.google.appengine",
+          "artifactId": "appengine-api-labs",
+          "version": "1.9.71",
+          "scope": "compile",
+          "raw_version": "${appengine.target.version}"
+        },
+        {
+          "groupId": "com.google.appengine.tools",
+          "artifactId": "appengine-pipeline",
+          "version": "0.2.13",
+          "scope": "compile",
+          "raw_version": "0.2.13"
+        },
+        {
+          "groupId": "com.google.appengine.tools",
+          "artifactId": "appengine-gcs-client",
+          "version": "0.6",
+          "scope": "compile",
+          "raw_version": "0.6"
+        },
+        {
+          "groupId": "com.google.http-client",
+          "artifactId": "google-http-client",
+          "version": "1.22.0",
+          "scope": "compile",
+          "raw_version": "1.22.0"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "servlet-api",
+          "version": "2.5",
+          "scope": "provided",
+          "raw_version": "2.5"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.11",
+          "scope": "test",
+          "raw_version": "4.11"
+        }
+      ]
+    },
+    "yawp-postgresql": {
+      "project": {
+        "groupId": "io.yawp",
+        "artifactId": "yawp-postgresql",
+        "version": "2.09alpha"
+      },
+      "properties": {
+        "project.groupId": "io.yawp",
+        "project.artifactId": "yawp-postgresql",
+        "project.version": "2.09alpha"
+      },
+      "dependencies": [
+        {
+          "groupId": "io.yawp",
+          "artifactId": "yawp-core",
+          "version": "2.09alpha",
+          "scope": "compile",
+          "raw_version": "2.09alpha"
+        },
+        {
+          "groupId": "org.postgresql",
+          "artifactId": "postgresql",
+          "version": "9.4-1203-jdbc41",
+          "scope": "compile",
+          "raw_version": "9.4-1203-jdbc41"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-dbcp2",
+          "version": "2.1.1",
+          "scope": "compile",
+          "raw_version": "2.1.1"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "servlet-api",
+          "version": "2.5",
+          "scope": "provided",
+          "raw_version": "2.5"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.11",
+          "scope": "test",
+          "raw_version": "4.11"
+        }
+      ]
+    },
+    "yawp-testing": {
+      "project": {
+        "groupId": "io.yawp",
+        "artifactId": "yawp-testing-root",
+        "version": "2.09alpha"
+      },
+      "properties": {
+        "project.groupId": "io.yawp",
+        "project.artifactId": "yawp-testing-root",
+        "project.version": "2.09alpha"
+      },
+      "dependencies": []
+    },
+    "yawp-maven-plugin": {
+      "project": {
+        "groupId": "io.yawp",
+        "artifactId": "yawp-maven-plugin-root",
+        "version": "2.09alpha"
+      },
+      "properties": {
+        "project.groupId": "io.yawp",
+        "project.artifactId": "yawp-maven-plugin-root",
+        "project.version": "2.09alpha"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "servlet-api",
+      "version": "2.5",
+      "scope": "provided",
+      "raw_version": "2.5"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "2.2.4",
+      "scope": "compile",
+      "raw_version": "2.2.4"
+    },
+    {
+      "groupId": "com.owlike",
+      "artifactId": "genson",
+      "version": "1.4",
+      "scope": "compile",
+      "raw_version": "1.4"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "3.1",
+      "scope": "compile",
+      "raw_version": "3.1"
+    },
+    {
+      "groupId": "org.reflections",
+      "artifactId": "reflections",
+      "version": "0.9.10",
+      "scope": "compile",
+      "raw_version": "0.9.10"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "19.0",
+      "scope": "compile",
+      "raw_version": "19.0"
+    },
+    {
+      "groupId": "commons-beanutils",
+      "artifactId": "commons-beanutils",
+      "version": "1.9.4",
+      "scope": "compile",
+      "raw_version": "1.9.4"
+    },
+    {
+      "groupId": "org.yaml",
+      "artifactId": "snakeyaml",
+      "version": "1.16",
+      "scope": "compile",
+      "raw_version": "1.16"
+    },
+    {
+      "groupId": "org.jetbrains.kotlin",
+      "artifactId": "kotlin-stdlib-jdk8",
+      "version": "1.2.71",
+      "scope": "compile",
+      "raw_version": "1.2.71"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.11",
+      "scope": "test",
+      "raw_version": "4.11"
+    },
+    {
+      "groupId": "com.google.appengine",
+      "artifactId": "appengine-api-1.0-sdk",
+      "version": "1.9.71",
+      "scope": "compile",
+      "raw_version": "${appengine.target.version}"
+    },
+    {
+      "groupId": "com.google.appengine",
+      "artifactId": "appengine-api-labs",
+      "version": "1.9.71",
+      "scope": "compile",
+      "raw_version": "${appengine.target.version}"
+    },
+    {
+      "groupId": "com.google.appengine.tools",
+      "artifactId": "appengine-pipeline",
+      "version": "0.2.13",
+      "scope": "compile",
+      "raw_version": "0.2.13"
+    },
+    {
+      "groupId": "com.google.appengine.tools",
+      "artifactId": "appengine-gcs-client",
+      "version": "0.6",
+      "scope": "compile",
+      "raw_version": "0.6"
+    },
+    {
+      "groupId": "com.google.http-client",
+      "artifactId": "google-http-client",
+      "version": "1.22.0",
+      "scope": "compile",
+      "raw_version": "1.22.0"
+    },
+    {
+      "groupId": "org.postgresql",
+      "artifactId": "postgresql",
+      "version": "9.4-1203-jdbc41",
+      "scope": "compile",
+      "raw_version": "9.4-1203-jdbc41"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-dbcp2",
+      "version": "2.1.1",
+      "scope": "compile",
+      "raw_version": "2.1.1"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "yawp-core",
+      "yawp-appengine",
+      "yawp-postgresql",
+      "yawp-testing",
+      "yawp-maven-plugin"
+    ],
+    "java_file_count": 412,
+    "package_distribution": {
+      "yawp-appengine/src/main/java/io/yawp/driver/appengine": 13,
+      "yawp-appengine/src/main/java/io/yawp/driver/appengine/pipes/flow": 8,
+      "yawp-appengine/src/main/java/io/yawp/driver/appengine/pipes/flow/drops": 2,
+      "yawp-appengine/src/main/java/io/yawp/driver/appengine/pipes/reflow": 2,
+      "yawp-appengine/src/main/java/io/yawp/driver/appengine/pipes/reload": 5,
+      "yawp-appengine/src/main/java/io/yawp/driver/appengine/pipes/utils": 3,
+      "yawp-appengine/src/main/resources/archetype-resources/src/test/java/utils": 1,
+      "yawp-core/src/main/java/io/yawp/commons/config": 2,
+      "yawp-core/src/main/java/io/yawp/commons/http": 7,
+      "yawp-core/src/main/java/io/yawp/commons/http/annotation": 5,
+      "yawp-core/src/main/java/io/yawp/commons/utils": 9,
+      "yawp-core/src/main/java/io/yawp/commons/utils/json": 2,
+      "yawp-core/src/main/java/io/yawp/commons/utils/json/genson": 7,
+      "yawp-core/src/main/java/io/yawp/commons/utils/json/gson": 6,
+      "yawp-core/src/main/java/io/yawp/commons/utils/kind": 3,
+      "yawp-core/src/main/java/io/yawp/driver/api": 10,
+      "yawp-core/src/main/java/io/yawp/driver/api/testing": 2,
+      "yawp-core/src/main/java/io/yawp/repository": 10,
+      "yawp-core/src/main/java/io/yawp/repository/actions": 7,
+      "yawp-core/src/main/java/io/yawp/repository/annotations": 7,
+      "yawp-core/src/main/java/io/yawp/repository/features": 3,
+      "yawp-core/src/main/java/io/yawp/repository/features/scanner": 5,
+      "yawp-core/src/main/java/io/yawp/repository/hooks": 2,
+      "yawp-core/src/main/java/io/yawp/repository/models": 3,
+      "yawp-core/src/main/java/io/yawp/repository/pipes": 4,
+      "yawp-core/src/main/java/io/yawp/repository/pipes/pump": 4,
+      "yawp-core/src/main/java/io/yawp/repository/query": 8,
+      "yawp-core/src/main/java/io/yawp/repository/query/condition": 8,
+      "yawp-core/src/main/java/io/yawp/repository/shields": 6,
+      "yawp-core/src/main/java/io/yawp/repository/transformers": 2,
+      "yawp-core/src/main/java/io/yawp/servlet": 5,
+      "yawp-core/src/main/java/io/yawp/servlet/cache": 2,
+      "yawp-core/src/main/java/io/yawp/servlet/rest": 9,
+      "yawp-core/src/main/java/io/yawp/tools": 2,
+      "yawp-core/src/main/java/io/yawp/tools/datastore": 2,
+      "yawp-core/src/main/java/io/yawp/tools/pipes": 2,
+      "yawp-core/src/test/java/io/yawp/commons/config": 1,
+      "yawp-core/src/test/java/io/yawp/commons/http": 3,
+      "yawp-core/src/test/java/io/yawp/commons/utils": 7,
+      "yawp-core/src/test/java/io/yawp/driver/mock": 14,
+      "yawp-core/src/test/java/io/yawp/repository": 11,
+      "yawp-core/src/test/java/io/yawp/repository/actions/basic": 5,
+      "yawp-core/src/test/java/io/yawp/repository/actions/hierarchy": 4,
+      "yawp-core/src/test/java/io/yawp/repository/actions/parents": 5,
+      "yawp-core/src/test/java/io/yawp/repository/cache": 3,
+      "yawp-core/src/test/java/io/yawp/repository/features": 3,
+      "yawp-core/src/test/java/io/yawp/repository/hooks/basic": 3,
+      "yawp-core/src/test/java/io/yawp/repository/hooks/hierarchy": 4,
+      "yawp-core/src/test/java/io/yawp/repository/hooks/parents": 1,
+      "yawp-core/src/test/java/io/yawp/repository/models/basic": 12,
+      "yawp-core/src/test/java/io/yawp/repository/models/basic/facades": 1,
+      "yawp-core/src/test/java/io/yawp/repository/models/hierarchy": 3,
+      "yawp-core/src/test/java/io/yawp/repository/models/parents": 8,
+      "yawp-core/src/test/java/io/yawp/repository/pipes/basic": 4,
+      "yawp-core/src/test/java/io/yawp/repository/pipes/parents": 2,
+      "yawp-core/src/test/java/io/yawp/repository/pipes/pump": 4,
+      "yawp-core/src/test/java/io/yawp/repository/query": 3,
+      "yawp-core/src/test/java/io/yawp/repository/query/condition": 1,
+      "yawp-core/src/test/java/io/yawp/repository/shields/basic": 4,
+      "yawp-core/src/test/java/io/yawp/repository/shields/hierarchy": 3,
+      "yawp-core/src/test/java/io/yawp/repository/shields/parents": 2,
+      "yawp-core/src/test/java/io/yawp/repository/transformers/basic": 4,
+      "yawp-core/src/test/java/io/yawp/repository/transformers/hierarchy": 4,
+      "yawp-core/src/test/java/io/yawp/repository/transformers/parents": 2,
+      "yawp-core/src/test/java/io/yawp/servlet": 2,
+      "yawp-core/src/test/java/io/yawp/servlet/child": 6,
+      "yawp-core/src/test/java/io/yawp/servlet/grandchild": 4,
+      "yawp-core/src/test/java/io/yawp/servlet/hierarchy": 4,
+      "yawp-core/src/test/java/io/yawp/servlet/parent": 4,
+      "yawp-maven-plugin/yawp-devserver-runtime/src/main/java/io/yawp/plugin/devserver": 4,
+      "yawp-maven-plugin/yawp-devserver-runtime/src/main/java/io/yawp/plugin/devserver/appengine": 7,
+      "yawp-maven-plugin/yawp-maven-plugin/src/main/java/io/yawp/plugin/mojos/base": 2,
+      "yawp-maven-plugin/yawp-maven-plugin/src/main/java/io/yawp/plugin/mojos/devserver": 5,
+      "yawp-maven-plugin/yawp-maven-plugin/src/main/java/io/yawp/plugin/mojos/scaffolding": 9,
+      "yawp-maven-plugin/yawp-maven-plugin/src/main/java/io/yawp/plugin/mojos/scaffolding/mojo": 7,
+      "yawp-maven-plugin/yawp-maven-plugin/src/main/java/io/yawp/plugin/mojos/sync": 1,
+      "yawp-maven-plugin/yawp-maven-plugin/src/test/java/io/yawp/plugin/mojos/scaffolding": 1,
+      "yawp-maven-plugin/yawp-maven-plugin/src/test/java/io/yawp/plugin/mojos/scaffolding/mojo": 7,
+      "yawp-postgresql/src/main/java/io/yawp/driver/postgresql": 9,
+      "yawp-postgresql/src/main/java/io/yawp/driver/postgresql/configuration": 6,
+      "yawp-postgresql/src/main/java/io/yawp/driver/postgresql/configuration/java": 1,
+      "yawp-postgresql/src/main/java/io/yawp/driver/postgresql/datastore": 9,
+      "yawp-postgresql/src/main/java/io/yawp/driver/postgresql/sql": 4,
+      "yawp-postgresql/src/main/java/io/yawp/driver/postgresql/tools": 1,
+      "yawp-postgresql/src/test/java/io/yawp/driver/postgresql/configuration": 4,
+      "yawp-postgresql/src/test/java/io/yawp/driver/postgresql/datastore": 2,
+      "yawp-postgresql/src/test/java/io/yawp/driver/postgresql/datastore/models": 3,
+      "yawp-postgresql/src/test/java/io/yawp/driver/postgresql/tools": 1,
+      "yawp-testing/yawp-testing-appengine/src/main/java/io/yawp/testing/appengine": 3,
+      "yawp-testing/yawp-testing-appengine/src/test/java/io/yawp/testing/appengine/models": 3,
+      "yawp-testing/yawp-testing-appengine/src/test/java/io/yawp/testing/appengine/pipes/flow": 1,
+      "yawp-testing/yawp-testing-core/src/main/java/io/yawp/testing": 2,
+      "yawp-testing/yawp-testing-postgresql/src/main/java/io/yawp/testing/postgresql": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 412,
+      "python": 2,
+      "other": 0
+    },
+    "source_file_count": 414,
+    "manifest_count": 12,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-appengine\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\resources\\archetype-resources\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\resources\\archetype-resources\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-maven-plugin\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-maven-plugin\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-maven-plugin\\yawp-devserver-runtime\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-maven-plugin\\yawp-devserver-runtime\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-maven-plugin\\yawp-maven-plugin\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-maven-plugin\\yawp-maven-plugin\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-postgresql\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-postgresql\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-testing\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-testing\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-testing\\yawp-testing-appengine\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-testing\\yawp-testing-appengine\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-testing\\yawp-testing-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-testing\\yawp-testing-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "yawp-testing\\yawp-testing-postgresql\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-testing\\yawp-testing-postgresql\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "scripts\\runner.py",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\scripts\\runner.py",
+        "language": "python"
+      },
+      {
+        "path": "scripts\\yawp.py",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\scripts\\yawp.py",
+        "language": "python"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineEnvironmentDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineEnvironmentDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineHelpersDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineHelpersDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineNamespaceDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineNamespaceDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppenginePersistenceDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppenginePersistenceDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppenginePipesDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppenginePipesDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineQueryDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineQueryDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineTransationDriver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\AppengineTransationDriver.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\EntityToObjectConverter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\EntityToObjectConverter.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\FalsePredicateException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\FalsePredicateException.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\FutureEntityToObject.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\FutureEntityToObject.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\FutureKeyToIdRef.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\FutureKeyToIdRef.java",
+        "language": "java"
+      },
+      {
+        "path": "yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\IdRefToKey.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp\\yawp-appengine\\src\\main\\java\\io\\yawp\\driver\\appengine\\IdRefToKey.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 412,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "io.yawp",
+        "artifactId": "yawp-root",
+        "version": "2.09alpha"
+      },
+      "properties": {
+        "project.groupId": "io.yawp",
+        "project.artifactId": "yawp-root",
+        "project.version": "2.09alpha",
+        "project.build.sourceEncoding": "UTF-8"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "yawp",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\yawp"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `yawp` | Maven | 1.8 | 412 | Standard Java | None | **Yellow** |"
+}

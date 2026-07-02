@@ -132,10 +132,10 @@ def load_eval_data(eval_path):
         return f"Error loading {eval_path.name}: {exc}"
 
 
-def classify_codebase(model_working, codebase, metrics):
+def classify_codebase(model_results, codebase, metrics):
     is_skip = metrics.get("is_skip", False)
     success = metrics.get("overall_success", False)
-    log_file = model_working / codebase / "artifacts" / LOG_FILE_NAME
+    log_file = model_results / codebase / LOG_FILE_NAME
 
     if is_skip:
         return "skip", None
@@ -150,7 +150,7 @@ def classify_codebase(model_working, codebase, metrics):
     )
 
 
-def build_report_lines(model, eval_data, model_working):
+def build_report_lines(model, eval_data, model_results):
     report_lines = [
         f"# Migration Inspection Report: {model}",
         "",
@@ -164,7 +164,7 @@ def build_report_lines(model, eval_data, model_working):
 
     for codebase in sorted(eval_data.keys()):
         metrics = eval_data[codebase]
-        category, reason = classify_codebase(model_working, codebase, metrics)
+        category, reason = classify_codebase(model_results, codebase, metrics)
 
         if category == "skip":
             skip_list.append((codebase, metrics))
@@ -234,12 +234,11 @@ def render_failure_section(fail_list):
 
 def main():
     root = Path(__file__).resolve().parents[2]
-    working_dir = root / "working"
-    report_dir = root / "docs" / "reports"
-    report_dir.mkdir(parents=True, exist_ok=True)
+    results_dir = root / "results"
+    results_dir.mkdir(parents=True, exist_ok=True)
 
     for model in MODELS:
-        eval_path = root / f"eval_{model}.json"
+        eval_path = results_dir / f"eval_{model}.json"
         if not eval_path.exists():
             print(f"Skipping {model}: {eval_path.name} not found.")
             continue
@@ -249,13 +248,13 @@ def main():
             print(eval_data)
             continue
 
-        model_working = working_dir / model
-        if not model_working.exists():
-            print(f"Skipping {model}: Working directory {model_working} not found.")
+        model_results = results_dir / model
+        if not model_results.exists():
+            print(f"Skipping {model}: Results directory {model_results} not found.")
             continue
 
-        report_lines = build_report_lines(model, eval_data, model_working)
-        report_path = report_dir / f"inspect_{model}.md"
+        report_lines = build_report_lines(model, eval_data, model_results)
+        report_path = results_dir / f"inspect_{model}.md"
         report_path.write_text("\n".join(report_lines), encoding="utf-8")
         print(f"Generated {report_path.name}")
 

@@ -1,0 +1,385 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "ro.bjug.todo",
+      "artifactId": "todo-parent",
+      "version": "1.0.0-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "ro.bjug.todo",
+      "project.artifactId": "todo-parent",
+      "project.version": "1.0.0-SNAPSHOT",
+      "dropwizard.version": "0.5.1",
+      "joda.version": "2.1"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.yammer.dropwizard",
+        "artifactId": "dropwizard-core",
+        "version": "0.5.1",
+        "scope": "compile",
+        "raw_version": "${dropwizard.version}"
+      },
+      {
+        "groupId": "com.yammer.dropwizard",
+        "artifactId": "dropwizard-testing",
+        "version": "0.5.1",
+        "scope": "test",
+        "raw_version": "${dropwizard.version}"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "todo-api": {
+      "project": {
+        "groupId": "ro.bjug.dropwizard",
+        "artifactId": "todo-api",
+        "version": "1.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "ro.bjug.dropwizard",
+        "project.artifactId": "todo-api",
+        "project.version": "1.0.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "todo-client": {
+      "project": {
+        "groupId": "ro.bjug.todo",
+        "artifactId": "todo-client",
+        "version": "1.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "ro.bjug.todo",
+        "project.artifactId": "todo-client",
+        "project.version": "1.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "ro.bjug.dropwizard",
+          "artifactId": "todo-api",
+          "version": "1.0.0-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.yammer.dropwizard",
+          "artifactId": "dropwizard-client",
+          "version": "${dropwizard.version}",
+          "scope": "compile",
+          "raw_version": "${dropwizard.version}"
+        }
+      ]
+    },
+    "todo-service": {
+      "project": {
+        "groupId": "ro.bjug.todo",
+        "artifactId": "todo-service",
+        "version": "1.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "ro.bjug.todo",
+        "project.artifactId": "todo-service",
+        "project.version": "1.0.0-SNAPSHOT",
+        "h2.version": "1.3.168",
+        "antlr.version": "3.2.1",
+        "guice.version": "3.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "ro.bjug.dropwizard",
+          "artifactId": "todo-api",
+          "version": "1.0.0-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.yammer.dropwizard",
+          "artifactId": "dropwizard-db",
+          "version": "${dropwizard.version}",
+          "scope": "compile",
+          "raw_version": "${dropwizard.version}"
+        },
+        {
+          "groupId": "org.antlr",
+          "artifactId": "stringtemplate",
+          "version": "3.2.1",
+          "scope": "compile",
+          "raw_version": "${antlr.version}"
+        },
+        {
+          "groupId": "com.h2database",
+          "artifactId": "h2",
+          "version": "1.3.168",
+          "scope": "compile",
+          "raw_version": "${h2.version}"
+        },
+        {
+          "groupId": "com.yammer.dropwizard",
+          "artifactId": "dropwizard-views",
+          "version": "${dropwizard.version}",
+          "scope": "compile",
+          "raw_version": "${dropwizard.version}"
+        },
+        {
+          "groupId": "ro.bjug.todo",
+          "artifactId": "todo-client",
+          "version": "1.0.0-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "com.yammer.dropwizard",
+      "artifactId": "dropwizard-core",
+      "version": "0.5.1",
+      "scope": "compile",
+      "raw_version": "${dropwizard.version}"
+    },
+    {
+      "groupId": "com.yammer.dropwizard",
+      "artifactId": "dropwizard-testing",
+      "version": "0.5.1",
+      "scope": "test",
+      "raw_version": "${dropwizard.version}"
+    },
+    {
+      "groupId": "ro.bjug.dropwizard",
+      "artifactId": "todo-api",
+      "version": "1.0.0-SNAPSHOT",
+      "scope": "compile",
+      "raw_version": "${project.version}"
+    },
+    {
+      "groupId": "com.yammer.dropwizard",
+      "artifactId": "dropwizard-client",
+      "version": "${dropwizard.version}",
+      "scope": "compile",
+      "raw_version": "${dropwizard.version}"
+    },
+    {
+      "groupId": "com.yammer.dropwizard",
+      "artifactId": "dropwizard-db",
+      "version": "${dropwizard.version}",
+      "scope": "compile",
+      "raw_version": "${dropwizard.version}"
+    },
+    {
+      "groupId": "org.antlr",
+      "artifactId": "stringtemplate",
+      "version": "3.2.1",
+      "scope": "compile",
+      "raw_version": "${antlr.version}"
+    },
+    {
+      "groupId": "com.h2database",
+      "artifactId": "h2",
+      "version": "1.3.168",
+      "scope": "compile",
+      "raw_version": "${h2.version}"
+    },
+    {
+      "groupId": "com.yammer.dropwizard",
+      "artifactId": "dropwizard-views",
+      "version": "${dropwizard.version}",
+      "scope": "compile",
+      "raw_version": "${dropwizard.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "todo-api",
+      "todo-client",
+      "todo-service"
+    ],
+    "java_file_count": 17,
+    "package_distribution": {
+      "todo-api/src/main/java/ro/bjug/todo/api": 4,
+      "todo-api/src/test/java/ro/bjug/todo/api": 1,
+      "todo-service/src/main/java/ro/bjug/todo": 2,
+      "todo-service/src/main/java/ro/bjug/todo/dao": 3,
+      "todo-service/src/main/java/ro/bjug/todo/resources": 2,
+      "todo-service/src/test/java/com/yammer/dropwizard/testing": 1,
+      "todo-service/src/test/java/ro/bjug/todo": 1,
+      "todo-service/src/test/java/ro/bjug/todo/dao": 1,
+      "todo-service/src/test/java/ro/bjug/todo/resources": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 17,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 17,
+    "manifest_count": 4,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "todo-api\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-api\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "todo-client\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-client\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "todo-service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\Item.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\Item.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\ItemBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\ItemBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\Todo.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\Todo.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\TodoBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-api\\src\\main\\java\\ro\\bjug\\todo\\api\\TodoBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-api\\src\\test\\java\\ro\\bjug\\todo\\api\\TodoSerializationTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-api\\src\\test\\java\\ro\\bjug\\todo\\api\\TodoSerializationTest.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\TodoService.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\TodoService.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\TodoServiceConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\TodoServiceConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\dao\\BindTodo.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\dao\\BindTodo.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\dao\\TodoDao.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\dao\\TodoDao.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\dao\\TodoMapper.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\dao\\TodoMapper.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\resources\\HtmlPageResource.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\resources\\HtmlPageResource.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\main\\java\\ro\\bjug\\todo\\resources\\TodoResource.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\main\\java\\ro\\bjug\\todo\\resources\\TodoResource.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\test\\java\\com\\yammer\\dropwizard\\testing\\ServiceLiveTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\test\\java\\com\\yammer\\dropwizard\\testing\\ServiceLiveTest.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\test\\java\\ro\\bjug\\todo\\TodoServiceLiveTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\test\\java\\ro\\bjug\\todo\\TodoServiceLiveTest.java",
+        "language": "java"
+      },
+      {
+        "path": "todo-service\\src\\test\\java\\ro\\bjug\\todo\\dao\\TodoDaoTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo\\todo-service\\src\\test\\java\\ro\\bjug\\todo\\dao\\TodoDaoTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 17,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "ro.bjug.todo",
+        "artifactId": "todo-parent",
+        "version": "1.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "ro.bjug.todo",
+        "project.artifactId": "todo-parent",
+        "project.version": "1.0.0-SNAPSHOT",
+        "dropwizard.version": "0.5.1",
+        "joda.version": "2.1"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.yammer.dropwizard",
+          "artifactId": "dropwizard-core",
+          "version": "0.5.1",
+          "scope": "compile",
+          "raw_version": "${dropwizard.version}"
+        },
+        {
+          "groupId": "com.yammer.dropwizard",
+          "artifactId": "dropwizard-testing",
+          "version": "0.5.1",
+          "scope": "test",
+          "raw_version": "${dropwizard.version}"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.yammer.dropwizard",
+        "artifactId": "dropwizard-core",
+        "version": "0.5.1",
+        "scope": "compile",
+        "raw_version": "${dropwizard.version}"
+      },
+      {
+        "groupId": "com.yammer.dropwizard",
+        "artifactId": "dropwizard-testing",
+        "version": "0.5.1",
+        "scope": "test",
+        "raw_version": "${dropwizard.version}"
+      }
+    ],
+    "name": "dropwizard-todo",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\dropwizard-todo"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `dropwizard-todo` | Maven | 1.6 | 17 | Standard Java | None | **Yellow** |"
+}

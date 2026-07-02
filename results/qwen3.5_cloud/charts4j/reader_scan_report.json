@@ -1,0 +1,188 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.googlecode.charts4j",
+      "artifactId": "charts4j",
+      "version": "1.4-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.googlecode.charts4j",
+      "project.artifactId": "charts4j",
+      "project.version": "1.4-SNAPSHOT"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "4.13.1"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 169,
+    "package_distribution": {
+      "src/main/java/com/googlecode/charts4j": 64,
+      "src/main/java/com/googlecode/charts4j/collect": 7,
+      "src/main/java/com/googlecode/charts4j/parameters": 38,
+      "src/test/java/com/googlecode/charts4j": 26,
+      "src/test/java/com/googlecode/charts4j/example": 11,
+      "src/test/java/com/googlecode/charts4j/parameters": 23
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 169,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 169,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractAxisChart.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractAxisChart.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractGChart.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractGChart.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractGraphChart.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractGraphChart.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractLinearFill.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractLinearFill.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractLineChart.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractLineChart.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractMarkableChart.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractMarkableChart.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractMarker.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractMarker.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AbstractPoliticalBoundary.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AbstractPoliticalBoundary.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AxisLabels.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AxisLabels.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AxisLabelsFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AxisLabelsFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AxisLabelsImpl.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AxisLabelsImpl.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AxisStyle.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AxisStyle.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\AxisTextAlignment.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\AxisTextAlignment.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\BarChart.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\BarChart.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\googlecode\\charts4j\\BarChartPlot.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j\\src\\main\\java\\com\\googlecode\\charts4j\\BarChartPlot.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.5",
+    "java_file_count": 169,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.googlecode.charts4j",
+        "artifactId": "charts4j",
+        "version": "1.4-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.googlecode.charts4j",
+        "project.artifactId": "charts4j",
+        "project.version": "1.4-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "4.13.1"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      }
+    ],
+    "name": "charts4j",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\charts4j"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `charts4j` | Maven | 1.5 | 169 | Standard Java | None | **Yellow** |"
+}

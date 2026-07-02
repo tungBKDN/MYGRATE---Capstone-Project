@@ -1,0 +1,250 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.immomo.rhizobia",
+      "artifactId": "rhizobia_J",
+      "version": "1.0"
+    },
+    "properties": {
+      "project.groupId": "com.immomo.rhizobia",
+      "project.artifactId": "rhizobia_J",
+      "project.version": "1.0"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "4.12"
+      },
+      {
+        "groupId": "log4j",
+        "artifactId": "log4j",
+        "version": "1.2.17",
+        "scope": "compile",
+        "raw_version": "1.2.17"
+      },
+      {
+        "groupId": "commons-codec",
+        "artifactId": "commons-codec",
+        "version": "1.11",
+        "scope": "compile",
+        "raw_version": "1.11"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.12",
+      "scope": "test",
+      "raw_version": "4.12"
+    },
+    {
+      "groupId": "log4j",
+      "artifactId": "log4j",
+      "version": "1.2.17",
+      "scope": "compile",
+      "raw_version": "1.2.17"
+    },
+    {
+      "groupId": "commons-codec",
+      "artifactId": "commons-codec",
+      "version": "1.11",
+      "scope": "compile",
+      "raw_version": "1.11"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 49,
+    "package_distribution": {
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/base": 2,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/crypto": 3,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/csrf": 1,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/deserialization": 1,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/extra/codecs": 15,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/extra/commons": 5,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/sqli": 3,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/ssrf": 1,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/urlredirection": 1,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/xss": 1,
+      "src/main/java/com/immomo/rhizobia/rhizobia_J/xxe": 1,
+      "src/test/java/com/immomo/rhizobia/rhizobia_J": 15
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 49,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 49,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\base\\SqliSanitiser.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\base\\SqliSanitiser.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\base\\WhiteChecker.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\base\\WhiteChecker.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\crypto\\AESUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\crypto\\AESUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\crypto\\ECDSAUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\crypto\\ECDSAUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\crypto\\RSAUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\crypto\\RSAUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\csrf\\CSRFTokenUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\csrf\\CSRFTokenUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\deserialization\\SecureObjectInputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\deserialization\\SecureObjectInputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractCharacterCodec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractCharacterCodec.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractCodec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractCodec.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractIntegerCodec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractIntegerCodec.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractPushbackSequence.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\AbstractPushbackSequence.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\Codec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\Codec.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\DB2Codec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\DB2Codec.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\HashTrie.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\HashTrie.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\HTMLEntityCodec.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J\\src\\main\\java\\com\\immomo\\rhizobia\\rhizobia_J\\extra\\codecs\\HTMLEntityCodec.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "8",
+    "java_file_count": 49,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.immomo.rhizobia",
+        "artifactId": "rhizobia_J",
+        "version": "1.0"
+      },
+      "properties": {
+        "project.groupId": "com.immomo.rhizobia",
+        "project.artifactId": "rhizobia_J",
+        "project.version": "1.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.12",
+          "scope": "test",
+          "raw_version": "4.12"
+        },
+        {
+          "groupId": "log4j",
+          "artifactId": "log4j",
+          "version": "1.2.17",
+          "scope": "compile",
+          "raw_version": "1.2.17"
+        },
+        {
+          "groupId": "commons-codec",
+          "artifactId": "commons-codec",
+          "version": "1.11",
+          "scope": "compile",
+          "raw_version": "1.11"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "4.12"
+      },
+      {
+        "groupId": "log4j",
+        "artifactId": "log4j",
+        "version": "1.2.17",
+        "scope": "compile",
+        "raw_version": "1.2.17"
+      },
+      {
+        "groupId": "commons-codec",
+        "artifactId": "commons-codec",
+        "version": "1.11",
+        "scope": "compile",
+        "raw_version": "1.11"
+      }
+    ],
+    "name": "rhizobia_J",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\rhizobia_J"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `rhizobia_J` | Maven | 8 | 49 | Standard Java | None | **Yellow** |"
+}

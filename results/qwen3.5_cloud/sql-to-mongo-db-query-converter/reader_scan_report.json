@@ -1,0 +1,674 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.github.vincentrussell",
+      "artifactId": "sql-to-mongo-db-query-converter",
+      "version": "1.23-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.github.vincentrussell",
+      "project.artifactId": "sql-to-mongo-db-query-converter",
+      "project.version": "1.23-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "jdk.version": "1.8",
+      "slf4j.version": "1.6.1",
+      "mongodb.version": "4.3.1"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.google.code.findbugs",
+        "artifactId": "jsr305",
+        "version": "3.0.2",
+        "scope": "compile",
+        "raw_version": "3.0.2"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "joda-time",
+        "artifactId": "joda-time",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.joestelmach",
+        "artifactId": "natty",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "commons-cli",
+        "artifactId": "commons-cli",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.calrissian.mango",
+        "artifactId": "mango-core",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.google.code.gson",
+        "artifactId": "gson",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-nop",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "commons-io",
+        "artifactId": "commons-io",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.mongodb",
+        "artifactId": "bson",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.github.jsqlparser",
+        "artifactId": "jsqlparser",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.mongodb",
+        "artifactId": "mongodb-driver-sync",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "de.flapdoodle.embed",
+        "artifactId": "de.flapdoodle.embed.mongo",
+        "version": "3.0.0",
+        "scope": "test",
+        "raw_version": "3.0.0"
+      },
+      {
+        "groupId": "com.github.stefanbirkner",
+        "artifactId": "system-rules",
+        "version": "1.19.0",
+        "scope": "test",
+        "raw_version": "1.19.0"
+      },
+      {
+        "groupId": "org.skyscreamer",
+        "artifactId": "jsonassert",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.google.code.findbugs",
+      "artifactId": "jsr305",
+      "version": "3.0.2",
+      "scope": "compile",
+      "raw_version": "3.0.2"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "joda-time",
+      "artifactId": "joda-time",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.joestelmach",
+      "artifactId": "natty",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "commons-cli",
+      "artifactId": "commons-cli",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.calrissian.mango",
+      "artifactId": "mango-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-nop",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "commons-io",
+      "artifactId": "commons-io",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mongodb",
+      "artifactId": "bson",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.github.jsqlparser",
+      "artifactId": "jsqlparser",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mongodb",
+      "artifactId": "mongodb-driver-sync",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "de.flapdoodle.embed",
+      "artifactId": "de.flapdoodle.embed.mongo",
+      "version": "3.0.0",
+      "scope": "test",
+      "raw_version": "3.0.0"
+    },
+    {
+      "groupId": "com.github.stefanbirkner",
+      "artifactId": "system-rules",
+      "version": "1.19.0",
+      "scope": "test",
+      "raw_version": "1.19.0"
+    },
+    {
+      "groupId": "org.skyscreamer",
+      "artifactId": "jsonassert",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 36,
+    "package_distribution": {
+      "src/main/java/com/github/vincentrussell/query/mongodb/sql/converter": 10,
+      "src/main/java/com/github/vincentrussell/query/mongodb/sql/converter/holder": 2,
+      "src/main/java/com/github/vincentrussell/query/mongodb/sql/converter/holder/from": 4,
+      "src/main/java/com/github/vincentrussell/query/mongodb/sql/converter/processor": 3,
+      "src/main/java/com/github/vincentrussell/query/mongodb/sql/converter/util": 4,
+      "src/main/java/com/github/vincentrussell/query/mongodb/sql/converter/visitor": 4,
+      "src/test/java/com/github/vincentrussell/query/mongodb/sql/converter": 8,
+      "src/test/java/com/github/vincentrussell/query/mongodb/sql/converter/rule": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 36,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 36,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\FieldType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\FieldType.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\Main.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\Main.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\MongoDBQueryHolder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\MongoDBQueryHolder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\NonCloseableBufferedOutputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\NonCloseableBufferedOutputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\ParseException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\ParseException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\QueryConverter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\QueryConverter.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\QueryResultIterator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\QueryResultIterator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\SQLCommandType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\SQLCommandType.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\TimeoutInputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\TimeoutInputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\UncloseableInputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\UncloseableInputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\AliasHolder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\AliasHolder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\ExpressionHolder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\ExpressionHolder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\from\\FromHolder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\from\\FromHolder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\from\\SQLCommandInfoHolder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\from\\SQLCommandInfoHolder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\from\\SQLInfoHolder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter\\src\\main\\java\\com\\github\\vincentrussell\\query\\mongodb\\sql\\converter\\holder\\from\\SQLInfoHolder.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "${jdk.version}",
+    "java_file_count": 36,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.github.vincentrussell",
+        "artifactId": "sql-to-mongo-db-query-converter",
+        "version": "1.23-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.github.vincentrussell",
+        "project.artifactId": "sql-to-mongo-db-query-converter",
+        "project.version": "1.23-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "jdk.version": "1.8",
+        "slf4j.version": "1.6.1",
+        "mongodb.version": "4.3.1"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "jsr305",
+          "version": "3.0.2",
+          "scope": "compile",
+          "raw_version": "3.0.2"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "joda-time",
+          "artifactId": "joda-time",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.joestelmach",
+          "artifactId": "natty",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "commons-cli",
+          "artifactId": "commons-cli",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.calrissian.mango",
+          "artifactId": "mango-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.code.gson",
+          "artifactId": "gson",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-nop",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "commons-io",
+          "artifactId": "commons-io",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mongodb",
+          "artifactId": "bson",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.jsqlparser",
+          "artifactId": "jsqlparser",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mongodb",
+          "artifactId": "mongodb-driver-sync",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "de.flapdoodle.embed",
+          "artifactId": "de.flapdoodle.embed.mongo",
+          "version": "3.0.0",
+          "scope": "test",
+          "raw_version": "3.0.0"
+        },
+        {
+          "groupId": "com.github.stefanbirkner",
+          "artifactId": "system-rules",
+          "version": "1.19.0",
+          "scope": "test",
+          "raw_version": "1.19.0"
+        },
+        {
+          "groupId": "org.skyscreamer",
+          "artifactId": "jsonassert",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.google.code.findbugs",
+        "artifactId": "jsr305",
+        "version": "3.0.2",
+        "scope": "compile",
+        "raw_version": "3.0.2"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "joda-time",
+        "artifactId": "joda-time",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.joestelmach",
+        "artifactId": "natty",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "commons-cli",
+        "artifactId": "commons-cli",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.calrissian.mango",
+        "artifactId": "mango-core",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.google.code.gson",
+        "artifactId": "gson",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-nop",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "commons-io",
+        "artifactId": "commons-io",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.mongodb",
+        "artifactId": "bson",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.github.jsqlparser",
+        "artifactId": "jsqlparser",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.mongodb",
+        "artifactId": "mongodb-driver-sync",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "de.flapdoodle.embed",
+        "artifactId": "de.flapdoodle.embed.mongo",
+        "version": "3.0.0",
+        "scope": "test",
+        "raw_version": "3.0.0"
+      },
+      {
+        "groupId": "com.github.stefanbirkner",
+        "artifactId": "system-rules",
+        "version": "1.19.0",
+        "scope": "test",
+        "raw_version": "1.19.0"
+      },
+      {
+        "groupId": "org.skyscreamer",
+        "artifactId": "jsonassert",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "sql-to-mongo-db-query-converter",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sql-to-mongo-db-query-converter"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `sql-to-mongo-db-query-converter` | Maven | ${jdk.version} | 36 | Standard Java | None | **Yellow** |"
+}

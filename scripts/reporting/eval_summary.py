@@ -101,7 +101,7 @@ def format_drop(val):
 def build_results(root, contain_skip):
     results = {}
     for model_name, filename in MODEL_FILES.items():
-        data = load_json(root / filename)
+        data = load_json(root / "results" / filename)
         if data is not None:
             results[model_name] = compute_stats(data, contain_skip)
     return results

@@ -1,0 +1,559 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.github.chrisgleissner",
+      "artifactId": "spring-batch-rest",
+      "version": "1.5.2-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.github.chrisgleissner",
+      "project.artifactId": "spring-batch-rest",
+      "project.version": "1.5.2-SNAPSHOT",
+      "java.version": "1.8",
+      "project.build.sourceEncoding": "UTF-8"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "util": {
+      "project": {
+        "groupId": "com.github.chrisgleissner",
+        "artifactId": "spring-batch-rest-util",
+        "version": "1.5.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.github.chrisgleissner",
+        "project.artifactId": "spring-batch-rest-util",
+        "project.version": "1.5.2-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.h2database",
+          "artifactId": "h2",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.projectlombok",
+          "artifactId": "lombok",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-aop",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-batch",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-quartz",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.batch",
+          "artifactId": "spring-batch-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "api": {
+      "project": {
+        "groupId": "com.github.chrisgleissner",
+        "artifactId": "spring-batch-rest-api",
+        "version": "1.5.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.github.chrisgleissner",
+        "project.artifactId": "spring-batch-rest-api",
+        "project.version": "1.5.2-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.github.chrisgleissner",
+          "artifactId": "spring-batch-rest-util",
+          "version": "1.5.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.github.chrisgleissner",
+          "artifactId": "spring-batch-rest-util",
+          "version": "1.5.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "29.0-jre",
+          "scope": "compile",
+          "raw_version": "29.0-jre"
+        },
+        {
+          "groupId": "com.h2database",
+          "artifactId": "h2",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springdoc",
+          "artifactId": "springdoc-openapi-ui",
+          "version": "1.2.33",
+          "scope": "compile",
+          "raw_version": "1.2.33"
+        },
+        {
+          "groupId": "org.projectlombok",
+          "artifactId": "lombok",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-batch",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-hateoas",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-thymeleaf",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.batch",
+          "artifactId": "spring-batch-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "quartz-api": {
+      "project": {
+        "groupId": "com.github.chrisgleissner",
+        "artifactId": "spring-batch-rest-quartz-api",
+        "version": "1.5.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.github.chrisgleissner",
+        "project.artifactId": "spring-batch-rest-quartz-api",
+        "project.version": "1.5.2-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.github.chrisgleissner",
+          "artifactId": "spring-batch-rest-util",
+          "version": "1.5.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.github.chrisgleissner",
+          "artifactId": "spring-batch-rest-api",
+          "version": "1.5.2-SNAPSHOT",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.github.chrisgleissner",
+          "artifactId": "spring-batch-rest-util",
+          "version": "1.5.2-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "com.h2database",
+          "artifactId": "h2",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.projectlombok",
+          "artifactId": "lombok",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-quartz",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.batch",
+          "artifactId": "spring-batch-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "example": {
+      "project": {
+        "groupId": "com.github.chrisgleissner",
+        "artifactId": "spring-batch-rest-example",
+        "version": "1.5.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.github.chrisgleissner",
+        "project.artifactId": "spring-batch-rest-example",
+        "project.version": "1.5.2-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "com.h2database",
+      "artifactId": "h2",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.projectlombok",
+      "artifactId": "lombok",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-aop",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-batch",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-quartz",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.batch",
+      "artifactId": "spring-batch-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.github.chrisgleissner",
+      "artifactId": "spring-batch-rest-util",
+      "version": "1.5.2-SNAPSHOT",
+      "scope": "compile",
+      "raw_version": "${project.version}"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "29.0-jre",
+      "scope": "compile",
+      "raw_version": "29.0-jre"
+    },
+    {
+      "groupId": "org.springdoc",
+      "artifactId": "springdoc-openapi-ui",
+      "version": "1.2.33",
+      "scope": "compile",
+      "raw_version": "1.2.33"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-hateoas",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-thymeleaf",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-web",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.github.chrisgleissner",
+      "artifactId": "spring-batch-rest-api",
+      "version": "1.5.2-SNAPSHOT",
+      "scope": "compile",
+      "raw_version": "${project.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "util",
+      "api",
+      "quartz-api",
+      "example"
+    ],
+    "java_file_count": 65,
+    "package_distribution": {
+      "api/src/main/java/com/github/chrisgleissner/springbatchrest/api/core": 2,
+      "api/src/main/java/com/github/chrisgleissner/springbatchrest/api/core/job": 4,
+      "api/src/main/java/com/github/chrisgleissner/springbatchrest/api/core/jobexecution": 5,
+      "api/src/main/java/com/github/chrisgleissner/springbatchrest/api/core/jobexecution/provider": 3,
+      "api/src/test/java/com/github/chrisgleissner/springbatchrest/api/core": 4,
+      "api/src/test/java/com/github/chrisgleissner/springbatchrest/api/core/job": 2,
+      "api/src/test/java/com/github/chrisgleissner/springbatchrest/api/core/jobexecution": 2,
+      "api/src/test/java/com/github/chrisgleissner/springbatchrest/api/core/jobexecution/provider": 3,
+      "example/api/src/main/java/com/github/chrisgleissner/springbatchrest/example/core": 2,
+      "example/api/src/test/java/com/github/chrisgleissner/springbatchrest/example/core": 1,
+      "example/quartz-api/src/main/java/com/github/chrisgleissner/springbatchrest/example/quartz": 2,
+      "example/quartz-api/src/test/java/com/github/chrisgleissner/springbatchrest/example/quartz": 1,
+      "quartz-api/src/main/java/com/github/chrisgleissner/springbatchrest/api/quartz": 1,
+      "quartz-api/src/main/java/com/github/chrisgleissner/springbatchrest/api/quartz/jobdetail": 4,
+      "quartz-api/src/test/java/com/github/chrisgleissner/springbatchrest/api/quartz": 2,
+      "quartz-api/src/test/java/com/github/chrisgleissner/springbatchrest/api/quartz/jobdetail": 1,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util": 3,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util/core": 4,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util/core/config": 1,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util/core/property": 3,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util/core/tasklet": 3,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util/quartz": 2,
+      "util/src/main/java/com/github/chrisgleissner/springbatchrest/util/quartz/config": 2,
+      "util/src/test/java/com/github/chrisgleissner/springbatchrest/util": 2,
+      "util/src/test/java/com/github/chrisgleissner/springbatchrest/util/core": 4,
+      "util/src/test/java/com/github/chrisgleissner/springbatchrest/util/quartz": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 65,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 65,
+    "manifest_count": 7,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "api\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "example\\api\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\example\\api\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "example\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\example\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "example\\quartz-api\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\example\\quartz-api\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "quartz-api\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\quartz-api\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "util\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\util\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\Constants.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\Constants.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\SpringBatchRestCoreAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\SpringBatchRestCoreAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\Job.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\Job.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\JobController.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\JobController.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\JobResource.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\JobResource.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\JobService.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\job\\JobService.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecution.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecution.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecutionController.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecutionController.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecutionResource.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecutionResource.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecutionService.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\JobExecutionService.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\ResponseExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\ResponseExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\provider\\AllJobExecutionProvider.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\provider\\AllJobExecutionProvider.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\provider\\CachedJobExecutionProvider.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\provider\\CachedJobExecutionProvider.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\provider\\JobExecutionProvider.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\main\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\jobexecution\\provider\\JobExecutionProvider.java",
+        "language": "java"
+      },
+      {
+        "path": "api\\src\\test\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\Fixtures.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest\\api\\src\\test\\java\\com\\github\\chrisgleissner\\springbatchrest\\api\\core\\Fixtures.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 65,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.github.chrisgleissner",
+        "artifactId": "spring-batch-rest",
+        "version": "1.5.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.github.chrisgleissner",
+        "project.artifactId": "spring-batch-rest",
+        "project.version": "1.5.2-SNAPSHOT",
+        "java.version": "1.8",
+        "project.build.sourceEncoding": "UTF-8"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "spring-batch-rest",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\spring-batch-rest"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `spring-batch-rest` | Maven | 1.8 | 65 | Standard Java | None | **Yellow** |"
+}

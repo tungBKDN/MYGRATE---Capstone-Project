@@ -1,0 +1,556 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.khoubyari",
+      "artifactId": "spring-boot-rest-example",
+      "version": "0.5.0"
+    },
+    "properties": {
+      "project.groupId": "com.khoubyari",
+      "project.artifactId": "spring-boot-rest-example",
+      "project.version": "0.5.0",
+      "start-class": "com.khoubyari.example.Application"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-actuator",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-web",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-security",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-tomcat",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-data-jpa",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.h2database",
+        "artifactId": "h2",
+        "version": "1.4.193",
+        "scope": "compile",
+        "raw_version": "1.4.193"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.codehaus.jackson",
+        "artifactId": "jackson-core-asl",
+        "version": "1.9.13",
+        "scope": "compile",
+        "raw_version": "1.9.13"
+      },
+      {
+        "groupId": "com.jayway.jsonpath",
+        "artifactId": "json-path",
+        "version": "2.4.0",
+        "scope": "compile",
+        "raw_version": "2.4.0"
+      },
+      {
+        "groupId": "com.jayway.jsonpath",
+        "artifactId": "json-path-assert",
+        "version": "0.9.1",
+        "scope": "test",
+        "raw_version": "0.9.1"
+      },
+      {
+        "groupId": "io.springfox",
+        "artifactId": "springfox-swagger2",
+        "version": "2.5.0",
+        "scope": "compile",
+        "raw_version": "2.5.0"
+      },
+      {
+        "groupId": "io.springfox",
+        "artifactId": "springfox-swagger-ui",
+        "version": "2.5.0",
+        "scope": "compile",
+        "raw_version": "2.5.0"
+      },
+      {
+        "groupId": "org.hsqldb",
+        "artifactId": "hsqldb",
+        "version": "Managed",
+        "scope": "runtime",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "javax.xml.bind",
+        "artifactId": "jaxb-api",
+        "version": "2.3.0",
+        "scope": "compile",
+        "raw_version": "2.3.0"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-actuator",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-web",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-security",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-tomcat",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-data-jpa",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.h2database",
+      "artifactId": "h2",
+      "version": "1.4.193",
+      "scope": "compile",
+      "raw_version": "1.4.193"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.codehaus.jackson",
+      "artifactId": "jackson-core-asl",
+      "version": "1.9.13",
+      "scope": "compile",
+      "raw_version": "1.9.13"
+    },
+    {
+      "groupId": "com.jayway.jsonpath",
+      "artifactId": "json-path",
+      "version": "2.4.0",
+      "scope": "compile",
+      "raw_version": "2.4.0"
+    },
+    {
+      "groupId": "com.jayway.jsonpath",
+      "artifactId": "json-path-assert",
+      "version": "0.9.1",
+      "scope": "test",
+      "raw_version": "0.9.1"
+    },
+    {
+      "groupId": "io.springfox",
+      "artifactId": "springfox-swagger2",
+      "version": "2.5.0",
+      "scope": "compile",
+      "raw_version": "2.5.0"
+    },
+    {
+      "groupId": "io.springfox",
+      "artifactId": "springfox-swagger-ui",
+      "version": "2.5.0",
+      "scope": "compile",
+      "raw_version": "2.5.0"
+    },
+    {
+      "groupId": "org.hsqldb",
+      "artifactId": "hsqldb",
+      "version": "Managed",
+      "scope": "runtime",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.xml.bind",
+      "artifactId": "jaxb-api",
+      "version": "2.3.0",
+      "scope": "compile",
+      "raw_version": "2.3.0"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 15,
+    "package_distribution": {
+      "src/main/java/com/khoubyari/example": 2,
+      "src/main/java/com/khoubyari/example/api/rest": 2,
+      "src/main/java/com/khoubyari/example/api/rest/docs": 1,
+      "src/main/java/com/khoubyari/example/dao/jpa": 1,
+      "src/main/java/com/khoubyari/example/domain": 2,
+      "src/main/java/com/khoubyari/example/exception": 2,
+      "src/main/java/com/khoubyari/example/service": 4,
+      "src/test/java/com/khoubyari/example/test": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 15,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 15,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\Application.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\Application.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\RestControllerAspect.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\RestControllerAspect.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\api\\rest\\AbstractRestHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\api\\rest\\AbstractRestHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\api\\rest\\HotelController.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\api\\rest\\HotelController.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\api\\rest\\docs\\SwaggerConfig.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\api\\rest\\docs\\SwaggerConfig.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\dao\\jpa\\HotelRepository.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\dao\\jpa\\HotelRepository.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\domain\\Hotel.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\domain\\Hotel.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\domain\\RestErrorInfo.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\domain\\RestErrorInfo.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\exception\\DataFormatException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\exception\\DataFormatException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\exception\\ResourceNotFoundException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\exception\\ResourceNotFoundException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\service\\HotelService.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\service\\HotelService.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\service\\HotelServiceEvent.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\service\\HotelServiceEvent.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\service\\HotelServiceHealth.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\service\\HotelServiceHealth.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\khoubyari\\example\\service\\ServiceProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\main\\java\\com\\khoubyari\\example\\service\\ServiceProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\com\\khoubyari\\example\\test\\HotelControllerTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example\\src\\test\\java\\com\\khoubyari\\example\\test\\HotelControllerTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 15,
+    "framework": "Spring Boot",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.khoubyari",
+        "artifactId": "spring-boot-rest-example",
+        "version": "0.5.0"
+      },
+      "properties": {
+        "project.groupId": "com.khoubyari",
+        "project.artifactId": "spring-boot-rest-example",
+        "project.version": "0.5.0",
+        "start-class": "com.khoubyari.example.Application"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-actuator",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-security",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-tomcat",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-data-jpa",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.h2database",
+          "artifactId": "h2",
+          "version": "1.4.193",
+          "scope": "compile",
+          "raw_version": "1.4.193"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.codehaus.jackson",
+          "artifactId": "jackson-core-asl",
+          "version": "1.9.13",
+          "scope": "compile",
+          "raw_version": "1.9.13"
+        },
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path",
+          "version": "2.4.0",
+          "scope": "compile",
+          "raw_version": "2.4.0"
+        },
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path-assert",
+          "version": "0.9.1",
+          "scope": "test",
+          "raw_version": "0.9.1"
+        },
+        {
+          "groupId": "io.springfox",
+          "artifactId": "springfox-swagger2",
+          "version": "2.5.0",
+          "scope": "compile",
+          "raw_version": "2.5.0"
+        },
+        {
+          "groupId": "io.springfox",
+          "artifactId": "springfox-swagger-ui",
+          "version": "2.5.0",
+          "scope": "compile",
+          "raw_version": "2.5.0"
+        },
+        {
+          "groupId": "org.hsqldb",
+          "artifactId": "hsqldb",
+          "version": "Managed",
+          "scope": "runtime",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.xml.bind",
+          "artifactId": "jaxb-api",
+          "version": "2.3.0",
+          "scope": "compile",
+          "raw_version": "2.3.0"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-actuator",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-web",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-security",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-tomcat",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-data-jpa",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.h2database",
+        "artifactId": "h2",
+        "version": "1.4.193",
+        "scope": "compile",
+        "raw_version": "1.4.193"
+      },
+      {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-starter-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.codehaus.jackson",
+        "artifactId": "jackson-core-asl",
+        "version": "1.9.13",
+        "scope": "compile",
+        "raw_version": "1.9.13"
+      },
+      {
+        "groupId": "com.jayway.jsonpath",
+        "artifactId": "json-path",
+        "version": "2.4.0",
+        "scope": "compile",
+        "raw_version": "2.4.0"
+      },
+      {
+        "groupId": "com.jayway.jsonpath",
+        "artifactId": "json-path-assert",
+        "version": "0.9.1",
+        "scope": "test",
+        "raw_version": "0.9.1"
+      },
+      {
+        "groupId": "io.springfox",
+        "artifactId": "springfox-swagger2",
+        "version": "2.5.0",
+        "scope": "compile",
+        "raw_version": "2.5.0"
+      },
+      {
+        "groupId": "io.springfox",
+        "artifactId": "springfox-swagger-ui",
+        "version": "2.5.0",
+        "scope": "compile",
+        "raw_version": "2.5.0"
+      },
+      {
+        "groupId": "org.hsqldb",
+        "artifactId": "hsqldb",
+        "version": "Managed",
+        "scope": "runtime",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "javax.xml.bind",
+        "artifactId": "jaxb-api",
+        "version": "2.3.0",
+        "scope": "compile",
+        "raw_version": "2.3.0"
+      }
+    ],
+    "name": "spring-boot-rest-example",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\spring-boot-rest-example"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `spring-boot-rest-example` | Maven | 1.8 | 15 | Spring Boot | None | **Yellow** |"
+}

@@ -1,0 +1,136 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "junit:junit": [
+      "4.13.2",
+      "4.13.1",
+      "4.13"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "junit:junit": "4.13"
+    },
+    {
+      "junit:junit": "4.13.1"
+    },
+    {
+      "junit:junit": "4.13.2"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "junit:junit": "4.13"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "junit:junit": "4.13.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "junit:junit": "4.13.2"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "junit:junit:4.13.2": {
+      "dependency": "junit:junit",
+      "version": "4.13.2",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::isDaemon()Z (forRemoval=true)"
+            },
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::setDaemon(Z)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.2.jar:\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::isDaemon()Z (forRemoval=true)\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::setDaemon(Z)V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "junit:junit:4.13.1": {
+      "dependency": "junit:junit",
+      "version": "4.13.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.1.jar:\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "junit:junit:4.13": {
+      "dependency": "junit:junit",
+      "version": "4.13",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 3,
+          "findings": [
+            {
+              "line": "class junit/framework/Assert uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "class junit/framework/Assert uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.jar:\nclass junit/framework/Assert uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\nclass junit/framework/Assert uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::destroy()V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

@@ -1,0 +1,591 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.sonar",
+      "artifactId": "sonar-stash-plugin",
+      "version": "1.7.0-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.sonar",
+      "project.artifactId": "sonar-stash-plugin",
+      "project.version": "1.7.0-SNAPSHOT",
+      "sonar.version": "6.7",
+      "sonar.pluginName": "Stash",
+      "sonar.pluginClass": "org.sonar.plugins.stash.StashPlugin",
+      "project.reporting.outputEncoding": "UTF-8",
+      "test.sonarqube.dist.groupId": "fixme.fixme",
+      "test.sonarqube.dist.artifactId": "sonarqube-dist",
+      "test.sonarqube.dist.version": "7.6",
+      "test.sonarqube.dist.outputdir": "${project.build.directory}/fixtures/sonarqube",
+      "test.sonarscanner.dist.groupId": "fixme.fixme",
+      "test.sonarscanner.dist.artifactId": "sonarscanner-dist",
+      "test.sonarscanner.dist.version": "3.3.0.1492",
+      "test.sonarscanner.dist.outputdir": "${project.build.directory}/fixtures/sonarscanner",
+      "test.url.binaries.repo": "https://binaries.sonarsource.com/Distribution",
+      "test.plugin.archive": "${project.build.directory}/${project.artifactId}-${project.version}.jar",
+      "test.sources.dir": "${project.build.directory}/fixtures/sources",
+      "sonar.coverage.exclusions": "src/main/java/org/sonar/plugins/stash/StashPlugin.java,src/main/java/org/sonar/plugins/stash/StashPluginConfiguration.java"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.sonarsource.sonarqube",
+        "artifactId": "sonar-plugin-api",
+        "version": "6.7",
+        "scope": "provided",
+        "raw_version": "${sonar.version}"
+      },
+      {
+        "groupId": "com.github.cliftonlabs",
+        "artifactId": "json-simple",
+        "version": "3.1.0",
+        "scope": "compile",
+        "raw_version": "3.1.0"
+      },
+      {
+        "groupId": "org.asynchttpclient",
+        "artifactId": "async-http-client",
+        "version": "2.8.1",
+        "scope": "compile",
+        "raw_version": "2.8.1"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "27.0.1-jre",
+        "scope": "compile",
+        "raw_version": "27.0.1-jre"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-api",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-engine",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.assertj",
+        "artifactId": "assertj-core",
+        "version": "3.11.1",
+        "scope": "test",
+        "raw_version": "3.11.1"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.25.0",
+        "scope": "test",
+        "raw_version": "2.25.0"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-junit-jupiter",
+        "version": "2.25.0",
+        "scope": "test",
+        "raw_version": "2.25.0"
+      },
+      {
+        "groupId": "org.awaitility",
+        "artifactId": "awaitility",
+        "version": "3.1.6",
+        "scope": "test",
+        "raw_version": "3.1.6"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-jdk14",
+        "version": "1.7.5",
+        "scope": "test",
+        "raw_version": "1.7.5"
+      },
+      {
+        "groupId": "com.github.tomakehurst",
+        "artifactId": "wiremock",
+        "version": "2.21.0",
+        "scope": "test",
+        "raw_version": "2.21.0"
+      },
+      {
+        "groupId": "org.picocontainer",
+        "artifactId": "picocontainer",
+        "version": "2.15",
+        "scope": "test",
+        "raw_version": "2.15"
+      },
+      {
+        "groupId": "com.google.code.gson",
+        "artifactId": "gson",
+        "version": "2.8.5",
+        "scope": "test",
+        "raw_version": "2.8.5"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "org.sonarsource.sonarqube",
+      "artifactId": "sonar-plugin-api",
+      "version": "6.7",
+      "scope": "provided",
+      "raw_version": "${sonar.version}"
+    },
+    {
+      "groupId": "com.github.cliftonlabs",
+      "artifactId": "json-simple",
+      "version": "3.1.0",
+      "scope": "compile",
+      "raw_version": "3.1.0"
+    },
+    {
+      "groupId": "org.asynchttpclient",
+      "artifactId": "async-http-client",
+      "version": "2.8.1",
+      "scope": "compile",
+      "raw_version": "2.8.1"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "27.0.1-jre",
+      "scope": "compile",
+      "raw_version": "27.0.1-jre"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-engine",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.assertj",
+      "artifactId": "assertj-core",
+      "version": "3.11.1",
+      "scope": "test",
+      "raw_version": "3.11.1"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "2.25.0",
+      "scope": "test",
+      "raw_version": "2.25.0"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-junit-jupiter",
+      "version": "2.25.0",
+      "scope": "test",
+      "raw_version": "2.25.0"
+    },
+    {
+      "groupId": "org.awaitility",
+      "artifactId": "awaitility",
+      "version": "3.1.6",
+      "scope": "test",
+      "raw_version": "3.1.6"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-jdk14",
+      "version": "1.7.5",
+      "scope": "test",
+      "raw_version": "1.7.5"
+    },
+    {
+      "groupId": "com.github.tomakehurst",
+      "artifactId": "wiremock",
+      "version": "2.21.0",
+      "scope": "test",
+      "raw_version": "2.21.0"
+    },
+    {
+      "groupId": "org.picocontainer",
+      "artifactId": "picocontainer",
+      "version": "2.15",
+      "scope": "test",
+      "raw_version": "2.15"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "2.8.5",
+      "scope": "test",
+      "raw_version": "2.8.5"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 68,
+    "package_distribution": {
+      "src/main/java/org/sonar/plugins/stash": 10,
+      "src/main/java/org/sonar/plugins/stash/client": 3,
+      "src/main/java/org/sonar/plugins/stash/exceptions": 4,
+      "src/main/java/org/sonar/plugins/stash/issue": 8,
+      "src/main/java/org/sonar/plugins/stash/issue/collector": 2,
+      "src/test/java/org/sonar/plugins/stash": 13,
+      "src/test/java/org/sonar/plugins/stash/client": 2,
+      "src/test/java/org/sonar/plugins/stash/end2end": 2,
+      "src/test/java/org/sonar/plugins/stash/fixtures": 11,
+      "src/test/java/org/sonar/plugins/stash/issue": 8,
+      "src/test/java/org/sonar/plugins/stash/issue/collector": 3,
+      "src/test/resources/foo/module1/src/main/java": 1,
+      "src/test/resources/foo/module2/src/main/java": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 68,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 68,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\IssuePathResolver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\IssuePathResolver.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\PeekableInputStream.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\PeekableInputStream.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\PluginInfo.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\PluginInfo.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\PullRequestRef.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\PullRequestRef.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\StashIssueReportingPostJob.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\StashIssueReportingPostJob.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\StashPlugin.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\StashPlugin.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\StashPluginConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\StashPluginConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\StashPluginUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\StashPluginUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\StashProjectBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\StashProjectBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\StashRequestFacade.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\StashRequestFacade.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\client\\ContentType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\client\\ContentType.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\client\\StashClient.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\client\\StashClient.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\client\\StashCredentials.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\client\\StashCredentials.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\exceptions\\StashClientException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\exceptions\\StashClientException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\sonar\\plugins\\stash\\exceptions\\StashConfigurationException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash\\src\\main\\java\\org\\sonar\\plugins\\stash\\exceptions\\StashConfigurationException.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 68,
+    "framework": "SonarQube Plugin",
+    "existing_reports": {},
+    "classification": "Red",
+    "pom_data": {
+      "project": {
+        "groupId": "org.sonar",
+        "artifactId": "sonar-stash-plugin",
+        "version": "1.7.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.sonar",
+        "project.artifactId": "sonar-stash-plugin",
+        "project.version": "1.7.0-SNAPSHOT",
+        "sonar.version": "6.7",
+        "sonar.pluginName": "Stash",
+        "sonar.pluginClass": "org.sonar.plugins.stash.StashPlugin",
+        "project.reporting.outputEncoding": "UTF-8",
+        "test.sonarqube.dist.groupId": "fixme.fixme",
+        "test.sonarqube.dist.artifactId": "sonarqube-dist",
+        "test.sonarqube.dist.version": "7.6",
+        "test.sonarqube.dist.outputdir": "${project.build.directory}/fixtures/sonarqube",
+        "test.sonarscanner.dist.groupId": "fixme.fixme",
+        "test.sonarscanner.dist.artifactId": "sonarscanner-dist",
+        "test.sonarscanner.dist.version": "3.3.0.1492",
+        "test.sonarscanner.dist.outputdir": "${project.build.directory}/fixtures/sonarscanner",
+        "test.url.binaries.repo": "https://binaries.sonarsource.com/Distribution",
+        "test.plugin.archive": "${project.build.directory}/${project.artifactId}-${project.version}.jar",
+        "test.sources.dir": "${project.build.directory}/fixtures/sources",
+        "sonar.coverage.exclusions": "src/main/java/org/sonar/plugins/stash/StashPlugin.java,src/main/java/org/sonar/plugins/stash/StashPluginConfiguration.java"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.sonarsource.sonarqube",
+          "artifactId": "sonar-plugin-api",
+          "version": "6.7",
+          "scope": "provided",
+          "raw_version": "${sonar.version}"
+        },
+        {
+          "groupId": "com.github.cliftonlabs",
+          "artifactId": "json-simple",
+          "version": "3.1.0",
+          "scope": "compile",
+          "raw_version": "3.1.0"
+        },
+        {
+          "groupId": "org.asynchttpclient",
+          "artifactId": "async-http-client",
+          "version": "2.8.1",
+          "scope": "compile",
+          "raw_version": "2.8.1"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "27.0.1-jre",
+          "scope": "compile",
+          "raw_version": "27.0.1-jre"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-api",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "3.11.1",
+          "scope": "test",
+          "raw_version": "3.11.1"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "2.25.0",
+          "scope": "test",
+          "raw_version": "2.25.0"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "2.25.0",
+          "scope": "test",
+          "raw_version": "2.25.0"
+        },
+        {
+          "groupId": "org.awaitility",
+          "artifactId": "awaitility",
+          "version": "3.1.6",
+          "scope": "test",
+          "raw_version": "3.1.6"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-jdk14",
+          "version": "1.7.5",
+          "scope": "test",
+          "raw_version": "1.7.5"
+        },
+        {
+          "groupId": "com.github.tomakehurst",
+          "artifactId": "wiremock",
+          "version": "2.21.0",
+          "scope": "test",
+          "raw_version": "2.21.0"
+        },
+        {
+          "groupId": "org.picocontainer",
+          "artifactId": "picocontainer",
+          "version": "2.15",
+          "scope": "test",
+          "raw_version": "2.15"
+        },
+        {
+          "groupId": "com.google.code.gson",
+          "artifactId": "gson",
+          "version": "2.8.5",
+          "scope": "test",
+          "raw_version": "2.8.5"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.sonarsource.sonarqube",
+        "artifactId": "sonar-plugin-api",
+        "version": "6.7",
+        "scope": "provided",
+        "raw_version": "${sonar.version}"
+      },
+      {
+        "groupId": "com.github.cliftonlabs",
+        "artifactId": "json-simple",
+        "version": "3.1.0",
+        "scope": "compile",
+        "raw_version": "3.1.0"
+      },
+      {
+        "groupId": "org.asynchttpclient",
+        "artifactId": "async-http-client",
+        "version": "2.8.1",
+        "scope": "compile",
+        "raw_version": "2.8.1"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "27.0.1-jre",
+        "scope": "compile",
+        "raw_version": "27.0.1-jre"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-api",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-engine",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.assertj",
+        "artifactId": "assertj-core",
+        "version": "3.11.1",
+        "scope": "test",
+        "raw_version": "3.11.1"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.25.0",
+        "scope": "test",
+        "raw_version": "2.25.0"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-junit-jupiter",
+        "version": "2.25.0",
+        "scope": "test",
+        "raw_version": "2.25.0"
+      },
+      {
+        "groupId": "org.awaitility",
+        "artifactId": "awaitility",
+        "version": "3.1.6",
+        "scope": "test",
+        "raw_version": "3.1.6"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-jdk14",
+        "version": "1.7.5",
+        "scope": "test",
+        "raw_version": "1.7.5"
+      },
+      {
+        "groupId": "com.github.tomakehurst",
+        "artifactId": "wiremock",
+        "version": "2.21.0",
+        "scope": "test",
+        "raw_version": "2.21.0"
+      },
+      {
+        "groupId": "org.picocontainer",
+        "artifactId": "picocontainer",
+        "version": "2.15",
+        "scope": "test",
+        "raw_version": "2.15"
+      },
+      {
+        "groupId": "com.google.code.gson",
+        "artifactId": "gson",
+        "version": "2.8.5",
+        "scope": "test",
+        "raw_version": "2.8.5"
+      }
+    ],
+    "name": "sonar-stash",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\sonar-stash"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `sonar-stash` | Maven | 1.8 | 68 | SonarQube Plugin | None | **Red** |"
+}

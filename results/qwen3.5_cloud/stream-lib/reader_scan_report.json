@@ -1,0 +1,402 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.clearspring.analytics",
+      "artifactId": "stream",
+      "version": "2.9.9-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.clearspring.analytics",
+      "project.artifactId": "stream",
+      "project.version": "2.9.9-SNAPSHOT",
+      "project.build.targetJdk": "17",
+      "maven.compiler.source": "17",
+      "maven.compiler.target": "17"
+    },
+    "dependencies": [
+      {
+        "groupId": "it.unimi.dsi",
+        "artifactId": "fastutil",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.2",
+        "scope": "test",
+        "raw_version": "4.13.2"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-simple",
+        "version": "1.7.25",
+        "scope": "test",
+        "raw_version": "1.7.25"
+      },
+      {
+        "groupId": "colt",
+        "artifactId": "colt",
+        "version": "1.2.0",
+        "scope": "test",
+        "raw_version": "1.2.0"
+      },
+      {
+        "groupId": "com.googlecode.charts4j",
+        "artifactId": "charts4j",
+        "version": "1.3",
+        "scope": "test",
+        "raw_version": "1.3"
+      },
+      {
+        "groupId": "commons-codec",
+        "artifactId": "commons-codec",
+        "version": "1.11",
+        "scope": "test",
+        "raw_version": "1.11"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.apache.mahout",
+        "artifactId": "mahout-math",
+        "version": "0.13.0",
+        "scope": "test",
+        "raw_version": "0.13.0"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "it.unimi.dsi",
+      "artifactId": "fastutil",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.2",
+      "scope": "test",
+      "raw_version": "4.13.2"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-simple",
+      "version": "1.7.25",
+      "scope": "test",
+      "raw_version": "1.7.25"
+    },
+    {
+      "groupId": "colt",
+      "artifactId": "colt",
+      "version": "1.2.0",
+      "scope": "test",
+      "raw_version": "1.2.0"
+    },
+    {
+      "groupId": "com.googlecode.charts4j",
+      "artifactId": "charts4j",
+      "version": "1.3",
+      "scope": "test",
+      "raw_version": "1.3"
+    },
+    {
+      "groupId": "commons-codec",
+      "artifactId": "commons-codec",
+      "version": "1.11",
+      "scope": "test",
+      "raw_version": "1.11"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.mahout",
+      "artifactId": "mahout-math",
+      "version": "0.13.0",
+      "scope": "test",
+      "raw_version": "0.13.0"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 77,
+    "package_distribution": {
+      "src/main/java/com/clearspring/analytics/hash": 2,
+      "src/main/java/com/clearspring/analytics/stream": 8,
+      "src/main/java/com/clearspring/analytics/stream/cardinality": 9,
+      "src/main/java/com/clearspring/analytics/stream/frequency": 4,
+      "src/main/java/com/clearspring/analytics/stream/membership": 7,
+      "src/main/java/com/clearspring/analytics/stream/quantile": 4,
+      "src/main/java/com/clearspring/analytics/util": 13,
+      "src/main/java/com/clearspring/experimental/stream/cardinality": 1,
+      "src/test/java/com/clearspring/analytics": 1,
+      "src/test/java/com/clearspring/analytics/hash": 2,
+      "src/test/java/com/clearspring/analytics/stream": 4,
+      "src/test/java/com/clearspring/analytics/stream/cardinality": 9,
+      "src/test/java/com/clearspring/analytics/stream/frequency": 2,
+      "src/test/java/com/clearspring/analytics/stream/membership": 5,
+      "src/test/java/com/clearspring/analytics/stream/quantile": 3,
+      "src/test/java/com/clearspring/analytics/util": 1,
+      "src/test/java/com/clearspring/experimental/stream/cardinality": 1,
+      "src/test/java/org/apache/commons/lang3": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 77,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 77,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\hash\\Lookup3Hash.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\hash\\Lookup3Hash.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\hash\\MurmurHash.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\hash\\MurmurHash.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\ConcurrentStreamSummary.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\ConcurrentStreamSummary.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\Counter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\Counter.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\ISampleSet.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\ISampleSet.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\ITopK.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\ITopK.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\SampleSet.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\SampleSet.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\ScoredItem.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\ScoredItem.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\StochasticTopper.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\StochasticTopper.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\StreamSummary.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\StreamSummary.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\AdaptiveCounting.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\AdaptiveCounting.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\CardinalityMergeException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\CardinalityMergeException.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\CountThenEstimate.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\CountThenEstimate.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\HyperLogLog.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\HyperLogLog.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\HyperLogLogPlus.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib\\src\\main\\java\\com\\clearspring\\analytics\\stream\\cardinality\\HyperLogLogPlus.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "17",
+    "java_file_count": 77,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.clearspring.analytics",
+        "artifactId": "stream",
+        "version": "2.9.9-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.clearspring.analytics",
+        "project.artifactId": "stream",
+        "project.version": "2.9.9-SNAPSHOT",
+        "project.build.targetJdk": "17",
+        "maven.compiler.source": "17",
+        "maven.compiler.target": "17"
+      },
+      "dependencies": [
+        {
+          "groupId": "it.unimi.dsi",
+          "artifactId": "fastutil",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.2",
+          "scope": "test",
+          "raw_version": "4.13.2"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-simple",
+          "version": "1.7.25",
+          "scope": "test",
+          "raw_version": "1.7.25"
+        },
+        {
+          "groupId": "colt",
+          "artifactId": "colt",
+          "version": "1.2.0",
+          "scope": "test",
+          "raw_version": "1.2.0"
+        },
+        {
+          "groupId": "com.googlecode.charts4j",
+          "artifactId": "charts4j",
+          "version": "1.3",
+          "scope": "test",
+          "raw_version": "1.3"
+        },
+        {
+          "groupId": "commons-codec",
+          "artifactId": "commons-codec",
+          "version": "1.11",
+          "scope": "test",
+          "raw_version": "1.11"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.mahout",
+          "artifactId": "mahout-math",
+          "version": "0.13.0",
+          "scope": "test",
+          "raw_version": "0.13.0"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "it.unimi.dsi",
+        "artifactId": "fastutil",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.2",
+        "scope": "test",
+        "raw_version": "4.13.2"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-simple",
+        "version": "1.7.25",
+        "scope": "test",
+        "raw_version": "1.7.25"
+      },
+      {
+        "groupId": "colt",
+        "artifactId": "colt",
+        "version": "1.2.0",
+        "scope": "test",
+        "raw_version": "1.2.0"
+      },
+      {
+        "groupId": "com.googlecode.charts4j",
+        "artifactId": "charts4j",
+        "version": "1.3",
+        "scope": "test",
+        "raw_version": "1.3"
+      },
+      {
+        "groupId": "commons-codec",
+        "artifactId": "commons-codec",
+        "version": "1.11",
+        "scope": "test",
+        "raw_version": "1.11"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.apache.mahout",
+        "artifactId": "mahout-math",
+        "version": "0.13.0",
+        "scope": "test",
+        "raw_version": "0.13.0"
+      }
+    ],
+    "name": "stream-lib",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\stream-lib"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `stream-lib` | Maven | 17 | 77 | Standard Java | None | **Yellow** |"
+}

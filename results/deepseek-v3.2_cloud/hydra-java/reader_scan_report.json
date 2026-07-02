@@ -1,0 +1,741 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "de.escalon.hypermedia",
+      "artifactId": "hydra-java",
+      "version": "0.4.3-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "de.escalon.hypermedia",
+      "project.artifactId": "hydra-java",
+      "project.version": "0.4.3-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "spring.version": "4.3.12.RELEASE",
+      "jackson.version": "2.9.8"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "hydra-commons": {
+      "project": {
+        "groupId": "de.escalon.hypermedia",
+        "artifactId": "hydra-commons",
+        "version": "0.4.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.escalon.hypermedia",
+        "project.artifactId": "hydra-commons",
+        "project.version": "0.4.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "hydra-jsonld": {
+      "project": {
+        "groupId": "de.escalon.hypermedia",
+        "artifactId": "hydra-jsonld",
+        "version": "0.4.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.escalon.hypermedia",
+        "project.artifactId": "hydra-jsonld",
+        "project.version": "0.4.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "de.escalon.hypermedia",
+          "artifactId": "hydra-commons",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.jsonld-java",
+          "artifactId": "jsonld-java",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path-assert",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "spring-hateoas-ext": {
+      "project": {
+        "groupId": "de.escalon.hypermedia",
+        "artifactId": "spring-hateoas-ext",
+        "version": "0.4.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.escalon.hypermedia",
+        "project.artifactId": "spring-hateoas-ext",
+        "project.version": "0.4.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "de.escalon.hypermedia",
+          "artifactId": "hydra-commons",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.damnhandy",
+          "artifactId": "handy-uri-templates",
+          "version": "2.1.4",
+          "scope": "compile",
+          "raw_version": "2.1.4"
+        },
+        {
+          "groupId": "org.springframework.hateoas",
+          "artifactId": "spring-hateoas",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.plugin",
+          "artifactId": "spring-plugin-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.intellij",
+          "artifactId": "annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-classic",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "jcl-over-slf4j",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path-assert",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "xmlunit",
+          "artifactId": "xmlunit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "hydra-spring": {
+      "project": {
+        "groupId": "de.escalon.hypermedia",
+        "artifactId": "hydra-spring",
+        "version": "0.4.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.escalon.hypermedia",
+        "project.artifactId": "hydra-spring",
+        "project.version": "0.4.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "de.escalon.hypermedia",
+          "artifactId": "hydra-jsonld",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "de.escalon.hypermedia",
+          "artifactId": "spring-hateoas-ext",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "de.escalon.hypermedia",
+          "artifactId": "spring-hateoas-ext",
+          "version": "0.4.3-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.jsonld-java",
+          "artifactId": "jsonld-java",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.plugin",
+          "artifactId": "spring-plugin-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path-assert",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-classic",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "jcl-over-slf4j",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.intellij",
+          "artifactId": "annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "hydra-sample": {
+      "project": {
+        "groupId": "de.escalon.hypermedia",
+        "artifactId": "hydra-sample",
+        "version": "0.4.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.escalon.hypermedia",
+        "project.artifactId": "hydra-sample",
+        "project.version": "0.4.3-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.github.jsonld-java",
+      "artifactId": "jsonld-java",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.hamcrest",
+      "artifactId": "hamcrest-all",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.jayway.jsonpath",
+      "artifactId": "json-path-assert",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.damnhandy",
+      "artifactId": "handy-uri-templates",
+      "version": "2.1.4",
+      "scope": "compile",
+      "raw_version": "2.1.4"
+    },
+    {
+      "groupId": "org.springframework.hateoas",
+      "artifactId": "spring-hateoas",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.plugin",
+      "artifactId": "spring-plugin-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "javax.servlet-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.intellij",
+      "artifactId": "annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-classic",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "jcl-over-slf4j",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-test",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "xmlunit",
+      "artifactId": "xmlunit",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-all",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-webmvc",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "hydra-commons",
+      "hydra-jsonld",
+      "spring-hateoas-ext",
+      "hydra-spring",
+      "hydra-sample"
+    ],
+    "java_file_count": 152,
+    "package_distribution": {
+      "hydra-commons/src/main/java/de/escalon/hypermedia": 2,
+      "hydra-jsonld/src/main/java/de/escalon/hypermedia/hydra/mapping": 5,
+      "hydra-jsonld/src/main/java/de/escalon/hypermedia/hydra/serialize": 9,
+      "hydra-jsonld/src/test/java/de/escalon/hypermedia/hydra": 1,
+      "hydra-jsonld/src/test/java/de/escalon/hypermedia/hydra/beans/withterms": 3,
+      "hydra-jsonld/src/test/java/de/escalon/hypermedia/hydra/beans/withvocab": 2,
+      "hydra-jsonld/src/test/java/de/escalon/hypermedia/hydra/serialize": 2,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample": 1,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample/beans/event": 4,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample/beans/store": 7,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample/event": 4,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample/model/event": 3,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample/model/store": 4,
+      "hydra-sample/service/src/main/java/de/escalon/hypermedia/sample/store": 9,
+      "hydra-spring/src/main/java/de/escalon/hypermedia/spring/hydra": 12,
+      "hydra-spring/src/test/java/de/escalon/hypermedia/spring": 1,
+      "hydra-spring/src/test/java/de/escalon/hypermedia/spring/hydra": 1,
+      "hydra-spring/src/test/java/de/escalon/hypermedia/spring/sample/test": 2,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia": 2,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia/action": 9,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia/affordance": 8,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia/spring": 9,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia/spring/siren": 14,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia/spring/uber": 9,
+      "spring-hateoas-ext/src/main/java/de/escalon/hypermedia/spring/xhtml": 2,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/action": 1,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/affordance": 5,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/spring": 2,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/spring/sample/test": 9,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/spring/siren": 2,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/spring/uber": 5,
+      "spring-hateoas-ext/src/test/java/de/escalon/hypermedia/spring/xhtml": 3
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 152,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 152,
+    "manifest_count": 8,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "hydra-commons\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-commons\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "hydra-jsonld\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "hydra-sample\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-sample\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "hydra-sample\\service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-sample\\service\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "hydra-sample\\webapp\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-sample\\webapp\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "hydra-spring\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-spring\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spring-hateoas-ext\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\spring-hateoas-ext\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "hydra-commons\\src\\main\\java\\de\\escalon\\hypermedia\\AnnotationUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-commons\\src\\main\\java\\de\\escalon\\hypermedia\\AnnotationUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-commons\\src\\main\\java\\de\\escalon\\hypermedia\\PropertyUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-commons\\src\\main\\java\\de\\escalon\\hypermedia\\PropertyUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\ContextProvider.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\ContextProvider.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Expose.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Expose.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Term.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Term.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Terms.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Terms.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Vocab.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\mapping\\Vocab.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\EnumSerializer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\EnumSerializer.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\JacksonHydraSerializer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\JacksonHydraSerializer.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\JacksonMixinSource.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\JacksonMixinSource.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\JsonLdKeywords.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\JsonLdKeywords.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\LdContext.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\LdContext.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\LdContextFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\LdContextFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\MixinSource.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\MixinSource.java",
+        "language": "java"
+      },
+      {
+        "path": "hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\ProxyUnwrapper.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java\\hydra-jsonld\\src\\main\\java\\de\\escalon\\hypermedia\\hydra\\serialize\\ProxyUnwrapper.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 152,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "de.escalon.hypermedia",
+        "artifactId": "hydra-java",
+        "version": "0.4.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.escalon.hypermedia",
+        "project.artifactId": "hydra-java",
+        "project.version": "0.4.3-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "spring.version": "4.3.12.RELEASE",
+        "jackson.version": "2.9.8"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "hydra-java",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\hydra-java"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `hydra-java` | Maven | 1.6 | 152 | Standard Java | None | **Yellow** |"
+}

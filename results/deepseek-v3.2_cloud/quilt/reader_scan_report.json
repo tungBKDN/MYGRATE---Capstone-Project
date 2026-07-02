@@ -1,0 +1,963 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.interledger",
+      "artifactId": "quilt-parent",
+      "version": "HEAD-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.interledger",
+      "project.artifactId": "quilt-parent",
+      "project.version": "HEAD-SNAPSHOT",
+      "maven.compiler.source": "1.8",
+      "maven.compiler.target": "1.8",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.resources.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8",
+      "jacoco.propertyName": "argLine",
+      "checkstyle.config.location": "checkstyle.xml",
+      "checkstyle.violationSeverity": "error",
+      "guava.version": "28.1-jre",
+      "jackson.version": "2.10.0.pr3",
+      "moneta.version": "1.3",
+      "okhttp.version": "4.9.0",
+      "slf4j.version": "1.7.30",
+      "skipITs": "false"
+    },
+    "dependencies": [
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "ilp-core": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "ilp-core",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "ilp-core",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.immutables",
+          "artifactId": "value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "btp-core": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "btp-core",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "btp-core",
+        "project.version": "HEAD-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.interledger",
+          "artifactId": "ilp-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.immutables",
+          "artifactId": "value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "ildcp-core": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "ildcp-core",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "ildcp-core",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.interledger",
+          "artifactId": "ilp-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.immutables",
+          "artifactId": "value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "link-parent": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "link-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "link-parent",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "codecs-parent": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "codecs-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "codecs-parent",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "ilp-core-utils": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "ilp-core-utils",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "ilp-core-utils",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.interledger",
+          "artifactId": "ilp-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.interledger",
+          "artifactId": "codecs-framework",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.interledger",
+          "artifactId": "codecs-ilp",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "jackson-datatypes": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "jackson-datatypes",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "jackson-datatypes",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.interledger",
+          "artifactId": "ilp-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.interledger",
+          "artifactId": "link-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.interledger",
+          "artifactId": "stream-crypto",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.immutables",
+          "artifactId": "value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "fx-parent": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "fx-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "fx-parent",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "spsp-parent": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "spsp-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "spsp-parent",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "stream-parent": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "stream-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "stream-parent",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "quilt-bom": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "quilt-bom",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "quilt-bom",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "examples-parent": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "examples-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "examples-parent",
+        "project.version": "HEAD-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-classic",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.immutables",
+      "artifactId": "value",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.assertj",
+      "artifactId": "assertj-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.interledger",
+      "artifactId": "codecs-framework",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.interledger",
+      "artifactId": "codecs-ilp",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.interledger",
+      "artifactId": "link-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.interledger",
+      "artifactId": "stream-crypto",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "ilp-core",
+      "btp-core",
+      "ildcp-core",
+      "link-parent",
+      "codecs-parent",
+      "ilp-core-utils",
+      "jackson-datatypes",
+      "fx-parent",
+      "spsp-parent",
+      "stream-parent",
+      "quilt-bom",
+      "examples-parent"
+    ],
+    "java_file_count": 600,
+    "package_distribution": {
+      "btp-core/src/main/java/org/interledger/btp": 15,
+      "btp-core/src/test/java/org/interledger/btp": 11,
+      "codecs-parent/codecs-btp/src/main/java/org/interledger/codecs/btp": 14,
+      "codecs-parent/codecs-btp/src/test/java/org/interledger/codecs/btp": 9,
+      "codecs-parent/codecs-framework/src/main/java/org/interledger/encoding/asn/codecs": 21,
+      "codecs-parent/codecs-framework/src/main/java/org/interledger/encoding/asn/framework": 8,
+      "codecs-parent/codecs-framework/src/main/java/org/interledger/encoding/asn/serializers/oer": 6,
+      "codecs-parent/codecs-framework/src/test/java/org/interledger/encoding": 1,
+      "codecs-parent/codecs-framework/src/test/java/org/interledger/encoding/asn": 1,
+      "codecs-parent/codecs-framework/src/test/java/org/interledger/encoding/asn/codecs": 5,
+      "codecs-parent/codecs-framework/src/test/java/org/interledger/encoding/asn/framework": 2,
+      "codecs-parent/codecs-framework/src/test/java/org/interledger/encoding/asn/serializers/oer": 15,
+      "codecs-parent/codecs-ildcp/src/main/java/org/interledger/codecs/ildcp": 8,
+      "codecs-parent/codecs-ildcp/src/test/java/org/interledger/codecs/ildcp": 4,
+      "codecs-parent/codecs-ildcp/src/test/java/org/interledger/codecs/ildcp/framework": 1,
+      "codecs-parent/codecs-ildcp/src/test/java/org/interledger/codecs/ildcp/utils": 1,
+      "codecs-parent/codecs-ilp/src/main/java/org/interledger/codecs/ilp": 16,
+      "codecs-parent/codecs-ilp/src/test/java/org/interledger/codecs/ilp": 10,
+      "codecs-parent/codecs-stream/src/main/java/org/interledger/codecs/stream": 3,
+      "codecs-parent/codecs-stream/src/main/java/org/interledger/codecs/stream/frame": 30,
+      "codecs-parent/codecs-stream/src/test/java/org/interledger/codecs/stream": 2,
+      "codecs-parent/codecs-stream/src/test/java/org/interledger/codecs/stream/frame": 16,
+      "codecs-parent/codecs-stream/src/test/java/org/interledger/codecs/stream/frame/helpers": 5,
+      "examples-parent/ilp-drip/src/main/java/org/interledger/examples/drip": 1,
+      "examples-parent/ilp-emitters/src/main/java/org/interledger/examples/packets": 2,
+      "examples-parent/send-money/src/main/java/org/interledger/examples": 2,
+      "fx-parent/fx-core/src/main/java/org/interledger/fx": 10,
+      "fx-parent/fx-core/src/main/java/org/interledger/fx/javax/money/providers": 4,
+      "fx-parent/fx-core/src/test/java/org/interledger/fx": 6,
+      "fx-parent/fx-core/src/test/java/org/interledger/fx/javax/money/providers": 6,
+      "ildcp-core/src/main/java/org/interledger/ildcp": 8,
+      "ildcp-core/src/test/java/org/interledger/ildcp": 7,
+      "ilp-core/src/main/java/org/interledger/core": 21,
+      "ilp-core/src/main/java/org/interledger/core/fluent": 5,
+      "ilp-core/src/test/java/org/interledger/core": 14,
+      "ilp-core/src/test/java/org/interledger/core/fluent": 5,
+      "ilp-core-utils/src/main/java/org/interledger/core/fluent": 1,
+      "ilp-core-utils/src/test/java/org/interledger/core/fluent": 1,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson": 3,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson/address": 3,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson/addressprefix": 3,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson/conditions": 7,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson/link": 6,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson/sharedsecret": 3,
+      "jackson-datatypes/src/main/java/org/interledger/quilt/jackson/stream": 3,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson": 1,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson/address": 1,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson/addressprefix": 1,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson/conditions": 3,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson/link": 8,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson/spsp": 3,
+      "jackson-datatypes/src/test/java/org/interledger/quilt/jackson/stream": 3,
+      "link-parent/link-core/src/main/java/org/interledger/link": 17,
+      "link-parent/link-core/src/main/java/org/interledger/link/events": 7,
+      "link-parent/link-core/src/main/java/org/interledger/link/exceptions": 4,
+      "link-parent/link-core/src/test/java/org/interledger/link": 10,
+      "link-parent/link-core/src/test/java/org/interledger/link/exceptions": 1,
+      "link-parent/link-ilp-over-http/src/main/java/org/interledger/link/http": 10,
+      "link-parent/link-ilp-over-http/src/main/java/org/interledger/link/http/auth": 5,
+      "link-parent/link-ilp-over-http/src/test/java/org/interledger/link/http": 8,
+      "link-parent/link-ilp-over-http/src/test/java/org/interledger/link/http/auth": 1,
+      "link-parent/link-stateless-spsp-receiver/src/main/java/org/interledger/link/spsp": 3,
+      "link-parent/link-stateless-spsp-receiver/src/test/java/org/interledger/link/spsp": 2,
+      "spsp-parent/spsp-client/src/main/java/org/interledger/spsp/client": 5,
+      "spsp-parent/spsp-client/src/main/java/org/interledger/spsp/client/rust": 4,
+      "spsp-parent/spsp-client/src/test/java/org/interledger/spsp/client": 1,
+      "spsp-parent/spsp-client/src/test/java/org/interledger/spsp/client/rust": 1,
+      "spsp-parent/spsp-core/src/main/java/org/interledger/spsp": 3,
+      "spsp-parent/spsp-core/src/test/java/org/interledger/spsp": 2,
+      "stream-parent/stream-client/src/main/java/org/interledger/stream/sender": 9,
+      "stream-parent/stream-client/src/test/java/org/interledger/stream/sender": 9,
+      "stream-parent/stream-core/src/main/java/org/interledger/stream": 17,
+      "stream-parent/stream-core/src/main/java/org/interledger/stream/calculators": 3,
+      "stream-parent/stream-core/src/main/java/org/interledger/stream/connection": 3,
+      "stream-parent/stream-core/src/main/java/org/interledger/stream/crypto": 5,
+      "stream-parent/stream-core/src/main/java/org/interledger/stream/frames": 20,
+      "stream-parent/stream-core/src/main/java/org/interledger/stream/model": 1,
+      "stream-parent/stream-core/src/test/java/org/interledger/stream": 11,
+      "stream-parent/stream-core/src/test/java/org/interledger/stream/calculators": 2,
+      "stream-parent/stream-core/src/test/java/org/interledger/stream/connection": 2,
+      "stream-parent/stream-core/src/test/java/org/interledger/stream/crypto": 4,
+      "stream-parent/stream-core/src/test/java/org/interledger/stream/frames": 7,
+      "stream-parent/stream-crypto/src/main/java/org/interledger/stream/crypto": 5,
+      "stream-parent/stream-crypto/src/test/java/org/interledger/stream/crypto": 2,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay": 3,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/exceptions": 1,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/filters": 8,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/filters/chain": 2,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/model": 7,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/probing": 1,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/probing/model": 4,
+      "stream-parent/stream-pay/src/main/java/org/interledger/stream/pay/trackers": 8,
+      "stream-parent/stream-pay/src/test/java/org/interledger/stream/pay": 2,
+      "stream-parent/stream-pay/src/test/java/org/interledger/stream/pay/exceptions": 1,
+      "stream-parent/stream-pay/src/test/java/org/interledger/stream/pay/filters": 7,
+      "stream-parent/stream-pay/src/test/java/org/interledger/stream/pay/filters/chain": 1,
+      "stream-parent/stream-pay/src/test/java/org/interledger/stream/pay/model": 2,
+      "stream-parent/stream-pay/src/test/java/org/interledger/stream/pay/trackers": 7,
+      "stream-parent/stream-pay-its/src/test/java/org/interledger/stream/pay": 5,
+      "stream-parent/stream-receiver/src/main/java/org/interledger/stream/receiver": 5,
+      "stream-parent/stream-receiver/src/test/java/org/interledger/stream/receiver": 4,
+      "stream-parent/stream-receiver/src/test/java/org/interledger/stream/receiver/testutils": 3
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 600,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 600,
+    "manifest_count": 33,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "btp-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "codecs-parent\\codecs-btp\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\codecs-parent\\codecs-btp\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "codecs-parent\\codecs-framework\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\codecs-parent\\codecs-framework\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "codecs-parent\\codecs-ildcp\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\codecs-parent\\codecs-ildcp\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "codecs-parent\\codecs-ilp\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\codecs-parent\\codecs-ilp\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "codecs-parent\\codecs-stream\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\codecs-parent\\codecs-stream\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "codecs-parent\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\codecs-parent\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "examples-parent\\ilp-drip\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\examples-parent\\ilp-drip\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "examples-parent\\ilp-emitters\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\examples-parent\\ilp-emitters\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "examples-parent\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\examples-parent\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "examples-parent\\send-money\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\examples-parent\\send-money\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "fx-parent\\fx-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\fx-parent\\fx-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "fx-parent\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\fx-parent\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "ildcp-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\ildcp-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "ilp-core-utils\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\ilp-core-utils\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "ilp-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\ilp-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "jackson-datatypes\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\jackson-datatypes\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "link-parent\\link-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\link-parent\\link-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "link-parent\\link-ilp-over-http\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\link-parent\\link-ilp-over-http\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "link-parent\\link-stateless-spsp-receiver\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\link-parent\\link-stateless-spsp-receiver\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "link-parent\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\link-parent\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "quilt-bom\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\quilt-bom\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spsp-parent\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\spsp-parent\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spsp-parent\\spsp-client\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\spsp-parent\\spsp-client\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "spsp-parent\\spsp-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\spsp-parent\\spsp-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\stream-client\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\stream-client\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\stream-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\stream-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\stream-crypto\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\stream-crypto\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\stream-pay-its\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\stream-pay-its\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\stream-pay\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\stream-pay\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "stream-parent\\stream-receiver\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\stream-parent\\stream-receiver\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpError.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpError.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpErrorCode.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpErrorCode.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpMessage.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpMessage.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpMessageType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpMessageType.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpPacket.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpPacket.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpRequestPacket.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpRequestPacket.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpResponse.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpResponse.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpResponsePacket.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpResponsePacket.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpRuntimeException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpRuntimeException.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSession.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSession.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSessionCredentials.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSessionCredentials.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSubProtocol.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSubProtocol.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSubProtocols.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpSubProtocols.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpTransfer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\BtpTransfer.java",
+        "language": "java"
+      },
+      {
+        "path": "btp-core\\src\\main\\java\\org\\interledger\\btp\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt\\btp-core\\src\\main\\java\\org\\interledger\\btp\\package-info.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 600,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.interledger",
+        "artifactId": "quilt-parent",
+        "version": "HEAD-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.interledger",
+        "project.artifactId": "quilt-parent",
+        "project.version": "HEAD-SNAPSHOT",
+        "maven.compiler.source": "1.8",
+        "maven.compiler.target": "1.8",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.resources.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8",
+        "jacoco.propertyName": "argLine",
+        "checkstyle.config.location": "checkstyle.xml",
+        "checkstyle.violationSeverity": "error",
+        "guava.version": "28.1-jre",
+        "jackson.version": "2.10.0.pr3",
+        "moneta.version": "1.3",
+        "okhttp.version": "4.9.0",
+        "slf4j.version": "1.7.30",
+        "skipITs": "false"
+      },
+      "dependencies": [
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-classic",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "quilt",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\quilt"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `quilt` | Maven | 1.8 | 600 | Standard Java | None | **Yellow** |"
+}

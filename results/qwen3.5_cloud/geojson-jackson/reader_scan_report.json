@@ -1,0 +1,302 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "de.grundid.opendatalab",
+      "artifactId": "geojson-jackson",
+      "version": "1.15-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "de.grundid.opendatalab",
+      "project.artifactId": "geojson-jackson",
+      "project.version": "1.15-SNAPSHOT",
+      "java-version": "1.6",
+      "jackson-version": "2.10.0"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-core",
+        "version": "2.10.0",
+        "scope": "compile",
+        "raw_version": "${jackson-version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.10.0",
+        "scope": "compile",
+        "raw_version": "${jackson-version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-annotations",
+        "version": "2.10.0",
+        "scope": "compile",
+        "raw_version": "${jackson-version}"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "1.10.19",
+        "scope": "test",
+        "raw_version": "1.10.19"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "4.12"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "2.10.0",
+      "scope": "compile",
+      "raw_version": "${jackson-version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "2.10.0",
+      "scope": "compile",
+      "raw_version": "${jackson-version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "2.10.0",
+      "scope": "compile",
+      "raw_version": "${jackson-version}"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "1.10.19",
+      "scope": "test",
+      "raw_version": "1.10.19"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.12",
+      "scope": "test",
+      "raw_version": "4.12"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 33,
+    "package_distribution": {
+      "src/main/java/org/geojson": 14,
+      "src/main/java/org/geojson/jackson": 3,
+      "src/test/java/org/geojson": 4,
+      "src/test/java/org/geojson/jackson": 12
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 33,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 33,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\org\\geojson\\Crs.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\Crs.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\Feature.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\Feature.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\FeatureCollection.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\FeatureCollection.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\GeoJsonObject.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\GeoJsonObject.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\GeoJsonObjectVisitor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\GeoJsonObjectVisitor.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\Geometry.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\Geometry.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\GeometryCollection.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\GeometryCollection.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\LineString.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\LineString.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\LngLatAlt.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\LngLatAlt.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\MultiLineString.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\MultiLineString.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\MultiPoint.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\MultiPoint.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\MultiPolygon.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\MultiPolygon.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\Point.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\Point.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\Polygon.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\Polygon.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\org\\geojson\\jackson\\CrsType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson\\src\\main\\java\\org\\geojson\\jackson\\CrsType.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "${java-version}",
+    "java_file_count": 33,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "de.grundid.opendatalab",
+        "artifactId": "geojson-jackson",
+        "version": "1.15-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "de.grundid.opendatalab",
+        "project.artifactId": "geojson-jackson",
+        "project.version": "1.15-SNAPSHOT",
+        "java-version": "1.6",
+        "jackson-version": "2.10.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "2.10.0",
+          "scope": "compile",
+          "raw_version": "${jackson-version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "2.10.0",
+          "scope": "compile",
+          "raw_version": "${jackson-version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "2.10.0",
+          "scope": "compile",
+          "raw_version": "${jackson-version}"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "1.10.19",
+          "scope": "test",
+          "raw_version": "1.10.19"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.12",
+          "scope": "test",
+          "raw_version": "4.12"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-core",
+        "version": "2.10.0",
+        "scope": "compile",
+        "raw_version": "${jackson-version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.10.0",
+        "scope": "compile",
+        "raw_version": "${jackson-version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-annotations",
+        "version": "2.10.0",
+        "scope": "compile",
+        "raw_version": "${jackson-version}"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "1.10.19",
+        "scope": "test",
+        "raw_version": "1.10.19"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.12",
+        "scope": "test",
+        "raw_version": "4.12"
+      }
+    ],
+    "name": "geojson-jackson",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\geojson-jackson"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `geojson-jackson` | Maven | ${java-version} | 33 | Standard Java | None | **Yellow** |"
+}

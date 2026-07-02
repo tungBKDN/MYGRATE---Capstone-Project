@@ -38,7 +38,7 @@ def _model_slug() -> str:
 
 
 def _eval_file(project_root: Path) -> Path:
-    return project_root / f"eval_{_model_slug()}.json"
+    return project_root / "results" / f"eval_{_model_slug()}.json"
 
 
 def _load_eval(project_root: Path) -> dict:

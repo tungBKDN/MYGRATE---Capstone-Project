@@ -1,0 +1,949 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.fireflysource",
+      "artifactId": "firefly-framework",
+      "version": "5.0.3-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.fireflysource",
+      "project.artifactId": "firefly-framework",
+      "project.version": "5.0.3-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "log.level": "INFO",
+      "log.path": "../logs",
+      "firefly.version": "${project.version}",
+      "github.url": "https://github.com/hypercube1024/firefly",
+      "java.release.version": "8",
+      "kotlin.version": "1.9.20",
+      "kotlin.coroutine.version": "1.8.0",
+      "kotlin.compiler.incremental": "false",
+      "kotlin.compiler.jvmTarget": "1.8",
+      "kotlin.compiler.languageVersion": "1.9",
+      "kotlin.compiler.apiVersion": "1.9",
+      "kotlin.code.style": "official",
+      "dokka.version": "1.9.20",
+      "dokka.config.noStdlibLink": "true",
+      "dokka.config.jdkVersion": "8",
+      "jackson.version": "2.15.4",
+      "conscrypt.version": "2.5.2",
+      "wildfly-openssl.version": "2.1.4.Final",
+      "javassist.version": "3.30.2-GA",
+      "slf4j.api.version": "1.7.36",
+      "io.reactor.version": "2023.0.3",
+      "jctools.version": "4.0.3",
+      "junit.version": "5.10.2"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.jetbrains.kotlin",
+        "artifactId": "kotlin-stdlib-jdk8",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlin",
+        "artifactId": "kotlin-reflect",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-core-jvm",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-jdk8",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-reactor",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-api",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-params",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-engine",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "firefly-common": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-common",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-common",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.javassist",
+          "artifactId": "javassist",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jctools",
+          "artifactId": "jctools-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "firefly-slf4j": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-slf4j",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-slf4j",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "firefly-net": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-net",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-net",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-common",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.conscrypt",
+          "artifactId": "conscrypt-openjdk-uber",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjsse",
+          "artifactId": "openjsse",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.wildfly.openssl",
+          "artifactId": "wildfly-openssl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-slf4j",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "firefly-wechat": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-wechat",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-wechat",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-net",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-serialization",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-slf4j",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "firefly-serialization": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-serialization",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-serialization",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-slf4j",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "firefly-example": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-example",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-example",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-net",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-serialization",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-slf4j",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "firefly-jni-helper": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-jni-helper",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-jni-helper",
+        "project.version": "5.0.3-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-common",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fireflysource",
+          "artifactId": "firefly-slf4j",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "org.jetbrains.kotlin",
+      "artifactId": "kotlin-stdlib-jdk8",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jetbrains.kotlin",
+      "artifactId": "kotlin-reflect",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jetbrains.kotlinx",
+      "artifactId": "kotlinx-coroutines-core-jvm",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jetbrains.kotlinx",
+      "artifactId": "kotlinx-coroutines-jdk8",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jetbrains.kotlinx",
+      "artifactId": "kotlinx-coroutines-reactor",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-params",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-engine",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jetbrains.kotlinx",
+      "artifactId": "kotlinx-coroutines-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.javassist",
+      "artifactId": "javassist",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.jctools",
+      "artifactId": "jctools-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.conscrypt",
+      "artifactId": "conscrypt-openjdk-uber",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.openjsse",
+      "artifactId": "openjsse",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.wildfly.openssl",
+      "artifactId": "wildfly-openssl",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "firefly-common",
+      "firefly-slf4j",
+      "firefly-net",
+      "firefly-wechat",
+      "firefly-serialization",
+      "firefly-example",
+      "firefly-jni-helper"
+    ],
+    "java_file_count": 498,
+    "package_distribution": {
+      "firefly-common/src/main/java/com/fireflysource/common/actor": 10,
+      "firefly-common/src/main/java/com/fireflysource/common/bytecode": 13,
+      "firefly-common/src/main/java/com/fireflysource/common/codec/base64": 9,
+      "firefly-common/src/main/java/com/fireflysource/common/collection": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/collection/array": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/collection/list": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/collection/map": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/collection/trie": 5,
+      "firefly-common/src/main/java/com/fireflysource/common/concurrent": 7,
+      "firefly-common/src/main/java/com/fireflysource/common/exception": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/func": 2,
+      "firefly-common/src/main/java/com/fireflysource/common/io": 6,
+      "firefly-common/src/main/java/com/fireflysource/common/jni": 3,
+      "firefly-common/src/main/java/com/fireflysource/common/lifecycle": 3,
+      "firefly-common/src/main/java/com/fireflysource/common/math": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/object": 2,
+      "firefly-common/src/main/java/com/fireflysource/common/ref": 3,
+      "firefly-common/src/main/java/com/fireflysource/common/reflection": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/service": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/slf4j": 1,
+      "firefly-common/src/main/java/com/fireflysource/common/string": 6,
+      "firefly-common/src/main/java/com/fireflysource/common/sys": 4,
+      "firefly-common/src/main/java/com/fireflysource/doc": 1,
+      "firefly-common/src/main/kotlin/com/fireflysource/common/exception": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/actor": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/bytecode": 2,
+      "firefly-common/src/test/java/com/fireflysource/common/codec": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/collection": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/collection/list": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/collection/map": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/collection/trie": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/concurrent": 7,
+      "firefly-common/src/test/java/com/fireflysource/common/io": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/object": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/ref": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/reflection": 1,
+      "firefly-common/src/test/java/com/fireflysource/common/string": 6,
+      "firefly-common/src/test/java/com/fireflysource/common/sys": 2,
+      "firefly-example/src/main/java/com/fireflysource/doc": 1,
+      "firefly-jni-helper/src/main/java/com/fireflysource/doc": 1,
+      "firefly-jni-helper/src/main/java/com/fireflysource/jni/example": 1,
+      "firefly-jni-helper/src/test/java/com/fireflysource/jni/example": 1,
+      "firefly-net/src/main/java/com/fireflysource": 1,
+      "firefly-net/src/main/java/com/fireflysource/doc": 1,
+      "firefly-net/src/main/java/com/fireflysource/net": 2,
+      "firefly-net/src/main/java/com/fireflysource/net/http/client": 12,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common": 5,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/codec": 12,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/content/handler": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/content/provider": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/exception": 3,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/model": 22,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v1/decoder": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v1/encoder": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v2/decoder": 18,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v2/encoder": 15,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v2/frame": 17,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v2/hpack": 10,
+      "firefly-net/src/main/java/com/fireflysource/net/http/common/v2/stream": 3,
+      "firefly-net/src/main/java/com/fireflysource/net/http/server": 16,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp": 9,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/exception": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure": 5,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure/common": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure/conscrypt": 7,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure/exception": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure/jdk": 7,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure/utils": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/tcp/secure/wildfly": 7,
+      "firefly-net/src/main/java/com/fireflysource/net/udp": 4,
+      "firefly-net/src/main/java/com/fireflysource/net/udp/exception": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/client": 3,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common": 3,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/decoder": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/decoder/payload": 2,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/encoder": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/exception": 8,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/extension": 3,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/extension/compress": 5,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/extension/fragment": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/extension/identity": 1,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/frame": 11,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/model": 11,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/stream": 3,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/common/utils": 2,
+      "firefly-net/src/main/java/com/fireflysource/net/websocket/server": 6,
+      "firefly-net/src/main/kotlin/com/fireflysource/net/http/common/exception": 7,
+      "firefly-net/src/test/java/com/fireflysource/net/http/common/codec": 9,
+      "firefly-net/src/test/java/com/fireflysource/net/http/common/model": 11,
+      "firefly-net/src/test/java/com/fireflysource/net/http/common/v1/decoder": 1,
+      "firefly-net/src/test/java/com/fireflysource/net/http/common/v1/encoder": 3,
+      "firefly-net/src/test/java/com/fireflysource/net/http/common/v2/frame": 12,
+      "firefly-net/src/test/java/com/fireflysource/net/http/common/v2/hpack": 6,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/decoder": 6,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/encoder": 4,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/extension": 2,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/extension/compress": 4,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/extension/fragment": 1,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/frame": 1,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/model": 7,
+      "firefly-net/src/test/java/com/fireflysource/net/websocket/common/utils": 6,
+      "firefly-serialization/src/main/java/com/fireflysource/doc": 1,
+      "firefly-slf4j/src/main/java/com/fireflysource/doc": 1,
+      "firefly-slf4j/src/main/java/com/fireflysource/log": 19,
+      "firefly-slf4j/src/main/java/com/fireflysource/log/internal/utils": 3,
+      "firefly-slf4j/src/main/java/com/fireflysource/log/internal/utils/collection": 3,
+      "firefly-slf4j/src/main/java/com/fireflysource/log/internal/utils/xml": 3,
+      "firefly-slf4j/src/main/java/org/slf4j/impl": 5,
+      "firefly-slf4j/src/test/java/com/fireflysource/log": 2,
+      "firefly-slf4j/src/test/java/com/fireflysource/log/demo": 3,
+      "firefly-slf4j/src/test/java/com/fireflysource/log/foo": 1,
+      "firefly-slf4j/src/test/java/com/fireflysource/log/foo/bar": 1,
+      "firefly-wechat/src/main/java/com/fireflysource/doc": 1,
+      "firefly-wechat/src/main/java/com/fireflysource/wechat/enterprise/group/bot/model": 13,
+      "firefly-wechat/src/main/java/com/fireflysource/wechat/enterprise/group/bot/service": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 498,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 498,
+    "manifest_count": 8,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "firefly-common\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "firefly-example\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-example\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "firefly-jni-helper\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-jni-helper\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "firefly-net\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-net\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "firefly-serialization\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-serialization\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "firefly-slf4j\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-slf4j\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "firefly-wechat\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-wechat\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\AbstractActor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\AbstractActor.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\AbstractAsyncActor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\AbstractAsyncActor.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\Actor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\Actor.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\ActorInternalApi.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\ActorInternalApi.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\ActorState.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\ActorState.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\BlockingTask.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\BlockingTask.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\Dispatcher.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\Dispatcher.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\DispatcherFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\DispatcherFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\Mailbox.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\Mailbox.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\MailboxFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\actor\\MailboxFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\AbstractProxyFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\AbstractProxyFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\ArrayProxy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\ArrayProxy.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\ClassProxy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\ClassProxy.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\ClassProxyFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\ClassProxyFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\CompilerUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly\\firefly-common\\src\\main\\java\\com\\fireflysource\\common\\bytecode\\CompilerUtils.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "${java.release.version}",
+    "java_file_count": 498,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.fireflysource",
+        "artifactId": "firefly-framework",
+        "version": "5.0.3-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.fireflysource",
+        "project.artifactId": "firefly-framework",
+        "project.version": "5.0.3-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "log.level": "INFO",
+        "log.path": "../logs",
+        "firefly.version": "${project.version}",
+        "github.url": "https://github.com/hypercube1024/firefly",
+        "java.release.version": "8",
+        "kotlin.version": "1.9.20",
+        "kotlin.coroutine.version": "1.8.0",
+        "kotlin.compiler.incremental": "false",
+        "kotlin.compiler.jvmTarget": "1.8",
+        "kotlin.compiler.languageVersion": "1.9",
+        "kotlin.compiler.apiVersion": "1.9",
+        "kotlin.code.style": "official",
+        "dokka.version": "1.9.20",
+        "dokka.config.noStdlibLink": "true",
+        "dokka.config.jdkVersion": "8",
+        "jackson.version": "2.15.4",
+        "conscrypt.version": "2.5.2",
+        "wildfly-openssl.version": "2.1.4.Final",
+        "javassist.version": "3.30.2-GA",
+        "slf4j.api.version": "1.7.36",
+        "io.reactor.version": "2023.0.3",
+        "jctools.version": "4.0.3",
+        "junit.version": "5.10.2"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.jetbrains.kotlin",
+          "artifactId": "kotlin-stdlib-jdk8",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jetbrains.kotlin",
+          "artifactId": "kotlin-reflect",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jetbrains.kotlinx",
+          "artifactId": "kotlinx-coroutines-core-jvm",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jetbrains.kotlinx",
+          "artifactId": "kotlinx-coroutines-jdk8",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jetbrains.kotlinx",
+          "artifactId": "kotlinx-coroutines-reactor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-api",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-params",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.jetbrains.kotlinx",
+          "artifactId": "kotlinx-coroutines-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.jetbrains.kotlin",
+        "artifactId": "kotlin-stdlib-jdk8",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlin",
+        "artifactId": "kotlin-reflect",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-core-jvm",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-jdk8",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-reactor",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-api",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-params",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.junit.jupiter",
+        "artifactId": "junit-jupiter-engine",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.jetbrains.kotlinx",
+        "artifactId": "kotlinx-coroutines-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "firefly",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\firefly"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `firefly` | Maven | ${java.release.version} | 498 | Standard Java | None | **Yellow** |"
+}

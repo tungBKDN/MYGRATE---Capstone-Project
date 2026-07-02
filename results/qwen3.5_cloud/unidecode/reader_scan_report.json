@@ -1,0 +1,139 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "me.xuender",
+      "artifactId": "unidecode",
+      "version": "0.0.8-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "me.xuender",
+      "project.artifactId": "unidecode",
+      "project.version": "0.0.8-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "maven.compiler.encoding": "UTF-8",
+      "maven.compiler.source": "1.6",
+      "maven.compiler.target": "1.6",
+      "maven.compiler.compilerVersion": "1.6"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.11",
+        "scope": "test",
+        "raw_version": "4.11"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.11",
+      "scope": "test",
+      "raw_version": "4.11"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 4,
+    "package_distribution": {
+      "src/main/java/me/xuender/unidecode": 2,
+      "src/test/java/me/xuender/unidecode": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 4,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 4,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\me\\xuender\\unidecode\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode\\src\\main\\java\\me\\xuender\\unidecode\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\me\\xuender\\unidecode\\Unidecode.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode\\src\\main\\java\\me\\xuender\\unidecode\\Unidecode.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\me\\xuender\\unidecode\\CratylusTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode\\src\\test\\java\\me\\xuender\\unidecode\\CratylusTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\me\\xuender\\unidecode\\UnidecodeTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode\\src\\test\\java\\me\\xuender\\unidecode\\UnidecodeTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 4,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "me.xuender",
+        "artifactId": "unidecode",
+        "version": "0.0.8-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "me.xuender",
+        "project.artifactId": "unidecode",
+        "project.version": "0.0.8-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "maven.compiler.encoding": "UTF-8",
+        "maven.compiler.source": "1.6",
+        "maven.compiler.target": "1.6",
+        "maven.compiler.compilerVersion": "1.6"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.11",
+          "scope": "test",
+          "raw_version": "4.11"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.11",
+        "scope": "test",
+        "raw_version": "4.11"
+      }
+    ],
+    "name": "unidecode",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\qwen3.5_cloud\\unidecode"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `unidecode` | Maven | 1.6 | 4 | Standard Java | None | **Yellow** |"
+}

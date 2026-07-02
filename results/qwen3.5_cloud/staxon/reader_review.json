@@ -1,0 +1,132 @@
+{
+  "status": "SUCCESS",
+  "selected_solution": {
+    "javax.ws.rs:jsr311-api": "1.1.1"
+  },
+  "selected_solution_index": 1,
+  "old_system_state": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.8.2",
+      "scope": "test"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "2.2.4",
+      "scope": "compile"
+    },
+    {
+      "groupId": "de.odysseus.staxon",
+      "artifactId": "staxon",
+      "version": "1.4-SNAPSHOT",
+      "scope": "compile"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "2.3.1",
+      "scope": "compile"
+    },
+    {
+      "groupId": "javax.json",
+      "artifactId": "javax.json-api",
+      "version": "1.0",
+      "scope": "provided"
+    },
+    {
+      "groupId": "org.glassfish",
+      "artifactId": "javax.json",
+      "version": "1.0.4",
+      "scope": "test"
+    },
+    {
+      "groupId": "javax.ws.rs",
+      "artifactId": "jsr311-api",
+      "version": "1.1.1",
+      "scope": "provided"
+    },
+    {
+      "groupId": "com.sun.jersey",
+      "artifactId": "jersey-server",
+      "version": "1.10",
+      "scope": "test"
+    }
+  ],
+  "target_system_state": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.8.2",
+      "scope": "test"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "2.2.4",
+      "scope": "compile"
+    },
+    {
+      "groupId": "de.odysseus.staxon",
+      "artifactId": "staxon",
+      "version": "1.4-SNAPSHOT",
+      "scope": "compile"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "2.3.1",
+      "scope": "compile"
+    },
+    {
+      "groupId": "javax.json",
+      "artifactId": "javax.json-api",
+      "version": "1.0",
+      "scope": "provided"
+    },
+    {
+      "groupId": "org.glassfish",
+      "artifactId": "javax.json",
+      "version": "1.0.4",
+      "scope": "test"
+    },
+    {
+      "groupId": "javax.ws.rs",
+      "artifactId": "jsr311-api",
+      "version": "1.1.1",
+      "scope": "provided"
+    },
+    {
+      "groupId": "com.sun.jersey",
+      "artifactId": "jersey-server",
+      "version": "1.10",
+      "scope": "test"
+    }
+  ],
+  "candidate_assessment": [
+    {
+      "version": "1.1",
+      "smoke_test": "PASS",
+      "compatibility": "Warning",
+      "notes": "Older stable version, passed smoke test."
+    },
+    {
+      "version": "1.1.1",
+      "smoke_test": "PASS",
+      "compatibility": "Warning",
+      "notes": "Current version, latest stable among candidates, passed smoke test."
+    },
+    {
+      "version": "1.1-ea",
+      "smoke_test": "PASS",
+      "compatibility": "Warning",
+      "notes": "Early access version, higher risk, passed smoke test."
+    }
+  ],
+  "what_was_done": "Evaluated three version candidates for javax.ws.rs:jsr311-api (1.1, 1.1.1, 1.1-ea) against Java 17 target. Executed smoke tests for all candidates to verify class loading and basic runtime integrity. All candidates returned PASS status despite static analysis warnings.",
+  "why_selected": "Version 1.1.1 was selected because it is the current version in use and represents the latest stable release among the candidates. While all candidates passed smoke tests, 1.1 is a downgrade and 1.1-ea is an early access build. Staying on 1.1.1 minimizes change risk while confirming compatibility with the target Java 17 environment.",
+  "risks": "All candidates triggered compatibility warnings in static analysis, indicating javax.ws.rs:jsr311-api (JAX-RS 1.1) is legacy technology. While smoke tests passed, there may be runtime edge cases not covered by class loading tests. Long-term maintenance risk exists due to the age of the library.",
+  "next_steps": "1. Commit the validated dependency configuration. 2. Run full integration test suite to catch runtime issues beyond smoke tests. 3. Plan migration to JAX-RS 2.x or 3.x (jakarta.ws.rs) in future sprints to resolve legacy warnings.",
+  "markdown_report": "# Dependency Migration Review: javax.ws.rs:jsr311-api\n\n## Current Codebase\n- **Project**: staxon (Java)\n- **Target Java Version**: 17\n- **Current Dependency**: javax.ws.rs:jsr311-api version 1.1.1 (provided scope)\n- **Context**: Legacy JAX-RS 1.1 API used alongside Jersey 1.10 and older Jackson/Gson versions.\n\n## Candidate Solutions\nThree version variants were analyzed and smoke-tested:\n1. **1.1**: Older stable release. Smoke Test: **PASS**. Compatibility: Warning.\n2. **1.1.1**: Current stable release. Smoke Test: **PASS**. Compatibility: Warning.\n3. **1.1-ea**: Early access build. Smoke Test: **PASS**. Compatibility: Warning.\n\n## Selected Recommendation\n**Version: 1.1.1**\n\n## Why This Choice\n- **Empirical Evidence**: All candidates passed the JVM class loading smoke test.\n- **Stability**: 1.1.1 is the most recent stable version among the options. 1.1 is a downgrade, and 1.1-ea introduces early-access risk.\n- **Minimal Change**: The project already uses 1.1.1. Validating that the current version works on Java 17 is sufficient for this migration step without introducing unnecessary version churn.\n\n## Remaining Risks\n- **Legacy Technology**: JSR 311 (JAX-RS 1.1) is deprecated in favor of JAX-RS 2.x/3.x. Static analysis flags warnings across all versions.\n- **Scope**: The dependency is marked as `provided`, implying runtime environment dependency which must also be compatible.\n- **Smoke Test Limitation**: Passing class loading does not guarantee full functional compatibility in complex request/response cycles.\n\n## Next Steps\n1. **Integration Testing**: Execute full test suite to verify HTTP handling.\n2. **Monitoring**: Watch for runtime exceptions related to javax.ws.rs packages.\n3. **Future Roadmap**: Schedule upgrade to Jakarta WS RS (JAX-RS 3.x) to eliminate legacy warnings and ensure long-term Java compatibility."
+}

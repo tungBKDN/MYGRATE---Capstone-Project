@@ -1,0 +1,149 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.abahgat",
+      "artifactId": "suffixtree",
+      "version": "1.0.0-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.abahgat",
+      "project.artifactId": "suffixtree",
+      "project.version": "1.0.0-SNAPSHOT"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "4.13.1"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 8,
+    "package_distribution": {
+      "src/main/java/com/abahgat/suffixtree": 5,
+      "src/test/java/com/abahgat/suffixtree": 3
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 8,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 8,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\abahgat\\suffixtree\\Edge.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\main\\java\\com\\abahgat\\suffixtree\\Edge.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\abahgat\\suffixtree\\EdgeBag.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\main\\java\\com\\abahgat\\suffixtree\\EdgeBag.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\abahgat\\suffixtree\\GeneralizedSuffixTree.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\main\\java\\com\\abahgat\\suffixtree\\GeneralizedSuffixTree.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\abahgat\\suffixtree\\Node.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\main\\java\\com\\abahgat\\suffixtree\\Node.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\abahgat\\suffixtree\\Utils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\main\\java\\com\\abahgat\\suffixtree\\Utils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\com\\abahgat\\suffixtree\\EdgeBagTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\test\\java\\com\\abahgat\\suffixtree\\EdgeBagTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\com\\abahgat\\suffixtree\\SuffixTreeTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\test\\java\\com\\abahgat\\suffixtree\\SuffixTreeTest.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\test\\java\\com\\abahgat\\suffixtree\\UtilsTest.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree\\src\\test\\java\\com\\abahgat\\suffixtree\\UtilsTest.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 8,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.abahgat",
+        "artifactId": "suffixtree",
+        "version": "1.0.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.abahgat",
+        "project.artifactId": "suffixtree",
+        "project.version": "1.0.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "4.13.1"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      }
+    ],
+    "name": "suffixtree",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\suffixtree"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `suffixtree` | Maven | 1.6 | 8 | Standard Java | None | **Yellow** |"
+}

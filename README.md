@@ -2,14 +2,14 @@
 
 MYGRATE is a Java migration analysis workspace used to inspect, batch-run, summarize, and report migration outcomes across many codebases. The repository contains the migration pipeline, generated datasets, evaluation artifacts, and the reporting tools used for the capstone project.
 
-The final project notes are in [docs/final-state.md](docs/final-state.md), and generated inspection reports are written to [docs/reports/](docs/reports/).
+All final evaluation outputs, result scripts, inspection reports, and plot generators have been consolidated into the centralized `/results/` directory.
 
 ## What This Repo Does
 
 - Runs migration jobs across the sample codebases under `freshbrew_data/`.
-- Stores per-model evaluation results in `eval_<model>.json` files at the repository root.
+- Stores model-specific working copies under `working/` (without artifacts).
+- Stores all evaluation results, reports, plots, and analysis tools in the `/results/` folder.
 - Generates summary and inspection reports from those evaluation results.
-- Preserves working copies and runtime logs under `working/`.
 
 ## Requirements
 
@@ -26,9 +26,15 @@ If you use the included virtual environment, activate it before running the scri
 - `scripts/reporting/`: reporting and classification entry points.
 - `scripts/`: remaining utility entry points and local tooling.
 - `freshbrew_data/`: source codebases used as migration inputs.
-- `working/`: per-model working copies and runtime logs created by batch runs.
+- `working/`: per-model working copies created by batch runs.
 - `artifacts/`: supporting analysis artifacts and discovery output.
-- `docs/reports/`: generated inspection reports.
+- `results/`: consolidated evaluations, reports, plotting scripts, and dataset inspections.
+  - `deepseek-v3.2_cloud/` & `qwen3.5_cloud/`: migrated codebase outputs (logs, reports).
+  - `eval_*.json`: evaluation result files.
+  - `inspect_*.md`: detailed markdown inspection reports.
+  - `precalc_baseline.json`: cached baseline metrics.
+  - `dataset_inspect.ipynb`: Jupyter notebook for dataset analysis.
+  - `calc_jdk8_baseline.py`, `plot_*.py`: baseline and plot generation scripts.
 - `docs/`: final documentation and project notes.
 
 ## Quick Start
@@ -78,30 +84,30 @@ python scripts/reporting/eval_summary.py --contain_skip
 
 ### Detailed Inspection Report
 
-Generate a markdown report for each model:
+Generate or update markdown reports for each model:
 
 ```powershell
 python scripts/reporting/generate_inspection_reports.py
 ```
 
-Output is written to [docs/reports/](docs/reports/).
+Output markdown files are written directly to the `/results/` directory as `results/inspect_<model>.md`.
 
-### Narrative-Style Report
+### Run Plotting and Baseline calculations
 
-Generate the more descriptive report variant:
-
-```powershell
-python scripts/reporting/generate_llm_like_reports.py
-```
-
-Output is written to [docs/reports/](docs/reports/).
-
-### Legacy Cause Classification
-
-Classify the historical failure causes from evaluation logs:
+All numerical results and plot generator scripts now run from the `/results/` directory and output their `.png` charts there:
 
 ```powershell
-python scripts/reporting/classify_by_old_causes.py
+# Plot failure cause distribution
+python results/plot_failures.py
+
+# Plot KDE metric distribution
+python results/plot_kde.py
+
+# Plot combined KDE metric distribution comparison
+python results/plot_kde_combined.py
+
+# Calculate baseline Java 8 metrics
+python results/calc_jdk8_baseline.py
 ```
 
 ### CLI Simulation
@@ -116,16 +122,14 @@ You can pass a numeric delay as the first argument to slow down the playback.
 
 ## Outputs and Artifacts
 
-- `eval_<model>.json`: per-model evaluation data written by batch runs.
-- `working/<model>/`: working copies of each codebase for that model.
-- `docs/reports/inspect_<model>.md`: generated inspection reports.
-- `artifacts/`: discovery and analysis outputs produced by the pipeline.
-
-Generated files can be recreated at any time, so they should stay out of version control unless you explicitly need them for documentation.
+- `results/eval_<model>.json`: per-model evaluation data written by batch runs.
+- `results/<model>/<codebase>/`: codebase-specific migration artifacts (such as `cli_output.log`, `upgrade_report.json`).
+- `results/inspect_<model>.md`: generated inspection reports.
+- `results/*.png`: generated chart images (like `kde_distribution.png`).
 
 ## Notes
 
 - The reporting scripts now live in `scripts/reporting/` instead of the repository root.
 - Shared ANSI-cleaning logic is centralized in `scripts/reporting/script_utils.py`.
-- The repository still contains large input datasets and runtime working trees because they are part of the migration workflow.
+- Baseline cache, dataset inspections, failure plots, and model result folders are all organized within the `/results/` directory.
 - See [docs/final-state.md](docs/final-state.md) for a concise final-state summary.

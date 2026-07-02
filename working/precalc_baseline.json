@@ -1,0 +1,237 @@
+{
+  "aggregate-persistence": {
+    "total_test": 84,
+    "test_pass": 84,
+    "cov": 76.67910447761194
+  },
+  "apollo": {
+    "total_test": 462,
+    "test_pass": 458,
+    "cov": 66.21545403271291
+  },
+  "artemis-odb": {
+    "total_test": 884,
+    "test_pass": 862,
+    "cov": 59.870898332436795
+  },
+  "aws-apigateway-importer": {
+    "total_test": 44,
+    "test_pass": 40,
+    "cov": 50.10526315789474
+  },
+  "balana": {
+    "total_test": 26,
+    "test_pass": 26,
+    "cov": 57.61156240109716
+  },
+  "biweekly": {
+    "total_test": 2312,
+    "test_pass": 2310,
+    "cov": 83.39056872434877
+  },
+  "charts4j": {
+    "total_test": 384,
+    "test_pass": 384,
+    "cov": 84.09252669039145
+  },
+  "cloudhopper-smpp": {
+    "total_test": 392,
+    "test_pass": 386,
+    "cov": 68.46313295824696
+  },
+  "DaisyDiff": {
+    "total_test": 0,
+    "test_pass": 0,
+    "cov": 0.0
+  },
+  "ddd-cqrs-sample": {
+    "total_test": 48,
+    "test_pass": 48,
+    "cov": 63.33892617449665
+  },
+  "docker-java-api": {
+    "total_test": 480,
+    "test_pass": 478,
+    "cov": 87.81770376862401
+  },
+  "dropwizard-todo": {
+    "total_test": 26,
+    "test_pass": 26,
+    "cov": 65.13157894736842
+  },
+  "druidry": {
+    "total_test": 950,
+    "test_pass": 950,
+    "cov": 88.11659192825113
+  },
+  "firefly": {
+    "total_test": 1862,
+    "test_pass": 1853,
+    "cov": 70.33947973490825
+  },
+  "friendly-id": {
+    "total_test": 34,
+    "test_pass": 34,
+    "cov": 88.23529411764706
+  },
+  "geojson-jackson": {
+    "total_test": 152,
+    "test_pass": 152,
+    "cov": 71.46892655367232
+  },
+  "hello-design-pattern": {
+    "total_test": 50,
+    "test_pass": 50,
+    "cov": 98.57142857142858
+  },
+  "hydra-java": {
+    "total_test": 368,
+    "test_pass": 366,
+    "cov": 70.37556053811659
+  },
+  "jadb": {
+    "total_test": 24,
+    "test_pass": 24,
+    "cov": 0.0
+  },
+  "Jasper-report-maven-plugin": {
+    "total_test": 10,
+    "test_pass": 10,
+    "cov": 65.86826347305389
+  },
+  "java-u2flib-server": {
+    "total_test": 230,
+    "test_pass": 230,
+    "cov": 87.2992700729927
+  },
+  "jaydio": {
+    "total_test": 105,
+    "test_pass": 44,
+    "cov": 37.61904761904762
+  },
+  "jersey-jwt": {
+    "total_test": 0,
+    "test_pass": 0,
+    "cov": 0.0
+  },
+  "joauth": {
+    "total_test": 616,
+    "test_pass": 616,
+    "cov": 83.71467025572005
+  },
+  "kafka-spout": {
+    "total_test": 102,
+    "test_pass": 102,
+    "cov": 94.81132075471697
+  },
+  "log4j2-elasticsearch": {
+    "total_test": 2447,
+    "test_pass": 2440,
+    "cov": 100.0
+  },
+  "mini-spring": {
+    "total_test": 68,
+    "test_pass": 68,
+    "cov": 88.7940234791889
+  },
+  "netty-zmtp": {
+    "total_test": 48,
+    "test_pass": 48,
+    "cov": 72.00504413619167
+  },
+  "quilt": {
+    "total_test": 2613,
+    "test_pass": 2613,
+    "cov": 80.7864302235929
+  },
+  "rhizobia_J": {
+    "total_test": 76,
+    "test_pass": 76,
+    "cov": 52.49579360628155
+  },
+  "servicecomb-saga-actuator": {
+    "total_test": 0,
+    "test_pass": 0,
+    "cov": 0.0
+  },
+  "sonar-stash": {
+    "total_test": 168,
+    "test_pass": 168,
+    "cov": 82.23624887285843
+  },
+  "spark-jobs-rest-client": {
+    "total_test": 62,
+    "test_pass": 62,
+    "cov": 85.65217391304348
+  },
+  "spring-batch-rest": {
+    "total_test": 63,
+    "test_pass": 63,
+    "cov": 89.69404186795491
+  },
+  "spring-boot-rest-example": {
+    "total_test": 2,
+    "test_pass": 2,
+    "cov": 71.1864406779661
+  },
+  "spring-cloud-aws": {
+    "total_test": 751,
+    "test_pass": 751,
+    "cov": 84.31558935361217
+  },
+  "spring-context-support": {
+    "total_test": 98,
+    "test_pass": 98,
+    "cov": 86.73870333988212
+  },
+  "spring-rest-exception-handler": {
+    "total_test": 94,
+    "test_pass": 94,
+    "cov": 93.37016574585635
+  },
+  "sql-to-mongo-db-query-converter": {
+    "total_test": 474,
+    "test_pass": 474,
+    "cov": 87.64519535374869
+  },
+  "staxon": {
+    "total_test": 764,
+    "test_pass": 760,
+    "cov": 70.04620123203286
+  },
+  "stream-lib": {
+    "total_test": 152,
+    "test_pass": 140,
+    "cov": 82.81476121562952
+  },
+  "suffixtree": {
+    "total_test": 22,
+    "test_pass": 22,
+    "cov": 90.54054054054053
+  },
+  "token-bucket": {
+    "total_test": 76,
+    "test_pass": 76,
+    "cov": 74.66666666666667
+  },
+  "unidecode": {
+    "total_test": 76,
+    "test_pass": 76,
+    "cov": 94.0
+  },
+  "unix4j": {
+    "total_test": 920,
+    "test_pass": 914,
+    "cov": 70.18628855871484
+  },
+  "velocity-spring-boot-project": {
+    "total_test": 24,
+    "test_pass": 24,
+    "cov": 68.24034334763948
+  },
+  "yawp": {
+    "total_test": 760,
+    "test_pass": 758,
+    "cov": 64.64385625134496
+  }
+}

@@ -209,4 +209,5 @@ __marimo__/
 *.jar
 
 
-/working
+/working/*
+!/working/precalc_baseline.json

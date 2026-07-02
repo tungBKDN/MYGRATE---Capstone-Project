@@ -1,0 +1,1232 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.apache.servicecomb.saga",
+      "artifactId": "saga",
+      "version": "0.4.0-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.apache.servicecomb.saga",
+      "project.artifactId": "saga",
+      "project.version": "0.4.0-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8",
+      "java.version": "1.8",
+      "kamon.version": "0.6.7",
+      "log4j.version": "2.7",
+      "disruptor.version": "3.3.7",
+      "spring.boot.version": "1.5.17.RELEASE",
+      "spring.boot2.version": "2.0.6.RELEASE",
+      "java.chassis.version": "1.0.0",
+      "spring.version": "4.3.18.RELEASE",
+      "akka.version": "2.5.14",
+      "rat.version": "0.12",
+      "maven.failsafe.version": "2.19.1",
+      "grpc.version": "1.14.0",
+      "kryo.version": "4.0.1",
+      "javax.transaction.version": "1.2",
+      "eclipse.link.version": "2.7.1",
+      "jackson.version": "2.9.0",
+      "jaxb.version": "2.3.0",
+      "javax.activation.version": "1.1.1",
+      "maven-dependency-plugin.version": "3.0.2",
+      "netty.boringssl.version": "2.0.7.Final",
+      "netty.version": "4.1.24.Final"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "saga-core": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga-core",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga-core",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-slf4j-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-annotation_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "1.10.19",
+          "scope": "compile",
+          "raw_version": "1.10.19"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.awaitility",
+          "artifactId": "awaitility",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.seanyinx",
+          "artifactId": "unit-scaffolding",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "saga-core-akka": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga-core-akka",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga-core-akka",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-slf4j-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe.akka",
+          "artifactId": "akka-actor_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe.akka",
+          "artifactId": "akka-slf4j_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-core_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-annotation_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe.akka",
+          "artifactId": "akka-testkit_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.scalatest",
+          "artifactId": "scalatest_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "1.10.19",
+          "scope": "compile",
+          "raw_version": "1.10.19"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.awaitility",
+          "artifactId": "awaitility",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.seanyinx",
+          "artifactId": "unit-scaffolding",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-core",
+          "version": "0.4.0-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "0.4.0-SNAPSHOT"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "transports": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga.transports",
+        "artifactId": "transports",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga.transports",
+        "project.artifactId": "transports",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "saga-spring": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga-spring",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga-spring",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-core-akka",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-format",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga.transports",
+          "artifactId": "transport-httpclient-spring",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga.discovery",
+          "artifactId": "saga-discovery-servicecenter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "commons-io",
+          "artifactId": "commons-io",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-actuator",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.persistence",
+          "artifactId": "javax.persistence-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-persistence-jpa",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.postgresql",
+          "artifactId": "postgresql",
+          "version": "Managed",
+          "scope": "runtime",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-core_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-annotation_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.lmax",
+          "artifactId": "disruptor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.h2database",
+          "artifactId": "h2",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.tomakehurst",
+          "artifactId": "wiremock-standalone",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.seanyinx",
+          "artifactId": "unit-scaffolding",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.rest-assured",
+          "artifactId": "rest-assured",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "docker-build-config": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "docker-build-config",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "docker-build-config",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "saga-format": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga-format",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga-format",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.apache.servicecomb.saga",
+          "artifactId": "saga-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "${jackson.version}",
+          "scope": "compile",
+          "raw_version": "${jackson.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "${jackson.version}",
+          "scope": "compile",
+          "raw_version": "${jackson.version}"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-core_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.kamon",
+          "artifactId": "kamon-annotation_2.12",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-all",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.github.seanyinx",
+          "artifactId": "unit-scaffolding",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "saga-discovery": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga.discovery",
+        "artifactId": "saga-discovery",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga.discovery",
+        "project.artifactId": "saga-discovery",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "saga-web": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga-web",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga-web",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb",
+          "artifactId": "spring-boot-starter-discovery",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb",
+          "artifactId": "spring-boot-starter-servicecomb",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.servicecomb",
+          "artifactId": "spring-cloud-zuul",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "integration-tests": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga.tests",
+        "artifactId": "integration-tests",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga.tests",
+        "project.artifactId": "integration-tests",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    },
+    "saga-persistence": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga-persistence",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga-persistence",
+        "project.version": "0.4.0-SNAPSHOT"
+      },
+      "dependencies": []
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "com.lmax",
+      "artifactId": "disruptor",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-slf4j-impl",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.kamon",
+      "artifactId": "kamon-annotation_2.12",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.hamcrest",
+      "artifactId": "hamcrest-all",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "1.10.19",
+      "scope": "compile",
+      "raw_version": "1.10.19"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.awaitility",
+      "artifactId": "awaitility",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.github.seanyinx",
+      "artifactId": "unit-scaffolding",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.typesafe.akka",
+      "artifactId": "akka-actor_2.12",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.typesafe.akka",
+      "artifactId": "akka-slf4j_2.12",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.kamon",
+      "artifactId": "kamon-core_2.12",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.typesafe.akka",
+      "artifactId": "akka-testkit_2.12",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.scalatest",
+      "artifactId": "scalatest_2.12",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.servicecomb.saga.transports",
+      "artifactId": "transport-httpclient-spring",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.servicecomb.saga.discovery",
+      "artifactId": "saga-discovery-servicecenter",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "commons-io",
+      "artifactId": "commons-io",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-web",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-actuator",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.persistence",
+      "artifactId": "javax.persistence-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.servicecomb.saga",
+      "artifactId": "saga-persistence-jpa",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.postgresql",
+      "artifactId": "postgresql",
+      "version": "Managed",
+      "scope": "runtime",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.h2database",
+      "artifactId": "h2",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.github.tomakehurst",
+      "artifactId": "wiremock-standalone",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.rest-assured",
+      "artifactId": "rest-assured",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "${jackson.version}",
+      "scope": "compile",
+      "raw_version": "${jackson.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "${jackson.version}",
+      "scope": "compile",
+      "raw_version": "${jackson.version}"
+    },
+    {
+      "groupId": "org.apache.servicecomb",
+      "artifactId": "spring-boot-starter-discovery",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.servicecomb",
+      "artifactId": "spring-boot-starter-servicecomb",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.servicecomb",
+      "artifactId": "spring-cloud-zuul",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "saga-core",
+      "saga-core-akka",
+      "transports",
+      "saga-spring",
+      "docker-build-config",
+      "saga-format",
+      "saga-discovery",
+      "saga-web",
+      "integration-tests",
+      "saga-persistence"
+    ],
+    "java_file_count": 198,
+    "package_distribution": {
+      "saga-core/src/main/java/org/apache/servicecomb/saga/core": 58,
+      "saga-core/src/main/java/org/apache/servicecomb/saga/core/application": 2,
+      "saga-core/src/main/java/org/apache/servicecomb/saga/core/application/interpreter": 2,
+      "saga-core/src/main/java/org/apache/servicecomb/saga/core/dag": 11,
+      "saga-core/src/main/java/org/apache/servicecomb/saga/infrastructure": 2,
+      "saga-core/src/main/java/org/apache/servicecomb/saga/transports": 3,
+      "saga-core/src/test/java/org/apache/servicecomb/saga/core": 16,
+      "saga-core/src/test/java/org/apache/servicecomb/saga/core/dag": 5,
+      "saga-core/src/test/java/org/apache/servicecomb/saga/infrastructure": 1,
+      "saga-core-akka/src/main/java/org/apache/servicecomb/saga/core/actors": 7,
+      "saga-core-akka/src/main/java/org/apache/servicecomb/saga/core/actors/messages": 8,
+      "saga-core-akka/src/test/java/org/apache/servicecomb/saga/core/actors": 6,
+      "saga-demo/conditional-transaction-demo/conditional-transaction-demo-tests/src/test/java/org/apache/servicecomb/saga/demo/tests": 1,
+      "saga-demo/conditional-transaction-demo/inventory/src/main/java/org/apache/servicecomb/saga/demo/conditional/transaction/inventory": 2,
+      "saga-demo/conditional-transaction-demo/inventory/src/test/java/org/apache/servicecomb/saga/demo/conditional/transaction/inventory": 1,
+      "saga-demo/conditional-transaction-demo/membership/src/main/java/org/apache/servicecomb/saga/demo/conditional/transaction/membership": 2,
+      "saga-demo/conditional-transaction-demo/payment/src/main/java/org/apache/servicecomb/saga/demo/conditional/transaction/payment": 2,
+      "saga-demo/conditional-transaction-demo/payment/src/test/java/org/apache/servicecomb/saga/demo/conditional/transaction/payment": 1,
+      "saga-demo/conditional-transaction-demo/supplier/src/main/java/org/apache/servicecomb/saga/demo/conditional/transaction/supplier": 2,
+      "saga-demo/dependency-free-transaction-demo/car-rental-service/src/main/java/org/apache/servicecomb/saga/demo/car/rental": 2,
+      "saga-demo/dependency-free-transaction-demo/demo-tests/src/test/java/org/apache/servicecomb/saga/demo/tests": 1,
+      "saga-demo/dependency-free-transaction-demo/flight-booking-service/src/main/java/org/apache/servicecomb/saga/demo/flight/booking": 2,
+      "saga-demo/dependency-free-transaction-demo/hotel-reservation-service/src/main/java/org/apache/servicecomb/saga/demo/hotel/reservation": 2,
+      "saga-demo/dependency-free-transaction-demo/payment-service/src/main/java/org/apache/servicecomb/saga/demo/payment": 2,
+      "saga-discovery/saga-discovery-servicecenter/src/main/java/org/apache/servicecomb/saga/discovery/service/center": 1,
+      "saga-discovery/saga-discovery-servicecenter/src/test/java/org/apache/servicecomb/saga/discovery/service/center": 3,
+      "saga-format/src/main/java/org/apache/servicecomb/saga/core": 4,
+      "saga-format/src/main/java/org/apache/servicecomb/saga/format": 19,
+      "saga-format/src/test/java/org/apache/servicecomb/saga/format": 8,
+      "saga-persistence/saga-persistence-jpa/src/main/java/org/apache/servicecomb/saga/persistence/jpa": 1,
+      "saga-spring/src/main/java/org/apache/servicecomb/saga/spring": 9,
+      "saga-spring/src/test/java/org/apache/servicecomb/saga/spring": 6,
+      "saga-web/src/main/java/org/apache/servicecomb/saga/web": 1,
+      "transports/transport-httpclient/src/main/java/org/apache/servicecomb/saga/transports/httpclient": 1,
+      "transports/transport-httpclient/src/test/java/org/apache/servicecomb/saga/transports/httpclient": 1,
+      "transports/transport-httpclient-spring/src/main/java/org/apache/servicecomb/saga/transports": 1,
+      "transports/transport-httpclient-spring/src/test/java/org/apache/servicecomb/saga/transports": 1,
+      "transports/transport-resttemplate/src/main/java/org/apache/servicecomb/saga/transports/resttemplate": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 198,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 198,
+    "manifest_count": 31,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "docker-build-config\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\docker-build-config\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "integration-tests\\coverage-aggregate\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\integration-tests\\coverage-aggregate\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "integration-tests\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\integration-tests\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-core-akka\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core-akka\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\conditional-transaction-demo\\conditional-transaction-demo-tests\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\conditional-transaction-demo\\conditional-transaction-demo-tests\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\conditional-transaction-demo\\inventory\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\conditional-transaction-demo\\inventory\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\conditional-transaction-demo\\membership\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\conditional-transaction-demo\\membership\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\conditional-transaction-demo\\payment\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\conditional-transaction-demo\\payment\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\conditional-transaction-demo\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\conditional-transaction-demo\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\conditional-transaction-demo\\supplier\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\conditional-transaction-demo\\supplier\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\dependency-free-transaction-demo\\car-rental-service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\dependency-free-transaction-demo\\car-rental-service\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\dependency-free-transaction-demo\\demo-tests\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\dependency-free-transaction-demo\\demo-tests\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\dependency-free-transaction-demo\\flight-booking-service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\dependency-free-transaction-demo\\flight-booking-service\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\dependency-free-transaction-demo\\hotel-reservation-service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\dependency-free-transaction-demo\\hotel-reservation-service\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\dependency-free-transaction-demo\\payment-service\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\dependency-free-transaction-demo\\payment-service\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\dependency-free-transaction-demo\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\dependency-free-transaction-demo\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-demo\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-demo\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-discovery\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-discovery\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-discovery\\saga-discovery-servicecenter\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-discovery\\saga-discovery-servicecenter\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-distribution\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-distribution\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-format\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-format\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-persistence\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-persistence\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-persistence\\saga-persistence-jpa\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-persistence\\saga-persistence-jpa\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-spring\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-spring\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "saga-web\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-web\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "transports\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\transports\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "transports\\transport-httpclient-spring\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\transports\\transport-httpclient-spring\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "transports\\transport-httpclient\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\transports\\transport-httpclient\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "transports\\transport-resttemplate\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\transports\\transport-resttemplate\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\BackwardRecovery.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\BackwardRecovery.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\Compensation.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\Compensation.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\CompensationTaskConsumer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\CompensationTaskConsumer.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\CompositeSagaLog.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\CompositeSagaLog.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\CompositeSagaResponse.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\CompositeSagaResponse.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\Descriptive.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\Descriptive.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\EventContext.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\EventContext.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\EventEnvelope.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\EventEnvelope.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\EventStore.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\EventStore.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\FailedSagaResponse.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\FailedSagaResponse.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\Fallback.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\Fallback.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\FallbackPolicy.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\FallbackPolicy.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\ForwardRecovery.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\ForwardRecovery.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\GraphBasedSaga.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\GraphBasedSaga.java",
+        "language": "java"
+      },
+      {
+        "path": "saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\IdGenerator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator\\saga-core\\src\\main\\java\\org\\apache\\servicecomb\\saga\\core\\IdGenerator.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 198,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.apache.servicecomb.saga",
+        "artifactId": "saga",
+        "version": "0.4.0-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.apache.servicecomb.saga",
+        "project.artifactId": "saga",
+        "project.version": "0.4.0-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8",
+        "java.version": "1.8",
+        "kamon.version": "0.6.7",
+        "log4j.version": "2.7",
+        "disruptor.version": "3.3.7",
+        "spring.boot.version": "1.5.17.RELEASE",
+        "spring.boot2.version": "2.0.6.RELEASE",
+        "java.chassis.version": "1.0.0",
+        "spring.version": "4.3.18.RELEASE",
+        "akka.version": "2.5.14",
+        "rat.version": "0.12",
+        "maven.failsafe.version": "2.19.1",
+        "grpc.version": "1.14.0",
+        "kryo.version": "4.0.1",
+        "javax.transaction.version": "1.2",
+        "eclipse.link.version": "2.7.1",
+        "jackson.version": "2.9.0",
+        "jaxb.version": "2.3.0",
+        "javax.activation.version": "1.1.1",
+        "maven-dependency-plugin.version": "3.0.2",
+        "netty.boringssl.version": "2.0.7.Final",
+        "netty.version": "4.1.24.Final"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "servicecomb-saga-actuator",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\servicecomb-saga-actuator"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `servicecomb-saga-actuator` | Maven | 1.8 | 198 | Standard Java | None | **Yellow** |"
+}

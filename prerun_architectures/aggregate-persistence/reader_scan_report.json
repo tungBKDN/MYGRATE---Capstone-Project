@@ -1,0 +1,363 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.github.meixuesong",
+      "artifactId": "aggregate-persistence",
+      "version": "1.2.3"
+    },
+    "properties": {
+      "project.groupId": "com.github.meixuesong",
+      "project.artifactId": "aggregate-persistence",
+      "project.version": "1.2.3",
+      "java.version": "1.8",
+      "jackson.version": "2.13.4",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-core",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.datatype",
+        "artifactId": "jackson-datatype-jdk8",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.datatype",
+        "artifactId": "jackson-datatype-jsr310",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.12.0",
+        "scope": "compile",
+        "raw_version": "3.12.0"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.19.1",
+        "scope": "test",
+        "raw_version": "2.19.1"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "2.13.4",
+      "scope": "compile",
+      "raw_version": "${jackson.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "2.13.4",
+      "scope": "compile",
+      "raw_version": "${jackson.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.datatype",
+      "artifactId": "jackson-datatype-jdk8",
+      "version": "2.13.4",
+      "scope": "compile",
+      "raw_version": "${jackson.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.datatype",
+      "artifactId": "jackson-datatype-jsr310",
+      "version": "2.13.4",
+      "scope": "compile",
+      "raw_version": "${jackson.version}"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "3.12.0",
+      "scope": "compile",
+      "raw_version": "3.12.0"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "4.13.1"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "2.19.1",
+      "scope": "test",
+      "raw_version": "2.19.1"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 28,
+    "package_distribution": {
+      "src/main/java/com/github/meixuesong/aggregatepersistence": 10,
+      "src/main/java/com/github/meixuesong/aggregatepersistence/deepequals": 6,
+      "src/test/java/com/github/meixuesong/aggregatepersistence": 3,
+      "src/test/java/com/github/meixuesong/aggregatepersistence/complex_object": 7,
+      "src/test/java/com/github/meixuesong/aggregatepersistence/deepequals": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 28,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 28,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\Aggregate.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\Aggregate.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\AggregateFactory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\AggregateFactory.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\ChangedEntity.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\ChangedEntity.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\DataObjectUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\DataObjectUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\DeepComparator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\DeepComparator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\DeepCopier.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\DeepCopier.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\JavaUtilDeepComparator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\JavaUtilDeepComparator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\JsonDeepCopier.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\JsonDeepCopier.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\SerializableDeepCopier.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\SerializableDeepCopier.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\Versionable.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\Versionable.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DeepEquals.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DeepEquals.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DeepEqualsDefaultOption.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DeepEqualsDefaultOption.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DeepEqualsOption.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DeepEqualsOption.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DualObject.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\DualObject.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\RecursiveObject.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence\\src\\main\\java\\com\\github\\meixuesong\\aggregatepersistence\\deepequals\\RecursiveObject.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 28,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.github.meixuesong",
+        "artifactId": "aggregate-persistence",
+        "version": "1.2.3"
+      },
+      "properties": {
+        "project.groupId": "com.github.meixuesong",
+        "project.artifactId": "aggregate-persistence",
+        "project.version": "1.2.3",
+        "java.version": "1.8",
+        "jackson.version": "2.13.4",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "2.13.4",
+          "scope": "compile",
+          "raw_version": "${jackson.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "2.13.4",
+          "scope": "compile",
+          "raw_version": "${jackson.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.datatype",
+          "artifactId": "jackson-datatype-jdk8",
+          "version": "2.13.4",
+          "scope": "compile",
+          "raw_version": "${jackson.version}"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.datatype",
+          "artifactId": "jackson-datatype-jsr310",
+          "version": "2.13.4",
+          "scope": "compile",
+          "raw_version": "${jackson.version}"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.12.0",
+          "scope": "compile",
+          "raw_version": "3.12.0"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "4.13.1"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "2.19.1",
+          "scope": "test",
+          "raw_version": "2.19.1"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-core",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.datatype",
+        "artifactId": "jackson-datatype-jdk8",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.datatype",
+        "artifactId": "jackson-datatype-jsr310",
+        "version": "2.13.4",
+        "scope": "compile",
+        "raw_version": "${jackson.version}"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.12.0",
+        "scope": "compile",
+        "raw_version": "3.12.0"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "2.19.1",
+        "scope": "test",
+        "raw_version": "2.19.1"
+      }
+    ],
+    "name": "aggregate-persistence",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\aggregate-persistence"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `aggregate-persistence` | Maven | 1.8 | 28 | Standard Java | None | **Yellow** |"
+}

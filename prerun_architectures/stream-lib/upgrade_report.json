@@ -1,0 +1,112 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "com.googlecode.charts4j:charts4j": [
+      "1.3"
+    ],
+    "junit:junit": [
+      "4.13.2",
+      "4.13.1"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "com.googlecode.charts4j:charts4j": "1.3",
+      "junit:junit": "4.13.2"
+    },
+    {
+      "com.googlecode.charts4j:charts4j": "1.3",
+      "junit:junit": "4.13.1"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "com.googlecode.charts4j:charts4j": "1.3",
+        "junit:junit": "4.13.2"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "com.googlecode.charts4j:charts4j": "1.3",
+        "junit:junit": "4.13.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "junit:junit:4.13.2": {
+      "dependency": "junit:junit",
+      "version": "4.13.2",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::isDaemon()Z (forRemoval=true)"
+            },
+            {
+              "line": "class org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::setDaemon(Z)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\junit-4.13.2.jar:\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::isDaemon()Z (forRemoval=true)\nclass org/junit/internal/runners/statements/FailOnTimeout uses deprecated method java/lang/ThreadGroup::setDaemon(Z)V (forRemoval=true)\n\nerror: cannot find class org/hamcrest/TypeSafeMatcher\nerror: cannot find class org/hamcrest/Description\nerror: cannot find class org/hamcrest/BaseMatcher\nerror: cannot find class org/hamcrest/Matcher\nerror: cannot find class org/hamcrest/MatcherAssert\nerror: cannot find class org/hamcrest/StringDescription\nerror: cannot find class org/hamcrest/SelfDescribing\nerror: cannot find class org/hamcrest/CoreMatchers"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.googlecode.charts4j:charts4j:1.3": {
+      "dependency": "com.googlecode.charts4j:charts4j",
+      "version": "1.3",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\charts4j-1.3.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "junit:junit:4.13.1": {
+      "dependency": "junit:junit",
+      "version": "4.13.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

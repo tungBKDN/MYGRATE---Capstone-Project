@@ -1,0 +1,280 @@
+{
+  "status": "ok",
+  "selected_solution": {},
+  "selected_solution_index": null,
+  "old_system_state": {
+    "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo",
+    "project_type": "java",
+    "target_java": "17",
+    "dependency_count": 48,
+    "dependencies": [
+      {
+        "library": "ch.qos.logback:logback-classic",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.apache.maven.plugins:maven-dependency-plugin",
+        "version": "3.6.0",
+        "scope": "compile"
+      },
+      {
+        "library": "org.apache.maven.plugins:maven-enforcer-plugin",
+        "version": "3.4.1",
+        "scope": "compile"
+      },
+      {
+        "library": "org.apache.maven.plugins:maven-surefire-plugin",
+        "version": "3.2.5",
+        "scope": "compile"
+      },
+      {
+        "library": "org.slf4j:slf4j-api",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.inject:guice",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.guava:guava",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "net.sf.jopt-simple:jopt-simple",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.typesafe:config",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "junit:junit",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.junit.vintage:junit-vintage-engine",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.hamcrest:hamcrest",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.mockito:mockito-core",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "com.squareup.okio:okio",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.code.findbugs:jsr305",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.auto.value:auto-value-annotations",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.auto.value:auto-value",
+        "version": "Managed",
+        "scope": "provided"
+      },
+      {
+        "library": "io.norberg:auto-matter-jackson",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.fasterxml.jackson.core:jackson-databind",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.fasterxml.jackson.core:jackson-core",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "io.norberg:auto-matter",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "io.norberg:auto-matter-annotation",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "uk.org.lidalia:slf4j-test",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "uk.org.lidalia:lidalia-slf4j-ext",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.openjdk.jmh:jmh-core",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "io.norberg:rut",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.spotify:apollo-okhttp-client",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.spotify:apollo-metrics",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.spotify.metrics:semantic-metrics-api",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.spotify.metrics:semantic-metrics-core",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "org.junit.jupiter:junit-jupiter-api",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "org.junit.jupiter:junit-jupiter-engine",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "org.junit.platform:junit-platform-engine",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.code.findbugs:annotations",
+        "version": "2.0.0",
+        "scope": "runtime"
+      },
+      {
+        "library": "org.junit.platform:junit-platform-testkit",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.freemarker:freemarker",
+        "version": "Managed",
+        "scope": "provided"
+      },
+      {
+        "library": "io.javaslang:javaslang",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.jayway.jsonpath:json-path-assert",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "com.squareup.okhttp:okhttp",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "io.dropwizard.metrics:metrics-core",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "org.mock-server:mockserver-netty",
+        "version": "Managed",
+        "scope": "test"
+      },
+      {
+        "library": "org.mock-server:mockserver-core",
+        "version": "3.9.17",
+        "scope": "test"
+      },
+      {
+        "library": "org.mock-server:mockserver-client-java",
+        "version": "3.9.17",
+        "scope": "test"
+      },
+      {
+        "library": "io.dropwizard.metrics:metrics-jvm",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.spotify.metrics:semantic-metrics-ffwd-reporter",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.spotify.ffwd:ffwd-http-client",
+        "version": "Managed",
+        "scope": "compile"
+      },
+      {
+        "library": "com.google.auto.service:auto-service",
+        "version": "Managed",
+        "scope": "provided"
+      },
+      {
+        "library": "org.awaitility:awaitility",
+        "version": "Managed",
+        "scope": "test"
+      }
+    ],
+    "candidate_count": 30,
+    "solution_count": 0,
+    "smoke_test_count": 0,
+    "solver_method": "none"
+  },
+  "target_system_state": {
+    "selected_dependencies": {},
+    "target_java": "17",
+    "expected_outcome": "A Java 17-compatible dependency set with validated runtime behavior."
+  },
+  "candidate_assessment": [],
+  "what_was_done": [
+    "Indexed the Java project and parsed its manifest.",
+    "Fetched candidate versions from Maven Central.",
+    "Ran bytecode and compile checks.",
+    "Modeled transitive constraints and solved the candidate graph.",
+    "Ran runtime smoke tests for the top solutions."
+  ],
+  "why_selected": "Selected the highest-confidence solution available from the validated pipeline outputs.",
+  "risks": [
+    "Smaller smoke-test coverage may still miss runtime edge cases.",
+    "Transitive dependency drift can still affect downstream consumers."
+  ],
+  "next_steps": [
+    "Use the selected dependency set as the migration baseline.",
+    "If desired, rerun on a broader candidate window for more confidence."
+  ],
+  "markdown_report": "# ReaderAgent Final Migration Review\n\n## Current Codebase\n\n- Project path: `D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo`\n- Project type: `java`\n- Target Java requested: `17`\n- Dependencies found: `48`\n- Solver method: `none`\n- Candidate library sets: `30`\n- Candidate solutions: `0`\n- Smoke tests executed: `0`\n\n### Existing Dependencies\n\n| Library | Current version | Scope |\n| --- | --- | --- |\n| `ch.qos.logback:logback-classic` | `Managed` | `test` |\n| `org.apache.maven.plugins:maven-dependency-plugin` | `3.6.0` | `compile` |\n| `org.apache.maven.plugins:maven-enforcer-plugin` | `3.4.1` | `compile` |\n| `org.apache.maven.plugins:maven-surefire-plugin` | `3.2.5` | `compile` |\n| `org.slf4j:slf4j-api` | `Managed` | `compile` |\n| `com.google.inject:guice` | `Managed` | `compile` |\n| `com.google.guava:guava` | `Managed` | `compile` |\n| `net.sf.jopt-simple:jopt-simple` | `Managed` | `compile` |\n| `com.typesafe:config` | `Managed` | `compile` |\n| `junit:junit` | `Managed` | `test` |\n| `org.junit.vintage:junit-vintage-engine` | `Managed` | `test` |\n| `org.hamcrest:hamcrest` | `Managed` | `test` |\n| `org.mockito:mockito-core` | `Managed` | `test` |\n| `com.squareup.okio:okio` | `Managed` | `compile` |\n| `com.google.code.findbugs:jsr305` | `Managed` | `compile` |\n| `com.google.auto.value:auto-value-annotations` | `Managed` | `compile` |\n| `com.google.auto.value:auto-value` | `Managed` | `provided` |\n| `io.norberg:auto-matter-jackson` | `Managed` | `compile` |\n| `com.fasterxml.jackson.core:jackson-databind` | `Managed` | `compile` |\n| `com.fasterxml.jackson.core:jackson-core` | `Managed` | `compile` |\n| `io.norberg:auto-matter` | `Managed` | `compile` |\n| `io.norberg:auto-matter-annotation` | `Managed` | `compile` |\n| `uk.org.lidalia:slf4j-test` | `Managed` | `test` |\n| `uk.org.lidalia:lidalia-slf4j-ext` | `Managed` | `test` |\n| `org.openjdk.jmh:jmh-core` | `Managed` | `test` |\n| `io.norberg:rut` | `Managed` | `compile` |\n| `com.spotify:apollo-okhttp-client` | `Managed` | `compile` |\n| `com.spotify:apollo-metrics` | `Managed` | `compile` |\n| `com.spotify.metrics:semantic-metrics-api` | `Managed` | `compile` |\n| `com.spotify.metrics:semantic-metrics-core` | `Managed` | `compile` |\n| `org.junit.jupiter:junit-jupiter-api` | `Managed` | `compile` |\n| `org.junit.jupiter:junit-jupiter-engine` | `Managed` | `compile` |\n| `org.junit.platform:junit-platform-engine` | `Managed` | `compile` |\n| `com.google.code.findbugs:annotations` | `2.0.0` | `runtime` |\n| `org.junit.platform:junit-platform-testkit` | `Managed` | `test` |\n| `org.freemarker:freemarker` | `Managed` | `provided` |\n| `io.javaslang:javaslang` | `Managed` | `compile` |\n| `com.jayway.jsonpath:json-path-assert` | `Managed` | `test` |\n| `com.squareup.okhttp:okhttp` | `Managed` | `compile` |\n| `io.dropwizard.metrics:metrics-core` | `Managed` | `compile` |\n| `org.mock-server:mockserver-netty` | `Managed` | `test` |\n| `org.mock-server:mockserver-core` | `3.9.17` | `test` |\n| `org.mock-server:mockserver-client-java` | `3.9.17` | `test` |\n| `io.dropwizard.metrics:metrics-jvm` | `Managed` | `compile` |\n| `com.spotify.metrics:semantic-metrics-ffwd-reporter` | `Managed` | `compile` |\n| `com.spotify.ffwd:ffwd-http-client` | `Managed` | `compile` |\n| `com.google.auto.service:auto-service` | `Managed` | `provided` |\n| `org.awaitility:awaitility` | `Managed` | `test` |\n\n## Candidate Solutions\n\nSelection policy: prefer runtime `PASS`, then stronger static compatibility, fewer warnings, more actual upgrades from the current POM, and newer validated versions.\n\n- No solver candidate was available.\n\n## Selected Recommendation\n\nNo final dependency recommendation was selected.\n\n## Target System\n\n- Target Java: `17`\n- Expected outcome: A Java 17-compatible dependency set with validated runtime behavior.\n\n## Why This Choice\n\nSelected the highest-confidence solution available from the validated pipeline outputs.\n\n## Work Completed\n\n- Indexed the Java project and parsed its manifest.\n- Fetched candidate versions from Maven Central.\n- Ran bytecode and compile checks.\n- Modeled transitive constraints and solved the candidate graph.\n- Ran runtime smoke tests for the top solutions.\n\n## Remaining Risks\n\n- Smaller smoke-test coverage may still miss runtime edge cases.\n- Transitive dependency drift can still affect downstream consumers.\n\n## Next Steps\n\n- Use the selected dependency set as the migration baseline.\n- If desired, rerun on a broader candidate window for more confidence."
+}

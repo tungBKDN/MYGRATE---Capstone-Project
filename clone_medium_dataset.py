@@ -6,7 +6,7 @@ from pathlib import Path
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent
-YAML_PATH = BASE_DIR / "medium_dataset.yaml"
+YAML_PATH = BASE_DIR / "org_medium_dataset.yaml"
 DEST_DIR = BASE_DIR / "freshbrew_data"
 
 def parse_yaml_repos(yaml_path: Path):
@@ -47,12 +47,13 @@ def main():
         commit = repo["commit"]
         folder_name = name.split("/")[-1]
         target_path = DEST_DIR / folder_name
-        
-        print(f"\n[{i}/{total}] {name}")
-        
+
+        # Check if the repo is already fetched
         if (target_path / ".git").exists():
-            print(f"  [SKIP] Already cloned at {target_path}")
+            print(f"[{i}/{total}] {name} -> [SKIP] Already cloned at {target_path}")
             continue
+
+        print(f"\n[{i}/{total}] {name}")
             
         print(f"  Cloning https://github.com/{name}.git ...")
         try:

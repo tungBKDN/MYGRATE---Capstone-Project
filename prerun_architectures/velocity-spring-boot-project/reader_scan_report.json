@@ -1,0 +1,438 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.alibaba.boot",
+      "artifactId": "velocity-spring-boot-project",
+      "version": "1.0.4.RELEASE"
+    },
+    "properties": {
+      "project.groupId": "com.alibaba.boot",
+      "project.artifactId": "velocity-spring-boot-project",
+      "project.version": "1.0.4.RELEASE",
+      "maven.compiler.source": "1.7",
+      "maven.compiler.target": "1.7",
+      "servlet-api.version": "3.1.0",
+      "velocity.version": "1.7",
+      "velocity-tools.version": "2.0",
+      "spring-boot.version": "2.0.3.RELEASE",
+      "velocity-spring-boot-starter.version": "1.0.0.RELEASE",
+      "spring-context-velocity.version": "1.4.3.18.RELEASE",
+      "spring-webmvc-velocity.version": "1.4.3.18.RELEASE",
+      "spring-boot-web-support.version": "1.0.0.RELEASE"
+    },
+    "dependencies": []
+  },
+  "modules_pom_data": {
+    "velocity-spring-boot-autoconfigure": {
+      "project": {
+        "groupId": "com.alibaba.boot",
+        "artifactId": "velocity-spring-boot-autoconfigure",
+        "version": "1.0.4.RELEASE"
+      },
+      "properties": {
+        "project.groupId": "com.alibaba.boot",
+        "project.artifactId": "velocity-spring-boot-autoconfigure",
+        "project.version": "1.0.4.RELEASE"
+      },
+      "dependencies": [
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.alibaba.spring",
+          "artifactId": "spring-context-velocity",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.alibaba.spring",
+          "artifactId": "spring-webmvc-velocity",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.alibaba.boot",
+          "artifactId": "spring-boot-web-support",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.velocity",
+          "artifactId": "velocity",
+          "version": "${velocity.version}",
+          "scope": "compile",
+          "raw_version": "${velocity.version}"
+        },
+        {
+          "groupId": "org.apache.velocity",
+          "artifactId": "velocity-tools",
+          "version": "${velocity-tools.version}",
+          "scope": "compile",
+          "raw_version": "${velocity-tools.version}"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-configuration-processor",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-tomcat",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "velocity-spring-boot-starter": {
+      "project": {
+        "groupId": "com.alibaba.boot",
+        "artifactId": "velocity-spring-boot-starter",
+        "version": "1.0.4.RELEASE"
+      },
+      "properties": {
+        "project.groupId": "com.alibaba.boot",
+        "project.artifactId": "velocity-spring-boot-starter",
+        "project.version": "1.0.4.RELEASE"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.alibaba.boot",
+          "artifactId": "velocity-spring-boot-autoconfigure",
+          "version": "1.0.4.RELEASE",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        }
+      ]
+    },
+    "velocity-spring-boot-sample": {
+      "project": {
+        "groupId": "com.alibaba.boot",
+        "artifactId": "velocity-spring-boot-sample",
+        "version": "1.0.4.RELEASE"
+      },
+      "properties": {
+        "project.groupId": "com.alibaba.boot",
+        "project.artifactId": "velocity-spring-boot-sample",
+        "project.version": "1.0.4.RELEASE"
+      },
+      "dependencies": [
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.alibaba.boot",
+          "artifactId": "velocity-spring-boot-starter",
+          "version": "1.0.4.RELEASE",
+          "scope": "compile",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-web",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "javax.servlet-api",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.alibaba.spring",
+      "artifactId": "spring-context-velocity",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.alibaba.spring",
+      "artifactId": "spring-webmvc-velocity",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.alibaba.boot",
+      "artifactId": "spring-boot-web-support",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.velocity",
+      "artifactId": "velocity",
+      "version": "${velocity.version}",
+      "scope": "compile",
+      "raw_version": "${velocity.version}"
+    },
+    {
+      "groupId": "org.apache.velocity",
+      "artifactId": "velocity-tools",
+      "version": "${velocity-tools.version}",
+      "scope": "compile",
+      "raw_version": "${velocity-tools.version}"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-web",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-configuration-processor",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-tomcat",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "velocity-spring-boot-autoconfigure",
+      "velocity-spring-boot-starter",
+      "velocity-spring-boot-sample"
+    ],
+    "java_file_count": 52,
+    "package_distribution": {
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity": 2,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/annotation": 1,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/autoconfigure": 2,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/autoconfigure/condition": 2,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/beans/factory/support": 1,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/context": 1,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/tools": 10,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/util": 3,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/web/servlet": 2,
+      "velocity-spring-boot-autoconfigure/src/main/java/com/alibaba/boot/velocity/web/servlet/view": 3,
+      "velocity-spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/velocity": 3,
+      "velocity-spring-boot-autoconfigure/src/main/java/org/springframework/boot/web/servlet/view/velocity": 2,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity": 1,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity/autoconfigure": 2,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity/autoconfigure/condition": 3,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity/tools": 4,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity/tools2": 1,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity/util": 2,
+      "velocity-spring-boot-autoconfigure/src/test/java/com/alibaba/boot/velocity/web/servlet": 1,
+      "velocity-spring-boot-sample/src/main/java/com/alibaba/boot/velocity/bootstrap": 1,
+      "velocity-spring-boot-sample/src/main/java/com/alibaba/boot/velocity/controller": 3,
+      "velocity-spring-boot-sample/src/main/java/com/alibaba/boot/velocity/tools": 1,
+      "velocity-spring-boot-sample/src/main/java/com/alibaba/boot/velocity/tools2": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 52,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 52,
+    "manifest_count": 4,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "velocity-spring-boot-sample\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-sample\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "velocity-spring-boot-starter\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-starter\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\VelocityConstants.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\VelocityConstants.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\VelocityLayoutProperties.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\VelocityLayoutProperties.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\annotation\\VelocityLayout.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\annotation\\VelocityLayout.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\VelocityLayoutAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\VelocityLayoutAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\VelocityToolsAutoConfiguration.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\VelocityToolsAutoConfiguration.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\condition\\VelocityLayoutCondition.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\condition\\VelocityLayoutCondition.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\condition\\VelocityToolsBasePackagesCondition.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\autoconfigure\\condition\\VelocityToolsBasePackagesCondition.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\beans\\factory\\support\\VelocityToolsBeanDefinitionRegistryPostProcessor.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\beans\\factory\\support\\VelocityToolsBeanDefinitionRegistryPostProcessor.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\context\\EmbeddedVelocityViewResolverApplicationListener.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\context\\EmbeddedVelocityViewResolverApplicationListener.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\AbstractVelocityToolsScanner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\AbstractVelocityToolsScanner.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\AnnotatedVelocityToolsScanner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\AnnotatedVelocityToolsScanner.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\FactoryConfigurationLoader.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\FactoryConfigurationLoader.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\StandardVelocityToolsScanner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\StandardVelocityToolsScanner.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\ToolboxFactoryAdapter.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\ToolboxFactoryAdapter.java",
+        "language": "java"
+      },
+      {
+        "path": "velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\VelocityTool.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project\\velocity-spring-boot-autoconfigure\\src\\main\\java\\com\\alibaba\\boot\\velocity\\tools\\VelocityTool.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.7",
+    "java_file_count": 52,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.alibaba.boot",
+        "artifactId": "velocity-spring-boot-project",
+        "version": "1.0.4.RELEASE"
+      },
+      "properties": {
+        "project.groupId": "com.alibaba.boot",
+        "project.artifactId": "velocity-spring-boot-project",
+        "project.version": "1.0.4.RELEASE",
+        "maven.compiler.source": "1.7",
+        "maven.compiler.target": "1.7",
+        "servlet-api.version": "3.1.0",
+        "velocity.version": "1.7",
+        "velocity-tools.version": "2.0",
+        "spring-boot.version": "2.0.3.RELEASE",
+        "velocity-spring-boot-starter.version": "1.0.0.RELEASE",
+        "spring-context-velocity.version": "1.4.3.18.RELEASE",
+        "spring-webmvc-velocity.version": "1.4.3.18.RELEASE",
+        "spring-boot-web-support.version": "1.0.0.RELEASE"
+      },
+      "dependencies": []
+    },
+    "dependencies": [],
+    "name": "velocity-spring-boot-project",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\velocity-spring-boot-project"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `velocity-spring-boot-project` | Maven | 1.7 | 52 | Standard Java | None | **Yellow** |"
+}

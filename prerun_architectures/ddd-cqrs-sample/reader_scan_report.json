@@ -1,0 +1,758 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "pl.com.bottega",
+      "artifactId": "cqrs-web",
+      "version": "0.1-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "pl.com.bottega",
+      "project.artifactId": "cqrs-web",
+      "project.version": "0.1-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8",
+      "project.reporting.outputEncoding": "UTF-8",
+      "spring.version": "3.1.0.RELEASE"
+    },
+    "dependencies": [
+      {
+        "groupId": "org.hibernate",
+        "artifactId": "hibernate-entitymanager",
+        "version": "4.1.7.Final",
+        "scope": "compile",
+        "raw_version": "4.1.7.Final"
+      },
+      {
+        "groupId": "org.hsqldb",
+        "artifactId": "hsqldb",
+        "version": "2.2.8",
+        "scope": "runtime",
+        "raw_version": "2.2.8"
+      },
+      {
+        "groupId": "javax.inject",
+        "artifactId": "javax.inject",
+        "version": "1",
+        "scope": "compile",
+        "raw_version": "1"
+      },
+      {
+        "groupId": "javax.annotation",
+        "artifactId": "jsr250-api",
+        "version": "1.0",
+        "scope": "compile",
+        "raw_version": "1.0"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-webmvc",
+        "version": "3.1.0.RELEASE",
+        "scope": "compile",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-tx",
+        "version": "3.1.0.RELEASE",
+        "scope": "compile",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-orm",
+        "version": "3.1.0.RELEASE",
+        "scope": "compile",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "servlet-api",
+        "version": "2.3",
+        "scope": "provided",
+        "raw_version": "2.3"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "jstl",
+        "version": "1.2",
+        "scope": "compile",
+        "raw_version": "1.2"
+      },
+      {
+        "groupId": "org.apache.tiles",
+        "artifactId": "tiles-jsp",
+        "version": "2.2.2",
+        "scope": "compile",
+        "raw_version": "2.2.2"
+      },
+      {
+        "groupId": "org.apache.tiles",
+        "artifactId": "tiles-el",
+        "version": "2.2.2",
+        "scope": "compile",
+        "raw_version": "2.2.2"
+      },
+      {
+        "groupId": "cglib",
+        "artifactId": "cglib-nodep",
+        "version": "2.2.2",
+        "scope": "runtime",
+        "raw_version": "2.2.2"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-log4j12",
+        "version": "1.7.1",
+        "scope": "compile",
+        "raw_version": "1.7.1"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "13.0.1",
+        "scope": "compile",
+        "raw_version": "13.0.1"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.1",
+        "scope": "compile",
+        "raw_version": "3.1"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-test",
+        "version": "3.1.0.RELEASE",
+        "scope": "test",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit-dep",
+        "version": "4.10",
+        "scope": "test",
+        "raw_version": "4.10"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "1.9.0",
+        "scope": "test",
+        "raw_version": "1.9.0"
+      },
+      {
+        "groupId": "org.hamcrest",
+        "artifactId": "hamcrest-core",
+        "version": "1.3",
+        "scope": "compile",
+        "raw_version": "1.3"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "org.hibernate",
+      "artifactId": "hibernate-entitymanager",
+      "version": "4.1.7.Final",
+      "scope": "compile",
+      "raw_version": "4.1.7.Final"
+    },
+    {
+      "groupId": "org.hsqldb",
+      "artifactId": "hsqldb",
+      "version": "2.2.8",
+      "scope": "runtime",
+      "raw_version": "2.2.8"
+    },
+    {
+      "groupId": "javax.inject",
+      "artifactId": "javax.inject",
+      "version": "1",
+      "scope": "compile",
+      "raw_version": "1"
+    },
+    {
+      "groupId": "javax.annotation",
+      "artifactId": "jsr250-api",
+      "version": "1.0",
+      "scope": "compile",
+      "raw_version": "1.0"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-webmvc",
+      "version": "3.1.0.RELEASE",
+      "scope": "compile",
+      "raw_version": "${spring.version}"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-tx",
+      "version": "3.1.0.RELEASE",
+      "scope": "compile",
+      "raw_version": "${spring.version}"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-orm",
+      "version": "3.1.0.RELEASE",
+      "scope": "compile",
+      "raw_version": "${spring.version}"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "servlet-api",
+      "version": "2.3",
+      "scope": "provided",
+      "raw_version": "2.3"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "jstl",
+      "version": "1.2",
+      "scope": "compile",
+      "raw_version": "1.2"
+    },
+    {
+      "groupId": "org.apache.tiles",
+      "artifactId": "tiles-jsp",
+      "version": "2.2.2",
+      "scope": "compile",
+      "raw_version": "2.2.2"
+    },
+    {
+      "groupId": "org.apache.tiles",
+      "artifactId": "tiles-el",
+      "version": "2.2.2",
+      "scope": "compile",
+      "raw_version": "2.2.2"
+    },
+    {
+      "groupId": "cglib",
+      "artifactId": "cglib-nodep",
+      "version": "2.2.2",
+      "scope": "runtime",
+      "raw_version": "2.2.2"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-log4j12",
+      "version": "1.7.1",
+      "scope": "compile",
+      "raw_version": "1.7.1"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "13.0.1",
+      "scope": "compile",
+      "raw_version": "13.0.1"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "3.1",
+      "scope": "compile",
+      "raw_version": "3.1"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-test",
+      "version": "3.1.0.RELEASE",
+      "scope": "test",
+      "raw_version": "${spring.version}"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit-dep",
+      "version": "4.10",
+      "scope": "test",
+      "raw_version": "4.10"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "1.9.0",
+      "scope": "test",
+      "raw_version": "1.9.0"
+    },
+    {
+      "groupId": "org.hamcrest",
+      "artifactId": "hamcrest-core",
+      "version": "1.3",
+      "scope": "compile",
+      "raw_version": "1.3"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 176,
+    "package_distribution": {
+      "src/main/java/pl/com/bottega/cqrs/command": 2,
+      "src/main/java/pl/com/bottega/cqrs/command/handler": 2,
+      "src/main/java/pl/com/bottega/cqrs/command/handler/spring": 1,
+      "src/main/java/pl/com/bottega/cqrs/command/impl": 3,
+      "src/main/java/pl/com/bottega/cqrs/query": 1,
+      "src/main/java/pl/com/bottega/cqrs/query/annotations": 1,
+      "src/main/java/pl/com/bottega/ddd/application": 2,
+      "src/main/java/pl/com/bottega/ddd/application/annotation": 3,
+      "src/main/java/pl/com/bottega/ddd/domain": 4,
+      "src/main/java/pl/com/bottega/ddd/domain/annotations": 10,
+      "src/main/java/pl/com/bottega/ddd/domain/sharedkernel": 2,
+      "src/main/java/pl/com/bottega/ddd/domain/sharedkernel/specification": 7,
+      "src/main/java/pl/com/bottega/ddd/domain/support": 1,
+      "src/main/java/pl/com/bottega/ddd/infrastructure/events": 2,
+      "src/main/java/pl/com/bottega/ddd/infrastructure/events/impl": 2,
+      "src/main/java/pl/com/bottega/ddd/infrastructure/events/impl/handlers": 3,
+      "src/main/java/pl/com/bottega/ddd/infrastructure/repo/jpa": 2,
+      "src/main/java/pl/com/bottega/ddd/infrastructure/sagas": 1,
+      "src/main/java/pl/com/bottega/ddd/infrastructure/sagas/impl": 3,
+      "src/main/java/pl/com/bottega/ddd/sagas": 5,
+      "src/main/java/pl/com/bottega/erp/crm/application/commands": 1,
+      "src/main/java/pl/com/bottega/erp/crm/application/commands/handlers": 1,
+      "src/main/java/pl/com/bottega/erp/crm/domain": 2,
+      "src/main/java/pl/com/bottega/erp/crm/domain/events": 1,
+      "src/main/java/pl/com/bottega/erp/crm/infrastructure/repositories/jpa": 1,
+      "src/main/java/pl/com/bottega/erp/sales/application/commands": 3,
+      "src/main/java/pl/com/bottega/erp/sales/application/commands/handlers": 3,
+      "src/main/java/pl/com/bottega/erp/sales/application/events": 1,
+      "src/main/java/pl/com/bottega/erp/sales/application/listeners": 1,
+      "src/main/java/pl/com/bottega/erp/sales/application/services": 1,
+      "src/main/java/pl/com/bottega/erp/sales/domain": 18,
+      "src/main/java/pl/com/bottega/erp/sales/domain/errors": 2,
+      "src/main/java/pl/com/bottega/erp/sales/domain/events": 2,
+      "src/main/java/pl/com/bottega/erp/sales/domain/policies/rebate": 1,
+      "src/main/java/pl/com/bottega/erp/sales/domain/policies/rebate/decorators": 2,
+      "src/main/java/pl/com/bottega/erp/sales/domain/policies/tax": 2,
+      "src/main/java/pl/com/bottega/erp/sales/domain/specification/order": 5,
+      "src/main/java/pl/com/bottega/erp/sales/infrastructure/events/listeners/application": 1,
+      "src/main/java/pl/com/bottega/erp/sales/infrastructure/events/listeners/domain": 1,
+      "src/main/java/pl/com/bottega/erp/sales/infrastructure/repositories/jpa": 4,
+      "src/main/java/pl/com/bottega/erp/sales/presentation": 6,
+      "src/main/java/pl/com/bottega/erp/sales/presentation/impl": 2,
+      "src/main/java/pl/com/bottega/erp/sales/presentation/listeners": 1,
+      "src/main/java/pl/com/bottega/erp/sales/presentation/model": 1,
+      "src/main/java/pl/com/bottega/erp/sales/saga": 3,
+      "src/main/java/pl/com/bottega/erp/sales/webui": 8,
+      "src/main/java/pl/com/bottega/erp/shipping/application/commands": 2,
+      "src/main/java/pl/com/bottega/erp/shipping/application/commands/handlers": 2,
+      "src/main/java/pl/com/bottega/erp/shipping/application/events": 1,
+      "src/main/java/pl/com/bottega/erp/shipping/domain": 4,
+      "src/main/java/pl/com/bottega/erp/shipping/domain/events": 2,
+      "src/main/java/pl/com/bottega/erp/shipping/intrastructure": 2,
+      "src/main/java/pl/com/bottega/erp/shipping/presentation": 2,
+      "src/main/java/pl/com/bottega/erp/shipping/webui": 1,
+      "src/test/java/pl/com/bottega/acceptance/commons": 4,
+      "src/test/java/pl/com/bottega/acceptance/commons/agents/browser": 2,
+      "src/test/java/pl/com/bottega/acceptance/erp": 1,
+      "src/test/java/pl/com/bottega/acceptance/erp/agents": 2,
+      "src/test/java/pl/com/bottega/acceptance/erp/agents/browser": 2,
+      "src/test/java/pl/com/bottega/acceptance/erp/agents/remote": 4,
+      "src/test/java/pl/com/bottega/acceptance/erp/steps": 1,
+      "src/test/java/pl/com/bottega/acceptance/utils": 1,
+      "src/test/java/pl/com/bottega/ddd/domain/sharedkernel": 2,
+      "src/test/java/pl/com/bottega/ddd/sagas": 7,
+      "src/test/java/pl/com/bottega/erp/sales": 2,
+      "src/test/java/pl/com/bottega/erp/sales/domain": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 176,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 176,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\Command.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\Command.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\Gate.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\Gate.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\handler\\CommandHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\handler\\CommandHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\handler\\CommandHandlerAnnotation.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\handler\\CommandHandlerAnnotation.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\handler\\spring\\SpringHandlersProvider.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\handler\\spring\\SpringHandlersProvider.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\impl\\GateHistory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\impl\\GateHistory.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\impl\\RunEnvironment.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\impl\\RunEnvironment.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\impl\\StandardGate.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\command\\impl\\StandardGate.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\query\\PaginatedResult.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\query\\PaginatedResult.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\cqrs\\query\\annotations\\Finder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\cqrs\\query\\annotations\\Finder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\ddd\\application\\ApplicationEventPublisher.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\ddd\\application\\ApplicationEventPublisher.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\ddd\\application\\SystemUser.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\ddd\\application\\SystemUser.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\ddd\\application\\annotation\\ApplicationEvent.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\ddd\\application\\annotation\\ApplicationEvent.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\ddd\\application\\annotation\\ApplicationService.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\ddd\\application\\annotation\\ApplicationService.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\pl\\com\\bottega\\ddd\\application\\annotation\\ApplicationStatefullComponent.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample\\src\\main\\java\\pl\\com\\bottega\\ddd\\application\\annotation\\ApplicationStatefullComponent.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 176,
+    "framework": "Spring Framework",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "pl.com.bottega",
+        "artifactId": "cqrs-web",
+        "version": "0.1-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "pl.com.bottega",
+        "project.artifactId": "cqrs-web",
+        "project.version": "0.1-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8",
+        "project.reporting.outputEncoding": "UTF-8",
+        "spring.version": "3.1.0.RELEASE"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.hibernate",
+          "artifactId": "hibernate-entitymanager",
+          "version": "4.1.7.Final",
+          "scope": "compile",
+          "raw_version": "4.1.7.Final"
+        },
+        {
+          "groupId": "org.hsqldb",
+          "artifactId": "hsqldb",
+          "version": "2.2.8",
+          "scope": "runtime",
+          "raw_version": "2.2.8"
+        },
+        {
+          "groupId": "javax.inject",
+          "artifactId": "javax.inject",
+          "version": "1",
+          "scope": "compile",
+          "raw_version": "1"
+        },
+        {
+          "groupId": "javax.annotation",
+          "artifactId": "jsr250-api",
+          "version": "1.0",
+          "scope": "compile",
+          "raw_version": "1.0"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "3.1.0.RELEASE",
+          "scope": "compile",
+          "raw_version": "${spring.version}"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-tx",
+          "version": "3.1.0.RELEASE",
+          "scope": "compile",
+          "raw_version": "${spring.version}"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-orm",
+          "version": "3.1.0.RELEASE",
+          "scope": "compile",
+          "raw_version": "${spring.version}"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "servlet-api",
+          "version": "2.3",
+          "scope": "provided",
+          "raw_version": "2.3"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "jstl",
+          "version": "1.2",
+          "scope": "compile",
+          "raw_version": "1.2"
+        },
+        {
+          "groupId": "org.apache.tiles",
+          "artifactId": "tiles-jsp",
+          "version": "2.2.2",
+          "scope": "compile",
+          "raw_version": "2.2.2"
+        },
+        {
+          "groupId": "org.apache.tiles",
+          "artifactId": "tiles-el",
+          "version": "2.2.2",
+          "scope": "compile",
+          "raw_version": "2.2.2"
+        },
+        {
+          "groupId": "cglib",
+          "artifactId": "cglib-nodep",
+          "version": "2.2.2",
+          "scope": "runtime",
+          "raw_version": "2.2.2"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-log4j12",
+          "version": "1.7.1",
+          "scope": "compile",
+          "raw_version": "1.7.1"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "13.0.1",
+          "scope": "compile",
+          "raw_version": "13.0.1"
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.1",
+          "scope": "compile",
+          "raw_version": "3.1"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "3.1.0.RELEASE",
+          "scope": "test",
+          "raw_version": "${spring.version}"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit-dep",
+          "version": "4.10",
+          "scope": "test",
+          "raw_version": "4.10"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "1.9.0",
+          "scope": "test",
+          "raw_version": "1.9.0"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest-core",
+          "version": "1.3",
+          "scope": "compile",
+          "raw_version": "1.3"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "org.hibernate",
+        "artifactId": "hibernate-entitymanager",
+        "version": "4.1.7.Final",
+        "scope": "compile",
+        "raw_version": "4.1.7.Final"
+      },
+      {
+        "groupId": "org.hsqldb",
+        "artifactId": "hsqldb",
+        "version": "2.2.8",
+        "scope": "runtime",
+        "raw_version": "2.2.8"
+      },
+      {
+        "groupId": "javax.inject",
+        "artifactId": "javax.inject",
+        "version": "1",
+        "scope": "compile",
+        "raw_version": "1"
+      },
+      {
+        "groupId": "javax.annotation",
+        "artifactId": "jsr250-api",
+        "version": "1.0",
+        "scope": "compile",
+        "raw_version": "1.0"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-webmvc",
+        "version": "3.1.0.RELEASE",
+        "scope": "compile",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-tx",
+        "version": "3.1.0.RELEASE",
+        "scope": "compile",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-orm",
+        "version": "3.1.0.RELEASE",
+        "scope": "compile",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "servlet-api",
+        "version": "2.3",
+        "scope": "provided",
+        "raw_version": "2.3"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "jstl",
+        "version": "1.2",
+        "scope": "compile",
+        "raw_version": "1.2"
+      },
+      {
+        "groupId": "org.apache.tiles",
+        "artifactId": "tiles-jsp",
+        "version": "2.2.2",
+        "scope": "compile",
+        "raw_version": "2.2.2"
+      },
+      {
+        "groupId": "org.apache.tiles",
+        "artifactId": "tiles-el",
+        "version": "2.2.2",
+        "scope": "compile",
+        "raw_version": "2.2.2"
+      },
+      {
+        "groupId": "cglib",
+        "artifactId": "cglib-nodep",
+        "version": "2.2.2",
+        "scope": "runtime",
+        "raw_version": "2.2.2"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-log4j12",
+        "version": "1.7.1",
+        "scope": "compile",
+        "raw_version": "1.7.1"
+      },
+      {
+        "groupId": "com.google.guava",
+        "artifactId": "guava",
+        "version": "13.0.1",
+        "scope": "compile",
+        "raw_version": "13.0.1"
+      },
+      {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.1",
+        "scope": "compile",
+        "raw_version": "3.1"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-test",
+        "version": "3.1.0.RELEASE",
+        "scope": "test",
+        "raw_version": "${spring.version}"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit-dep",
+        "version": "4.10",
+        "scope": "test",
+        "raw_version": "4.10"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-core",
+        "version": "1.9.0",
+        "scope": "test",
+        "raw_version": "1.9.0"
+      },
+      {
+        "groupId": "org.hamcrest",
+        "artifactId": "hamcrest-core",
+        "version": "1.3",
+        "scope": "compile",
+        "raw_version": "1.3"
+      }
+    ],
+    "name": "ddd-cqrs-sample",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\ddd-cqrs-sample"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `ddd-cqrs-sample` | Maven | 1.6 | 176 | Spring Framework | None | **Yellow** |"
+}

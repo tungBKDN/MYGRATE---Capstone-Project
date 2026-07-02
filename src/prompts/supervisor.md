@@ -10,18 +10,22 @@ Analyze the current system state AND the latest user messages to route control t
 - `end`: Terminates the workflow or pauses for human input.
 
 # ROUTING LOGIC
-1. **New project / scan request / dependency analysis**: If the project has not been scanned or analyzed yet (upgrade_report/solutions are missing), route to `architect` to index and solve compatibility.
-2. **After architect completes**: Present the compatibility final review and recommendation summary to the user. Set `next_node` to `end` and ask if they approve the upgrade and want to proceed with translation/migration. Do NOT automatically route to `translator`.
+1. **New project / scan request / dependency analysis**: If the project has not been scanned or analyzed yet (upgrade_report/solutions are missing), route to `architect` to index and solve compatibility. If the architect has already run but no compatible solutions were found due to version conflicts, route directly to `translator` to attempt compiler-driven migration.
+2. **After architect completes**:
+   - If `auto_mode` is true: Route directly to `translator` with `current_instruction` to generate the translation plan.
+   - If `auto_mode` is false: Present the compatibility final review and recommendation summary (or a notice of dependency conflict if no solutions were found) to the user, set `next_node` to `end`, and ask if they approve proceeding with translation/migration anyway. Do NOT automatically route to `translator`.
 3. **User approves migration**: If the user approves the library upgrade and asks to proceed with code migration or translator, route to `translator`.
-4. **After translator completes (plan generated, changes NOT yet applied)**: If `has_translation` is true AND the user has NOT yet explicitly approved applying the changes:
-   - Set `next_node` to `end` and present the plan summary to the user.
-   - Ask: "Do you want to apply these migration changes to the codebase?"
-   - Wait for the user's response before routing anywhere else.
+4. **After translator completes (plan generated, changes NOT yet applied)**:
+   - If `auto_mode` is true: Route directly to `translator` with `current_instruction` set to "APPLY: Apply the migration changes to the codebase. Edit pom.xml dependencies, update source files to replace deprecated APIs, and verify compilation with run_maven_command." to execute the changes.
+   - If `auto_mode` is false: Set `next_node` to `end`, present the plan summary to the user, and ask: "Do you want to apply these migration changes to the codebase? (Type 'continue' or 'yes' to proceed)". Wait for the user's response before routing anywhere else.
 5. **User approves applying changes**: If `has_translation` is true AND the user's latest message explicitly says to apply, execute, implement, or proceed with the changes (e.g., "yes", "ok", "approved", "apply", "next", "do it", "proceed", "continue", "run it", "start", "execute"):
    - Route to `translator` with `current_instruction` set to "APPLY: Apply the migration changes to the codebase. Edit pom.xml dependencies, update source files to replace deprecated APIs, and verify compilation with run_maven_command."
    - This is NOT a duplicate run — it instructs the translator to actually implement the planned changes.
 6. **After translator completes (changes applied)**: If `has_translation` is true AND `last_subagent_result` indicates changes were applied (contains "applied", "edited", "compiled successfully", or similar confirmation), set `next_node` to `end` and tell the user the changes have been applied. Ask if they need anything else.
-7. **Conversational chat / greeting**: If the user is just chatting, greeting, or asking general questions, respond naturally and set `next_node` to `end`.
+7. **Compilation/Build Failures or Deadlock during migration**:
+   - If compilation or test execution fails (e.g., `last_subagent_result` contains compilation/build errors or failed test suites), OR if translator explicitly submits a change plan request or deadlock abort (`status` is "change_plan_requested" or "deadlock"):
+     - Route control back to `architect` to resolve the conflict and compute an alternative compatible dependency combination. Pass the compiler/test error logs or deadlock details to the architect.
+8. **Conversational chat / greeting**: If the user is just chatting, greeting, or asking general questions, respond naturally and set `next_node` to `end`.
 
 # IMPORTANT: DETECTING USER INTENT
 When the user sends a message after a plan has been generated, you MUST read the latest user message in the chat history to determine their intent:

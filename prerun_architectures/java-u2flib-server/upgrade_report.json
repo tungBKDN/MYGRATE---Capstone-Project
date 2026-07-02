@@ -1,0 +1,47 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.bouncycastle:bcpkix-jdk15on": [
+      "1.70"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.bouncycastle:bcpkix-jdk15on": "1.70"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.bouncycastle:bcpkix-jdk15on": "1.70"
+      },
+      "result": {
+        "status": "ERROR",
+        "error": "Command '['javac', '-cp', 'D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\bcpkix-jdk15on-1.70.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\bcutil-jdk15on-1.70.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\bcprov-jdk15on-1.70.jar', '--release', '17', 'RuntimeSmokeTest.java']' timed out after 15 seconds"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.bouncycastle:bcpkix-jdk15on:1.70": {
+      "dependency": "org.bouncycastle:bcpkix-jdk15on",
+      "version": "1.70",
+      "signals": {
+        "bytecode_jdk": "9",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

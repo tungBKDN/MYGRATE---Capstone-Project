@@ -1,0 +1,69 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {},
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {}
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {},
+      "result": {
+        "status": "SKIP",
+        "reason": "No testable classes found"
+      }
+    }
+  ],
+  "step3_reports": {
+    "com.h2database:h2:2.3.232": {
+      "dependency": "com.h2database:h2",
+      "version": "2.3.232",
+      "signals": {
+        "bytecode_jdk": "21",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "No"
+      }
+    },
+    "com.h2database:h2:2.3.230": {
+      "dependency": "com.h2database:h2",
+      "version": "2.3.230",
+      "signals": {
+        "bytecode_jdk": "21",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "No"
+      }
+    },
+    "com.h2database:h2:2.2.224": {
+      "dependency": "com.h2database:h2",
+      "version": "2.2.224",
+      "signals": {
+        "bytecode_jdk": "21",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "No"
+      }
+    }
+  },
+  "step4_available": true
+}

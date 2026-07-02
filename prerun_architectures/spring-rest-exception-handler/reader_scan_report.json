@@ -1,0 +1,691 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "cz.jirutka.spring",
+      "artifactId": "spring-rest-exception-handler",
+      "version": "1.2.0"
+    },
+    "properties": {
+      "project.groupId": "cz.jirutka.spring",
+      "project.artifactId": "spring-rest-exception-handler",
+      "project.version": "1.2.0"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-annotations",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.codehaus.jackson",
+        "artifactId": "jackson-mapper-asl",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-core",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-beans",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-expression",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-web",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-webmvc",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "javax.servlet-api",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "javax.validation",
+        "artifactId": "validation-api",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.codehaus.groovy",
+        "artifactId": "groovy-json",
+        "version": "${groovy.version}",
+        "scope": "test",
+        "raw_version": "${groovy.version}"
+      },
+      {
+        "groupId": "org.codehaus.groovy",
+        "artifactId": "groovy-xml",
+        "version": "${groovy.version}",
+        "scope": "test",
+        "raw_version": "${groovy.version}"
+      },
+      {
+        "groupId": "org.spockframework",
+        "artifactId": "spock-core",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.spockframework",
+        "artifactId": "spock-spring",
+        "version": "${spock.version}",
+        "scope": "test",
+        "raw_version": "${spock.version}"
+      },
+      {
+        "groupId": "cglib",
+        "artifactId": "cglib-nodep",
+        "version": "3.2.0",
+        "scope": "test",
+        "raw_version": "3.2.0"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "jcl-over-slf4j",
+        "version": "${slf4j.version}",
+        "scope": "test",
+        "raw_version": "${slf4j.version}"
+      },
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.hibernate",
+        "artifactId": "hibernate-validator",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.codehaus.jackson",
+      "artifactId": "jackson-mapper-asl",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-core",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-beans",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-expression",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-web",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-webmvc",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.servlet",
+      "artifactId": "javax.servlet-api",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "javax.validation",
+      "artifactId": "validation-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.codehaus.groovy",
+      "artifactId": "groovy-json",
+      "version": "${groovy.version}",
+      "scope": "test",
+      "raw_version": "${groovy.version}"
+    },
+    {
+      "groupId": "org.codehaus.groovy",
+      "artifactId": "groovy-xml",
+      "version": "${groovy.version}",
+      "scope": "test",
+      "raw_version": "${groovy.version}"
+    },
+    {
+      "groupId": "org.spockframework",
+      "artifactId": "spock-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.spockframework",
+      "artifactId": "spock-spring",
+      "version": "${spock.version}",
+      "scope": "test",
+      "raw_version": "${spock.version}"
+    },
+    {
+      "groupId": "cglib",
+      "artifactId": "cglib-nodep",
+      "version": "3.2.0",
+      "scope": "test",
+      "raw_version": "3.2.0"
+    },
+    {
+      "groupId": "org.springframework",
+      "artifactId": "spring-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "jcl-over-slf4j",
+      "version": "${slf4j.version}",
+      "scope": "test",
+      "raw_version": "${slf4j.version}"
+    },
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-classic",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.hibernate",
+      "artifactId": "hibernate-validator",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 20,
+    "package_distribution": {
+      "src/main/java/cz/jirutka/spring/exhandler": 4,
+      "src/main/java/cz/jirutka/spring/exhandler/handlers": 9,
+      "src/main/java/cz/jirutka/spring/exhandler/interpolators": 4,
+      "src/main/java/cz/jirutka/spring/exhandler/messages": 2,
+      "src/main/java/cz/jirutka/spring/exhandler/support": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 20,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 20,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\MapUtils.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\MapUtils.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\RestHandlerExceptionResolver.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\RestHandlerExceptionResolver.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\RestHandlerExceptionResolverBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\RestHandlerExceptionResolverBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\RestHandlerExceptionResolverFactoryBean.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\RestHandlerExceptionResolverFactoryBean.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\AbstractRestExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\AbstractRestExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\ConstraintViolationExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\ConstraintViolationExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\ErrorMessageRestExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\ErrorMessageRestExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\HttpMediaTypeNotSupportedExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\HttpMediaTypeNotSupportedExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\HttpRequestMethodNotSupportedExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\HttpRequestMethodNotSupportedExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\MethodArgumentNotValidExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\MethodArgumentNotValidExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\NoSuchRequestHandlingMethodExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\NoSuchRequestHandlingMethodExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\ResponseStatusRestExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\ResponseStatusRestExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\RestExceptionHandler.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\handlers\\RestExceptionHandler.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\interpolators\\MessageInterpolator.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\interpolators\\MessageInterpolator.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\cz\\jirutka\\spring\\exhandler\\interpolators\\MessageInterpolatorAware.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler\\src\\main\\java\\cz\\jirutka\\spring\\exhandler\\interpolators\\MessageInterpolatorAware.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "8",
+    "java_file_count": 20,
+    "framework": "Spring Framework",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "cz.jirutka.spring",
+        "artifactId": "spring-rest-exception-handler",
+        "version": "1.2.0"
+      },
+      "properties": {
+        "project.groupId": "cz.jirutka.spring",
+        "project.artifactId": "spring-rest-exception-handler",
+        "project.version": "1.2.0"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.codehaus.jackson",
+          "artifactId": "jackson-mapper-asl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-core",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-beans",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-expression",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-web",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.servlet",
+          "artifactId": "javax.servlet-api",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "javax.validation",
+          "artifactId": "validation-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.codehaus.groovy",
+          "artifactId": "groovy-json",
+          "version": "${groovy.version}",
+          "scope": "test",
+          "raw_version": "${groovy.version}"
+        },
+        {
+          "groupId": "org.codehaus.groovy",
+          "artifactId": "groovy-xml",
+          "version": "${groovy.version}",
+          "scope": "test",
+          "raw_version": "${groovy.version}"
+        },
+        {
+          "groupId": "org.spockframework",
+          "artifactId": "spock-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.spockframework",
+          "artifactId": "spock-spring",
+          "version": "${spock.version}",
+          "scope": "test",
+          "raw_version": "${spock.version}"
+        },
+        {
+          "groupId": "cglib",
+          "artifactId": "cglib-nodep",
+          "version": "3.2.0",
+          "scope": "test",
+          "raw_version": "3.2.0"
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "jcl-over-slf4j",
+          "version": "${slf4j.version}",
+          "scope": "test",
+          "raw_version": "${slf4j.version}"
+        },
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-classic",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hibernate",
+          "artifactId": "hibernate-validator",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-annotations",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.codehaus.jackson",
+        "artifactId": "jackson-mapper-asl",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-core",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-beans",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-expression",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-web",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-webmvc",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "javax.servlet",
+        "artifactId": "javax.servlet-api",
+        "version": "Managed",
+        "scope": "provided",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "javax.validation",
+        "artifactId": "validation-api",
+        "version": "Managed",
+        "scope": "compile",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.codehaus.groovy",
+        "artifactId": "groovy-json",
+        "version": "${groovy.version}",
+        "scope": "test",
+        "raw_version": "${groovy.version}"
+      },
+      {
+        "groupId": "org.codehaus.groovy",
+        "artifactId": "groovy-xml",
+        "version": "${groovy.version}",
+        "scope": "test",
+        "raw_version": "${groovy.version}"
+      },
+      {
+        "groupId": "org.spockframework",
+        "artifactId": "spock-core",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.spockframework",
+        "artifactId": "spock-spring",
+        "version": "${spock.version}",
+        "scope": "test",
+        "raw_version": "${spock.version}"
+      },
+      {
+        "groupId": "cglib",
+        "artifactId": "cglib-nodep",
+        "version": "3.2.0",
+        "scope": "test",
+        "raw_version": "3.2.0"
+      },
+      {
+        "groupId": "org.springframework",
+        "artifactId": "spring-test",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "jcl-over-slf4j",
+        "version": "${slf4j.version}",
+        "scope": "test",
+        "raw_version": "${slf4j.version}"
+      },
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.hibernate",
+        "artifactId": "hibernate-validator",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "spring-rest-exception-handler",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\spring-rest-exception-handler"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `spring-rest-exception-handler` | Maven | 8 | 20 | Spring Framework | None | **Yellow** |"
+}

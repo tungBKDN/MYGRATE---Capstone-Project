@@ -1,0 +1,2931 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "de.weltraumschaf.commons:jcommander": [
+      "2.2.0"
+    ],
+    "com.amazonaws:aws-hal-client-java": [
+      "1.3.0",
+      "1.2",
+      "1.1.1"
+    ],
+    "io.swagger:swagger-compat-spec-parser": [
+      "1.0.74",
+      "1.0.73",
+      "1.0.72"
+    ],
+    "io.swagger:swagger-parser": [
+      "1.0.74",
+      "1.0.73",
+      "1.0.72"
+    ],
+    "org.apache.commons:commons-io": [
+      "1.3.2"
+    ],
+    "com.fasterxml.jackson.core:jackson-annotations": [
+      "2.19.0",
+      "2.17.2",
+      "2.18.2",
+      "2.1.1",
+      "2.17.0"
+    ],
+    "com.fasterxml.jackson.core:jackson-core": [
+      "2.19.0",
+      "2.18.4",
+      "2.18.3",
+      "2.17.2",
+      "2.18.2",
+      "2.1.1",
+      "2.17.0"
+    ]
+  },
+  "conflict_edges": [
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.17.2",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.17.2",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.17.2",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.18.2",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.11.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.1.1",
+      "v2": "2.17.0",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.11.0",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.15",
+      "v2": "1.11",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.6",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.6",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "aws-hal-client-java:1.2"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.6",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.6",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "aws-hal-client-java:1.2"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.6",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.6",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "aws-hal-client-java:1.2"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-codec:commons-codec",
+      "v1": "1.11",
+      "v2": "1.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.1.3",
+      "v2": "1.2",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.2",
+      "v2": "1.1.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.2",
+      "v2": "1.1.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "aws-hal-client-java:1.2"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.2",
+      "v2": "1.1.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.2",
+      "v2": "1.1.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "aws-hal-client-java:1.2"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.2",
+      "v2": "1.1.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "aws-hal-client-java:1.1.1"
+      ]
+    },
+    {
+      "conflict_on": "commons-logging:commons-logging",
+      "v1": "1.2",
+      "v2": "1.1.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "aws-hal-client-java:1.2"
+      ]
+    },
+    {
+      "conflict_on": "joda-time:joda-time",
+      "v1": "2.12.7",
+      "v2": "2.10.5",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "joda-time:joda-time",
+      "v1": "2.12.7",
+      "v2": "2.10.5",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "joda-time:joda-time",
+      "v1": "2.12.7",
+      "v2": "2.10.5",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "joda-time:joda-time",
+      "v1": "2.14.2",
+      "v2": "2.10.5",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "joda-time:joda-time",
+      "v1": "2.14.2",
+      "v2": "2.10.5",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "joda-time:joda-time",
+      "v1": "2.14.2",
+      "v2": "2.10.5",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.5.13",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.5.13",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.5.13",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.2",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.2",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.2",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.2",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.2",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpclient",
+      "v1": "4.2",
+      "v2": "4.5.14",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.4.13",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.4.13",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.4.13",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.3.0",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.2",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.2",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.2",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.1.1",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.2",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.2",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.httpcomponents:httpcore",
+      "v1": "4.2",
+      "v2": "4.4.16",
+      "edge": [
+        "aws-hal-client-java:1.2",
+        "swagger-compat-spec-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "v1": "2.18.2",
+      "v2": "2.17.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "2.3",
+      "v2": "2.2",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "2.3",
+      "v2": "2.2",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "2.3",
+      "v2": "2.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "2.3",
+      "v2": "2.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.code.findbugs:jsr305",
+      "v1": "2.0.1",
+      "v2": "3.0.2",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.4",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.errorprone:error_prone_annotations",
+      "v1": "2.3.2",
+      "v2": "2.21.1",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.2-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.guava:guava",
+      "v1": "28.1-android",
+      "v2": "32.1.3-android",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.72",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "com.google.j2objc:j2objc-annotations",
+      "v1": "1.3",
+      "v2": "2.8",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.74"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-annotations",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-annotations",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-annotations",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-annotations",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-core",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-core",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-core",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-core",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-classic",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-classic",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-classic",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-classic",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-core",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-core",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-core",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-core",
+      "v1": "1.5.16",
+      "v2": "1.5.3",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-models",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-models",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-models",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-models",
+      "v1": "1.6.15",
+      "v2": "1.6.14",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-lang3",
+      "v1": "3.17.0",
+      "v2": "3.14.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-lang3",
+      "v1": "3.17.0",
+      "v2": "3.14.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-lang3",
+      "v1": "3.17.0",
+      "v2": "3.14.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-lang3",
+      "v1": "3.17.0",
+      "v2": "3.14.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-parser-safe-url-resolver",
+      "v1": "1.0.74",
+      "v2": "1.0.73",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-parser-safe-url-resolver",
+      "v1": "1.0.74",
+      "v2": "1.0.73",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.73"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-parser-safe-url-resolver",
+      "v1": "1.0.74",
+      "v2": "1.0.72",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-parser-safe-url-resolver",
+      "v1": "1.0.74",
+      "v2": "1.0.72",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-parser-safe-url-resolver",
+      "v1": "1.0.73",
+      "v2": "1.0.72",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "io.swagger:swagger-parser-safe-url-resolver",
+      "v1": "1.0.73",
+      "v2": "1.0.72",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-text",
+      "v1": "1.12.0",
+      "v2": "1.11.0",
+      "edge": [
+        "swagger-parser:1.0.74",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-text",
+      "v1": "1.12.0",
+      "v2": "1.11.0",
+      "edge": [
+        "swagger-parser:1.0.73",
+        "swagger-compat-spec-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-text",
+      "v1": "1.12.0",
+      "v2": "1.11.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.73",
+        "swagger-parser:1.0.72"
+      ]
+    },
+    {
+      "conflict_on": "org.apache.commons:commons-text",
+      "v1": "1.12.0",
+      "v2": "1.11.0",
+      "edge": [
+        "swagger-compat-spec-parser:1.0.74",
+        "swagger-parser:1.0.72"
+      ]
+    }
+  ],
+  "solver_method": "none",
+  "solutions": [],
+  "smoke_test_results": [],
+  "step3_reports": {
+    "de.weltraumschaf.commons:jcommander:2.2.0": {
+      "dependency": "de.weltraumschaf.commons:jcommander",
+      "version": "2.2.0",
+      "signals": {
+        "bytecode_jdk": "7",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jcommander-2.2.0.jar:\n\nerror: cannot find class com/beust/jcommander/ParameterDescription\nerror: cannot find class com/beust/jcommander/JCommander\nerror: cannot find class de/weltraumschaf/commons/validate/Validate"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.amazonaws:aws-hal-client-java:1.3.0": {
+      "dependency": "com.amazonaws:aws-hal-client-java",
+      "version": "1.3.0",
+      "signals": {
+        "bytecode_jdk": "7",
+        "refs": [
+          "javax/xml/bind"
+        ],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 7,
+          "findings": [
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Integer::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Short::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Float::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Byte::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/HalClient uses deprecated method java/net/URLDecoder::decode(Ljava/lang/String;)Ljava/lang/String;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\aws-hal-client-java-1.3.0.jar:\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Integer::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Short::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Float::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Byte::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/HalClient uses deprecated method java/net/URLDecoder::decode(Ljava/lang/String;)Ljava/lang/String; \n\nerror: cannot find class com/amazonaws/handlers/RequestHandler2\nerror: cannot find class com/amazonaws/Request\nerror: cannot find class javax/xml/bind/DatatypeConverter\nerror: cannot find class org/apache/commons/logging/LogFactory\nerror: cannot find class org/apache/commons/logging/Log\nerror: cannot find class com/amazonaws/AmazonWebServiceClient\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.setServiceNameIntern:(Ljava/lang/String;)V\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.setEndpoint:(Ljava/lang/String;)V\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.addRequestHandler:(Lcom/amazonaws/handlers/RequestHandler2;)V\nerror: cannot find class com/amazonaws/http/JsonResponseHandler\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.createExecutionContext:()Lcom/amazonaws/http/ExecutionContext;\nerror: cannot find class com/amazonaws/http/ExecutionContext\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics$Field\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics\nerror: cannot find class com/amazonaws/http/AmazonHttpClient\nerror: cannot find class com/amazonaws/Response\nerror: cannot find class com/amazonaws/DefaultRequest\nerror: cannot find class com/amazonaws/util/json/JSONObject\nerror: cannot find class com/amazonaws/AmazonClientException\nerror: cannot find class com/amazonaws/util/StringInputStream\nerror: cannot find class com/amazonaws/transform/VoidJsonUnmarshaller\nerror: cannot find class com/amazonaws/auth/AWSCredentialsProvider\nerror: cannot find class com/amazonaws/http/HttpMethodName\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.client:Lcom/amazonaws/http/AmazonHttpClient;\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.endpoint:Ljava/net/URI;\nerror: cannot find class com/amazonaws/transform/JsonUnmarshallerContext\nerror: cannot find class com/amazonaws/transform/Unmarshaller\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/damnhandy/uri/template/UriTemplate\nerror: cannot find class com/fasterxml/jackson/core/JsonParser\nerror: cannot find class com/amazonaws/http/HttpResponse\nerror: cannot find class com/amazonaws/AmazonServiceException\nerror: cannot find class com/amazonaws/util/json/JSONException\nerror: cannot find class com/amazonaws/AmazonServiceException$ErrorType\nerror: cannot find class com/amazonaws/http/HttpResponseHandler\nerror: cannot find class com/amazonaws/ClientConfiguration\nerror: cannot find class com/amazonaws/auth/DefaultAWSCredentialsProviderChain\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.setSignerRegionOverride:(Ljava/lang/String;)V"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "io.swagger:swagger-compat-spec-parser:1.0.74": {
+      "dependency": "io.swagger:swagger-compat-spec-parser",
+      "version": "1.0.74",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\swagger-compat-spec-parser-1.0.74.jar:\n\nerror: cannot find class com/github/fge/jackson/jsonpointer/JsonPointer\nerror: cannot find class com/fasterxml/jackson/databind/JsonNode\nerror: cannot find class com/google/common/base/Preconditions\nerror: cannot find class com/google/common/collect/Iterables\nerror: cannot find class com/github/fge/jackson/jsonpointer/TokenResolver\nerror: cannot find class com/github/fge/jackson/jsonpointer/ReferenceToken\nerror: cannot find class com/fasterxml/jackson/databind/node/ObjectNode\nerror: cannot find class com/fasterxml/jackson/databind/node/ArrayNode\nerror: cannot find class com/github/fge/jsonschema/core/load/uri/URITranslatorConfiguration\nerror: cannot find class com/github/fge/jsonschema/core/load/uri/URITranslatorConfigurationBuilder\nerror: cannot find class com/github/fge/jsonschema/core/load/configuration/LoadingConfiguration\nerror: cannot find class com/github/fge/jsonschema/core/load/configuration/LoadingConfigurationBuilder\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchemaFactory\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchemaFactoryBuilder\nerror: cannot find class com/github/fge/jackson/JsonLoader\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class com/github/fge/jackson/JacksonUtils\nerror: cannot find class com/github/fge/jsonpatch/JsonPatch\nerror: cannot find class com/fasterxml/jackson/databind/ObjectWriter\nerror: cannot find class com/google/common/collect/ImmutableSet\nerror: cannot find class com/google/common/collect/ImmutableSet$Builder\nerror: cannot find class com/google/common/base/Optional\nerror: cannot find class com/google/common/base/Strings\nerror: cannot find class com/google/common/net/InternetDomainName\nerror: cannot find class com/fasterxml/jackson/core/type/TypeReference\nerror: cannot find class io/swagger/util/Json\nerror: cannot find class com/fasterxml/jackson/databind/node/JsonNodeFactory\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationFeature\nerror: cannot find class com/fasterxml/jackson/databind/SerializationFeature\nerror: cannot find class com/fasterxml/jackson/annotation/JsonInclude$Include\nerror: cannot find class com/fasterxml/jackson/databind/JsonMappingException\nerror: cannot find class com/github/fge/jsonschema/core/report/ProcessingMessage\nerror: cannot find class com/github/fge/jsonschema/core/exceptions/ProcessingException\nerror: cannot find class com/github/fge/jsonschema/core/report/ProcessingReport\nerror: cannot find class com/github/fge/jsonschema/core/report/LogLevel\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchema\nerror: cannot find class io/swagger/parser/util/SwaggerDeserializationResult\nerror: cannot find class io/swagger/parser/Swagger20Parser\nerror: cannot find class io/swagger/parser/util/RemoteUrl\nerror: cannot find class org/apache/commons/io/FileUtils\nerror: cannot find class io/swagger/parser/util/ClasspathHelper\nerror: cannot find class io/swagger/models/ModelImpl\nerror: cannot find class io/swagger/models/parameters/PathParameter\nerror: cannot find class io/swagger/models/parameters/QueryParameter\nerror: cannot find class io/swagger/models/parameters/HeaderParameter\nerror: cannot find class io/swagger/models/parameters/BodyParameter\nerror: cannot find class io/swagger/models/parameters/FormParameter\nerror: cannot find class io/swagger/models/properties/ArrayProperty\nerror: cannot find class io/swagger/models/properties/PropertyBuilder\nerror: cannot find class io/swagger/models/properties/StringProperty\nerror: cannot find class io/swagger/models/RefModel\nerror: cannot find class io/swagger/models/ArrayModel\nerror: cannot find class io/swagger/models/properties/RefProperty\nerror: cannot find class io/swagger/models/Operation\nerror: cannot find class io/swagger/models/Response\nerror: cannot find class io/swagger/models/Info\nerror: cannot find class io/swagger/models/Contact\nerror: cannot find class io/swagger/models/License\nerror: cannot find class io/swagger/models/Path\nerror: cannot find class io/swagger/models/Swagger\nerror: cannot find class io/swagger/models/Scheme\nerror: cannot find class io/swagger/models/auth/OAuth2Definition\nerror: cannot find class io/swagger/models/auth/ApiKeyAuthDefinition\nerror: cannot find class io/swagger/models/auth/BasicAuthDefinition\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class io/swagger/models/properties/Property\nerror: cannot find class io/swagger/models/parameters/Parameter\nerror: cannot find class io/swagger/models/parameters/SerializableParameter\nerror: cannot find class io/swagger/models/refs/RefFormat\nerror: cannot find class io/swagger/models/properties/PropertyBuilder$PropertyId\nerror: cannot find class io/swagger/models/auth/In\nerror: cannot find class io/swagger/parser/SwaggerParserExtension\nerror: cannot find class org/apache/http/impl/client/HttpClients\nerror: cannot find class org/apache/http/client/utils/URIBuilder\nerror: cannot find class org/apache/http/client/methods/HttpGet\nerror: cannot find class org/apache/http/impl/client/CloseableHttpClient\nerror: cannot find class org/apache/http/client/methods/CloseableHttpResponse\nerror: cannot find class org/apache/http/HttpEntity"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "io.swagger:swagger-parser:1.0.74": {
+      "dependency": "io.swagger:swagger-parser",
+      "version": "1.0.74",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class io/swagger/parser/util/DeserializationUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\swagger-parser-1.0.74.jar:\nclass io/swagger/parser/util/DeserializationUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\n\nerror: cannot find class org/apache/commons/io/FileUtils\nerror: cannot find class io/swagger/util/Json\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class org/apache/commons/lang3/builder/ReflectionToStringBuilder\nerror: cannot find class com/fasterxml/jackson/databind/JsonNode\nerror: cannot find class org/apache/commons/lang3/Validate\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class org/apache/commons/lang3/builder/ToStringStyle\nerror: cannot find class io/swagger/models/Operation\nerror: cannot find class io/swagger/models/Responses\nerror: cannot find class io/swagger/models/RefResponse\nerror: cannot find class io/swagger/models/Swagger\nerror: cannot find class io/swagger/models/RefModel\nerror: cannot find class org/apache/commons/lang3/StringUtils\nerror: cannot find class io/swagger/models/ComposedModel\nerror: cannot find class io/swagger/models/ModelImpl\nerror: cannot find class io/swagger/models/ArrayModel\nerror: cannot find class io/swagger/models/properties/ObjectProperty\nerror: cannot find class io/swagger/models/Response\nerror: cannot find class io/swagger/models/properties/MapProperty\nerror: cannot find class io/swagger/models/properties/StringProperty\nerror: cannot find class io/swagger/models/refs/RefType\nerror: cannot find class io/swagger/models/properties/RefProperty\nerror: cannot find class io/swagger/models/properties/ArrayProperty\nerror: cannot find class io/swagger/models/properties/ComposedProperty\nerror: cannot find class io/swagger/models/refs/RefFormat\nerror: cannot find class io/swagger/models/Model\nerror: cannot find class io/swagger/models/Path\nerror: cannot find class io/swagger/models/RefPath\nerror: cannot find class io/swagger/models/parameters/BodyParameter\nerror: cannot find class io/swagger/models/parameters/Parameter\nerror: cannot find class io/swagger/models/parameters/RefParameter\nerror: cannot find class org/apache/commons/io/IOUtils\nerror: cannot find class io/swagger/util/ObjectMapperFactory\nerror: cannot find class org/yaml/snakeyaml/Yaml\nerror: cannot find class org/yaml/snakeyaml/DumperOptions\nerror: cannot find class org/yaml/snakeyaml/representer/Representer\nerror: cannot find class org/yaml/snakeyaml/LoaderOptions\nerror: cannot find class org/yaml/snakeyaml/constructor/SafeConstructor\nerror: cannot find class io/swagger/util/Yaml\nerror: cannot find class org/yaml/snakeyaml/nodes/MappingNode\nerror: cannot find class org/yaml/snakeyaml/nodes/NodeTuple\nerror: cannot find class org/yaml/snakeyaml/composer/Composer\nerror: cannot find class org/yaml/snakeyaml/nodes/Tag\nerror: cannot find class org/yaml/snakeyaml/nodes/Node\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.constructDocument:(Lorg/yaml/snakeyaml/nodes/Node;)Ljava/lang/Object;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.composer:Lorg/yaml/snakeyaml/composer/Composer;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.rootTag:Lorg/yaml/snakeyaml/nodes/Tag;\nerror: cannot find class io/swagger/models/auth/AuthorizationValue\nerror: cannot find class io/swagger/models/auth/UrlMatcher\nerror: cannot find class io/swagger/models/utils/PropertyModelConverter\nerror: cannot find class io/swagger/models/properties/AbstractProperty\nerror: cannot find class io/swagger/models/properties/Property\nerror: cannot find class org/yaml/snakeyaml/resolver/Resolver\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.addImplicitResolver:(Lorg/yaml/snakeyaml/nodes/Tag;Ljava/util/regex/Pattern;Ljava/lang/String;)V\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.BOOL:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.INT:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.FLOAT:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.MERGE:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.NULL:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.EMPTY:Ljava/util/regex/Pattern;\nerror: cannot find class com/fasterxml/jackson/databind/node/JsonNodeType\nerror: cannot find class com/fasterxml/jackson/databind/node/ArrayNode\nerror: cannot find class io/swagger/models/Scheme\nerror: cannot find class com/fasterxml/jackson/databind/node/ObjectNode\nerror: cannot find class io/swagger/models/SecurityRequirement\nerror: cannot find class io/swagger/models/parameters/QueryParameter\nerror: cannot find class io/swagger/models/parameters/HeaderParameter\nerror: cannot find class io/swagger/models/parameters/PathParameter\nerror: cannot find class io/swagger/models/parameters/FormParameter\nerror: cannot find class io/swagger/models/parameters/AbstractSerializableParameter\nerror: cannot find class io/swagger/models/properties/PropertyBuilder\nerror: cannot find class com/fasterxml/jackson/databind/type/TypeFactory\nerror: cannot find class com/fasterxml/jackson/databind/node/TextNode\nerror: cannot find class io/swagger/models/BooleanValueModel\nerror: cannot find class io/swagger/models/properties/BooleanValueProperty\nerror: cannot find class io/swagger/models/AbstractModel\nerror: cannot find class io/swagger/models/Info\nerror: cannot find class io/swagger/models/License\nerror: cannot find class io/swagger/models/Contact\nerror: cannot find class io/swagger/models/auth/In\nerror: cannot find class io/swagger/models/auth/ApiKeyAuthDefinition\nerror: cannot find class io/swagger/models/Tag\nerror: cannot find class io/swagger/models/ExternalDocs\nerror: cannot find class io/swagger/models/auth/SecuritySchemeDefinition\nerror: cannot find class io/swagger/models/properties/PropertyBuilder$PropertyId\nerror: cannot find class io/swagger/parser/urlresolver/PermittedUrlsChecker\nerror: cannot find class io/swagger/parser/urlresolver/exceptions/HostDeniedException"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.amazonaws:aws-hal-client-java:1.2": {
+      "dependency": "com.amazonaws:aws-hal-client-java",
+      "version": "1.2",
+      "signals": {
+        "bytecode_jdk": "7",
+        "refs": [
+          "javax/xml/bind"
+        ],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 7,
+          "findings": [
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Integer::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Short::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Float::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Byte::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/HalClient uses deprecated method java/net/URLDecoder::decode(Ljava/lang/String;)Ljava/lang/String;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\aws-hal-client-java-1.2.jar:\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Integer::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Short::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Float::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Byte::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/HalClient uses deprecated method java/net/URLDecoder::decode(Ljava/lang/String;)Ljava/lang/String; \n\nerror: cannot find class com/amazonaws/handlers/RequestHandler2\nerror: cannot find class com/amazonaws/Request\nerror: cannot find class javax/xml/bind/DatatypeConverter\nerror: cannot find class org/apache/commons/logging/LogFactory\nerror: cannot find class org/apache/commons/logging/Log\nerror: cannot find class com/amazonaws/AmazonWebServiceClient\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.setServiceNameIntern:(Ljava/lang/String;)V\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.setEndpoint:(Ljava/lang/String;)V\nerror: cannot find class com/amazonaws/transform/JsonErrorUnmarshaller\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.addRequestHandler:(Lcom/amazonaws/handlers/RequestHandler2;)V\nerror: cannot find class com/amazonaws/http/JsonResponseHandler\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.createExecutionContext:()Lcom/amazonaws/http/ExecutionContext;\nerror: cannot find class com/amazonaws/http/ExecutionContext\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics$Field\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics\nerror: cannot find class com/amazonaws/http/JsonErrorResponseHandler\nerror: cannot find class com/amazonaws/http/AmazonHttpClient\nerror: cannot find class com/amazonaws/Response\nerror: cannot find class com/amazonaws/DefaultRequest\nerror: cannot find class com/amazonaws/util/json/JSONObject\nerror: cannot find class com/amazonaws/AmazonClientException\nerror: cannot find class com/amazonaws/util/StringInputStream\nerror: cannot find class com/amazonaws/auth/AWSCredentialsProvider\nerror: cannot find class com/amazonaws/http/HttpMethodName\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.client:Lcom/amazonaws/http/AmazonHttpClient;\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.endpoint:Ljava/net/URI;\nerror: cannot find class com/amazonaws/transform/JsonUnmarshallerContext\nerror: cannot find class com/amazonaws/transform/Unmarshaller\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/damnhandy/uri/template/UriTemplate\nerror: cannot find class com/fasterxml/jackson/core/JsonParser\nerror: cannot find class com/amazonaws/http/HttpResponse\nerror: cannot find class com/amazonaws/ClientConfiguration\nerror: cannot find class com/amazonaws/auth/DefaultAWSCredentialsProviderChain"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "io.swagger:swagger-compat-spec-parser:1.0.73": {
+      "dependency": "io.swagger:swagger-compat-spec-parser",
+      "version": "1.0.73",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\swagger-compat-spec-parser-1.0.73.jar:\n\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationFeature\nerror: cannot find class com/github/fge/jackson/JacksonUtils\nerror: cannot find class com/fasterxml/jackson/databind/node/JsonNodeFactory\nerror: cannot find class com/github/fge/jsonschema/core/report/ProcessingMessage\nerror: cannot find class com/fasterxml/jackson/databind/node/ArrayNode\nerror: cannot find class com/github/fge/jsonschema/core/exceptions/ProcessingException\nerror: cannot find class com/github/fge/jsonschema/core/report/ProcessingReport\nerror: cannot find class com/github/fge/jsonschema/core/report/LogLevel\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchemaFactory\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchema\nerror: cannot find class org/apache/http/impl/client/HttpClients\nerror: cannot find class org/apache/http/client/utils/URIBuilder\nerror: cannot find class org/apache/http/client/methods/HttpGet\nerror: cannot find class org/apache/http/impl/client/CloseableHttpClient\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/apache/http/client/methods/CloseableHttpResponse\nerror: cannot find class org/apache/http/HttpEntity\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class com/fasterxml/jackson/databind/node/ObjectNode\nerror: cannot find class com/fasterxml/jackson/databind/JsonNode\nerror: cannot find class io/swagger/util/Json\nerror: cannot find class com/github/fge/jackson/jsonpointer/JsonPointer\nerror: cannot find class com/fasterxml/jackson/core/type/TypeReference\nerror: cannot find class com/google/common/base/Preconditions\nerror: cannot find class com/google/common/base/Strings\nerror: cannot find class com/google/common/net/InternetDomainName\nerror: cannot find class com/github/fge/jackson/JsonLoader\nerror: cannot find class com/google/common/base/Optional\nerror: cannot find class com/github/fge/jsonpatch/JsonPatch\nerror: cannot find class com/google/common/collect/Iterables\nerror: cannot find class com/github/fge/jackson/jsonpointer/TokenResolver\nerror: cannot find class com/github/fge/jackson/jsonpointer/ReferenceToken\nerror: cannot find class com/github/fge/jsonschema/core/load/uri/URITranslatorConfiguration\nerror: cannot find class com/github/fge/jsonschema/core/load/uri/URITranslatorConfigurationBuilder\nerror: cannot find class com/github/fge/jsonschema/core/load/configuration/LoadingConfiguration\nerror: cannot find class com/github/fge/jsonschema/core/load/configuration/LoadingConfigurationBuilder\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchemaFactoryBuilder\nerror: cannot find class com/google/common/collect/ImmutableSet\nerror: cannot find class com/google/common/collect/ImmutableSet$Builder\nerror: cannot find class com/fasterxml/jackson/databind/ObjectWriter\nerror: cannot find class com/fasterxml/jackson/databind/SerializationFeature\nerror: cannot find class com/fasterxml/jackson/annotation/JsonInclude$Include\nerror: cannot find class com/fasterxml/jackson/databind/JsonMappingException\nerror: cannot find class io/swagger/parser/util/SwaggerDeserializationResult\nerror: cannot find class io/swagger/parser/Swagger20Parser\nerror: cannot find class io/swagger/parser/util/RemoteUrl\nerror: cannot find class org/apache/commons/io/FileUtils\nerror: cannot find class io/swagger/parser/util/ClasspathHelper\nerror: cannot find class io/swagger/models/ModelImpl\nerror: cannot find class io/swagger/models/parameters/PathParameter\nerror: cannot find class io/swagger/models/parameters/QueryParameter\nerror: cannot find class io/swagger/models/parameters/HeaderParameter\nerror: cannot find class io/swagger/models/parameters/BodyParameter\nerror: cannot find class io/swagger/models/parameters/FormParameter\nerror: cannot find class io/swagger/models/properties/ArrayProperty\nerror: cannot find class io/swagger/models/properties/PropertyBuilder\nerror: cannot find class io/swagger/models/properties/StringProperty\nerror: cannot find class io/swagger/models/RefModel\nerror: cannot find class io/swagger/models/ArrayModel\nerror: cannot find class io/swagger/models/properties/RefProperty\nerror: cannot find class io/swagger/models/Operation\nerror: cannot find class io/swagger/models/Response\nerror: cannot find class io/swagger/models/Info\nerror: cannot find class io/swagger/models/Contact\nerror: cannot find class io/swagger/models/License\nerror: cannot find class io/swagger/models/Path\nerror: cannot find class io/swagger/models/Swagger\nerror: cannot find class io/swagger/models/Scheme\nerror: cannot find class io/swagger/models/auth/OAuth2Definition\nerror: cannot find class io/swagger/models/auth/ApiKeyAuthDefinition\nerror: cannot find class io/swagger/models/auth/BasicAuthDefinition\nerror: cannot find class io/swagger/models/properties/Property\nerror: cannot find class io/swagger/models/parameters/Parameter\nerror: cannot find class io/swagger/models/parameters/SerializableParameter\nerror: cannot find class io/swagger/models/refs/RefFormat\nerror: cannot find class io/swagger/models/properties/PropertyBuilder$PropertyId\nerror: cannot find class io/swagger/models/auth/In\nerror: cannot find class io/swagger/parser/SwaggerParserExtension"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "io.swagger:swagger-parser:1.0.73": {
+      "dependency": "io.swagger:swagger-parser",
+      "version": "1.0.73",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class io/swagger/parser/util/DeserializationUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\swagger-parser-1.0.73.jar:\nclass io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass io/swagger/parser/util/DeserializationUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\n\nerror: cannot find class com/fasterxml/jackson/databind/JsonNode\nerror: cannot find class io/swagger/models/parameters/BodyParameter\nerror: cannot find class io/swagger/models/RefModel\nerror: cannot find class io/swagger/models/Swagger\nerror: cannot find class io/swagger/models/Response\nerror: cannot find class io/swagger/models/ModelImpl\nerror: cannot find class io/swagger/models/properties/RefProperty\nerror: cannot find class org/apache/commons/lang3/StringUtils\nerror: cannot find class io/swagger/parser/urlresolver/PermittedUrlsChecker\nerror: cannot find class io/swagger/parser/urlresolver/exceptions/HostDeniedException\nerror: cannot find class io/swagger/models/refs/RefType\nerror: cannot find class io/swagger/models/Model\nerror: cannot find class io/swagger/models/refs/RefFormat\nerror: cannot find class com/fasterxml/jackson/databind/node/JsonNodeType\nerror: cannot find class com/fasterxml/jackson/databind/node/ArrayNode\nerror: cannot find class io/swagger/models/Scheme\nerror: cannot find class com/fasterxml/jackson/databind/node/ObjectNode\nerror: cannot find class io/swagger/models/Operation\nerror: cannot find class io/swagger/models/Path\nerror: cannot find class io/swagger/models/Responses\nerror: cannot find class io/swagger/models/SecurityRequirement\nerror: cannot find class io/swagger/models/parameters/QueryParameter\nerror: cannot find class io/swagger/models/parameters/HeaderParameter\nerror: cannot find class io/swagger/models/parameters/PathParameter\nerror: cannot find class io/swagger/models/parameters/FormParameter\nerror: cannot find class io/swagger/models/parameters/AbstractSerializableParameter\nerror: cannot find class io/swagger/models/properties/PropertyBuilder\nerror: cannot find class io/swagger/util/Json\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class com/fasterxml/jackson/databind/type/TypeFactory\nerror: cannot find class com/fasterxml/jackson/databind/node/TextNode\nerror: cannot find class io/swagger/models/parameters/RefParameter\nerror: cannot find class io/swagger/models/RefResponse\nerror: cannot find class io/swagger/models/RefPath\nerror: cannot find class io/swagger/models/BooleanValueModel\nerror: cannot find class io/swagger/models/ArrayModel\nerror: cannot find class io/swagger/models/properties/BooleanValueProperty\nerror: cannot find class io/swagger/models/ComposedModel\nerror: cannot find class io/swagger/models/properties/ArrayProperty\nerror: cannot find class io/swagger/models/AbstractModel\nerror: cannot find class io/swagger/models/Info\nerror: cannot find class io/swagger/models/License\nerror: cannot find class io/swagger/models/Contact\nerror: cannot find class io/swagger/models/auth/In\nerror: cannot find class io/swagger/models/auth/ApiKeyAuthDefinition\nerror: cannot find class io/swagger/models/Tag\nerror: cannot find class io/swagger/models/ExternalDocs\nerror: cannot find class io/swagger/models/parameters/Parameter\nerror: cannot find class io/swagger/models/properties/Property\nerror: cannot find class io/swagger/models/auth/SecuritySchemeDefinition\nerror: cannot find class io/swagger/models/properties/PropertyBuilder$PropertyId\nerror: cannot find class org/apache/commons/io/IOUtils\nerror: cannot find class io/swagger/models/auth/AuthorizationValue\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class io/swagger/models/auth/UrlMatcher\nerror: cannot find class org/yaml/snakeyaml/constructor/SafeConstructor\nerror: cannot find class org/yaml/snakeyaml/nodes/MappingNode\nerror: cannot find class org/yaml/snakeyaml/nodes/NodeTuple\nerror: cannot find class org/yaml/snakeyaml/composer/Composer\nerror: cannot find class org/yaml/snakeyaml/nodes/Tag\nerror: cannot find class org/yaml/snakeyaml/nodes/Node\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.constructDocument:(Lorg/yaml/snakeyaml/nodes/Node;)Ljava/lang/Object;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.composer:Lorg/yaml/snakeyaml/composer/Composer;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.rootTag:Lorg/yaml/snakeyaml/nodes/Tag;\nerror: cannot find class org/yaml/snakeyaml/resolver/Resolver\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.addImplicitResolver:(Lorg/yaml/snakeyaml/nodes/Tag;Ljava/util/regex/Pattern;Ljava/lang/String;)V\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.BOOL:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.INT:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.FLOAT:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.MERGE:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.NULL:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.EMPTY:Ljava/util/regex/Pattern;\nerror: cannot find class io/swagger/util/ObjectMapperFactory\nerror: cannot find class org/yaml/snakeyaml/Yaml\nerror: cannot find class org/yaml/snakeyaml/DumperOptions\nerror: cannot find class org/yaml/snakeyaml/representer/Representer\nerror: cannot find class org/yaml/snakeyaml/LoaderOptions\nerror: cannot find class io/swagger/util/Yaml\nerror: cannot find class io/swagger/models/properties/ObjectProperty\nerror: cannot find class io/swagger/models/utils/PropertyModelConverter\nerror: cannot find class io/swagger/models/properties/MapProperty\nerror: cannot find class io/swagger/models/properties/ComposedProperty\nerror: cannot find class io/swagger/models/properties/AbstractProperty\nerror: cannot find class io/swagger/models/properties/StringProperty\nerror: cannot find class org/apache/commons/io/FileUtils\nerror: cannot find class org/apache/commons/lang3/builder/ReflectionToStringBuilder\nerror: cannot find class org/apache/commons/lang3/Validate\nerror: cannot find class org/apache/commons/lang3/builder/ToStringStyle"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.amazonaws:aws-hal-client-java:1.1.1": {
+      "dependency": "com.amazonaws:aws-hal-client-java",
+      "version": "1.1.1",
+      "signals": {
+        "bytecode_jdk": "7",
+        "refs": [
+          "javax/xml/bind"
+        ],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 7,
+          "findings": [
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Integer::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Short::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Float::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Byte::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class com/amazonaws/hal/client/HalClient uses deprecated method java/net/URLDecoder::decode(Ljava/lang/String;)Ljava/lang/String;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\aws-hal-client-java-1.1.1.jar:\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Integer::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Short::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Float::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/ConversionUtil uses deprecated method java/lang/Byte::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass com/amazonaws/hal/client/HalClient uses deprecated method java/net/URLDecoder::decode(Ljava/lang/String;)Ljava/lang/String; \n\nerror: cannot find class com/amazonaws/handlers/RequestHandler2\nerror: cannot find class com/amazonaws/Request\nerror: cannot find class javax/xml/bind/DatatypeConverter\nerror: cannot find class org/apache/commons/logging/LogFactory\nerror: cannot find class org/apache/commons/logging/Log\nerror: cannot find class com/amazonaws/AmazonWebServiceClient\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.setEndpoint:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V\nerror: cannot find class com/amazonaws/transform/JsonErrorUnmarshaller\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.addRequestHandler:(Lcom/amazonaws/handlers/RequestHandler2;)V\nerror: cannot find class com/amazonaws/http/JsonResponseHandler\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.createExecutionContext:()Lcom/amazonaws/http/ExecutionContext;\nerror: cannot find class com/amazonaws/http/ExecutionContext\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics$Field\nerror: cannot find class com/amazonaws/util/AWSRequestMetrics\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.getSigner:()Lcom/amazonaws/auth/Signer;\nerror: cannot find class com/amazonaws/http/JsonErrorResponseHandler\nerror: cannot find class com/amazonaws/http/AmazonHttpClient\nerror: cannot find class com/amazonaws/Response\nerror: cannot find class com/amazonaws/DefaultRequest\nerror: cannot find class com/amazonaws/util/json/JSONObject\nerror: cannot find class com/amazonaws/AmazonClientException\nerror: cannot find class com/amazonaws/util/StringInputStream\nerror: cannot find class com/amazonaws/auth/AWSCredentialsProvider\nerror: cannot find class com/amazonaws/http/HttpMethodName\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.client:Lcom/amazonaws/http/AmazonHttpClient;\nerror: cannot resolve Methodref com/amazonaws/hal/client/HalClient.endpoint:Ljava/net/URI;\nerror: cannot find class com/amazonaws/transform/JsonUnmarshallerContext\nerror: cannot find class com/amazonaws/transform/Unmarshaller\nerror: cannot find class com/fasterxml/jackson/core/JsonToken\nerror: cannot find class com/damnhandy/uri/template/UriTemplate\nerror: cannot find class com/amazonaws/http/HttpResponse\nerror: cannot find class com/amazonaws/ClientConfiguration\nerror: cannot find class com/amazonaws/auth/DefaultAWSCredentialsProviderChain"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "io.swagger:swagger-compat-spec-parser:1.0.72": {
+      "dependency": "io.swagger:swagger-compat-spec-parser",
+      "version": "1.0.72",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\swagger-compat-spec-parser-1.0.72.jar:\n\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class com/fasterxml/jackson/databind/DeserializationFeature\nerror: cannot find class com/github/fge/jackson/JacksonUtils\nerror: cannot find class com/fasterxml/jackson/databind/node/JsonNodeFactory\nerror: cannot find class com/github/fge/jsonschema/core/report/ProcessingMessage\nerror: cannot find class com/fasterxml/jackson/databind/node/ArrayNode\nerror: cannot find class com/github/fge/jsonschema/core/exceptions/ProcessingException\nerror: cannot find class com/github/fge/jsonschema/core/report/ProcessingReport\nerror: cannot find class com/github/fge/jsonschema/core/report/LogLevel\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchemaFactory\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchema\nerror: cannot find class org/apache/http/impl/client/HttpClients\nerror: cannot find class org/apache/http/client/utils/URIBuilder\nerror: cannot find class org/apache/http/client/methods/HttpGet\nerror: cannot find class org/apache/http/impl/client/CloseableHttpClient\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/apache/http/client/methods/CloseableHttpResponse\nerror: cannot find class org/apache/http/HttpEntity\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class com/fasterxml/jackson/databind/node/ObjectNode\nerror: cannot find class com/fasterxml/jackson/databind/JsonNode\nerror: cannot find class io/swagger/util/Json\nerror: cannot find class com/github/fge/jackson/jsonpointer/JsonPointer\nerror: cannot find class com/fasterxml/jackson/core/type/TypeReference\nerror: cannot find class com/google/common/base/Preconditions\nerror: cannot find class com/google/common/base/Strings\nerror: cannot find class com/google/common/net/InternetDomainName\nerror: cannot find class com/github/fge/jackson/JsonLoader\nerror: cannot find class com/google/common/base/Optional\nerror: cannot find class com/github/fge/jsonpatch/JsonPatch\nerror: cannot find class com/google/common/collect/Iterables\nerror: cannot find class com/github/fge/jackson/jsonpointer/TokenResolver\nerror: cannot find class com/github/fge/jackson/jsonpointer/ReferenceToken\nerror: cannot find class com/github/fge/jsonschema/core/load/uri/URITranslatorConfiguration\nerror: cannot find class com/github/fge/jsonschema/core/load/uri/URITranslatorConfigurationBuilder\nerror: cannot find class com/github/fge/jsonschema/core/load/configuration/LoadingConfiguration\nerror: cannot find class com/github/fge/jsonschema/core/load/configuration/LoadingConfigurationBuilder\nerror: cannot find class com/github/fge/jsonschema/main/JsonSchemaFactoryBuilder\nerror: cannot find class com/google/common/collect/ImmutableSet\nerror: cannot find class com/google/common/collect/ImmutableSet$Builder\nerror: cannot find class com/fasterxml/jackson/databind/ObjectWriter\nerror: cannot find class com/fasterxml/jackson/databind/SerializationFeature\nerror: cannot find class com/fasterxml/jackson/annotation/JsonInclude$Include\nerror: cannot find class com/fasterxml/jackson/databind/JsonMappingException\nerror: cannot find class io/swagger/parser/util/SwaggerDeserializationResult\nerror: cannot find class io/swagger/parser/Swagger20Parser\nerror: cannot find class io/swagger/parser/util/RemoteUrl\nerror: cannot find class org/apache/commons/io/FileUtils\nerror: cannot find class io/swagger/parser/util/ClasspathHelper\nerror: cannot find class io/swagger/models/ModelImpl\nerror: cannot find class io/swagger/models/parameters/PathParameter\nerror: cannot find class io/swagger/models/parameters/QueryParameter\nerror: cannot find class io/swagger/models/parameters/HeaderParameter\nerror: cannot find class io/swagger/models/parameters/BodyParameter\nerror: cannot find class io/swagger/models/parameters/FormParameter\nerror: cannot find class io/swagger/models/properties/ArrayProperty\nerror: cannot find class io/swagger/models/properties/PropertyBuilder\nerror: cannot find class io/swagger/models/properties/StringProperty\nerror: cannot find class io/swagger/models/RefModel\nerror: cannot find class io/swagger/models/ArrayModel\nerror: cannot find class io/swagger/models/properties/RefProperty\nerror: cannot find class io/swagger/models/Operation\nerror: cannot find class io/swagger/models/Response\nerror: cannot find class io/swagger/models/Info\nerror: cannot find class io/swagger/models/Contact\nerror: cannot find class io/swagger/models/License\nerror: cannot find class io/swagger/models/Path\nerror: cannot find class io/swagger/models/Swagger\nerror: cannot find class io/swagger/models/Scheme\nerror: cannot find class io/swagger/models/auth/OAuth2Definition\nerror: cannot find class io/swagger/models/auth/ApiKeyAuthDefinition\nerror: cannot find class io/swagger/models/auth/BasicAuthDefinition\nerror: cannot find class io/swagger/models/properties/Property\nerror: cannot find class io/swagger/models/parameters/Parameter\nerror: cannot find class io/swagger/models/parameters/SerializableParameter\nerror: cannot find class io/swagger/models/refs/RefFormat\nerror: cannot find class io/swagger/models/properties/PropertyBuilder$PropertyId\nerror: cannot find class io/swagger/models/auth/In\nerror: cannot find class io/swagger/parser/SwaggerParserExtension"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "io.swagger:swagger-parser:1.0.72": {
+      "dependency": "io.swagger:swagger-parser",
+      "version": "1.0.72",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class io/swagger/parser/util/DeserializationUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\swagger-parser-1.0.72.jar:\nclass io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass io/swagger/parser/util/DeserializationUtils uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\n\nerror: cannot find class com/fasterxml/jackson/databind/JsonNode\nerror: cannot find class io/swagger/models/parameters/BodyParameter\nerror: cannot find class io/swagger/models/RefModel\nerror: cannot find class io/swagger/models/Swagger\nerror: cannot find class io/swagger/models/Response\nerror: cannot find class io/swagger/models/ModelImpl\nerror: cannot find class io/swagger/models/properties/RefProperty\nerror: cannot find class org/apache/commons/lang3/StringUtils\nerror: cannot find class io/swagger/parser/urlresolver/PermittedUrlsChecker\nerror: cannot find class io/swagger/parser/urlresolver/exceptions/HostDeniedException\nerror: cannot find class io/swagger/models/refs/RefType\nerror: cannot find class io/swagger/models/Model\nerror: cannot find class io/swagger/models/refs/RefFormat\nerror: cannot find class com/fasterxml/jackson/databind/node/JsonNodeType\nerror: cannot find class com/fasterxml/jackson/databind/node/ArrayNode\nerror: cannot find class io/swagger/models/Scheme\nerror: cannot find class com/fasterxml/jackson/databind/node/ObjectNode\nerror: cannot find class io/swagger/models/Operation\nerror: cannot find class io/swagger/models/Path\nerror: cannot find class io/swagger/models/Responses\nerror: cannot find class io/swagger/models/SecurityRequirement\nerror: cannot find class io/swagger/models/parameters/QueryParameter\nerror: cannot find class io/swagger/models/parameters/HeaderParameter\nerror: cannot find class io/swagger/models/parameters/PathParameter\nerror: cannot find class io/swagger/models/parameters/FormParameter\nerror: cannot find class io/swagger/models/parameters/AbstractSerializableParameter\nerror: cannot find class io/swagger/models/properties/PropertyBuilder\nerror: cannot find class io/swagger/util/Json\nerror: cannot find class com/fasterxml/jackson/databind/ObjectMapper\nerror: cannot find class com/fasterxml/jackson/databind/type/TypeFactory\nerror: cannot find class com/fasterxml/jackson/databind/node/TextNode\nerror: cannot find class io/swagger/models/parameters/RefParameter\nerror: cannot find class io/swagger/models/RefResponse\nerror: cannot find class io/swagger/models/RefPath\nerror: cannot find class io/swagger/models/BooleanValueModel\nerror: cannot find class io/swagger/models/ArrayModel\nerror: cannot find class io/swagger/models/properties/BooleanValueProperty\nerror: cannot find class io/swagger/models/ComposedModel\nerror: cannot find class io/swagger/models/properties/ArrayProperty\nerror: cannot find class io/swagger/models/AbstractModel\nerror: cannot find class io/swagger/models/Info\nerror: cannot find class io/swagger/models/License\nerror: cannot find class io/swagger/models/Contact\nerror: cannot find class io/swagger/models/auth/In\nerror: cannot find class io/swagger/models/auth/ApiKeyAuthDefinition\nerror: cannot find class io/swagger/models/Tag\nerror: cannot find class io/swagger/models/ExternalDocs\nerror: cannot find class io/swagger/models/parameters/Parameter\nerror: cannot find class io/swagger/models/properties/Property\nerror: cannot find class io/swagger/models/auth/SecuritySchemeDefinition\nerror: cannot find class io/swagger/models/properties/PropertyBuilder$PropertyId\nerror: cannot find class org/apache/commons/io/IOUtils\nerror: cannot find class io/swagger/models/auth/AuthorizationValue\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class io/swagger/models/auth/UrlMatcher\nerror: cannot find class org/yaml/snakeyaml/constructor/SafeConstructor\nerror: cannot find class org/yaml/snakeyaml/nodes/MappingNode\nerror: cannot find class org/yaml/snakeyaml/nodes/NodeTuple\nerror: cannot find class org/yaml/snakeyaml/composer/Composer\nerror: cannot find class org/yaml/snakeyaml/nodes/Tag\nerror: cannot find class org/yaml/snakeyaml/nodes/Node\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.constructDocument:(Lorg/yaml/snakeyaml/nodes/Node;)Ljava/lang/Object;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.composer:Lorg/yaml/snakeyaml/composer/Composer;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomSnakeYamlConstructor.rootTag:Lorg/yaml/snakeyaml/nodes/Tag;\nerror: cannot find class org/yaml/snakeyaml/resolver/Resolver\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.addImplicitResolver:(Lorg/yaml/snakeyaml/nodes/Tag;Ljava/util/regex/Pattern;Ljava/lang/String;)V\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.BOOL:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.INT:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.FLOAT:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.MERGE:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.NULL:Ljava/util/regex/Pattern;\nerror: cannot resolve Methodref io/swagger/parser/util/DeserializationUtils$CustomResolver.EMPTY:Ljava/util/regex/Pattern;\nerror: cannot find class io/swagger/util/ObjectMapperFactory\nerror: cannot find class org/yaml/snakeyaml/Yaml\nerror: cannot find class org/yaml/snakeyaml/DumperOptions\nerror: cannot find class org/yaml/snakeyaml/representer/Representer\nerror: cannot find class org/yaml/snakeyaml/LoaderOptions\nerror: cannot find class io/swagger/util/Yaml\nerror: cannot find class io/swagger/models/properties/ObjectProperty\nerror: cannot find class io/swagger/models/utils/PropertyModelConverter\nerror: cannot find class io/swagger/models/properties/MapProperty\nerror: cannot find class io/swagger/models/properties/ComposedProperty\nerror: cannot find class io/swagger/models/properties/AbstractProperty\nerror: cannot find class io/swagger/models/properties/StringProperty\nerror: cannot find class org/apache/commons/io/FileUtils\nerror: cannot find class org/apache/commons/lang3/builder/ReflectionToStringBuilder\nerror: cannot find class org/apache/commons/lang3/Validate\nerror: cannot find class org/apache/commons/lang3/builder/ToStringStyle"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.apache.commons:commons-io:1.3.2": {
+      "dependency": "org.apache.commons:commons-io",
+      "version": "1.3.2",
+      "signals": {
+        "bytecode_jdk": "3",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/apache/commons/io/FileUtils uses deprecated method java/io/File::toURL()Ljava/net/URL;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\commons-io-1.3.2.jar:\nclass org/apache/commons/io/FileUtils uses deprecated method java/io/File::toURL()Ljava/net/URL;"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-annotations:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-annotations-2.19.0.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.19.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.19.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            },
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-2.19.0.jar:\nclass com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V \nclass com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V \n\nerror: cannot find class java/lang/foreign/MemorySegment\nerror: cannot find class java/lang/foreign/ValueLayout$OfLong"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.18.4": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.18.4",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            },
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-2.18.4.jar:\nclass com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V \nclass com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V \n\nerror: cannot find class java/lang/foreign/MemorySegment\nerror: cannot find class java/lang/foreign/ValueLayout$OfLong"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.18.3": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.18.3",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            },
+            {
+              "line": "class com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jackson-core-2.18.3.jar:\nclass com/fasterxml/jackson/core/io/schubfach/DoubleToDecimal uses deprecated method java/lang/String::<init>([BIII)V \nclass com/fasterxml/jackson/core/io/schubfach/FloatToDecimal uses deprecated method java/lang/String::<init>([BIII)V \n\nerror: cannot find class java/lang/foreign/MemorySegment\nerror: cannot find class java/lang/foreign/ValueLayout$OfLong"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-annotations:2.17.2": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.17.2",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.17.2": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.17.2",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-annotations:2.18.2": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.18.2",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.18.2": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.18.2",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-annotations:2.1.1": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.1.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.1.1": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.1.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-annotations:2.17.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.17.0",
+      "signals": {
+        "bytecode_jdk": "6",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.fasterxml.jackson.core:jackson-core:2.17.0": {
+      "dependency": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.17.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "SKIP",
+          "reason": "jar not provided"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

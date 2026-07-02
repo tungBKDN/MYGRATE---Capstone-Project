@@ -1,0 +1,2025 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "com.spotify",
+      "artifactId": "apollo-parent",
+      "version": "1.20.5-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "com.spotify",
+      "project.artifactId": "apollo-parent",
+      "project.version": "1.20.5-SNAPSHOT",
+      "cucumber.version": "4.8.0",
+      "auto-matter.version": "0.15.3",
+      "auto-value.version": "1.7.4",
+      "logback.version": "1.2.3",
+      "jackson.version": "2.12.3",
+      "semantic-metrics.version": "1.1.8",
+      "guava.version": "30.1.1-jre",
+      "junit.testkit.version": "1.7.1",
+      "slf4j.version": "1.7.30",
+      "hamcrest.version": "2.2",
+      "distributionManagement.snapshotRepository.id": "ossrh",
+      "distributionManagement.snapshotRepository.url": "https://s01.oss.sonatype.org/content/repositories/snapshots",
+      "distributionManagement.repository.id": "ossrh",
+      "distributionManagement.repository.url": "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+    },
+    "dependencies": [
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.apache.maven.plugins",
+        "artifactId": "maven-dependency-plugin",
+        "version": "3.6.0",
+        "scope": "compile",
+        "raw_version": "3.6.0"
+      },
+      {
+        "groupId": "org.apache.maven.plugins",
+        "artifactId": "maven-enforcer-plugin",
+        "version": "3.4.1",
+        "scope": "compile",
+        "raw_version": "3.4.1"
+      },
+      {
+        "groupId": "org.apache.maven.plugins",
+        "artifactId": "maven-surefire-plugin",
+        "version": "3.2.5",
+        "scope": "compile",
+        "raw_version": "3.2.5"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "apollo-bom": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-bom",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-bom",
+        "project.version": "1.20.5-SNAPSHOT",
+        "distributionManagement.snapshotRepository.id": "ossrh",
+        "distributionManagement.snapshotRepository.url": "https://s01.oss.sonatype.org/content/repositories/snapshots",
+        "distributionManagement.repository.id": "ossrh",
+        "distributionManagement.repository.url": "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+      },
+      "dependencies": []
+    },
+    "apollo-core": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-core",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-core",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "net.sf.jopt-simple",
+          "artifactId": "jopt-simple",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-api": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-api",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-api",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "jsr305",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-api-impl": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-api-impl",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-api-impl",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-route",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "auto-matter-jackson",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "jsr305",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "auto-matter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "auto-matter-annotation",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "uk.org.lidalia",
+          "artifactId": "slf4j-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "uk.org.lidalia",
+          "artifactId": "lidalia-slf4j-ext",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.openjdk.jmh",
+          "artifactId": "jmh-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-environment": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-environment",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-environment",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-route",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-route": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-route",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-route",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "rut",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-test": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-test",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-test",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-environment",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-okhttp-client",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-metrics",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.platform",
+          "artifactId": "junit-platform-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "annotations",
+          "version": "2.0.0",
+          "scope": "runtime",
+          "raw_version": "2.0.0"
+        },
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "jsr305",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.platform",
+          "artifactId": "junit-platform-testkit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-extra": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-extra",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-extra",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-route",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-environment",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.freemarker",
+          "artifactId": "freemarker",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "uk.org.lidalia",
+          "artifactId": "slf4j-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "uk.org.lidalia",
+          "artifactId": "lidalia-slf4j-ext",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "apollo-entity": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-entity",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-entity",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.javaslang",
+          "artifactId": "javaslang",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "jsr305",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "auto-matter",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "auto-matter-annotation",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-test",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.norberg",
+          "artifactId": "auto-matter-jackson",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path-assert",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "modules/okhttp-client": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-okhttp-client",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-okhttp-client",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-environment",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okhttp",
+          "artifactId": "okhttp",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.code.findbugs",
+          "artifactId": "jsr305",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.dropwizard.metrics",
+          "artifactId": "metrics-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mock-server",
+          "artifactId": "mockserver-netty",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mock-server",
+          "artifactId": "mockserver-core",
+          "version": "3.9.17",
+          "scope": "test",
+          "raw_version": "3.9.17"
+        },
+        {
+          "groupId": "org.mock-server",
+          "artifactId": "mockserver-client-java",
+          "version": "3.9.17",
+          "scope": "test",
+          "raw_version": "3.9.17"
+        }
+      ]
+    },
+    "modules/metrics": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-metrics",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-metrics",
+        "project.version": "1.20.5-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-api-impl",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify",
+          "artifactId": "apollo-environment",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.dropwizard.metrics",
+          "artifactId": "metrics-jvm",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.squareup.okio",
+          "artifactId": "okio",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.typesafe",
+          "artifactId": "config",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.metrics",
+          "artifactId": "semantic-metrics-ffwd-reporter",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.spotify.ffwd",
+          "artifactId": "ffwd-http-client",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "io.dropwizard.metrics",
+          "artifactId": "metrics-core",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value-annotations",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.service",
+          "artifactId": "auto-service",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.google.auto.value",
+          "artifactId": "auto-value",
+          "version": "Managed",
+          "scope": "provided",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.junit.vintage",
+          "artifactId": "junit-vintage-engine",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.awaitility",
+          "artifactId": "awaitility",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "ch.qos.logback",
+      "artifactId": "logback-classic",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-dependency-plugin",
+      "version": "3.6.0",
+      "scope": "compile",
+      "raw_version": "3.6.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-enforcer-plugin",
+      "version": "3.4.1",
+      "scope": "compile",
+      "raw_version": "3.4.1"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-surefire-plugin",
+      "version": "3.2.5",
+      "scope": "compile",
+      "raw_version": "3.2.5"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.inject",
+      "artifactId": "guice",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "net.sf.jopt-simple",
+      "artifactId": "jopt-simple",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.typesafe",
+      "artifactId": "config",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.vintage",
+      "artifactId": "junit-vintage-engine",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.hamcrest",
+      "artifactId": "hamcrest",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.squareup.okio",
+      "artifactId": "okio",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.code.findbugs",
+      "artifactId": "jsr305",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.auto.value",
+      "artifactId": "auto-value-annotations",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.auto.value",
+      "artifactId": "auto-value",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.norberg",
+      "artifactId": "auto-matter-jackson",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.norberg",
+      "artifactId": "auto-matter",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.norberg",
+      "artifactId": "auto-matter-annotation",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "uk.org.lidalia",
+      "artifactId": "slf4j-test",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "uk.org.lidalia",
+      "artifactId": "lidalia-slf4j-ext",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.openjdk.jmh",
+      "artifactId": "jmh-core",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.norberg",
+      "artifactId": "rut",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.spotify",
+      "artifactId": "apollo-okhttp-client",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.spotify",
+      "artifactId": "apollo-metrics",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.spotify.metrics",
+      "artifactId": "semantic-metrics-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.spotify.metrics",
+      "artifactId": "semantic-metrics-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-engine",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.junit.platform",
+      "artifactId": "junit-platform-engine",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.code.findbugs",
+      "artifactId": "annotations",
+      "version": "2.0.0",
+      "scope": "runtime",
+      "raw_version": "2.0.0"
+    },
+    {
+      "groupId": "org.junit.platform",
+      "artifactId": "junit-platform-testkit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.freemarker",
+      "artifactId": "freemarker",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.javaslang",
+      "artifactId": "javaslang",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.jayway.jsonpath",
+      "artifactId": "json-path-assert",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.squareup.okhttp",
+      "artifactId": "okhttp",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "io.dropwizard.metrics",
+      "artifactId": "metrics-core",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mock-server",
+      "artifactId": "mockserver-netty",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.mock-server",
+      "artifactId": "mockserver-core",
+      "version": "3.9.17",
+      "scope": "test",
+      "raw_version": "3.9.17"
+    },
+    {
+      "groupId": "org.mock-server",
+      "artifactId": "mockserver-client-java",
+      "version": "3.9.17",
+      "scope": "test",
+      "raw_version": "3.9.17"
+    },
+    {
+      "groupId": "io.dropwizard.metrics",
+      "artifactId": "metrics-jvm",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.spotify.metrics",
+      "artifactId": "semantic-metrics-ffwd-reporter",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.spotify.ffwd",
+      "artifactId": "ffwd-http-client",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.google.auto.service",
+      "artifactId": "auto-service",
+      "version": "Managed",
+      "scope": "provided",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.awaitility",
+      "artifactId": "awaitility",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "apollo-bom",
+      "apollo-core",
+      "apollo-api",
+      "apollo-api-impl",
+      "apollo-environment",
+      "apollo-route",
+      "apollo-test",
+      "apollo-extra",
+      "apollo-entity",
+      "modules/okhttp-client",
+      "modules/metrics"
+    ],
+    "java_file_count": 276,
+    "package_distribution": {
+      "apollo-api/src/main/java/com/spotify/apollo": 16,
+      "apollo-api/src/main/java/com/spotify/apollo/route": 7,
+      "apollo-api/src/test/java/com/spotify/apollo": 5,
+      "apollo-api/src/test/java/com/spotify/apollo/route": 6,
+      "apollo-api/target/generated-sources/annotations/com/spotify/apollo": 4,
+      "apollo-api/target/generated-sources/annotations/com/spotify/apollo/route": 2,
+      "apollo-api/target/generated-test-sources/test-annotations/com/spotify/apollo/route": 2,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/dispatch": 3,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/environment": 10,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/meta": 10,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/meta/model": 7,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/request": 18,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/route": 4,
+      "apollo-api-impl/src/main/java/com/spotify/apollo/serialization": 4,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/dispatch": 1,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/environment": 1,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/meta": 3,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/meta/model": 1,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/meta/model/benchmark": 1,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/request": 7,
+      "apollo-api-impl/src/test/java/com/spotify/apollo/route": 3,
+      "apollo-api-impl/target/generated-sources/annotations/com/spotify/apollo/meta": 1,
+      "apollo-api-impl/target/generated-sources/annotations/com/spotify/apollo/meta/model": 2,
+      "apollo-api-impl/target/generated-sources/annotations/com/spotify/apollo/request": 4,
+      "apollo-core/src/main/java/com/spotify/apollo/core": 7,
+      "apollo-core/src/main/java/com/spotify/apollo/module": 2,
+      "apollo-core/src/test/java/com/spotify/apollo/core": 5,
+      "apollo-entity/src/main/java/com/spotify/apollo/entity": 7,
+      "apollo-entity/src/test/java/com/spotify/apollo/entity": 4,
+      "apollo-entity/target/generated-sources/annotations/com/spotify/apollo/entity": 1,
+      "apollo-entity/target/generated-test-sources/test-annotations/com/spotify/apollo/entity": 3,
+      "apollo-environment/src/main/java/com/spotify/apollo/environment": 10,
+      "apollo-environment/src/test/java/com/spotify/apollo/environment": 7,
+      "apollo-extra/src/main/java/com/spotify/apollo/concurrent": 1,
+      "apollo-extra/src/main/java/com/spotify/apollo/logging/extra": 3,
+      "apollo-extra/src/main/java/com/spotify/apollo/route": 5,
+      "apollo-extra/src/test/java/com/spotify/apollo/concurrent": 1,
+      "apollo-extra/src/test/java/com/spotify/apollo/logging/extra": 2,
+      "apollo-extra/src/test/java/com/spotify/apollo/route": 4,
+      "apollo-extra/target/generated-sources/annotations/com/spotify/apollo/route": 1,
+      "apollo-route/src/main/java/com/spotify/apollo/route": 5,
+      "apollo-route/src/test/java/com/spotify/apollo/route": 1,
+      "apollo-test/src/main/java/com/spotify/apollo/test": 7,
+      "apollo-test/src/main/java/com/spotify/apollo/test/experimental": 5,
+      "apollo-test/src/main/java/com/spotify/apollo/test/response": 5,
+      "apollo-test/src/main/java/com/spotify/apollo/test/unit": 9,
+      "apollo-test/src/test/java/com/spotify/apollo/test": 7,
+      "apollo-test/src/test/java/com/spotify/apollo/test/helper": 3,
+      "apollo-test/src/test/java/com/spotify/apollo/test/unit": 5,
+      "apollo-test/target/generated-sources/annotations/com/spotify/apollo/test": 1,
+      "modules/metrics/src/main/java/com/spotify/apollo/metrics": 9,
+      "modules/metrics/src/main/java/com/spotify/apollo/metrics/noop": 3,
+      "modules/metrics/src/main/java/com/spotify/apollo/metrics/semantic": 7,
+      "modules/metrics/src/test/java/com/spotify/apollo/metrics": 5,
+      "modules/metrics/src/test/java/com/spotify/apollo/metrics/semantic": 4,
+      "modules/okhttp-client/src/main/java/com/spotify/apollo/http/client": 8,
+      "modules/okhttp-client/src/test/java/com/spotify/apollo/http/client": 7
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 276,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 276,
+    "manifest_count": 12,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "apollo-api-impl\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api-impl\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-api\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-bom\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-bom\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-entity\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-entity\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-environment\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-environment\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-extra\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-extra\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-route\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-route\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "apollo-test\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-test\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\metrics\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\modules\\metrics\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "modules\\okhttp-client\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\modules\\okhttp-client\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\AppInit.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\AppInit.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Client.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Client.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Environment.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Environment.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Exploratory.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Exploratory.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Headers.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Headers.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Payloads.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Payloads.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\QueryStringDecoder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\QueryStringDecoder.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Request.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Request.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\RequestContext.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\RequestContext.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\RequestMetadata.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\RequestMetadata.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\RequestValue.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\RequestValue.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Response.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Response.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\ResponseImpl.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\ResponseImpl.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Serializer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Serializer.java",
+        "language": "java"
+      },
+      {
+        "path": "apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Status.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo\\apollo-api\\src\\main\\java\\com\\spotify\\apollo\\Status.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "8",
+    "java_file_count": 276,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "com.spotify",
+        "artifactId": "apollo-parent",
+        "version": "1.20.5-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "com.spotify",
+        "project.artifactId": "apollo-parent",
+        "project.version": "1.20.5-SNAPSHOT",
+        "cucumber.version": "4.8.0",
+        "auto-matter.version": "0.15.3",
+        "auto-value.version": "1.7.4",
+        "logback.version": "1.2.3",
+        "jackson.version": "2.12.3",
+        "semantic-metrics.version": "1.1.8",
+        "guava.version": "30.1.1-jre",
+        "junit.testkit.version": "1.7.1",
+        "slf4j.version": "1.7.30",
+        "hamcrest.version": "2.2",
+        "distributionManagement.snapshotRepository.id": "ossrh",
+        "distributionManagement.snapshotRepository.url": "https://s01.oss.sonatype.org/content/repositories/snapshots",
+        "distributionManagement.repository.id": "ossrh",
+        "distributionManagement.repository.url": "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+      },
+      "dependencies": [
+        {
+          "groupId": "ch.qos.logback",
+          "artifactId": "logback-classic",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.apache.maven.plugins",
+          "artifactId": "maven-dependency-plugin",
+          "version": "3.6.0",
+          "scope": "compile",
+          "raw_version": "3.6.0"
+        },
+        {
+          "groupId": "org.apache.maven.plugins",
+          "artifactId": "maven-enforcer-plugin",
+          "version": "3.4.1",
+          "scope": "compile",
+          "raw_version": "3.4.1"
+        },
+        {
+          "groupId": "org.apache.maven.plugins",
+          "artifactId": "maven-surefire-plugin",
+          "version": "3.2.5",
+          "scope": "compile",
+          "raw_version": "3.2.5"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      },
+      {
+        "groupId": "org.apache.maven.plugins",
+        "artifactId": "maven-dependency-plugin",
+        "version": "3.6.0",
+        "scope": "compile",
+        "raw_version": "3.6.0"
+      },
+      {
+        "groupId": "org.apache.maven.plugins",
+        "artifactId": "maven-enforcer-plugin",
+        "version": "3.4.1",
+        "scope": "compile",
+        "raw_version": "3.4.1"
+      },
+      {
+        "groupId": "org.apache.maven.plugins",
+        "artifactId": "maven-surefire-plugin",
+        "version": "3.2.5",
+        "scope": "compile",
+        "raw_version": "3.2.5"
+      }
+    ],
+    "name": "apollo",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\working\\deepseek-v3.2_cloud\\apollo"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `apollo` | Maven | 8 | 276 | Standard Java | None | **Yellow** |"
+}

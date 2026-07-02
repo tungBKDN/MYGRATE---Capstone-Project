@@ -1,0 +1,211 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.reflections:reflections": [
+      "0.10.2",
+      "0.10.1",
+      "0.10"
+    ],
+    "com.google.appengine:appengine-api-labs": [
+      "1.9.88",
+      "1.9.87",
+      "1.9.86"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.reflections:reflections": "0.10",
+      "com.google.appengine:appengine-api-labs": "1.9.86"
+    },
+    {
+      "org.reflections:reflections": "0.10.2",
+      "com.google.appengine:appengine-api-labs": "1.9.86"
+    },
+    {
+      "org.reflections:reflections": "0.10.1",
+      "com.google.appengine:appengine-api-labs": "1.9.86"
+    },
+    {
+      "org.reflections:reflections": "0.10.1",
+      "com.google.appengine:appengine-api-labs": "1.9.87"
+    },
+    {
+      "org.reflections:reflections": "0.10",
+      "com.google.appengine:appengine-api-labs": "1.9.87"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.reflections:reflections": "0.10",
+        "com.google.appengine:appengine-api-labs": "1.9.86"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 0 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "org.reflections:reflections": "0.10.2",
+        "com.google.appengine:appengine-api-labs": "1.9.86"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "org.reflections:reflections": "0.10.1",
+        "com.google.appengine:appengine-api-labs": "1.9.86"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.reflections:reflections:0.10.2": {
+      "dependency": "org.reflections:reflections",
+      "version": "0.10.2",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/reflections/util/ClasspathHelper uses deprecated method java/io/File::toURL()Ljava/net/URL;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\reflections-0.10.2.jar:\nclass org/reflections/util/ClasspathHelper uses deprecated method java/io/File::toURL()Ljava/net/URL; \n\nerror: cannot find class org/jboss/vfs/VirtualFile\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class javassist/bytecode/ClassFile\nerror: cannot find class javassist/bytecode/FieldInfo\nerror: cannot find class javassist/bytecode/MethodInfo\nerror: cannot find class javassist/bytecode/AccessFlag\nerror: cannot find class javassist/bytecode/Descriptor$Iterator\nerror: cannot find class javassist/bytecode/Descriptor\nerror: cannot find class javassist/bytecode/ParameterAnnotationsAttribute\nerror: cannot find class javassist/bytecode/AnnotationsAttribute\nerror: cannot find class javassist/bytecode/annotation/Annotation\nerror: cannot find class javax/servlet/ServletContext\nerror: cannot find class com/google/gson/GsonBuilder\nerror: cannot find class com/google/gson/Gson\nerror: cannot find class org/dom4j/io/SAXReader\nerror: cannot find class org/dom4j/io/OutputFormat\nerror: cannot find class org/dom4j/io/XMLWriter\nerror: cannot find class org/dom4j/DocumentFactory\nerror: cannot find class org/dom4j/Document\nerror: cannot find class org/dom4j/Element\nerror: cannot find class org/dom4j/Node\nerror: cannot find class javassist/ClassPool\nerror: cannot find class javassist/CtClass\nerror: cannot find class javassist/CtBehavior\nerror: cannot find class javassist/LoaderClassPath\nerror: cannot find class javassist/bytecode/CodeAttribute\nerror: cannot find class javassist/bytecode/LocalVariableAttribute\nerror: cannot find class javassist/bytecode/ConstPool\nerror: cannot find class javassist/expr/ExprEditor\nerror: cannot find class javassist/expr/NewExpr\nerror: cannot find class javassist/CtConstructor\nerror: cannot find class javassist/expr/MethodCall\nerror: cannot find class javassist/CtMethod\nerror: cannot find class javassist/expr/ConstructorCall\nerror: cannot find class javassist/expr/FieldAccess\nerror: cannot find class javassist/CtField\nerror: cannot find class org/slf4j/LoggerFactory"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.google.appengine:appengine-api-labs:1.9.88": {
+      "dependency": "com.google.appengine:appengine-api-labs",
+      "version": "1.9.88",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\appengine-api-labs-1.9.88.jar:\n\nerror: cannot find class com/google/appengine/spi/FactoryProvider\nerror: cannot find class com/google/apphosting/api/CloudTraceContext\nerror: cannot find class com/google/apphosting/api/ApiProxy\nerror: cannot find class com/google/apphosting/api/CloudTrace\nerror: cannot find class com/google/appengine/spi/ServiceFactoryFactory"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.reflections:reflections:0.10.1": {
+      "dependency": "org.reflections:reflections",
+      "version": "0.10.1",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/reflections/util/ClasspathHelper uses deprecated method java/io/File::toURL()Ljava/net/URL;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\reflections-0.10.1.jar:\nclass org/reflections/util/ClasspathHelper uses deprecated method java/io/File::toURL()Ljava/net/URL; \n\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class javax/servlet/ServletContext\nerror: cannot find class javassist/bytecode/ClassFile\nerror: cannot find class org/jboss/vfs/VirtualFile\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class javassist/bytecode/FieldInfo\nerror: cannot find class javassist/bytecode/MethodInfo\nerror: cannot find class javassist/bytecode/AccessFlag\nerror: cannot find class javassist/bytecode/Descriptor$Iterator\nerror: cannot find class javassist/bytecode/Descriptor\nerror: cannot find class javassist/bytecode/ParameterAnnotationsAttribute\nerror: cannot find class javassist/bytecode/AnnotationsAttribute\nerror: cannot find class javassist/bytecode/annotation/Annotation\nerror: cannot find class com/google/gson/GsonBuilder\nerror: cannot find class com/google/gson/Gson\nerror: cannot find class org/dom4j/io/SAXReader\nerror: cannot find class org/dom4j/io/OutputFormat\nerror: cannot find class org/dom4j/io/XMLWriter\nerror: cannot find class org/dom4j/DocumentFactory\nerror: cannot find class org/dom4j/Document\nerror: cannot find class org/dom4j/Element\nerror: cannot find class org/dom4j/Node\nerror: cannot find class javassist/ClassPool\nerror: cannot find class javassist/CtClass\nerror: cannot find class javassist/CtBehavior\nerror: cannot find class javassist/LoaderClassPath\nerror: cannot find class javassist/bytecode/CodeAttribute\nerror: cannot find class javassist/bytecode/LocalVariableAttribute\nerror: cannot find class javassist/bytecode/ConstPool\nerror: cannot find class javassist/expr/ExprEditor\nerror: cannot find class javassist/expr/NewExpr\nerror: cannot find class javassist/CtConstructor\nerror: cannot find class javassist/expr/MethodCall\nerror: cannot find class javassist/CtMethod\nerror: cannot find class javassist/expr/ConstructorCall\nerror: cannot find class javassist/expr/FieldAccess\nerror: cannot find class javassist/CtField"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.google.appengine:appengine-api-labs:1.9.87": {
+      "dependency": "com.google.appengine:appengine-api-labs",
+      "version": "1.9.87",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\appengine-api-labs-1.9.87.jar:\n\nerror: cannot find class com/google/appengine/spi/FactoryProvider\nerror: cannot find class com/google/apphosting/api/CloudTraceContext\nerror: cannot find class com/google/apphosting/api/ApiProxy\nerror: cannot find class com/google/apphosting/api/CloudTrace\nerror: cannot find class com/google/appengine/spi/ServiceFactoryFactory"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.reflections:reflections:0.10": {
+      "dependency": "org.reflections:reflections",
+      "version": "0.10",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 1,
+          "findings": [
+            {
+              "line": "class org/reflections/util/ClasspathHelper uses deprecated method java/io/File::toURL()Ljava/net/URL;"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\reflections-0.10.jar:\nclass org/reflections/util/ClasspathHelper uses deprecated method java/io/File::toURL()Ljava/net/URL; \n\nerror: cannot find class org/jboss/vfs/VirtualFile\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class javax/servlet/ServletContext\nerror: cannot find class javassist/bytecode/ClassFile\nerror: cannot find class javassist/bytecode/FieldInfo\nerror: cannot find class javassist/bytecode/MethodInfo\nerror: cannot find class javassist/bytecode/AccessFlag\nerror: cannot find class javassist/bytecode/Descriptor$Iterator\nerror: cannot find class javassist/bytecode/Descriptor\nerror: cannot find class javassist/bytecode/ParameterAnnotationsAttribute\nerror: cannot find class javassist/bytecode/AnnotationsAttribute\nerror: cannot find class javassist/bytecode/annotation/Annotation\nerror: cannot find class javassist/ClassPool\nerror: cannot find class javassist/CtClass\nerror: cannot find class javassist/CtBehavior\nerror: cannot find class javassist/LoaderClassPath\nerror: cannot find class javassist/bytecode/CodeAttribute\nerror: cannot find class javassist/bytecode/LocalVariableAttribute\nerror: cannot find class javassist/bytecode/ConstPool\nerror: cannot find class javassist/expr/ExprEditor\nerror: cannot find class javassist/expr/NewExpr\nerror: cannot find class javassist/CtConstructor\nerror: cannot find class javassist/expr/MethodCall\nerror: cannot find class javassist/CtMethod\nerror: cannot find class javassist/expr/ConstructorCall\nerror: cannot find class javassist/expr/FieldAccess\nerror: cannot find class javassist/CtField\nerror: cannot find class com/google/gson/GsonBuilder\nerror: cannot find class com/google/gson/Gson\nerror: cannot find class org/dom4j/io/SAXReader\nerror: cannot find class org/dom4j/io/OutputFormat\nerror: cannot find class org/dom4j/io/XMLWriter\nerror: cannot find class org/dom4j/DocumentFactory\nerror: cannot find class org/dom4j/Document\nerror: cannot find class org/dom4j/Element\nerror: cannot find class org/dom4j/Node\nerror: cannot find class org/slf4j/LoggerFactory"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "com.google.appengine:appengine-api-labs:1.9.86": {
+      "dependency": "com.google.appengine:appengine-api-labs",
+      "version": "1.9.86",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [
+          "javax/annotation"
+        ],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\appengine-api-labs-1.9.86.jar:\n\nerror: cannot find class com/google/appengine/spi/FactoryProvider\nerror: cannot find class com/google/apphosting/api/CloudTraceContext\nerror: cannot find class com/google/apphosting/api/ApiProxy\nerror: cannot find class com/google/apphosting/api/CloudTrace\nerror: cannot find class com/google/appengine/spi/ServiceFactoryFactory"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

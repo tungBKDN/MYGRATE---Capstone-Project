@@ -1,0 +1,826 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "xerces:xercesImpl": [
+      "2.12.2",
+      "2.12.1",
+      "2.12.0"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "xerces:xercesImpl": "2.12.2"
+    },
+    {
+      "xerces:xercesImpl": "2.12.1"
+    },
+    {
+      "xerces:xercesImpl": "2.12.0"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "xerces:xercesImpl": "2.12.2"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "xerces:xercesImpl": "2.12.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "xerces:xercesImpl": "2.12.0"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "xerces:xercesImpl:2.12.2": {
+      "dependency": "xerces:xercesImpl",
+      "version": "2.12.2",
+      "signals": {
+        "bytecode_jdk": "7",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 84,
+          "findings": [
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder implements deprecated interface org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/CoreDocumentImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/XMLEntityManager uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/XMLEntityManager uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dtd/models/DFAContentModel uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/util/ByteListImpl uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/xs/TypeValidator uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xpath/XPath$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/models/CMNodeFactory uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/models/XSDFACM uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSAttributeChecker uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDComplexTypeTraverser uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated class org/xml/sax/helpers/XMLReaderFactory"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/util/ShortListImpl uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/SAXParserImpl has method named getParser having deprecated return type org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/SAXParserImpl has method named parse having deprecated parameter type org/xml/sax/HandlerBase"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::setScale(II)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy implements deprecated interface org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser implements deprecated interface org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser has field named fDocumentHandler of deprecated type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser has method named setDocumentHandler having deprecated parameter type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/util/AttributesProxy implements deprecated interface org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/util/AttributesProxy uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/XIncludeHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/ElementSchemePointer$Scanner uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/ElementSchemePointer$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/XPointerHandler$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/XPointerHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer implements deprecated interface org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/EncodingInfo uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLdtd uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "interface org/apache/xml/serialize/Serializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/TextSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/TextSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\xercesImpl-2.12.2.jar:\nclass org/apache/html/dom/HTMLBuilder implements deprecated interface org/xml/sax/DocumentHandler \nclass org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/AttributeList \nclass org/apache/html/dom/HTMLBuilder has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/html/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/html/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/html/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/dom/CoreDocumentImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/XMLEntityManager uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/XMLEntityManager uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/dtd/models/DFAContentModel uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/impl/dv/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/dv/util/ByteListImpl uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/xs/TypeValidator uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/xpath/XPath$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/models/CMNodeFactory uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/models/XSDFACM uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSAttributeChecker uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSDComplexTypeTraverser uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated class org/xml/sax/helpers/XMLReaderFactory \nclass org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/util/ShortListImpl uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)\nclass org/apache/xerces/jaxp/SAXParserImpl has method named getParser having deprecated return type org/xml/sax/Parser \nclass org/apache/xerces/jaxp/SAXParserImpl has method named parse having deprecated parameter type org/xml/sax/HandlerBase \nclass org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::setScale(II)Ljava/math/BigDecimal; \nclass org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal; \nclass org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal; \nclass org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy implements deprecated interface org/xml/sax/AttributeList \nclass org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xerces/parsers/AbstractSAXParser implements deprecated interface org/xml/sax/Parser \nclass org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/Parser \nclass org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/AbstractSAXParser has field named fDocumentHandler of deprecated type org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/AbstractSAXParser has method named setDocumentHandler having deprecated parameter type org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/parsers/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/parsers/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/parsers/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/util/AttributesProxy implements deprecated interface org/xml/sax/AttributeList \nclass org/apache/xerces/util/AttributesProxy uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/xinclude/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/xinclude/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/xinclude/XIncludeHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/ElementSchemePointer$Scanner uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/xerces/xpointer/ElementSchemePointer$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/XPointerHandler$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/XPointerHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xml/serialize/BaseMarkupSerializer implements deprecated interface org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/EncodingInfo uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLdtd uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xml/serialize/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xml/serialize/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\ninterface org/apache/xml/serialize/Serializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/TextSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/TextSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \n\nerror: cannot find class org/apache/xml/resolver/CatalogManager\nerror: cannot find class org/apache/xml/resolver/Catalog\nerror: cannot find class org/apache/xml/resolver/readers/SAXCatalogReader"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "xerces:xercesImpl:2.12.1": {
+      "dependency": "xerces:xercesImpl",
+      "version": "2.12.1",
+      "signals": {
+        "bytecode_jdk": "3",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 76,
+          "findings": [
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder implements deprecated interface org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/CoreDocumentImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/XMLEntityManager uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/XMLEntityManager uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dtd/models/DFAContentModel uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/util/ByteListImpl uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/xs/TypeValidator uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xpath/XPath$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/models/CMNodeFactory uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/models/XSDFACM uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSAttributeChecker uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDComplexTypeTraverser uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated class org/xml/sax/helpers/XMLReaderFactory"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/util/ShortListImpl uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/SAXParserImpl has method named getParser having deprecated return type org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/SAXParserImpl has method named parse having deprecated parameter type org/xml/sax/HandlerBase"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::setScale(II)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy implements deprecated interface org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser implements deprecated interface org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser has field named fDocumentHandler of deprecated type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser has method named setDocumentHandler having deprecated parameter type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/util/AttributesProxy implements deprecated interface org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/util/AttributesProxy uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/XIncludeHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/ElementSchemePointer$Scanner uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/ElementSchemePointer$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/XPointerHandler$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/XPointerHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer implements deprecated interface org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/EncodingInfo uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLdtd uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "interface org/apache/xml/serialize/Serializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/TextSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\xercesImpl-2.12.1.jar:\nclass org/apache/html/dom/HTMLBuilder implements deprecated interface org/xml/sax/DocumentHandler \nclass org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/AttributeList \nclass org/apache/html/dom/HTMLBuilder has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/html/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/html/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/html/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/dom/CoreDocumentImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/XMLEntityManager uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/XMLEntityManager uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/dtd/models/DFAContentModel uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/impl/dv/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/dv/util/ByteListImpl uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/xs/TypeValidator uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/xpath/XPath$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/models/CMNodeFactory uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/models/XSDFACM uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSAttributeChecker uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSDComplexTypeTraverser uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated class org/xml/sax/helpers/XMLReaderFactory \nclass org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/util/ShortListImpl uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)\nclass org/apache/xerces/jaxp/SAXParserImpl has method named getParser having deprecated return type org/xml/sax/Parser \nclass org/apache/xerces/jaxp/SAXParserImpl has method named parse having deprecated parameter type org/xml/sax/HandlerBase \nclass org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::setScale(II)Ljava/math/BigDecimal; \nclass org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal; \nclass org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal; \nclass org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy implements deprecated interface org/xml/sax/AttributeList \nclass org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xerces/parsers/AbstractSAXParser implements deprecated interface org/xml/sax/Parser \nclass org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/Parser \nclass org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/AbstractSAXParser has field named fDocumentHandler of deprecated type org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/AbstractSAXParser has method named setDocumentHandler having deprecated parameter type org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/parsers/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/parsers/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/parsers/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/util/AttributesProxy implements deprecated interface org/xml/sax/AttributeList \nclass org/apache/xerces/util/AttributesProxy uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/xinclude/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/xinclude/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/xinclude/XIncludeHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/ElementSchemePointer$Scanner uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/xerces/xpointer/ElementSchemePointer$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/XPointerHandler$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/XPointerHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xml/serialize/BaseMarkupSerializer implements deprecated interface org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/EncodingInfo uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLdtd uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xml/serialize/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xml/serialize/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\ninterface org/apache/xml/serialize/Serializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/TextSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \n\nerror: cannot find class org/apache/xml/resolver/CatalogManager\nerror: cannot find class org/apache/xml/resolver/Catalog\nerror: cannot find class org/apache/xml/resolver/readers/SAXCatalogReader"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "xerces:xercesImpl:2.12.0": {
+      "dependency": "xerces:xercesImpl",
+      "version": "2.12.0",
+      "signals": {
+        "bytecode_jdk": "3",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 76,
+          "findings": [
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder implements deprecated interface org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/html/dom/HTMLBuilder has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/html/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/CoreDocumentImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/XMLEntityManager uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/XMLEntityManager uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dtd/models/DFAContentModel uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/util/ByteListImpl uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/dv/xs/TypeValidator uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xpath/XPath$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/models/CMNodeFactory uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/models/XSDFACM uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSAttributeChecker uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDComplexTypeTraverser uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated class org/xml/sax/helpers/XMLReaderFactory"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/impl/xs/util/ShortListImpl uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/SAXParserImpl has method named getParser having deprecated return type org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/SAXParserImpl has method named parse having deprecated parameter type org/xml/sax/HandlerBase"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::setScale(II)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal;"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy implements deprecated interface org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser implements deprecated interface org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/Parser"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser has field named fDocumentHandler of deprecated type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/AbstractSAXParser has method named setDocumentHandler having deprecated parameter type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/parsers/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/util/AttributesProxy implements deprecated interface org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/util/AttributesProxy uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xinclude/XIncludeHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/ElementSchemePointer$Scanner uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/ElementSchemePointer$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/XPointerHandler$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xerces/xpointer/XPointerHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer implements deprecated interface org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer uses deprecated class org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/BaseMarkupSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/EncodingInfo uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/HTMLdtd uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/xml/serialize/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "interface org/apache/xml/serialize/Serializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler"
+            },
+            {
+              "line": "class org/apache/xml/serialize/TextSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList"
+            },
+            {
+              "line": "class org/apache/xml/serialize/XMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\xercesImpl-2.12.0.jar:\nclass org/apache/html/dom/HTMLBuilder implements deprecated interface org/xml/sax/DocumentHandler \nclass org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/html/dom/HTMLBuilder uses deprecated class org/xml/sax/AttributeList \nclass org/apache/html/dom/HTMLBuilder has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/html/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/html/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/html/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/html/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/dom/CoreDocumentImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/dom/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/dom/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/dom/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/XMLEntityManager uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/XMLEntityManager uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/dtd/models/DFAContentModel uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/impl/dv/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/impl/dv/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/dv/util/ByteListImpl uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)\nclass org/apache/xerces/impl/dv/xs/TypeValidator uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/impl/xpath/XPath$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/models/CMNodeFactory uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/models/XSDFACM uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSAttributeChecker uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSDComplexTypeTraverser uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated class org/xml/sax/helpers/XMLReaderFactory \nclass org/apache/xerces/impl/xs/traversers/XSDHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/impl/xs/util/ShortListImpl uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)\nclass org/apache/xerces/jaxp/SAXParserImpl has method named getParser having deprecated return type org/xml/sax/Parser \nclass org/apache/xerces/jaxp/SAXParserImpl has method named parse having deprecated parameter type org/xml/sax/HandlerBase \nclass org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::setScale(II)Ljava/math/BigDecimal; \nclass org/apache/xerces/jaxp/datatype/DurationImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal; \nclass org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/jaxp/datatype/XMLGregorianCalendarImpl uses deprecated method java/math/BigDecimal::divide(Ljava/math/BigDecimal;I)Ljava/math/BigDecimal; \nclass org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy implements deprecated interface org/xml/sax/AttributeList \nclass org/apache/xerces/parsers/AbstractSAXParser$AttributesProxy uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xerces/parsers/AbstractSAXParser implements deprecated interface org/xml/sax/Parser \nclass org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/Parser \nclass org/apache/xerces/parsers/AbstractSAXParser uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/AbstractSAXParser has field named fDocumentHandler of deprecated type org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/AbstractSAXParser has method named setDocumentHandler having deprecated parameter type org/xml/sax/DocumentHandler \nclass org/apache/xerces/parsers/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/parsers/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/parsers/SecureProcessingConfiguration uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/parsers/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/parsers/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/util/AttributesProxy implements deprecated interface org/xml/sax/AttributeList \nclass org/apache/xerces/util/AttributesProxy uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xerces/xinclude/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xerces/xinclude/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xerces/xinclude/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/xerces/xinclude/XIncludeHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/ElementSchemePointer$Scanner uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/xerces/xpointer/ElementSchemePointer$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/XPointerHandler$Tokens uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xerces/xpointer/XPointerHandler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xml/serialize/BaseMarkupSerializer implements deprecated interface org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer uses deprecated class org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/BaseMarkupSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/EncodingInfo uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/xml/serialize/HTMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/HTMLdtd uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass org/apache/xml/serialize/ObjectFactory uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/xml/serialize/SecuritySupport$8 uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/xml/serialize/SecuritySupport uses deprecated class java/security/AccessController (forRemoval=true)\ninterface org/apache/xml/serialize/Serializer has method named asDocumentHandler having deprecated return type org/xml/sax/DocumentHandler \nclass org/apache/xml/serialize/TextSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer uses deprecated class org/xml/sax/AttributeList \nclass org/apache/xml/serialize/XMLSerializer has method named startElement having deprecated parameter type org/xml/sax/AttributeList \n\nerror: cannot find class org/apache/xml/resolver/CatalogManager\nerror: cannot find class org/apache/xml/resolver/Catalog\nerror: cannot find class org/apache/xml/resolver/readers/SAXCatalogReader"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

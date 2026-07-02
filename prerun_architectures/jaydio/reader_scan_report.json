@@ -1,0 +1,248 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "net.smacke",
+      "artifactId": "jaydio",
+      "version": "0.2-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "net.smacke",
+      "project.artifactId": "jaydio",
+      "project.version": "0.2-SNAPSHOT",
+      "project.build.sourceEncoding": "UTF-8"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "net.java.dev.jna",
+        "artifactId": "jna",
+        "version": "4.0.0",
+        "scope": "compile",
+        "raw_version": "4.0.0"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "1.7.32",
+        "scope": "compile",
+        "raw_version": "1.7.32"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "4.13.1"
+    },
+    {
+      "groupId": "net.java.dev.jna",
+      "artifactId": "jna",
+      "version": "4.0.0",
+      "scope": "compile",
+      "raw_version": "4.0.0"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "1.7.32",
+      "scope": "compile",
+      "raw_version": "1.7.32"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 24,
+    "package_distribution": {
+      "examples/java/net/smacke/jaydio/examples": 1,
+      "src/main/java/net/smacke/jaydio": 3,
+      "src/main/java/net/smacke/jaydio/align": 4,
+      "src/main/java/net/smacke/jaydio/buffer": 5,
+      "src/main/java/net/smacke/jaydio/channel": 3,
+      "src/test/java/net/smacke/jaydio/align": 2,
+      "src/test/java/net/smacke/jaydio/buffer": 3,
+      "src/test/java/net/smacke/jaydio/channel": 3
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 24,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 24,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "examples\\java\\net\\smacke\\jaydio\\examples\\JaydioCp.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\examples\\java\\net\\smacke\\jaydio\\examples\\JaydioCp.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\DirectIoLib.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\DirectIoLib.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\DirectRandomAccessFile.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\DirectRandomAccessFile.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\OpenFlags.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\OpenFlags.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\align\\ByteChannelAligner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\align\\ByteChannelAligner.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\align\\DirectIoByteChannelAligner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\align\\DirectIoByteChannelAligner.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\align\\MockByteChannelAligner.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\align\\MockByteChannelAligner.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\align\\MockDirectIoLib.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\align\\MockDirectIoLib.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\buffer\\AbstractBuffer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\buffer\\AbstractBuffer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\buffer\\AlignedDirectByteBuffer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\buffer\\AlignedDirectByteBuffer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\buffer\\Buffer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\buffer\\Buffer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\buffer\\JavaHeapByteBuffer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\buffer\\JavaHeapByteBuffer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\buffer\\JaydioByteBuffer.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\buffer\\JaydioByteBuffer.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\channel\\BufferedChannel.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\channel\\BufferedChannel.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\net\\smacke\\jaydio\\channel\\DirectIoByteChannel.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio\\src\\main\\java\\net\\smacke\\jaydio\\channel\\DirectIoByteChannel.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 24,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "net.smacke",
+        "artifactId": "jaydio",
+        "version": "0.2-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.smacke",
+        "project.artifactId": "jaydio",
+        "project.version": "0.2-SNAPSHOT",
+        "project.build.sourceEncoding": "UTF-8"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "4.13.1"
+        },
+        {
+          "groupId": "net.java.dev.jna",
+          "artifactId": "jna",
+          "version": "4.0.0",
+          "scope": "compile",
+          "raw_version": "4.0.0"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "1.7.32",
+          "scope": "compile",
+          "raw_version": "1.7.32"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "net.java.dev.jna",
+        "artifactId": "jna",
+        "version": "4.0.0",
+        "scope": "compile",
+        "raw_version": "4.0.0"
+      },
+      {
+        "groupId": "org.slf4j",
+        "artifactId": "slf4j-api",
+        "version": "1.7.32",
+        "scope": "compile",
+        "raw_version": "1.7.32"
+      }
+    ],
+    "name": "jaydio",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\jaydio"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `jaydio` | Maven | 1.6 | 24 | Standard Java | None | **Yellow** |"
+}

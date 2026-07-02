@@ -16,6 +16,7 @@ Entry points:
 """
 
 import concurrent.futures
+import json
 import os
 import re
 import shutil
@@ -41,6 +42,12 @@ def find_jdk(home_hint: Optional[str] = None, version: Optional[int] = None) -> 
     # Ưu tiên hint trực tiếp
     if home_hint:
         p = Path(home_hint)
+        if (p / "bin" / ("javac.exe" if os.name == "nt" else "javac")).exists():
+            return p
+
+    # Ưu tiên JDK8_PATH từ environment variables cho JDK 8
+    if (version == 8 or version is None) and "JDK8_PATH" in os.environ:
+        p = Path(os.environ["JDK8_PATH"])
         if (p / "bin" / ("javac.exe" if os.name == "nt" else "javac")).exists():
             return p
 
@@ -98,7 +105,7 @@ def _jdk_version(jdk_home: Path) -> Optional[int]:
         try:
             r = subprocess.run(
                 [str(java_bin), "-version"],
-                capture_output=True, text=True, timeout=10,
+                capture_output=True, text=True, errors="replace", timeout=10,
             )
             output = r.stderr + r.stdout
             m = re.search(r'"(\d+)(?:\.\d+)*"', output)
@@ -183,7 +190,7 @@ def scan_jar(jdeprscan: str, jar_path: str, release: str = "17", timeout: int = 
     try:
         r = subprocess.run(
             [jdeprscan, "--release", release, jar_path],
-            capture_output=True, text=True, timeout=timeout,
+            capture_output=True, text=True, errors="replace", timeout=timeout,
         )
         raw = (r.stdout + r.stderr).strip()
         lines = raw.splitlines() if raw else []
@@ -427,16 +434,16 @@ def _step_b0_maven(project: Path, jdk8: Optional[Path], mvn: Optional[str], logg
 
     # Kiểm tra jdk.tools dependency — chỉ chèn tools.jar khi thực sự cần
     needs_tools_jar = False
-    if mvn and pom_file.exists():
-        list_result = subprocess.run(
-            [mvn, "dependency:list", "-f", str(pom_file)],
-            capture_output=True, text=True, timeout=120, env=env, shell=(os.name == "nt"),
-        )
-        if "jdk.tools" in list_result.stdout or "jdk.tools" in list_result.stderr:
-            needs_tools_jar = True
-            log("[jdeprscan] B0: jdk.tools dependency CÓ -> sẽ chèn tools.jar")
-        else:
-            log("[jdeprscan] B0: jdk.tools dependency KHÔNG -> bỏ qua tools.jar")
+    if pom_file.exists():
+        try:
+            pom_content = pom_file.read_text(encoding="utf-8")
+            if "jdk.tools" in pom_content or "tools" in pom_content:
+                needs_tools_jar = True
+                log("[jdeprscan] B0: jdk.tools dependency CÓ (phát hiện bằng cách quét pom.xml) -> sẽ chèn tools.jar")
+            else:
+                log("[jdeprscan] B0: jdk.tools dependency KHÔNG (phát hiện bằng cách quét pom.xml) -> bỏ qua tools.jar")
+        except Exception as e:
+            log(f"[jdeprscan] B0: Không thể đọc pom.xml để kiểm tra jdk.tools: {e}")
     elif result["classpath_jars"]:
         needs_tools_jar = any("jdk.tools" in j for j in result["classpath_jars"])
 
@@ -494,8 +501,8 @@ def _step_b1_compile(project: Path, jdk8: Optional[Path], b0: dict, logger=None)
     # Compile
     log(f"[jdeprscan] B1: compiling {len(java_files)} source files...")
     comp = subprocess.run(
-        [str(javac), "-cp", compile_cp, "-d", str(out_dir)] + [str(f) for f in java_files],
-        capture_output=True, text=True, timeout=120,
+        [str(javac), "-encoding", "UTF-8", "-cp", compile_cp, "-d", str(out_dir)] + [str(f) for f in java_files],
+        capture_output=True, text=True, errors="replace", timeout=120,
     )
     if comp.returncode == 0:
         n_class = len(list(out_dir.rglob("*.class")))
@@ -513,7 +520,7 @@ def _step_b1_compile(project: Path, jdk8: Optional[Path], b0: dict, logger=None)
     if out_dir.exists() and any(out_dir.rglob("*.class")):
         subprocess.run(
             [str(jar_tool), "cf", str(project_jar), "-C", str(out_dir), "."],
-            capture_output=True, text=True,
+            capture_output=True, text=True, errors="replace",
         )
     result["jar_path"] = str(project_jar) if project_jar.exists() else None
     return result
@@ -544,7 +551,7 @@ def _step_b2_project_scan(jdeprscan_path: Optional[str], b1: dict, target_releas
 
     log(f"[jdeprscan] B2: scanning {Path(project_jar).name}...")
     try:
-        scan_result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+        scan_result = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=120)
         output = (scan_result.stdout + scan_result.stderr).strip()
 
         for_removal = []
@@ -572,7 +579,7 @@ def _step_b2_project_scan(jdeprscan_path: Optional[str], b1: dict, target_releas
 
 
 def _step_b3_dep_scan(jdeprscan_path: Optional[str], b0: dict, target_release: str, n_workers: Optional[int], logger=None) -> dict:
-    """B3: jdeprscan từng dependency JAR (multi-threaded)."""
+    """B3: jdeprscan từng dependency JAR (multi-threaded, có cache MD5)."""
     def log(msg):
         if logger:
             logger(msg)
@@ -597,20 +604,70 @@ def _step_b3_dep_scan(jdeprscan_path: Optional[str], b0: dict, target_release: s
         result["status"] = "OK"
         return result
 
-    # Multi-threaded scan
-    # workers = n_workers or min(4, max(2, (os.cpu_count() or 4) // 2))
-    workers = 3
-    log(f"[jdeprscan] B3: scanning {total_jars} JARs với {workers} luồng...")
+    # ── Đọc / Khởi tạo cache ──
+    import hashlib
+    cache_file = scan_dir / ".jdeprscan_cache.json"
+    cache_data = {}
+    if cache_file.exists():
+        try:
+            cache_data = json.loads(cache_file.read_text(encoding="utf-8"))
+        except Exception:
+            pass
 
+    def get_md5(file_path: Path) -> str:
+        try:
+            h = hashlib.md5()
+            with open(file_path, "rb") as f:
+                for chunk in iter(lambda: f.read(8192), b""):
+                    h.update(chunk)
+            return h.hexdigest()
+        except Exception:
+            return ""
+
+    # Lọc ra danh sách JARs thực sự cần scan
+    jars_to_scan = []
     summary = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        future_map = {
-            pool.submit(scan_jar, jdeprscan_path, str(hj), target_release): hj.name
-            for hj in all_dep_jars
-        }
-        for future in concurrent.futures.as_completed(future_map):
-            info = future.result()
-            summary.append(info)
+    
+    for jar in all_dep_jars:
+        md5_val = get_md5(jar)
+        cache_key = f"{jar.name}:{target_release}"
+        if cache_key in cache_data and cache_data[cache_key].get("md5") == md5_val:
+            # Cache hit
+            summary.append(cache_data[cache_key]["result"])
+        else:
+            jars_to_scan.append((jar, md5_val, cache_key))
+
+    # Multi-threaded scan cho những file chưa có cache
+    if jars_to_scan:
+        workers = n_workers or min(4, max(2, (os.cpu_count() or 4) // 2))
+        log(f"[jdeprscan] B3: {len(all_dep_jars) - len(jars_to_scan)} JARs loaded from cache. Quét {len(jars_to_scan)} JARs mới với {workers} luồng...")
+        
+        new_results = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+            future_map = {
+                pool.submit(scan_jar, jdeprscan_path, str(item[0]), target_release): item
+                for item in jars_to_scan
+            }
+            for future in concurrent.futures.as_completed(future_map):
+                item = future_map[future]
+                jar_name = item[0].name
+                md5_val = item[1]
+                cache_key = item[2]
+                try:
+                    info = future.result()
+                    summary.append(info)
+                    # Lưu vào cache data
+                    cache_data[cache_key] = {"md5": md5_val, "result": info}
+                except Exception as e:
+                    log(f"[jdeprscan] B3: Lỗi quét {jar_name}: {e}")
+
+        # Ghi cache xuống file
+        try:
+            cache_file.write_text(json.dumps(cache_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception as e:
+            log(f"[jdeprscan] B3: Không thể ghi cache file: {e}")
+    else:
+        log(f"[jdeprscan] B3: Tải toàn bộ {total_jars} JARs từ Cache (MD5 match).")
 
     # Phân loại
     problem_jars = [s for s in summary if s["total"] > 0]

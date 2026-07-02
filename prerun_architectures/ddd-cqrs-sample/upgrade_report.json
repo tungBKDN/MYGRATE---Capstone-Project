@@ -1,0 +1,318 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.hibernate:hibernate-entitymanager": [
+      "5.6.15.Final"
+    ],
+    "org.hsqldb:hsqldb": [
+      "2.7.4"
+    ],
+    "org.hamcrest:hamcrest-core": [
+      "3.0"
+    ],
+    "javax.servlet:jstl": [
+      "1.2",
+      "1.1.2",
+      "1.1.1"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.hibernate:hibernate-entitymanager": "5.6.15.Final",
+      "org.hsqldb:hsqldb": "2.7.4",
+      "org.hamcrest:hamcrest-core": "3.0",
+      "javax.servlet:jstl": "1.1.2"
+    },
+    {
+      "org.hibernate:hibernate-entitymanager": "5.6.15.Final",
+      "org.hsqldb:hsqldb": "2.7.4",
+      "org.hamcrest:hamcrest-core": "3.0",
+      "javax.servlet:jstl": "1.2"
+    },
+    {
+      "org.hibernate:hibernate-entitymanager": "5.6.15.Final",
+      "org.hsqldb:hsqldb": "2.7.4",
+      "org.hamcrest:hamcrest-core": "3.0",
+      "javax.servlet:jstl": "1.1.1"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.hibernate:hibernate-entitymanager": "5.6.15.Final",
+        "org.hsqldb:hsqldb": "2.7.4",
+        "org.hamcrest:hamcrest-core": "3.0",
+        "javax.servlet:jstl": "1.1.2"
+      },
+      "result": {
+        "status": "FAIL",
+        "stage": "Compile",
+        "error": "error: file not found: RuntimeSmokeTest.java\nUsage: javac <options> <source files>\nuse --help for a list of possible options\n"
+      }
+    },
+    {
+      "solution": {
+        "org.hibernate:hibernate-entitymanager": "5.6.15.Final",
+        "org.hsqldb:hsqldb": "2.7.4",
+        "org.hamcrest:hamcrest-core": "3.0",
+        "javax.servlet:jstl": "1.2"
+      },
+      "result": {
+        "status": "ERROR",
+        "error": "Command '['javac', '-cp', 'D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\stax-ex-1.8.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\classmate-1.5.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\byte-buddy-1.12.18.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\hsqldb-2.7.4.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\hibernate-entitymanager-5.6.15.Final.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jaxb-runtime-2.3.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\istack-commons-runtime-3.0.7.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\FastInfoset-1.2.15.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\javax.activation-api-1.2.0.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\javax.persistence-api-2.2.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\hibernate-commons-annotations-5.1.2.Final.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jboss-transaction-api_1.2_spec-1.1.1.Final.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\antlr-2.7.7.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\hamcrest-core-3.0.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\hamcrest-3.0.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jstl-1.2.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jandex-2.4.2.Final.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\txw2-2.3.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\servlet-api-2.4.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jboss-logging-3.4.3.Final.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jsp-api-2.0.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\jaxb-api-2.3.1.jar;D:\\\\capstone_project\\\\MYGRATE---Capstone-Project\\\\runtime_test_jars\\\\hibernate-core-5.6.15.Final.jar', '--release', '17', 'RuntimeSmokeTest.java']' timed out after 15 seconds"
+      }
+    },
+    {
+      "solution": {
+        "org.hibernate:hibernate-entitymanager": "5.6.15.Final",
+        "org.hsqldb:hsqldb": "2.7.4",
+        "org.hamcrest:hamcrest-core": "3.0",
+        "javax.servlet:jstl": "1.1.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.hibernate:hibernate-entitymanager:5.6.15.Final": {
+      "dependency": "org.hibernate:hibernate-entitymanager",
+      "version": "5.6.15.Final",
+      "signals": {
+        "bytecode_jdk": "Unknown",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "javax.servlet:jstl:1.2": {
+      "dependency": "javax.servlet:jstl",
+      "version": "1.2",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 37,
+          "findings": [
+            {
+              "line": "class javax/servlet/jsp/jstl/core/ConditionalTagSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)"
+            },
+            {
+              "line": "class javax/servlet/jsp/jstl/core/IndexedValueExpression uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class javax/servlet/jsp/jstl/core/LoopTagSupport$1Status uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/extra/spath/SPathFilter uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/BeanInfoManager uses deprecated class java/security/AccessControlException (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/FloatingPointLiteral uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/FunctionInvocation uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/IntegerLiteral uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/test/EvaluationTest uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/test/EvaluationTest uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/lang/jstl/test/StaticFunctionTests uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/sql/UpdateTagSupport uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/xml/JSTLXPathImpl uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/xml/JSTLXPathImpl uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/xml/ParseSupport uses deprecated class org/xml/sax/helpers/XMLReaderFactory"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/xml/TransformSupport uses deprecated class org/xml/sax/helpers/XMLReaderFactory"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/xml/XPathUtil uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tag/common/xml/XPathUtil uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tlv/JstlCoreTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tlv/JstlFmtTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tlv/JstlSqlTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            },
+            {
+              "line": "class org/apache/taglibs/standard/tlv/JstlXmlTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jstl-1.2.jar:\nclass javax/servlet/jsp/jstl/core/ConditionalTagSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)\nclass javax/servlet/jsp/jstl/core/IndexedValueExpression uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass javax/servlet/jsp/jstl/core/LoopTagSupport$1Status uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/extra/spath/SPathFilter uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/BeanInfoManager uses deprecated class java/security/AccessControlException (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/FloatingPointLiteral uses deprecated method java/lang/Double::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/FunctionInvocation uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/IntegerLiteral uses deprecated method java/lang/Long::<init>(Ljava/lang/String;)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/PrimitiveObjects uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/test/EvaluationTest uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/test/EvaluationTest uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/taglibs/standard/lang/jstl/test/StaticFunctionTests uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Byte::<init>(B)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Character::<init>(C)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Short::<init>(S)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Long::<init>(J)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Float::<init>(F)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/core/ForEachSupport uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/sql/UpdateTagSupport uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/xml/JSTLXPathImpl uses deprecated method java/lang/Double::<init>(D)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/xml/JSTLXPathImpl uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/xml/ParseSupport uses deprecated class org/xml/sax/helpers/XMLReaderFactory \nclass org/apache/taglibs/standard/tag/common/xml/TransformSupport uses deprecated class org/xml/sax/helpers/XMLReaderFactory \nclass org/apache/taglibs/standard/tag/common/xml/XPathUtil uses deprecated class java/security/AccessController (forRemoval=true)\nclass org/apache/taglibs/standard/tag/common/xml/XPathUtil uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass org/apache/taglibs/standard/tlv/JstlCoreTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/tlv/JstlFmtTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/tlv/JstlSqlTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\nclass org/apache/taglibs/standard/tlv/JstlXmlTLV$Handler uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\n\nerror: cannot find class javax/servlet/jsp/tagext/TagSupport\nerror: cannot find class javax/servlet/jsp/PageContext\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/core/ConditionalTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/ServletRequest\nerror: cannot find class javax/servlet/http/HttpSession\nerror: cannot find class javax/servlet/ServletContext\nerror: cannot find class javax/el/ValueExpression\nerror: cannot find class javax/el/ELContext\nerror: cannot find class javax/el/ELResolver\nerror: cannot find class javax/el/ELException\nerror: cannot find class javax/servlet/jsp/tagext/Tag\nerror: cannot find class javax/servlet/jsp/JspTagException\nerror: cannot find class javax/el/VariableMapper\nerror: cannot find class javax/servlet/jsp/tagext/IterationTag\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/core/LoopTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/jsp/tagext/TagLibraryValidator\nerror: cannot find class javax/servlet/jsp/tagext/PageData\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/tlv/PermittedTaglibsTLV.getInitParameters:()Ljava/util/Map;\nerror: cannot find class javax/servlet/jsp/tagext/ValidationMessage\nerror: cannot resolve Methodref org/apache/taglibs/standard/extra/spath/SPathTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/jsp/JspException\nerror: cannot find class javax/servlet/http/HttpServletRequest\nerror: cannot find class javax/servlet/http/Cookie\nerror: cannot find class javax/servlet/jsp/tagext/TryCatchFinally\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/CatchTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ForEachSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ForTokensSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/ServletOutputStream\nerror: cannot find class javax/servlet/http/HttpServletResponseWrapper\nerror: cannot find class javax/servlet/jsp/tagext/BodyTagSupport\nerror: cannot find class javax/servlet/jsp/JspWriter\nerror: cannot find class javax/servlet/ServletException\nerror: cannot find class javax/servlet/RequestDispatcher\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ImportSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/jsp/tagext/BodyContent\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/OutSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/OutSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ParamSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot find class javax/servlet/ServletResponse\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ParamSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ParamSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/http/HttpServletResponse\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/RemoveTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/jsp/JspFactory\nerror: cannot find class javax/el/ExpressionFactory\nerror: cannot find class javax/servlet/jsp/JspApplicationContext\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/SetSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/SetSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/WhenTagSupport.getParent:()Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/BundleSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/BundleSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/FormatDateSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/FormatNumberSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/FormatNumberSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/MessageSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/MessageSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/MessageSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParamSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParamSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParseDateSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParseDateSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParseNumberSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParseNumberSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/RequestEncodingSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetBundleSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetLocaleSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetLocaleSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetTimeZoneSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/TimeZoneSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/TimeZoneSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/TimeZoneSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/DateParamTagSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/DriverTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/ParamTagSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/ParamTagSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/QueryTagSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/QueryTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/QueryTagSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/SetDataSourceTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/TransactionTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/UpdateTagSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/UpdateTagSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/UpdateTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ExprSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ForEachTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/IfTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ParamSupport.findAncestorWithClass:(Ljavax/servlet/jsp/tagext/Tag;Ljava/lang/Class;)Ljavax/servlet/jsp/tagext/Tag;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ParamSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ParseSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ParseSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/SetTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/TransformSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/TransformSupport.bodyContent:Ljavax/servlet/jsp/tagext/BodyContent;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/WhenTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/ForEachTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/ForTokensTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/IfTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/ImportTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/OutTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/ParamSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/ParamTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/core/SetSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/SetTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/core/WhenTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/BundleTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/FormatDateSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/FormatDateTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/FormatNumberSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/FormatNumberTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/MessageTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParamSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/ParamTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParseDateSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/ParseDateTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/ParseNumberSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/ParseNumberTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/RequestEncodingSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/RequestEncodingTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetBundleSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/SetBundleTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetLocaleSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/SetLocaleTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/fmt/SetTimeZoneSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/SetTimeZoneTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/fmt/TimeZoneTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/DateParamTagSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/sql/DateParamTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/sql/ParamTagSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/sql/ParamTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/sql/QueryTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/sql/SetDataSourceTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/sql/TransactionTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/sql/UpdateTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/xml/ExprTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ParamSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/xml/ParamTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/common/xml/ParseSupport.doStartTag:()I\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/xml/ParseTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot resolve Methodref org/apache/taglibs/standard/tag/el/xml/TransformTag.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/jsp/tagext/TagExtraInfo\nerror: cannot find class javax/servlet/jsp/tagext/TagData\nerror: cannot find class javax/servlet/jsp/tagext/VariableInfo\nerror: cannot resolve Methodref org/apache/taglibs/standard/tlv/JstlBaseTLV.getInitParameters:()Ljava/util/Map;"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.hsqldb:hsqldb:2.7.4": {
+      "dependency": "org.hsqldb:hsqldb",
+      "version": "2.7.4",
+      "signals": {
+        "bytecode_jdk": "11",
+        "refs": [],
+        "jdeprscan": {
+          "status": "FAIL",
+          "reason": "jdeprscan timeout"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "javax.servlet:jstl:1.1.2": {
+      "dependency": "javax.servlet:jstl",
+      "version": "1.1.2",
+      "signals": {
+        "bytecode_jdk": "2",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class javax/servlet/jsp/jstl/core/ConditionalTagSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)"
+            },
+            {
+              "line": "class javax/servlet/jsp/jstl/core/LoopTagSupport$1Status uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jstl-1.1.2.jar:\nclass javax/servlet/jsp/jstl/core/ConditionalTagSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)\nclass javax/servlet/jsp/jstl/core/LoopTagSupport$1Status uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\n\nerror: cannot find class javax/servlet/jsp/tagext/TagSupport\nerror: cannot find class javax/servlet/jsp/PageContext\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/core/ConditionalTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/ServletRequest\nerror: cannot find class javax/servlet/http/HttpSession\nerror: cannot find class javax/servlet/ServletContext\nerror: cannot find class javax/servlet/jsp/tagext/Tag\nerror: cannot find class javax/servlet/jsp/JspTagException\nerror: cannot find class javax/servlet/jsp/tagext/IterationTag\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/core/LoopTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class org/apache/taglibs/standard/tag/common/fmt/BundleSupport\nerror: cannot find class javax/servlet/jsp/tagext/TagLibraryValidator\nerror: cannot find class javax/servlet/jsp/tagext/PageData\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/tlv/PermittedTaglibsTLV.getInitParameters:()Ljava/util/Map;\nerror: cannot find class javax/servlet/jsp/tagext/ValidationMessage"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "org.hamcrest:hamcrest-core:3.0": {
+      "dependency": "org.hamcrest:hamcrest-core",
+      "version": "3.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\hamcrest-core-3.0.jar:"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "javax.servlet:jstl:1.1.1": {
+      "dependency": "javax.servlet:jstl",
+      "version": "1.1.1",
+      "signals": {
+        "bytecode_jdk": "2",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 2,
+          "findings": [
+            {
+              "line": "class javax/servlet/jsp/jstl/core/ConditionalTagSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)"
+            },
+            {
+              "line": "class javax/servlet/jsp/jstl/core/LoopTagSupport$1Status uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jstl-1.1.1.jar:\nclass javax/servlet/jsp/jstl/core/ConditionalTagSupport uses deprecated method java/lang/Boolean::<init>(Z)V (forRemoval=true)\nclass javax/servlet/jsp/jstl/core/LoopTagSupport$1Status uses deprecated method java/lang/Integer::<init>(I)V (forRemoval=true)\n\nerror: cannot find class javax/servlet/jsp/tagext/TagSupport\nerror: cannot find class javax/servlet/jsp/PageContext\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/core/ConditionalTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class javax/servlet/ServletRequest\nerror: cannot find class javax/servlet/http/HttpSession\nerror: cannot find class javax/servlet/ServletContext\nerror: cannot find class javax/servlet/jsp/tagext/Tag\nerror: cannot find class javax/servlet/jsp/JspTagException\nerror: cannot find class javax/servlet/jsp/tagext/IterationTag\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/core/LoopTagSupport.pageContext:Ljavax/servlet/jsp/PageContext;\nerror: cannot find class org/apache/taglibs/standard/tag/common/fmt/BundleSupport\nerror: cannot find class javax/servlet/jsp/tagext/TagLibraryValidator\nerror: cannot find class javax/servlet/jsp/tagext/PageData\nerror: cannot resolve Methodref javax/servlet/jsp/jstl/tlv/PermittedTaglibsTLV.getInitParameters:()Ljava/util/Map;\nerror: cannot find class javax/servlet/jsp/tagext/ValidationMessage"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

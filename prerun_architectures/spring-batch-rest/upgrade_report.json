@@ -1,0 +1,419 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "org.springdoc:springdoc-openapi-ui": [
+      "1.8.0"
+    ],
+    "com.github.chrisgleissner:spring-batch-rest-util": [
+      "1.5.1"
+    ]
+  },
+  "conflict_edges": [
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.13.5",
+      "v2": "2.10.4",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.13.5",
+      "v2": "2.10.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.16.0",
+      "v2": "2.10.4",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-annotations",
+      "v1": "2.16.0",
+      "v2": "2.10.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.13.5",
+      "v2": "2.10.4",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.13.5",
+      "v2": "2.10.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.16.0",
+      "v2": "2.10.4",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-core",
+      "v1": "2.16.0",
+      "v2": "2.10.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.13.5",
+      "v2": "2.10.4",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.13.5",
+      "v2": "2.10.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.16.0",
+      "v2": "2.10.4",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "com.fasterxml.jackson.core:jackson-databind",
+      "v1": "2.16.0",
+      "v2": "2.10.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "1.31",
+      "v2": "1.25",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "2.2",
+      "v2": "1.25",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.yaml:snakeyaml",
+      "v1": "1.30",
+      "v2": "1.25",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-classic",
+      "v1": "1.4.14",
+      "v2": "1.2.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "ch.qos.logback:logback-core",
+      "v1": "1.4.14",
+      "v2": "1.2.3",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.slf4j:slf4j-api",
+      "v1": "2.0.9",
+      "v2": "1.7.25",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.slf4j:slf4j-api",
+      "v1": "2.0.9",
+      "v2": "1.7.7",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.slf4j:slf4j-api",
+      "v1": "2.0.9",
+      "v2": "1.7.30",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.slf4j:slf4j-api",
+      "v1": "1.7.36",
+      "v2": "1.7.25",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.slf4j:slf4j-api",
+      "v1": "1.7.36",
+      "v2": "1.7.7",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.slf4j:slf4j-api",
+      "v1": "1.7.36",
+      "v2": "1.7.30",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework.boot:spring-boot",
+      "v1": "2.7.18",
+      "v2": "2.2.7.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework.boot:spring-boot-autoconfigure",
+      "v1": "2.7.18",
+      "v2": "2.2.7.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-aop",
+      "v1": "5.3.31",
+      "v2": "5.2.5.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-aop",
+      "v1": "5.3.31",
+      "v2": "5.2.6.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-beans",
+      "v1": "5.3.31",
+      "v2": "5.2.5.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-beans",
+      "v1": "5.3.31",
+      "v2": "5.2.6.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-context",
+      "v1": "5.3.31",
+      "v2": "5.2.5.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-context",
+      "v1": "5.3.31",
+      "v2": "5.2.6.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-core",
+      "v1": "5.3.31",
+      "v2": "5.2.5.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-core",
+      "v1": "5.3.31",
+      "v2": "5.2.6.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-core",
+      "v1": "5.3.31",
+      "v2": "4.3.22.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-expression",
+      "v1": "5.3.31",
+      "v2": "5.2.5.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-expression",
+      "v1": "5.3.31",
+      "v2": "5.2.6.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-jcl",
+      "v1": "5.3.31",
+      "v2": "5.2.5.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    },
+    {
+      "conflict_on": "org.springframework:spring-jcl",
+      "v1": "5.3.31",
+      "v2": "5.2.6.RELEASE",
+      "edge": [
+        "springdoc-openapi-ui:1.8.0",
+        "spring-batch-rest-util:1.5.1"
+      ]
+    }
+  ],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "org.springdoc:springdoc-openapi-ui": "1.8.0",
+      "com.github.chrisgleissner:spring-batch-rest-util": "1.5.1"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "org.springdoc:springdoc-openapi-ui": "1.8.0",
+        "com.github.chrisgleissner:spring-batch-rest-util": "1.5.1"
+      },
+      "result": {
+        "status": "FAIL",
+        "stage": "Compile",
+        "error": "error: error reading RuntimeSmokeTest.java; D:\\capstone_project\\MYGRATE---Capstone-Project\\RuntimeSmokeTest.java\n1 error\n"
+      }
+    }
+  ],
+  "step3_reports": {
+    "org.springdoc:springdoc-openapi-ui:1.8.0": {
+      "dependency": "org.springdoc:springdoc-openapi-ui",
+      "version": "1.8.0",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\springdoc-openapi-ui-1.8.0.jar:\n\nerror: cannot find class org/springdoc/ui/AbstractSwaggerResourceResolver\nerror: cannot find class org/springframework/web/servlet/resource/ResourceResolver\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerResourceResolver.findWebJarResourcePath:(Ljava/lang/String;)Ljava/lang/String;\nerror: cannot find class org/springframework/web/servlet/resource/ResourceResolverChain\nerror: cannot find class org/springdoc/core/SwaggerUiConfigParameters\nerror: cannot find class org/springdoc/core/providers/ActuatorProvider\nerror: cannot find class org/springframework/web/servlet/config/annotation/ResourceHandlerRegistry\nerror: cannot find class org/springframework/web/servlet/config/annotation/ResourceHandlerRegistration\nerror: cannot find class org/springframework/web/servlet/config/annotation/ResourceChainRegistration\nerror: cannot find class org/springframework/web/servlet/config/annotation/WebMvcConfigurer\nerror: cannot find class org/springdoc/core/SpringDocUtils\nerror: cannot find class org/springdoc/ui/AbstractSwaggerWelcome\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeWebMvc.calculateUiRootCommon:(Ljava/lang/StringBuilder;[Ljava/lang/StringBuilder;)V\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.buildUrl:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;\nerror: cannot find class org/springdoc/core/SpringDocConfigProperties\nerror: cannot find class org/springdoc/core/SpringDocConfigProperties$ApiDocs\nerror: cannot find class org/springdoc/core/providers/SpringWebProvider\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeWebMvc.springDocConfigProperties:Lorg/springdoc/core/SpringDocConfigProperties;\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeWebMvc.contextPath:Ljava/lang/String;\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeWebMvc.apiDocsUrl:Ljava/lang/String;\nerror: cannot find class org/springframework/boot/actuate/autoconfigure/endpoint/web/WebEndpointProperties\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeActuator.calculateUiRootCommon:(Ljava/lang/StringBuilder;[Ljava/lang/StringBuilder;)V\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeActuator.buildUrl:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeActuator.contextPath:Ljava/lang/String;\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.getSwaggerUiUrl:()Ljava/lang/String;\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.getUriComponentsBuilder:(Ljava/lang/String;)Lorg/springframework/web/util/UriComponentsBuilder;\nerror: cannot find class org/springframework/http/ResponseEntity\nerror: cannot find class org/springframework/web/util/UriComponentsBuilder\nerror: cannot find class org/springframework/web/util/UriComponents\nerror: cannot find class org/springdoc/core/SwaggerUiConfigProperties\nerror: cannot find class org/apache/commons/lang3/StringUtils\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.getOauth2RedirectUrl:()Ljava/lang/String;\nerror: cannot find class org/springframework/web/servlet/support/ServletUriComponentsBuilder\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.buildConfigUrl:(Lorg/springframework/web/util/UriComponentsBuilder;)V\nerror: cannot find class javax/servlet/http/HttpServletRequest\nerror: cannot find class org/springframework/http/ResponseEntity$BodyBuilder\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.contextPath:Ljava/lang/String;\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.swaggerUiConfigParameters:Lorg/springdoc/core/SwaggerUiConfigParameters;\nerror: cannot find class org/springframework/http/HttpStatus\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerWelcomeCommon.swaggerUiConfig:Lorg/springdoc/core/SwaggerUiConfigProperties;\nerror: cannot find class org/springdoc/ui/AbstractSwaggerIndexTransformer\nerror: cannot find class org/springframework/util/AntPathMatcher\nerror: cannot find class org/springframework/web/servlet/resource/ResourceTransformer\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerIndexPageTransformer.defaultTransformations:(Ljava/io/InputStream;)Ljava/lang/String;\nerror: cannot find class org/springframework/web/servlet/resource/TransformedResource\nerror: cannot find class org/springframework/core/io/Resource\nerror: cannot resolve Methodref org/springdoc/webmvc/ui/SwaggerIndexPageTransformer.swaggerUiConfigParameters:Lorg/springdoc/core/SwaggerUiConfigParameters;\nerror: cannot find class org/springdoc/webmvc/core/SpringWebMvcProvider"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    },
+    "com.github.chrisgleissner:spring-batch-rest-util:1.5.1": {
+      "dependency": "com.github.chrisgleissner:spring-batch-rest-util",
+      "version": "1.5.1",
+      "signals": {
+        "bytecode_jdk": "8",
+        "refs": [],
+        "jdeprscan": {
+          "status": "PASS",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 0,
+          "findings": [],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\spring-batch-rest-util-1.5.1.jar:\n\nerror: cannot find class org/springframework/batch/core/configuration/annotation/DefaultBatchConfigurer\nerror: cannot find class org/springframework/batch/core/launch/support/SimpleJobLauncher\nerror: cannot find class org/springframework/scheduling/concurrent/ConcurrentTaskExecutor\nerror: cannot find class org/springframework/batch/core/configuration/annotation/JobBuilderFactory\nerror: cannot find class org/springframework/batch/core/launch/support/RunIdIncrementer\nerror: cannot find class org/springframework/batch/core/job/builder/JobBuilder\nerror: cannot find class org/springframework/batch/core/configuration/annotation/StepBuilderFactory\nerror: cannot find class org/springframework/batch/core/step/builder/StepBuilder\nerror: cannot find class org/springframework/batch/core/step/builder/TaskletStepBuilder\nerror: cannot find class org/springframework/batch/core/job/builder/SimpleJobBuilder\nerror: cannot find class org/springframework/batch/core/Job\nerror: cannot find class org/springframework/batch/core/configuration/JobRegistry\nerror: cannot find class org/springframework/batch/repeat/RepeatStatus\nerror: cannot find class org/springframework/batch/core/step/tasklet/Tasklet\nerror: cannot find class org/springframework/batch/core/StepExecution\nerror: cannot find class org/springframework/batch/core/JobExecution\nerror: cannot find class org/springframework/batch/core/JobParameters\nerror: cannot find class org/springframework/core/env/PropertySourcesPropertyResolver\nerror: cannot find class org/springframework/core/env/MutablePropertySources\nerror: cannot find class org/springframework/core/env/PropertiesPropertySource\nerror: cannot find class org/springframework/core/env/AbstractEnvironment\nerror: cannot find class org/quartz/impl/JobDetailImpl\nerror: cannot resolve Methodref com/github/chrisgleissner/springbatchrest/util/core/JobParamsDetail.setJobClass:(Ljava/lang/Class;)V\nerror: cannot resolve Methodref com/github/chrisgleissner/springbatchrest/util/core/JobParamsDetail.setDescription:(Ljava/lang/String;)V\nerror: cannot find class org/quartz/utils/Key\nerror: cannot find class org/quartz/JobKey\nerror: cannot resolve Methodref com/github/chrisgleissner/springbatchrest/util/core/JobParamsDetail.setKey:(Lorg/quartz/JobKey;)V\nerror: cannot resolve Methodref com/github/chrisgleissner/springbatchrest/util/core/JobParamsDetail.setDurability:(Z)V\nerror: cannot resolve Methodref com/github/chrisgleissner/springbatchrest/util/core/JobParamsDetail.setRequestsRecovery:(Z)V\nerror: cannot find class org/quartz/JobDataMap\nerror: cannot resolve Methodref com/github/chrisgleissner/springbatchrest/util/core/JobParamsDetail.setJobDataMap:(Lorg/quartz/JobDataMap;)V\nerror: cannot find class org/quartz/JobDetail\nerror: cannot find class org/springframework/core/task/SimpleAsyncTaskExecutor\nerror: cannot find class org/springframework/core/task/SyncTaskExecutor\nerror: cannot find class org/springframework/batch/core/JobParameter\nerror: cannot find class org/springframework/batch/core/JobExecutionException\nerror: cannot find class javax/batch/operations/BatchRuntimeException\nerror: cannot find class org/slf4j/LoggerFactory\nerror: cannot find class org/slf4j/Logger\nerror: cannot find class org/springframework/batch/core/configuration/JobLocator\nerror: cannot find class org/springframework/batch/core/launch/JobLauncher\nerror: cannot find class org/springframework/batch/core/configuration/JobFactory\nerror: cannot find class org/quartz/CronScheduleBuilder\nerror: cannot find class org/quartz/TriggerBuilder\nerror: cannot find class org/springframework/scheduling/quartz/QuartzJobBean\nerror: cannot find class org/quartz/SchedulerContext\nerror: cannot find class org/quartz/JobExecutionContext\nerror: cannot find class org/quartz/Scheduler\nerror: cannot find class org/quartz/impl/StdSchedulerFactory\nerror: cannot find class org/quartz/JobBuilder\nerror: cannot find class org/quartz/Trigger\nerror: cannot find class org/springframework/batch/core/BatchStatus\nerror: cannot find class org/springframework/batch/core/JobInstance\nerror: cannot find class org/springframework/core/env/MapPropertySource"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Yes"
+      }
+    }
+  },
+  "step4_available": true
+}

@@ -1,0 +1,145 @@
+{
+  "status": "ok",
+  "pipeline": "full-7-step",
+  "target_java": "17",
+  "jdk_available": true,
+  "candidates": {
+    "javax.ws.rs:jsr311-api": [
+      "1.1.1",
+      "1.1-ea",
+      "1.1"
+    ]
+  },
+  "conflict_edges": [],
+  "solver_method": "z3",
+  "solutions": [
+    {
+      "javax.ws.rs:jsr311-api": "1.1"
+    },
+    {
+      "javax.ws.rs:jsr311-api": "1.1.1"
+    },
+    {
+      "javax.ws.rs:jsr311-api": "1.1-ea"
+    }
+  ],
+  "smoke_test_results": [
+    {
+      "solution": {
+        "javax.ws.rs:jsr311-api": "1.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "javax.ws.rs:jsr311-api": "1.1.1"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    },
+    {
+      "solution": {
+        "javax.ws.rs:jsr311-api": "1.1-ea"
+      },
+      "result": {
+        "status": "PASS",
+        "log": "[JVM] Loaded 5 classes. PASS!"
+      }
+    }
+  ],
+  "step3_reports": {
+    "javax.ws.rs:jsr311-api:1.1.1": {
+      "dependency": "javax.ws.rs:jsr311-api",
+      "version": "1.1.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 3,
+          "findings": [
+            {
+              "line": "class javax/ws/rs/ext/RuntimeDelegate uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class javax/ws/rs/ext/RuntimeDelegate uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class javax/ws/rs/ext/FactoryFinder uses deprecated class java/security/AccessController (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jsr311-api-1.1.1.jar:\nclass javax/ws/rs/ext/RuntimeDelegate uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass javax/ws/rs/ext/RuntimeDelegate uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass javax/ws/rs/ext/FactoryFinder uses deprecated class java/security/AccessController (forRemoval=true)"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "javax.ws.rs:jsr311-api:1.1-ea": {
+      "dependency": "javax.ws.rs:jsr311-api",
+      "version": "1.1-ea",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 3,
+          "findings": [
+            {
+              "line": "class javax/ws/rs/ext/FactoryFinder uses deprecated class java/security/AccessController (forRemoval=true)"
+            },
+            {
+              "line": "class javax/ws/rs/ext/RuntimeDelegate uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class javax/ws/rs/ext/RuntimeDelegate uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jsr311-api-1.1-ea.jar:\nclass javax/ws/rs/ext/FactoryFinder uses deprecated class java/security/AccessController (forRemoval=true)\nclass javax/ws/rs/ext/RuntimeDelegate uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass javax/ws/rs/ext/RuntimeDelegate uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    },
+    "javax.ws.rs:jsr311-api:1.1": {
+      "dependency": "javax.ws.rs:jsr311-api",
+      "version": "1.1",
+      "signals": {
+        "bytecode_jdk": "5",
+        "refs": [],
+        "jdeprscan": {
+          "status": "WARN",
+          "executable": "C:\\Program Files\\Java\\jdk-17\\bin\\jdeprscan.exe",
+          "exit_code": 0,
+          "finding_count": 3,
+          "findings": [
+            {
+              "line": "class javax/ws/rs/ext/RuntimeDelegate uses deprecated class java/lang/SecurityManager (forRemoval=true)"
+            },
+            {
+              "line": "class javax/ws/rs/ext/RuntimeDelegate uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)"
+            },
+            {
+              "line": "class javax/ws/rs/ext/FactoryFinder uses deprecated class java/security/AccessController (forRemoval=true)"
+            }
+          ],
+          "output": "Jar file D:\\capstone_project\\MYGRATE---Capstone-Project\\temp_jars\\jsr311-api-1.1.jar:\nclass javax/ws/rs/ext/RuntimeDelegate uses deprecated class java/lang/SecurityManager (forRemoval=true)\nclass javax/ws/rs/ext/RuntimeDelegate uses deprecated method java/lang/System::getSecurityManager()Ljava/lang/SecurityManager; (forRemoval=true)\nclass javax/ws/rs/ext/FactoryFinder uses deprecated class java/security/AccessController (forRemoval=true)"
+        }
+      },
+      "analysis": {
+        "compatibility_status": "Warning"
+      }
+    }
+  },
+  "step4_available": true
+}

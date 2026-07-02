@@ -1,0 +1,387 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "net.sf.biweekly",
+      "artifactId": "biweekly",
+      "version": "0.6.9-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "net.sf.biweekly",
+      "project.artifactId": "biweekly",
+      "project.version": "0.6.9-SNAPSHOT",
+      "java.version": "1.6"
+    },
+    "dependencies": [
+      {
+        "groupId": "com.github.mangstadt",
+        "artifactId": "vinnie",
+        "version": "2.0.2",
+        "scope": "compile",
+        "raw_version": "2.0.2"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-core",
+        "version": "2.16.1",
+        "scope": "compile",
+        "raw_version": "2.16.1"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.16.1",
+        "scope": "compile",
+        "raw_version": "2.16.1"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "xmlunit",
+        "artifactId": "xmlunit",
+        "version": "1.6",
+        "scope": "test",
+        "raw_version": "1.6"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-all",
+        "version": "1.10.19",
+        "scope": "test",
+        "raw_version": "1.10.19"
+      },
+      {
+        "groupId": "xalan",
+        "artifactId": "xalan",
+        "version": "2.7.2",
+        "scope": "test",
+        "raw_version": "2.7.2"
+      }
+    ]
+  },
+  "modules_pom_data": {},
+  "dependencies": [
+    {
+      "groupId": "com.github.mangstadt",
+      "artifactId": "vinnie",
+      "version": "2.0.2",
+      "scope": "compile",
+      "raw_version": "2.0.2"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-core",
+      "version": "2.16.1",
+      "scope": "compile",
+      "raw_version": "2.16.1"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "2.16.1",
+      "scope": "compile",
+      "raw_version": "2.16.1"
+    },
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "4.13.1",
+      "scope": "test",
+      "raw_version": "4.13.1"
+    },
+    {
+      "groupId": "xmlunit",
+      "artifactId": "xmlunit",
+      "version": "1.6",
+      "scope": "test",
+      "raw_version": "1.6"
+    },
+    {
+      "groupId": "org.mockito",
+      "artifactId": "mockito-all",
+      "version": "1.10.19",
+      "scope": "test",
+      "raw_version": "1.10.19"
+    },
+    {
+      "groupId": "xalan",
+      "artifactId": "xalan",
+      "version": "2.7.2",
+      "scope": "test",
+      "raw_version": "2.7.2"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": false,
+    "modules": [],
+    "java_file_count": 458,
+    "package_distribution": {
+      "src/main/java/biweekly": 7,
+      "src/main/java/biweekly/component": 12,
+      "src/main/java/biweekly/io": 16,
+      "src/main/java/biweekly/io/chain": 12,
+      "src/main/java/biweekly/io/json": 12,
+      "src/main/java/biweekly/io/scribe": 2,
+      "src/main/java/biweekly/io/scribe/component": 13,
+      "src/main/java/biweekly/io/scribe/property": 75,
+      "src/main/java/biweekly/io/text": 3,
+      "src/main/java/biweekly/io/xml": 9,
+      "src/main/java/biweekly/parameter": 16,
+      "src/main/java/biweekly/property": 74,
+      "src/main/java/biweekly/util": 23,
+      "src/main/java/biweekly/util/com/google/ical/compat/javautil": 3,
+      "src/main/java/biweekly/util/com/google/ical/iter": 16,
+      "src/main/java/biweekly/util/com/google/ical/util": 4,
+      "src/main/java/biweekly/util/com/google/ical/values": 5,
+      "src/main/java/biweekly/util/org/apache/commons/codec": 2,
+      "src/main/java/biweekly/util/org/apache/commons/codec/binary": 2,
+      "src/test/java/biweekly": 6,
+      "src/test/java/biweekly/component": 8,
+      "src/test/java/biweekly/io": 8,
+      "src/test/java/biweekly/io/json": 7,
+      "src/test/java/biweekly/io/scribe": 1,
+      "src/test/java/biweekly/io/scribe/component": 4,
+      "src/test/java/biweekly/io/scribe/property": 39,
+      "src/test/java/biweekly/io/text": 2,
+      "src/test/java/biweekly/io/xml": 5,
+      "src/test/java/biweekly/issues": 15,
+      "src/test/java/biweekly/parameter": 3,
+      "src/test/java/biweekly/property": 22,
+      "src/test/java/biweekly/util": 20,
+      "src/test/java/biweekly/util/com/google/ical/compat/javautil": 1,
+      "src/test/java/biweekly/util/com/google/ical/iter": 10,
+      "src/test/java/biweekly/util/com/google/ical/util": 1
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 458,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 458,
+    "manifest_count": 1,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "src\\main\\java\\biweekly\\Biweekly.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\Biweekly.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\ICalDataType.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\ICalDataType.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\ICalendar.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\ICalendar.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\ICalVersion.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\ICalVersion.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\Messages.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\Messages.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\ValidationWarning.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\ValidationWarning.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\ValidationWarnings.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\ValidationWarnings.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\DaylightSavingsTime.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\DaylightSavingsTime.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\ICalComponent.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\ICalComponent.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\Observance.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\Observance.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\RawComponent.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\RawComponent.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\StandardTime.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\StandardTime.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\VAlarm.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\VAlarm.java",
+        "language": "java"
+      },
+      {
+        "path": "src\\main\\java\\biweekly\\component\\VEvent.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly\\src\\main\\java\\biweekly\\component\\VEvent.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.6",
+    "java_file_count": 458,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "net.sf.biweekly",
+        "artifactId": "biweekly",
+        "version": "0.6.9-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "net.sf.biweekly",
+        "project.artifactId": "biweekly",
+        "project.version": "0.6.9-SNAPSHOT",
+        "java.version": "1.6"
+      },
+      "dependencies": [
+        {
+          "groupId": "com.github.mangstadt",
+          "artifactId": "vinnie",
+          "version": "2.0.2",
+          "scope": "compile",
+          "raw_version": "2.0.2"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-core",
+          "version": "2.16.1",
+          "scope": "compile",
+          "raw_version": "2.16.1"
+        },
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "2.16.1",
+          "scope": "compile",
+          "raw_version": "2.16.1"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "4.13.1",
+          "scope": "test",
+          "raw_version": "4.13.1"
+        },
+        {
+          "groupId": "xmlunit",
+          "artifactId": "xmlunit",
+          "version": "1.6",
+          "scope": "test",
+          "raw_version": "1.6"
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-all",
+          "version": "1.10.19",
+          "scope": "test",
+          "raw_version": "1.10.19"
+        },
+        {
+          "groupId": "xalan",
+          "artifactId": "xalan",
+          "version": "2.7.2",
+          "scope": "test",
+          "raw_version": "2.7.2"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "com.github.mangstadt",
+        "artifactId": "vinnie",
+        "version": "2.0.2",
+        "scope": "compile",
+        "raw_version": "2.0.2"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-core",
+        "version": "2.16.1",
+        "scope": "compile",
+        "raw_version": "2.16.1"
+      },
+      {
+        "groupId": "com.fasterxml.jackson.core",
+        "artifactId": "jackson-databind",
+        "version": "2.16.1",
+        "scope": "compile",
+        "raw_version": "2.16.1"
+      },
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "4.13.1",
+        "scope": "test",
+        "raw_version": "4.13.1"
+      },
+      {
+        "groupId": "xmlunit",
+        "artifactId": "xmlunit",
+        "version": "1.6",
+        "scope": "test",
+        "raw_version": "1.6"
+      },
+      {
+        "groupId": "org.mockito",
+        "artifactId": "mockito-all",
+        "version": "1.10.19",
+        "scope": "test",
+        "raw_version": "1.10.19"
+      },
+      {
+        "groupId": "xalan",
+        "artifactId": "xalan",
+        "version": "2.7.2",
+        "scope": "test",
+        "raw_version": "2.7.2"
+      }
+    ],
+    "name": "biweekly",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\biweekly"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `biweekly` | Maven | 1.6 | 458 | Standard Java | None | **Yellow** |"
+}

@@ -1,0 +1,420 @@
+{
+  "status": "ok",
+  "pipeline": "reader-index",
+  "project_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j",
+  "project_type": "java",
+  "pom_data": {
+    "project": {
+      "groupId": "org.unix4j",
+      "artifactId": "unix4j",
+      "version": "0.7-SNAPSHOT"
+    },
+    "properties": {
+      "project.groupId": "org.unix4j",
+      "project.artifactId": "unix4j",
+      "project.version": "0.7-SNAPSHOT"
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ]
+  },
+  "modules_pom_data": {
+    "unix4j-tools": {
+      "project": {
+        "groupId": "org.unix4j",
+        "artifactId": "unix4j-tools",
+        "version": "0.7-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.unix4j",
+        "project.artifactId": "unix4j-tools",
+        "project.version": "0.7-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.freemarker",
+          "artifactId": "freemarker",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "com.googlecode.fmpp-maven-plugin",
+          "artifactId": "fmpp-maven-plugin",
+          "version": "1.0",
+          "scope": "compile",
+          "raw_version": "1.0"
+        }
+      ]
+    },
+    "unix4j-core": {
+      "project": {
+        "groupId": "org.unix4j",
+        "artifactId": "unix4j-core",
+        "version": "0.7-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.unix4j",
+        "project.artifactId": "unix4j-core",
+        "project.version": "0.7-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "Managed",
+          "scope": "compile",
+          "raw_version": "Managed"
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-simple",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "unix4j-perf": {
+      "project": {
+        "groupId": "org.unix4j",
+        "artifactId": "unix4j-perf",
+        "version": "0.7-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.unix4j",
+        "project.artifactId": "unix4j-perf",
+        "project.version": "0.7-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "org.unix4j",
+          "artifactId": "unix4j-base",
+          "version": "0.7-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "org.unix4j",
+          "artifactId": "unix4j-command",
+          "version": "0.7-SNAPSHOT",
+          "scope": "test",
+          "raw_version": "${project.version}"
+        },
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "groupId": "junit",
+      "artifactId": "junit",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.freemarker",
+      "artifactId": "freemarker",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "com.googlecode.fmpp-maven-plugin",
+      "artifactId": "fmpp-maven-plugin",
+      "version": "1.0",
+      "scope": "compile",
+      "raw_version": "1.0"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-api",
+      "version": "Managed",
+      "scope": "compile",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.slf4j",
+      "artifactId": "slf4j-simple",
+      "version": "Managed",
+      "scope": "test",
+      "raw_version": "Managed"
+    },
+    {
+      "groupId": "org.unix4j",
+      "artifactId": "unix4j-base",
+      "version": "0.7-SNAPSHOT",
+      "scope": "test",
+      "raw_version": "${project.version}"
+    },
+    {
+      "groupId": "org.unix4j",
+      "artifactId": "unix4j-command",
+      "version": "0.7-SNAPSHOT",
+      "scope": "test",
+      "raw_version": "${project.version}"
+    }
+  ],
+  "project_structure": {
+    "is_multi_module": true,
+    "modules": [
+      "unix4j-tools",
+      "unix4j-core",
+      "unix4j-perf"
+    ],
+    "java_file_count": 321,
+    "package_distribution": {
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/builder": 5,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/command": 8,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/context": 5,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/convert": 23,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/io": 22,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/line": 4,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/operation": 3,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/option": 4,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/processor": 8,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/util": 19,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/util/sort": 11,
+      "unix4j-core/unix4j-base/src/main/java/org/unix4j/variable": 8,
+      "unix4j-core/unix4j-base/src/test/java/org/unix4j/io": 1,
+      "unix4j-core/unix4j-base/src/test/java/org/unix4j/line": 2,
+      "unix4j-core/unix4j-base/src/test/java/org/unix4j/util": 13,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j": 1,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix": 1,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/cat": 4,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/cd": 1,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/cut": 1,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/echo": 1,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/find": 10,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/from": 1,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/grep": 12,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/head": 4,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/ls": 6,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/sed": 13,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/sort": 6,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/tail": 6,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/uniq": 5,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/wc": 6,
+      "unix4j-core/unix4j-command/src/main/java/org/unix4j/unix/xargs": 8,
+      "unix4j-core/unix4j-command/src/main/resources/codegen/templates": 8,
+      "unix4j-core/unix4j-command/src/main/resources/codegen/templates/include": 3,
+      "unix4j-core/unix4j-command/src/main/resources/codegen/templates/org/unix4j": 1,
+      "unix4j-core/unix4j-command/src/main/resources/codegen/templates/org/unix4j/unix": 2,
+      "unix4j-core/unix4j-command/src/test/java/org/unix4j/io": 1,
+      "unix4j-core/unix4j-command/src/test/java/org/unix4j/operation": 1,
+      "unix4j-core/unix4j-command/src/test/java/org/unix4j/unix": 29,
+      "unix4j-core/unix4j-command/src/test/java/org/unix4j/unix/xargs": 1,
+      "unix4j-core/unix4j-command/src/test/java/org/unix4j/util": 1,
+      "unix4j-examples/src/test/java/org/unix4j/example": 1,
+      "unix4j-perf/src/test/java/org/unix4j": 6,
+      "unix4j-perf/src/test/java/org/unix4j/unix": 7,
+      "unix4j-tools/src/main/java/org/unix4j/codegen": 2,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/annotation": 9,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/command": 1,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/command/def": 4,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/def": 3,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/loader": 4,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/optset": 4,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/optset/constraint": 3,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/optset/def": 3,
+      "unix4j-tools/src/main/java/org/unix4j/codegen/xml": 1,
+      "unix4j-tools/src/test/java/org/unix4j/codegen": 2,
+      "unix4j-tools/src/test/resources/org/unix4j/compiler/testfiles": 2
+    }
+  },
+  "index_summary": {
+    "project_type": "java",
+    "language_counts": {
+      "java": 321,
+      "python": 0,
+      "other": 0
+    },
+    "source_file_count": 321,
+    "manifest_count": 7,
+    "notebook_count": 0,
+    "manifest_files": [
+      {
+        "path": "pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "unix4j-core\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "unix4j-core\\unix4j-command\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-command\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "unix4j-examples\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-examples\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "unix4j-perf\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-perf\\pom.xml",
+        "type": "maven"
+      },
+      {
+        "path": "unix4j-tools\\pom.xml",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-tools\\pom.xml",
+        "type": "maven"
+      }
+    ],
+    "notebooks": [],
+    "sample_source_files": [
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\CommandBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\CommandBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\DefaultCommandBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\DefaultCommandBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\GenericCommandBuilder.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\GenericCommandBuilder.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\To.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\builder\\To.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\AbstractCommand.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\AbstractCommand.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\Arguments.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\Arguments.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\Command.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\Command.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\CommandInterface.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\CommandInterface.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\ExitValueException.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\ExitValueException.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\JoinedCommand.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\JoinedCommand.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\NoOp.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\NoOp.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\package-info.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\command\\package-info.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\context\\DefaultExecutionContext.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\context\\DefaultExecutionContext.java",
+        "language": "java"
+      },
+      {
+        "path": "unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\context\\DerivedExecutionContext.java",
+        "abs_path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j\\unix4j-core\\unix4j-base\\src\\main\\java\\org\\unix4j\\context\\DerivedExecutionContext.java",
+        "language": "java"
+      }
+    ]
+  },
+  "is_multi_project": false,
+  "project_info": {
+    "build_system": "Maven",
+    "jdk_target": "1.8",
+    "java_file_count": 321,
+    "framework": "Standard Java",
+    "existing_reports": {},
+    "classification": "Yellow",
+    "pom_data": {
+      "project": {
+        "groupId": "org.unix4j",
+        "artifactId": "unix4j",
+        "version": "0.7-SNAPSHOT"
+      },
+      "properties": {
+        "project.groupId": "org.unix4j",
+        "project.artifactId": "unix4j",
+        "project.version": "0.7-SNAPSHOT"
+      },
+      "dependencies": [
+        {
+          "groupId": "junit",
+          "artifactId": "junit",
+          "version": "Managed",
+          "scope": "test",
+          "raw_version": "Managed"
+        }
+      ]
+    },
+    "dependencies": [
+      {
+        "groupId": "junit",
+        "artifactId": "junit",
+        "version": "Managed",
+        "scope": "test",
+        "raw_version": "Managed"
+      }
+    ],
+    "name": "unix4j",
+    "path": "D:\\capstone_project\\MYGRATE---Capstone-Project\\freshbrew_data\\unix4j"
+  },
+  "markdown_report": "| Project | Build System | JDK Target | Java Files | Framework | Reports Status | Classification |\n| --- | --- | --- | --- | --- | --- | --- |\n| `unix4j` | Maven | 1.8 | 321 | Standard Java | None | **Yellow** |"
+}
